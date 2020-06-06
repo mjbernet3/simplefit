@@ -1,0 +1,31 @@
+import 'package:client/models/user.dart';
+import 'package:client/services/auth_service.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class AuthBuilder extends StatelessWidget {
+  final Widget Function(BuildContext context, AsyncSnapshot<User> userSnapshot)
+      builder;
+
+  const AuthBuilder({Key key, this.builder}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _authService = Provider.of<AuthService>(context, listen: false);
+    return StreamBuilder<User>(
+      stream: _authService.signedInUser,
+      builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+        if (snapshot.hasData) {
+          final User _user = snapshot.data;
+
+          return MultiProvider(
+            providers: [],
+            child: builder(context, snapshot),
+          );
+        }
+
+        return builder(context, snapshot);
+      },
+    );
+  }
+}
