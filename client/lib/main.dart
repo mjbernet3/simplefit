@@ -1,8 +1,10 @@
+import 'package:client/app_style.dart';
 import 'package:client/auth_builder.dart';
 import 'package:client/models/user.dart';
 import 'package:client/pages/home_page.dart';
 import 'package:client/pages/unknown_page.dart';
 import 'package:client/pages/welcome_page.dart';
+import 'package:client/router.dart';
 import 'package:client/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,21 +27,10 @@ class SimpleFit extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: _buildHome(userSnapshot),
-            onGenerateRoute: (RouteSettings settings) {
-              return MaterialPageRoute(
-                settings: settings,
-                builder: (BuildContext context) {
-                  switch (settings.name) {
-                    case HomePage.pageRoute:
-                      return HomePage();
-                    case WelcomePage.pageRoute:
-                      return WelcomePage();
-                    default:
-                      return UnknownPage();
-                  }
-                },
-              );
-            },
+            theme: ThemeData.dark().copyWith(
+              scaffoldBackgroundColor: AppStyle.backgroundColor,
+            ),
+            onGenerateRoute: Router.generateRoute,
           );
         },
       ),
