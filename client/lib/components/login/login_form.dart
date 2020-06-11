@@ -1,6 +1,7 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/shared/form_input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
+import 'package:client/utils/validator.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatefulWidget {
@@ -37,7 +38,7 @@ class _LoginFormState extends State<LoginForm> {
             controller: _emailController,
             textInputAction: TextInputAction.next,
             autofocus: true,
-            validator: (value) => value.isEmpty ? 'Empty' : null,
+            validator: (value) => Validator.validateEmail(value),
             onSubmitted: (_) => FocusScope.of(context).nextFocus(),
           ),
           SizedBox(height: 32.0),
@@ -50,7 +51,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
             controller: _passwordController,
             hidden: true,
-            validator: (value) => value.isEmpty ? 'Empty' : null,
+            validator: (value) => Validator.validatePassword(value),
             onSubmitted: (_) => _signIn(),
           ),
           SizedBox(height: 16.0),
