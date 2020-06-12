@@ -1,27 +1,29 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/shared/form_input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
-import 'package:client/state_models/login_model.dart';
+import 'package:client/state_models/register_model.dart';
 import 'package:client/utils/structures/auth_info.dart';
 import 'package:client/utils/structures/response.dart';
 import 'package:client/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginForm extends StatefulWidget {
+class RegisterForm extends StatefulWidget {
   @override
-  _LoginFormState createState() => _LoginFormState();
+  _RegisterFormState createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _RegisterFormState extends State<RegisterForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _emailController;
+  TextEditingController _usernameController;
   TextEditingController _passwordController;
 
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController();
+    _usernameController = TextEditingController();
     _passwordController = TextEditingController();
   }
 
@@ -29,7 +31,7 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Consumer<LoginModel>(
+      child: Consumer<RegisterModel>(
         builder: (context, model, _) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -51,6 +53,20 @@ class _LoginFormState extends State<LoginForm> {
               SizedBox(height: 32.0),
               FormInputField(
                 labelText: Text(
+                  'Username',
+                  style: TextStyle(
+                    color: AppStyle.medEmphasisText,
+                  ),
+                ),
+                controller: _usernameController,
+                textInputAction: TextInputAction.next,
+                enabled: model.loading ? false : true,
+                validator: (value) => Validator.validateUsername(value),
+                onSubmitted: (_) => FocusScope.of(context).nextFocus(),
+              ),
+              SizedBox(height: 32.0),
+              FormInputField(
+                labelText: Text(
                   'Password',
                   style: TextStyle(
                     color: AppStyle.medEmphasisText,
@@ -60,19 +76,19 @@ class _LoginFormState extends State<LoginForm> {
                 hidden: true,
                 enabled: model.loading ? false : true,
                 validator: (value) => Validator.validatePassword(value),
-                onSubmitted: (_) => _signIn(),
+                onSubmitted: (_) => _register(),
               ),
               SizedBox(height: 16.0),
               RoundedButton(
                 buttonText: Text(
-                  'Sign In',
+                  'Create Account',
                   style: TextStyle(
                     color: AppStyle.highEmphasisText,
                     fontSize: 16.0,
                   ),
                 ),
                 disabled: model.loading ? true : false,
-                onPressed: _signIn,
+                onPressed: _register,
               ),
             ],
           );
@@ -81,17 +97,18 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  void _signIn() async {
+  void _register() async {
     if (_formKey.currentState.validate()) {
       FocusScope.of(context).unfocus();
-      LoginModel model = Provider.of<LoginModel>(context, listen: false);
+      RegisterModel model = Provider.of<RegisterModel>(context, listen: false);
 
       AuthInfo authInfo = AuthInfo(
         email: _emailController.text,
+        username: _usernameController.text,
         password: _passwordController.text,
       );
 
-      Response response = await model.signIn(authInfo);
+      Response response = await model.register(authInfo);
 
       if (response.status == Status.FAILURE) {
         Scaffold.of(context).showSnackBar(
@@ -113,6 +130,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void dispose() {
     _emailController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }

@@ -3,20 +3,20 @@ import 'package:client/state_models/state_model.dart';
 import 'package:client/utils/structures/auth_info.dart';
 import 'package:client/utils/structures/response.dart';
 
-class LoginModel extends StateModel {
+class RegisterModel extends StateModel {
   AuthService _authService;
 
-  LoginModel({AuthService authService}) : _authService = authService;
+  RegisterModel({AuthService authService}) : _authService = authService;
 
-  Future<Response> signIn(AuthInfo authInfo) async {
+  Future<Response> register(AuthInfo authInfo) async {
     setLoading(true);
-    Response response = await _authService.signIn(authInfo);
+    Response response = await _authService.register(authInfo);
 
     /*
       Since AuthBuilder rebuilds the application based on the onAuthStateChanged
       stream, automatic redirection to the home page will occur on successful
-      sign in. This check ensures that the model does not invoke notifyListeners
-      on an already disposed state.
+      registration. This check ensures that the model does not invoke
+      notifyListeners on an already disposed state.
      */
     if (response.status == Status.FAILURE) {
       setLoading(false);

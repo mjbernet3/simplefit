@@ -33,7 +33,7 @@ class FormInputField extends StatelessWidget {
         TextFormField(
           controller: controller,
           textInputAction: textInputAction,
-          autofocus: false,
+          autofocus: autofocus,
           autocorrect: false,
           enabled: enabled,
           obscureText: hidden,

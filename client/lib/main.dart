@@ -1,5 +1,6 @@
 import 'package:client/app_style.dart';
 import 'package:client/auth_builder.dart';
+import 'package:client/components/shared/loading_indicator.dart';
 import 'package:client/models/user.dart';
 import 'package:client/pages/home_page.dart';
 import 'package:client/pages/welcome_page.dart';
@@ -40,7 +41,7 @@ class SimpleFit extends StatelessWidget {
     if (userSnapshot.connectionState == ConnectionState.active) {
       return userSnapshot.hasData ? HomePage() : WelcomePage();
     } else {
-      return CircularProgressIndicator();
+      return LoadingIndicator();
     }
   }
 }
