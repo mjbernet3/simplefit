@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class RoundedButton extends StatelessWidget {
   final Text buttonText;
   final Function onPressed;
+  final bool disabled;
 
   const RoundedButton({
     @required this.buttonText,
     @required this.onPressed,
+    this.disabled = false,
   });
 
   @override
@@ -21,7 +23,7 @@ class RoundedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
           side: BorderSide(color: Colors.white),
         ),
-        onPressed: onPressed,
+        onPressed: !disabled ? onPressed : null,
       ),
     );
   }

@@ -7,10 +7,9 @@ class LoginModel extends StateModel {
 
   LoginModel({AuthService authService}) : _authService = authService;
 
-  // TODO: Handle user being either username or email
-  Future<Response> signIn(String user, String password) async {
+  Future<Response> signIn(String email, String password) async {
     setLoading(true);
-    Response response = await _authService.signIn(user, password);
+    Response response = await _authService.signIn(email, password);
     setLoading(false);
     return response;
   }
