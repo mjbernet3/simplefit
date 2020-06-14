@@ -1,5 +1,6 @@
 import 'package:client/models/user.dart';
 import 'package:client/services/auth_service.dart';
+import 'package:client/services/profile_service.dart';
 import 'package:client/services/workout_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,9 @@ class AuthBuilder extends StatelessWidget {
             providers: [
               Provider<WorkoutService>(
                 create: (context) => WorkoutService(_user.uid),
+              ),
+              Provider<ProfileService>(
+                create: (context) => ProfileService(_user.uid),
               ),
             ],
             child: builder(context, snapshot),

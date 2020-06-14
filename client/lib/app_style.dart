@@ -19,4 +19,5 @@ class AppStyle {
   static const Color lowEmphasisText = Color(0x61FFFFFF);
 
   static const Color primaryColor = Color(0xFF6FF9FF);
+  static const Color dangerColor = Colors.red;
 }
