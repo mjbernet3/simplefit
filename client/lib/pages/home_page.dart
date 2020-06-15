@@ -1,7 +1,6 @@
-import 'package:client/app_style.dart';
 import 'package:client/components/home/workout_card.dart';
-import 'package:client/components/shared/loading_indicator.dart';
 import 'package:client/models/user_data.dart';
+import 'package:client/models/workout_preview.dart';
 import 'package:client/services/auth_service.dart';
 import 'package:client/services/profile_service.dart';
 import 'package:flutter/material.dart';
@@ -39,13 +38,22 @@ class HomePage extends StatelessWidget {
                 stream: _profileService.userData,
                 builder:
                     (BuildContext context, AsyncSnapshot<UserData> snapshot) {
-                  if (!snapshot.hasData) {
-                    // TODO: Loading is fast, show spinner or nah?
-                    return Container();
+                  if (snapshot.hasData) {
+                    final List<WorkoutPreview> _workouts =
+                        snapshot.data.workouts;
+
+                    return Expanded(
+                      child: ReorderableListView(
+                        children: _workouts
+                            .map((workout) =>
+                                WorkoutCard(workoutPreview: workout))
+                            .toList(),
+                        onReorder: (int oldIndex, int newIndex) {},
+                      ),
+                    );
                   }
 
-                  final UserData _userData = snapshot.data;
-
+                  // TODO: Decide whether to use loading indicator here
                   return Container();
                 },
               ),

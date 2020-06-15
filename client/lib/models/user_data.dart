@@ -19,15 +19,20 @@ class UserData {
     );
   }
 
-  factory UserData.fromMap(Map<String, dynamic> userData) {
+  factory UserData.fromJson(Map<String, dynamic> userData) {
+    List<dynamic> workoutList = userData['workouts'] as List;
+
+    List<WorkoutPreview> workouts =
+        workoutList.map((workout) => WorkoutPreview.fromJson(workout)).toList();
+
     return UserData(
       username: userData['username'],
       workoutCount: userData['workoutCount'],
-      workouts: userData['workouts'],
+      workouts: workouts,
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'username': username,
       'workoutCount': workoutCount,

@@ -1,17 +1,16 @@
 import 'package:client/app_style.dart';
+import 'package:client/models/workout_preview.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutCard extends StatelessWidget {
-  final String name;
-  final String description;
+  final WorkoutPreview workoutPreview;
   final Function onPressed;
   final Function onRemovePressed;
   final bool isEditing;
 
   const WorkoutCard({
     Key key,
-    @required this.name,
-    @required this.description,
+    @required this.workoutPreview,
     this.onPressed,
     this.onRemovePressed,
     this.isEditing = false,
@@ -51,7 +50,7 @@ class WorkoutCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          name,
+                          workoutPreview.name,
                           style: TextStyle(
                             color: AppStyle.highEmphasisText,
                             fontSize: 16.0,
@@ -59,7 +58,7 @@ class WorkoutCard extends StatelessWidget {
                         ),
                         SizedBox(height: 5.0),
                         Text(
-                          description,
+                          workoutPreview.description,
                           style: TextStyle(
                             color: AppStyle.medEmphasisText,
                             fontSize: 12.0,

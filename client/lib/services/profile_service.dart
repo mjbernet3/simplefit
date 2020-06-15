@@ -14,7 +14,7 @@ class ProfileService {
         .document(_userId)
         .snapshots()
         .map((DocumentSnapshot snapshot) {
-      return UserData.fromMap(snapshot.data);
+      return UserData.fromJson(snapshot.data);
     });
   }
 }

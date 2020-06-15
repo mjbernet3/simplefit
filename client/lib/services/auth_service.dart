@@ -50,7 +50,7 @@ class AuthService {
   Future<void> _initUserData(String uid, String username) async {
     UserData userData = UserData.initial(username);
 
-    await _userCollection.document(uid).setData(userData.toMap());
+    await _userCollection.document(uid).setData(userData.toJson());
   }
 
   Future<Response> signIn(AuthInfo authInfo) async {
