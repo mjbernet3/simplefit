@@ -1,4 +1,4 @@
-import 'package:client/models/user.dart';
+import 'package:client/models/user/user.dart';
 import 'package:client/services/auth_service.dart';
 import 'package:client/services/exercise_service.dart';
 import 'package:client/services/profile_service.dart';

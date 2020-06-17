@@ -1,4 +1,4 @@
-import 'package:client/models/workout_preview.dart';
+import 'package:client/models/workout/workout_preview.dart';
 
 class UserData {
   final String username;

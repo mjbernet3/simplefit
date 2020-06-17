@@ -1,4 +1,4 @@
-import 'package:client/models/user.dart';
+import 'package:client/models/user/user.dart';
 
 class WorkoutService {
   final String _userId;

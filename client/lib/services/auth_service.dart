@@ -1,5 +1,5 @@
-import 'package:client/models/user.dart';
-import 'package:client/models/user_data.dart';
+import 'package:client/models/user/user.dart';
+import 'package:client/models/user/user_data.dart';
 import 'package:client/utils/structures/auth_info.dart';
 import 'package:client/utils/structures/response.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

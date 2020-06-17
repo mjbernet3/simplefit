@@ -1,7 +1,7 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/home/workout_card.dart';
-import 'package:client/models/user_data.dart';
-import 'package:client/models/workout_preview.dart';
+import 'package:client/models/user/user_data.dart';
+import 'package:client/models/workout/workout_preview.dart';
 import 'package:client/router.dart';
 import 'package:client/services/profile_service.dart';
 import 'package:flutter/material.dart';
