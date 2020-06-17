@@ -1,5 +1,5 @@
 import 'package:client/app_style.dart';
-import 'package:client/components/shared/form_input_field.dart';
+import 'package:client/components/shared/auth_input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/state_models/register_model.dart';
 import 'package:client/utils/structures/auth_info.dart';
@@ -36,14 +36,10 @@ class _RegisterFormState extends State<RegisterForm> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              FormInputField(
-                labelText: Text(
-                  'Email Address',
-                  style: TextStyle(
-                    color: AppStyle.medEmphasisText,
-                  ),
-                ),
+              AuthInputField(
+                labelText: 'Email address',
                 controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 autofocus: true,
                 enabled: model.loading ? false : true,
@@ -51,13 +47,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 onSubmitted: (_) => FocusScope.of(context).nextFocus(),
               ),
               SizedBox(height: 32.0),
-              FormInputField(
-                labelText: Text(
-                  'Username',
-                  style: TextStyle(
-                    color: AppStyle.medEmphasisText,
-                  ),
-                ),
+              AuthInputField(
+                labelText: 'Username',
                 controller: _usernameController,
                 textInputAction: TextInputAction.next,
                 enabled: model.loading ? false : true,
@@ -65,13 +56,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 onSubmitted: (_) => FocusScope.of(context).nextFocus(),
               ),
               SizedBox(height: 32.0),
-              FormInputField(
-                labelText: Text(
-                  'Password',
-                  style: TextStyle(
-                    color: AppStyle.medEmphasisText,
-                  ),
-                ),
+              AuthInputField(
+                labelText: 'Password',
                 controller: _passwordController,
                 hidden: true,
                 enabled: model.loading ? false : true,

@@ -1,7 +1,7 @@
 class WorkoutPreview {
-  String id;
-  String name;
-  String description;
+  final String id;
+  final String name;
+  final String description;
 
   WorkoutPreview({
     this.id,

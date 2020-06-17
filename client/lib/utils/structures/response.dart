@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+enum Status {
+  SUCCESS,
+  FAILURE,
+}
+
 class Response {
   final Status status;
   final String message;
@@ -8,9 +13,4 @@ class Response {
     @required this.status,
     this.message,
   });
-}
-
-enum Status {
-  SUCCESS,
-  FAILURE,
 }

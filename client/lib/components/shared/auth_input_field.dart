@@ -1,8 +1,8 @@
 import 'package:client/app_style.dart';
 import 'package:flutter/material.dart';
 
-class FormInputField extends StatelessWidget {
-  final Text labelText;
+class AuthInputField extends StatelessWidget {
+  final String labelText;
   final TextEditingController controller;
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
@@ -12,13 +12,13 @@ class FormInputField extends StatelessWidget {
   final bool autofocus;
   final bool enabled;
 
-  const FormInputField({
+  const AuthInputField({
     @required this.labelText,
     this.controller,
     this.validator,
     this.onSubmitted,
     this.textInputAction = TextInputAction.done,
-    this.keyboardType = TextInputType.emailAddress,
+    this.keyboardType = TextInputType.text,
     this.hidden = false,
     this.autofocus = false,
     this.enabled = true,
@@ -29,7 +29,10 @@ class FormInputField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        labelText,
+        Text(
+          labelText,
+          style: TextStyle(color: AppStyle.medEmphasisText),
+        ),
         TextFormField(
           controller: controller,
           textInputAction: textInputAction,

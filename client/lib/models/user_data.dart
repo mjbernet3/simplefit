@@ -1,9 +1,9 @@
 import 'package:client/models/workout_preview.dart';
 
 class UserData {
-  String username;
-  int workoutCount;
-  List<WorkoutPreview> workouts;
+  final String username;
+  final int workoutCount;
+  final List<WorkoutPreview> workouts;
 
   UserData({
     this.username,
