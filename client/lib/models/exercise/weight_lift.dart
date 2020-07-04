@@ -1,7 +1,8 @@
-import 'package:client/models/exercise/exercise.dart';
+import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/models/exercise/lift_set.dart';
 
-class WeightLift extends Exercise {
+class WeightLift extends ExerciseData {
+  final String bodyPart;
   final List<LiftSet> sets;
 
   WeightLift({
@@ -10,6 +11,7 @@ class WeightLift extends Exercise {
     String notes,
     int rest,
     bool isWarmUp,
+    this.bodyPart,
     this.sets,
   }) : super(name, type, notes, rest, isWarmUp);
 
@@ -24,6 +26,7 @@ class WeightLift extends Exercise {
       notes: exerciseData['notes'],
       rest: exerciseData['rest'],
       isWarmUp: exerciseData['isWarmUp'],
+      bodyPart: exerciseData['bodyPart'],
       sets: sets,
     );
   }
@@ -37,6 +40,7 @@ class WeightLift extends Exercise {
       'notes': notes,
       'rest': rest,
       'isWarmUp': isWarmUp,
+      'bodyPart': bodyPart,
       'sets': setList,
     };
   }

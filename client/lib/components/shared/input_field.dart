@@ -7,6 +7,7 @@ class InputField extends StatelessWidget {
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
   final Function onSubmitted;
+  final Color fillColor;
   final int maxLength;
   final int maxLines;
   final bool autofocus;
@@ -16,6 +17,7 @@ class InputField extends StatelessWidget {
     this.labelText,
     this.controller,
     this.onSubmitted,
+    this.fillColor = AppStyle.dp2,
     this.maxLength = TextField.noMaxLength,
     this.maxLines = 1,
     this.textInputAction = TextInputAction.next,
@@ -50,7 +52,7 @@ class InputField extends StatelessWidget {
             color: AppStyle.highEmphasisText,
           ),
           decoration: InputDecoration(
-            fillColor: AppStyle.dp2,
+            fillColor: fillColor,
             filled: true,
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: AppStyle.dp2),

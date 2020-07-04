@@ -1,37 +1,27 @@
-import 'package:client/models/exercise/distance_cardio.dart';
-import 'package:client/models/exercise/time_cardio.dart';
-import 'package:client/models/exercise/weight_lift.dart';
+class Exercise {
+  String name;
+  String type;
+  String bodyPart;
 
-abstract class Exercise {
-  final String name;
-  final String type;
-  final String notes;
-  final int rest;
-  final bool isWarmUp;
-
-  Exercise(
+  Exercise({
     this.name,
     this.type,
-    this.notes,
-    this.rest,
-    this.isWarmUp,
-  );
+    this.bodyPart,
+  });
 
-  // Creates a concrete exercise depending on 'type' field from document
   factory Exercise.fromJson(Map<String, dynamic> exerciseData) {
-    String exerciseType = exerciseData['type'];
-
-    switch (exerciseType) {
-      case 'Lifting':
-        return WeightLift.fromJson(exerciseData);
-      case 'TimeCardio':
-        return TimeCardio.fromJson(exerciseData);
-      case 'DistanceCardio':
-        return DistanceCardio.fromJson(exerciseData);
-      default:
-        return null;
-    }
+    return Exercise(
+      name: exerciseData['name'],
+      type: exerciseData['type'],
+      bodyPart: exerciseData['bodyPart'],
+    );
   }
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'type': type,
+      'bodyPart': bodyPart,
+    };
+  }
 }

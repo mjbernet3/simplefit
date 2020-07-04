@@ -2,6 +2,7 @@ import 'package:client/app_style.dart';
 import 'package:client/components/shared/auth_input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/state_models/register_model.dart';
+import 'package:client/utils/page_state.dart';
 import 'package:client/utils/structures/auth_info.dart';
 import 'package:client/utils/structures/response.dart';
 import 'package:client/utils/validator.dart';
@@ -42,7 +43,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 autofocus: true,
-                enabled: model.loading ? false : true,
+                enabled: model.state == PageState.LOADING ? false : true,
                 validator: (value) => Validator.validateEmail(value),
                 onSubmitted: (_) => FocusScope.of(context).nextFocus(),
               ),
@@ -51,7 +52,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 labelText: 'Username',
                 controller: _usernameController,
                 textInputAction: TextInputAction.next,
-                enabled: model.loading ? false : true,
+                enabled: model.state == PageState.LOADING ? false : true,
                 validator: (value) => Validator.validateUsername(value),
                 onSubmitted: (_) => FocusScope.of(context).nextFocus(),
               ),
@@ -60,7 +61,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 labelText: 'Password',
                 controller: _passwordController,
                 hidden: true,
-                enabled: model.loading ? false : true,
+                enabled: model.state == PageState.LOADING ? false : true,
                 validator: (value) => Validator.validatePassword(value),
                 onSubmitted: (_) => _register(),
               ),
@@ -73,7 +74,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     fontSize: 16.0,
                   ),
                 ),
-                disabled: model.loading ? true : false,
+                disabled: model.state == PageState.LOADING ? true : false,
                 onPressed: _register,
               ),
             ],

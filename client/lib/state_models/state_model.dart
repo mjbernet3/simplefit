@@ -1,12 +1,13 @@
+import 'package:client/utils/page_state.dart';
 import 'package:flutter/material.dart';
 
 class StateModel extends ChangeNotifier {
-  bool _loading = false;
+  PageState _state = PageState.IDLE;
 
-  bool get loading => _loading;
+  PageState get state => _state;
 
-  void setLoading(bool state) {
-    _loading = state;
+  void setState(PageState state) {
+    _state = state;
     notifyListeners();
   }
 }

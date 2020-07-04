@@ -1,3 +1,7 @@
+import 'package:client/app_style.dart';
+import 'package:client/pages/exercise_browse_page.dart';
+import 'package:client/pages/create_exercise_page.dart';
+import 'package:client/components/shared/large_popup.dart';
 import 'package:client/pages/create_workout_page.dart';
 import 'package:client/pages/home_page.dart';
 import 'package:client/pages/login_page.dart';
@@ -14,30 +18,34 @@ class Router {
   static const String welcome = '/welcome';
   static const String register = '/register';
   static const String login = '/login';
-  static const String createWorkout = '/create';
+  static const String createWorkout = '/workouts/create';
+  static const String createExercise = '/exercises/create';
+  static const String browser = '/browser';
   static const String settings = '/settings';
 
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
-    return MaterialPageRoute(
-      settings: routeSettings,
-      builder: (BuildContext context) {
-        switch (routeSettings.name) {
-          case home:
-            return HomePage();
-          case welcome:
-            return WelcomePage();
-          case register:
-            return RegisterPage();
-          case login:
-            return LoginPage();
-          case createWorkout:
-            return CreateWorkoutPage();
-          case settings:
-            return SettingsPage();
-          default:
-            return UnknownPage();
-        }
-      },
-    );
+    switch (routeSettings.name) {
+      case home:
+        return MaterialPageRoute(builder: (context) => HomePage());
+      case welcome:
+        return MaterialPageRoute(builder: (context) => WelcomePage());
+      case register:
+        return MaterialPageRoute(builder: (context) => RegisterPage());
+      case login:
+        return MaterialPageRoute(builder: (context) => LoginPage());
+      case createWorkout:
+        return MaterialPageRoute(builder: (context) => CreateWorkoutPage());
+      case settings:
+        return MaterialPageRoute(builder: (context) => SettingsPage());
+      case browser:
+        return LargePopUp(
+            backgroundColor: AppStyle.backgroundColor.withOpacity(0.5),
+            builder: (context) => ExerciseBrowsePage());
+      case createExercise:
+        return LargePopUp(
+            animationLength: 0, builder: (context) => CreateExercisePage());
+      default:
+        return MaterialPageRoute(builder: (context) => UnknownPage());
+    }
   }
 }

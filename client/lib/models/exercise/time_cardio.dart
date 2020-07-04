@@ -1,6 +1,6 @@
-import 'package:client/models/exercise/exercise.dart';
+import 'package:client/models/exercise/exercise_data.dart';
 
-class TimeCardio extends Exercise {
+class TimeCardio extends ExerciseData {
   final int time;
   final int speed;
   final int repeat;

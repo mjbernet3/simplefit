@@ -1,6 +1,8 @@
 import 'package:client/app_style.dart';
-import 'package:client/components/shared/exercise_browser.dart';
+import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/input_field.dart';
+import 'package:client/components/shared/rounded_button.dart';
+import 'package:client/router.dart';
 import 'package:flutter/material.dart';
 
 class CreateWorkoutBody extends StatefulWidget {
@@ -40,63 +42,35 @@ class _CreateWorkoutBodyState extends State<CreateWorkoutBody> {
         SizedBox(height: 24.0),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                'Exercises',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: AppStyle.highEmphasisText,
-                ),
-              ),
-              GestureDetector(
-                onTap: () => _openExercises(),
-                child: Container(
-                  padding: EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                    color: AppStyle.dp2,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(Icons.add),
-                ),
-              ),
-            ],
+          child: Text(
+            'Exercises',
+            style: TextStyle(
+              fontSize: 18.0,
+              color: AppStyle.highEmphasisText,
+            ),
           ),
         ),
-        Divider(
-          thickness: 1.5,
-          color: AppStyle.dp24,
+        AppDivider(),
+        RoundedButton(
+          buttonText: Text(
+            'Add Exercise',
+            style: TextStyle(
+              color: AppStyle.highEmphasisText,
+            ),
+          ),
+          height: 30.0,
+          color: AppStyle.dp4,
+          borderColor: AppStyle.dp4,
+          onPressed: () => Navigator.pushNamed(context, Router.browser),
         ),
-//        RoundedButton(
-//          buttonText: Text(
-//            'Add Exercise',
-//            style: TextStyle(color: AppStyle.highEmphasisText),
-//          ),
-//          height: 30.0,
-//          color: AppStyle.dp4,
-//          borderColor: AppStyle.dp4,
-//          onPressed: () => print('hello'),
-//        ),
 //        InputField(
-//          controller: _notesController,
-//          labelText: 'Notes',
-//          keyboardType: TextInputType.multiline,
-//          textInputAction: TextInputAction.newline,
-//          maxLines: null,
-//        ),
+////          controller: _notesController,
+////          labelText: 'Notes',
+////          keyboardType: TextInputType.multiline,
+////          textInputAction: TextInputAction.newline,
+////          maxLines: null,
+////        ),
       ],
-    );
-  }
-
-  void _openExercises() {
-    showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return ExerciseBrowser();
-      },
     );
   }
 
