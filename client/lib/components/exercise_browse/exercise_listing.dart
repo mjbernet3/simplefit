@@ -2,6 +2,7 @@ import 'package:client/app_style.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/exercise_card.dart';
 import 'package:client/models/exercise/exercise.dart';
+import 'package:client/router.dart';
 import 'package:client/services/exercise_service.dart';
 import 'package:client/utils/structures/response.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +85,14 @@ class _ExerciseListingState extends State<ExerciseListing> {
                     itemBuilder: (BuildContext context, int index) {
                       return ExerciseCard(
                         exercise: exercises[index],
-                        onPressed: () => print('hello'),
+                        onPressed: isEditing
+                            ? (Exercise exercise) => Navigator.pushNamed(
+                                  context,
+                                  Router.manageExercise,
+                                  arguments: exercise,
+                                )
+                            : (Exercise exercise) =>
+                                print('go to fill out exercise'),
                         onRemovePressed: (String exerciseId) =>
                             _removeExercise(exerciseId),
                         isEditing: isEditing,

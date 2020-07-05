@@ -63,13 +63,13 @@ class _CreateWorkoutBodyState extends State<CreateWorkoutBody> {
           borderColor: AppStyle.dp4,
           onPressed: () => Navigator.pushNamed(context, Router.browser),
         ),
+        SizedBox(height: 24.0),
 //        InputField(
-////          controller: _notesController,
-////          labelText: 'Notes',
-////          keyboardType: TextInputType.multiline,
-////          textInputAction: TextInputAction.newline,
-////          maxLines: null,
-////        ),
+//          controller: _notesController,
+//          keyboardType: TextInputType.multiline,
+//          textInputAction: TextInputAction.newline,
+//          maxLines: null,
+//        ),
       ],
     );
   }

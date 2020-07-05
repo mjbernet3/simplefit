@@ -19,6 +19,7 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController _usernameController;
   TextEditingController _passwordController;
   bool isLoading = false;
+  bool autovalidate = false;
 
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
+      autovalidate: autovalidate,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -41,7 +43,7 @@ class _RegisterFormState extends State<RegisterForm> {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             autofocus: true,
-            enabled: isLoading,
+            enabled: !isLoading,
             validator: (value) => Validator.validateEmail(value),
             onSubmitted: (_) => FocusScope.of(context).nextFocus(),
           ),
@@ -50,7 +52,7 @@ class _RegisterFormState extends State<RegisterForm> {
             labelText: 'Username',
             controller: _usernameController,
             textInputAction: TextInputAction.next,
-            enabled: isLoading,
+            enabled: !isLoading,
             validator: (value) => Validator.validateUsername(value),
             onSubmitted: (_) => FocusScope.of(context).nextFocus(),
           ),
@@ -59,7 +61,7 @@ class _RegisterFormState extends State<RegisterForm> {
             labelText: 'Password',
             controller: _passwordController,
             hidden: true,
-            enabled: isLoading,
+            enabled: !isLoading,
             validator: (value) => Validator.validatePassword(value),
             onSubmitted: (_) => _register(),
           ),
@@ -110,6 +112,8 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
         );
       }
+    } else {
+      setState(() => autovalidate = true);
     }
   }
 

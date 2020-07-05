@@ -3,6 +3,7 @@ import 'package:client/components/home/workout_card.dart';
 import 'package:client/models/user/user_data.dart';
 import 'package:client/models/workout/workout_preview.dart';
 import 'package:client/router.dart';
+import 'package:client/services/auth_service.dart';
 import 'package:client/services/profile_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -83,7 +84,9 @@ class HomePage extends StatelessWidget {
         Navigator.pushNamed(context, Router.createWorkout);
         break;
       case PopupChoice.EDIT:
-        print('editing');
+        AuthService authService =
+            Provider.of<AuthService>(context, listen: false);
+        authService.signOut();
         break;
       case PopupChoice.SETTINGS:
         Navigator.pushNamed(context, Router.settings);

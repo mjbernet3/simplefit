@@ -18,6 +18,7 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController _emailController;
   TextEditingController _passwordController;
   bool isLoading = false;
+  bool autovalidate = false;
 
   @override
   void initState() {
@@ -30,6 +31,7 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
+      autovalidate: autovalidate,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -39,7 +41,7 @@ class _LoginFormState extends State<LoginForm> {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             autofocus: true,
-            enabled: isLoading,
+            enabled: !isLoading,
             validator: (value) => Validator.validateEmail(value),
             onSubmitted: (_) => FocusScope.of(context).nextFocus(),
           ),
@@ -48,7 +50,7 @@ class _LoginFormState extends State<LoginForm> {
             labelText: 'Password',
             controller: _passwordController,
             hidden: true,
-            enabled: isLoading,
+            enabled: !isLoading,
             validator: (value) => Validator.validatePassword(value),
             onSubmitted: (_) => _signIn(),
           ),
@@ -98,6 +100,8 @@ class _LoginFormState extends State<LoginForm> {
           ),
         );
       }
+    } else {
+      setState(() => autovalidate = true);
     }
   }
 

@@ -27,6 +27,18 @@ class ExerciseService {
     }
   }
 
+  Future<Response> editExercise(String exerciseId, Exercise exercise) async {
+    try {
+      await _exerciseCollection
+          .document(exerciseId)
+          .updateData(exercise.toJson());
+
+      return Response(status: Status.SUCCESS);
+    } catch (error) {
+      return Response(status: Status.FAILURE, message: error.toString());
+    }
+  }
+
   Future<Response> removeExercise(String exerciseId) async {
     try {
       await _exerciseCollection.document(exerciseId).delete();

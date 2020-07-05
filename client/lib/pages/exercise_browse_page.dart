@@ -22,7 +22,7 @@ class ExerciseBrowsePage extends StatelessWidget {
           height: 30.0,
           color: AppStyle.dp4,
           borderColor: AppStyle.dp4,
-          onPressed: () => Navigator.pushNamed(context, Router.createExercise),
+          onPressed: () => Navigator.pushNamed(context, Router.manageExercise),
         ),
       ],
     );

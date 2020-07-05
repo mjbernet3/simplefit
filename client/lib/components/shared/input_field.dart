@@ -7,6 +7,7 @@ class InputField extends StatelessWidget {
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
   final Function onSubmitted;
+  final Function validator;
   final Color fillColor;
   final int maxLength;
   final int maxLines;
@@ -17,8 +18,9 @@ class InputField extends StatelessWidget {
     this.labelText,
     this.controller,
     this.onSubmitted,
+    this.validator,
+    this.maxLength,
     this.fillColor = AppStyle.dp2,
-    this.maxLength = TextField.noMaxLength,
     this.maxLines = 1,
     this.textInputAction = TextInputAction.next,
     this.keyboardType = TextInputType.text,
@@ -41,7 +43,7 @@ class InputField extends StatelessWidget {
               )
             : SizedBox.shrink(),
         SizedBox(height: 8.0),
-        TextField(
+        TextFormField(
           controller: controller,
           textInputAction: textInputAction,
           autofocus: autofocus,
@@ -73,7 +75,8 @@ class InputField extends StatelessWidget {
           maxLines: maxLines,
           cursorColor: Colors.white,
           keyboardType: keyboardType,
-          onSubmitted: onSubmitted,
+          validator: validator,
+          onFieldSubmitted: onSubmitted,
         ),
       ],
     );

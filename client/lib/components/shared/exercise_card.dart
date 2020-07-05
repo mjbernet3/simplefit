@@ -36,7 +36,7 @@ class ExerciseCard extends StatelessWidget {
         Expanded(
           flex: 10,
           child: GestureDetector(
-            onTap: onPressed,
+            onTap: () => onPressed(exercise),
             child: Card(
               color: AppStyle.dp6,
               shadowColor: AppStyle.backgroundColor,

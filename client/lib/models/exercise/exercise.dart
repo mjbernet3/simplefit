@@ -31,4 +31,14 @@ class Exercise {
       'bodyPart': bodyPart,
     };
   }
+
+  bool equals(Exercise other) {
+    if (name == other.name &&
+        type == other.type &&
+        bodyPart == other.bodyPart) {
+      return true;
+    }
+
+    return false;
+  }
 }

@@ -3,13 +3,19 @@ import 'package:flutter/material.dart';
 
 class ExerciseDropdown extends StatefulWidget {
   final String hintText;
+  final String initialValue;
   final List<String> items;
   final Function onChanged;
+  final Function validator;
+  final bool enabled;
 
   const ExerciseDropdown({
     this.hintText,
+    this.initialValue,
     this.items,
     this.onChanged,
+    this.validator,
+    this.enabled = true,
   });
 
   @override
@@ -20,8 +26,14 @@ class _ExerciseDropdownState extends State<ExerciseDropdown> {
   String selectedValue;
 
   @override
+  void initState() {
+    super.initState();
+    selectedValue = widget.initialValue;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
+    return DropdownButtonFormField<String>(
       hint: Text(widget.hintText),
       value: selectedValue,
       isExpanded: true,
@@ -34,12 +46,15 @@ class _ExerciseDropdownState extends State<ExerciseDropdown> {
             ),
           )
           .toList(),
-      onChanged: (String value) {
-        widget.onChanged(value);
-        setState(() {
-          selectedValue = value;
-        });
-      },
+      validator: widget.validator,
+      onChanged: widget.enabled
+          ? (String value) {
+              widget.onChanged(value);
+              setState(() {
+                selectedValue = value;
+              });
+            }
+          : null,
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:client/app_style.dart';
 import 'package:client/pages/exercise_browse_page.dart';
-import 'package:client/pages/create_exercise_page.dart';
+import 'package:client/pages/manage_exercise_page.dart';
 import 'package:client/components/shared/large_popup.dart';
 import 'package:client/pages/create_workout_page.dart';
 import 'package:client/pages/home_page.dart';
@@ -19,7 +19,7 @@ class Router {
   static const String register = '/register';
   static const String login = '/login';
   static const String createWorkout = '/workouts/create';
-  static const String createExercise = '/exercises/create';
+  static const String manageExercise = '/exercises/manage';
   static const String browser = '/browser';
   static const String settings = '/settings';
 
@@ -39,11 +39,15 @@ class Router {
         return MaterialPageRoute(builder: (context) => SettingsPage());
       case browser:
         return LargePopUp(
-            backgroundColor: AppStyle.backgroundColor.withOpacity(0.5),
-            builder: (context) => ExerciseBrowsePage());
-      case createExercise:
+          backgroundColor: AppStyle.backgroundColor.withOpacity(0.5),
+          builder: (context) => ExerciseBrowsePage(),
+        );
+      case manageExercise:
         return LargePopUp(
-            animationLength: 0, builder: (context) => CreateExercisePage());
+          animationLength: 0,
+          builder: (context) =>
+              ManageExercisePage(exercise: routeSettings.arguments),
+        );
       default:
         return MaterialPageRoute(builder: (context) => UnknownPage());
     }
