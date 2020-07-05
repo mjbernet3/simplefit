@@ -1,8 +1,7 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/shared/auth_input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
-import 'package:client/state_models/register_model.dart';
-import 'package:client/utils/page_state.dart';
+import 'package:client/services/auth_service.dart';
 import 'package:client/utils/structures/auth_info.dart';
 import 'package:client/utils/structures/response.dart';
 import 'package:client/utils/validator.dart';
@@ -19,6 +18,7 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController _emailController;
   TextEditingController _usernameController;
   TextEditingController _passwordController;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -32,54 +32,50 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Consumer<RegisterModel>(
-        builder: (context, model, _) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              AuthInputField(
-                labelText: 'Email address',
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-                autofocus: true,
-                enabled: model.state == PageState.LOADING ? false : true,
-                validator: (value) => Validator.validateEmail(value),
-                onSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          AuthInputField(
+            labelText: 'Email address',
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.next,
+            autofocus: true,
+            enabled: isLoading,
+            validator: (value) => Validator.validateEmail(value),
+            onSubmitted: (_) => FocusScope.of(context).nextFocus(),
+          ),
+          SizedBox(height: 32.0),
+          AuthInputField(
+            labelText: 'Username',
+            controller: _usernameController,
+            textInputAction: TextInputAction.next,
+            enabled: isLoading,
+            validator: (value) => Validator.validateUsername(value),
+            onSubmitted: (_) => FocusScope.of(context).nextFocus(),
+          ),
+          SizedBox(height: 32.0),
+          AuthInputField(
+            labelText: 'Password',
+            controller: _passwordController,
+            hidden: true,
+            enabled: isLoading,
+            validator: (value) => Validator.validatePassword(value),
+            onSubmitted: (_) => _register(),
+          ),
+          SizedBox(height: 16.0),
+          RoundedButton(
+            buttonText: Text(
+              'Create Account',
+              style: TextStyle(
+                color: AppStyle.highEmphasisText,
+                fontSize: 16.0,
               ),
-              SizedBox(height: 32.0),
-              AuthInputField(
-                labelText: 'Username',
-                controller: _usernameController,
-                textInputAction: TextInputAction.next,
-                enabled: model.state == PageState.LOADING ? false : true,
-                validator: (value) => Validator.validateUsername(value),
-                onSubmitted: (_) => FocusScope.of(context).nextFocus(),
-              ),
-              SizedBox(height: 32.0),
-              AuthInputField(
-                labelText: 'Password',
-                controller: _passwordController,
-                hidden: true,
-                enabled: model.state == PageState.LOADING ? false : true,
-                validator: (value) => Validator.validatePassword(value),
-                onSubmitted: (_) => _register(),
-              ),
-              SizedBox(height: 16.0),
-              RoundedButton(
-                buttonText: Text(
-                  'Create Account',
-                  style: TextStyle(
-                    color: AppStyle.highEmphasisText,
-                    fontSize: 16.0,
-                  ),
-                ),
-                disabled: model.state == PageState.LOADING ? true : false,
-                onPressed: _register,
-              ),
-            ],
-          );
-        },
+            ),
+            disabled: isLoading,
+            onPressed: _register,
+          ),
+        ],
       ),
     );
   }
@@ -87,7 +83,8 @@ class _RegisterFormState extends State<RegisterForm> {
   void _register() async {
     if (_formKey.currentState.validate()) {
       FocusScope.of(context).unfocus();
-      RegisterModel model = Provider.of<RegisterModel>(context, listen: false);
+      AuthService authService =
+          Provider.of<AuthService>(context, listen: false);
 
       AuthInfo authInfo = AuthInfo(
         email: _emailController.text,
@@ -95,7 +92,9 @@ class _RegisterFormState extends State<RegisterForm> {
         password: _passwordController.text,
       );
 
-      Response response = await model.register(authInfo);
+      setState(() => isLoading = true);
+      Response response = await authService.register(authInfo);
+      setState(() => isLoading = false);
 
       if (response.status == Status.FAILURE) {
         Scaffold.of(context).showSnackBar(

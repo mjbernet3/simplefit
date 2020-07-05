@@ -24,7 +24,7 @@ class ExerciseCard extends StatelessWidget {
                 flex: 1,
                 child: Center(
                   child: GestureDetector(
-                    onTap: onRemovePressed,
+                    onTap: () => onRemovePressed(exercise.id),
                     child: Icon(
                       Icons.remove_circle,
                       color: AppStyle.dangerColor,
