@@ -1,10 +1,11 @@
 import 'package:client/app_style.dart';
+import 'package:client/components/exercise_browser/exercise_listing.dart';
 import 'package:client/components/shared/app_divider.dart';
-import 'package:client/components/shared/exercise_card.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/router.dart';
 import 'package:client/services/exercise_service.dart';
+import 'package:client/state_models/state_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,16 +39,40 @@ class ExerciseBrowsePage extends StatelessWidget {
               final List<Exercise> exercises = snapshot.data;
 
               return Expanded(
-                child: ListView.builder(
-                  itemCount: exercises.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ExerciseCard(
-                      exercise: exercises[index],
-                      onPressed: () => print('hello'),
-                      onRemovePressed: () => print('removing'),
-                      isEditing: false,
-                    );
-                  },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'My Exercises',
+                            style: TextStyle(
+                              color: AppStyle.highEmphasisText,
+                              fontSize: 18.0,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () => print('hello'),
+                            child: Icon(
+                              Icons.edit,
+                              color: AppStyle.highEmphasisText,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    AppDivider(),
+                    Expanded(
+                      child: ChangeNotifierProvider<StateModel>(
+                        create: (context) => StateModel(),
+                        child: ExerciseListing(exercises: exercises),
+                      ),
+                    ),
+                  ],
                 ),
               );
             }

@@ -18,6 +18,7 @@ class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _emailController;
   TextEditingController _passwordController;
+  bool loading = false;
 
   @override
   void initState() {
@@ -41,7 +42,7 @@ class _LoginFormState extends State<LoginForm> {
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 autofocus: true,
-                enabled: model.state == PageState.LOADING ? false : true,
+                enabled: loading,
                 validator: (value) => Validator.validateEmail(value),
                 onSubmitted: (_) => FocusScope.of(context).nextFocus(),
               ),
@@ -50,7 +51,7 @@ class _LoginFormState extends State<LoginForm> {
                 labelText: 'Password',
                 controller: _passwordController,
                 hidden: true,
-                enabled: model.state == PageState.LOADING ? false : true,
+                enabled: loading,
                 validator: (value) => Validator.validatePassword(value),
                 onSubmitted: (_) => _signIn(),
               ),
@@ -63,7 +64,7 @@ class _LoginFormState extends State<LoginForm> {
                     fontSize: 16.0,
                   ),
                 ),
-                disabled: model.state == PageState.LOADING ? true : false,
+                disabled: loading,
                 onPressed: _signIn,
               ),
             ],

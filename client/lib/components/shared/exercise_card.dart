@@ -43,8 +43,11 @@ class ExerciseCard extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
+                    Container(
+                      child: _buildExerciseIcon(),
+                    ),
+                    SizedBox(width: 14.0),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -73,5 +76,16 @@ class ExerciseCard extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget _buildExerciseIcon() {
+    switch (exercise.type) {
+      case 'Timed Cardio':
+        return Icon(Icons.query_builder, color: AppStyle.lowEmphasisText);
+      case 'Distance Cardio':
+        return Icon(Icons.directions_run, color: AppStyle.lowEmphasisText);
+      default:
+        return Icon(Icons.fitness_center, color: AppStyle.lowEmphasisText);
+    }
   }
 }
