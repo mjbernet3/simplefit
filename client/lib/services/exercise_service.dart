@@ -13,13 +13,23 @@ class ExerciseService {
   Stream<List<Exercise>> get exercises {
     return _exerciseCollection.snapshots().map((QuerySnapshot query) => query
         .documents
-        .map((DocumentSnapshot snapshot) => Exercise.fromJson(snapshot.data))
+        .map((DocumentSnapshot snapshot) => Exercise.fromSnapshot(snapshot))
         .toList());
   }
 
   Future<Response> createExercise(Exercise exercise) async {
     try {
       await _exerciseCollection.add(exercise.toJson());
+
+      return Response(status: Status.SUCCESS);
+    } catch (error) {
+      return Response(status: Status.FAILURE, message: error.toString());
+    }
+  }
+
+  Future<Response> removeExercise(String exerciseId) async {
+    try {
+      await _exerciseCollection.document(exerciseId).delete();
 
       return Response(status: Status.SUCCESS);
     } catch (error) {

@@ -1,10 +1,7 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/login/login_form.dart';
 import 'package:client/components/shared/action_text.dart';
-import 'package:client/services/auth_service.dart';
-import 'package:client/state_models/login_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -27,15 +24,7 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 32.0),
-            ChangeNotifierProvider<LoginModel>(
-              create: (context) => LoginModel(
-                authService: Provider.of<AuthService>(
-                  context,
-                  listen: false,
-                ),
-              ),
-              child: LoginForm(),
-            ),
+            LoginForm(),
             Align(
               alignment: Alignment.center,
               child: ActionText(
