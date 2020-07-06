@@ -123,7 +123,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
                 ],
               ),
             ],
-          )
+          ),
         ],
       ),
     );

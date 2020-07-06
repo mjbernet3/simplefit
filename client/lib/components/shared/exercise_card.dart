@@ -2,7 +2,7 @@ import 'package:client/app_style.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:flutter/material.dart';
 
-class ExerciseCard extends StatelessWidget {
+class ExerciseCard extends StatefulWidget {
   final Exercise exercise;
   final Function onPressed;
   final Function onRemovePressed;
@@ -16,15 +16,22 @@ class ExerciseCard extends StatelessWidget {
   });
 
   @override
+  _ExerciseCardState createState() => _ExerciseCardState();
+}
+
+class _ExerciseCardState extends State<ExerciseCard> {
+  bool selected = false;
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        isEditing
+        widget.isEditing
             ? Expanded(
                 flex: 1,
                 child: Center(
                   child: GestureDetector(
-                    onTap: () => onRemovePressed(exercise.id),
+                    onTap: () => widget.onRemovePressed(widget.exercise.id),
                     child: Icon(
                       Icons.remove_circle,
                       color: AppStyle.dangerColor,
@@ -36,10 +43,19 @@ class ExerciseCard extends StatelessWidget {
         Expanded(
           flex: 10,
           child: GestureDetector(
-            onTap: () => onPressed(exercise),
+            onTap: () => {
+              widget.onPressed(widget.exercise, !selected),
+              if (!widget.isEditing) {setState(() => selected = !selected)}
+            },
             child: Card(
               color: AppStyle.dp6,
               shadowColor: AppStyle.backgroundColor,
+              shape: selected && !widget.isEditing
+                  ? RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(4.0),
+                    )
+                  : null,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
                 child: Row(
@@ -52,7 +68,7 @@ class ExerciseCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          exercise.name,
+                          widget.exercise.name,
                           style: TextStyle(
                             color: AppStyle.highEmphasisText,
                             fontSize: 16.0,
@@ -60,7 +76,7 @@ class ExerciseCard extends StatelessWidget {
                         ),
                         SizedBox(height: 5.0),
                         Text(
-                          exercise.bodyPart ?? exercise.type,
+                          widget.exercise.bodyPart ?? widget.exercise.type,
                           style: TextStyle(
                             color: AppStyle.medEmphasisText,
                             fontSize: 12.0,
@@ -79,7 +95,7 @@ class ExerciseCard extends StatelessWidget {
   }
 
   Widget _buildExerciseIcon() {
-    switch (exercise.type) {
+    switch (widget.exercise.type) {
       case 'Timed Cardio':
         return Icon(Icons.query_builder, color: AppStyle.lowEmphasisText);
       case 'Distance Cardio':

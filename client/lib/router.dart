@@ -9,7 +9,9 @@ import 'package:client/pages/register_page.dart';
 import 'package:client/pages/settings_page.dart';
 import 'package:client/pages/unknown_page.dart';
 import 'package:client/pages/welcome_page.dart';
+import 'package:client/state_models/exercise_browse_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Router {
   Router._();
@@ -40,7 +42,10 @@ class Router {
       case browser:
         return LargePopUp(
           backgroundColor: AppStyle.backgroundColor.withOpacity(0.5),
-          builder: (context) => ExerciseBrowsePage(),
+          builder: (context) => ChangeNotifierProvider<ExerciseBrowseModel>(
+            create: (context) => ExerciseBrowseModel(),
+            child: ExerciseBrowsePage(),
+          ),
         );
       case manageExercise:
         return LargePopUp(

@@ -2,6 +2,7 @@ import 'package:client/app_style.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
+import 'package:client/models/exercise/exercise.dart';
 import 'package:client/router.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class _CreateWorkoutBodyState extends State<CreateWorkoutBody> {
   TextEditingController _nameController;
   TextEditingController _descriptionController;
   TextEditingController _notesController;
+  List<Exercise> exercises = [];
 
   @override
   void initState() {
@@ -51,6 +53,13 @@ class _CreateWorkoutBodyState extends State<CreateWorkoutBody> {
           ),
         ),
         AppDivider(),
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: exercises.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container();
+          },
+        ),
         RoundedButton(
           buttonText: Text(
             'Add Exercise',
