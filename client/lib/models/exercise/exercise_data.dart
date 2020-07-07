@@ -1,17 +1,16 @@
 import 'package:client/models/exercise/distance_cardio.dart';
+import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/time_cardio.dart';
 import 'package:client/models/exercise/weight_lift.dart';
 
 abstract class ExerciseData {
-  final String name;
-  final String type;
+  final Exercise exercise;
   final String notes;
   final int rest;
   final bool isWarmUp;
 
   ExerciseData(
-    this.name,
-    this.type,
+    this.exercise,
     this.notes,
     this.rest,
     this.isWarmUp,
@@ -21,6 +20,9 @@ abstract class ExerciseData {
   factory ExerciseData.fromJson(Map<String, dynamic> exerciseData) {
     String exerciseType = exerciseData['type'];
 
+    /*
+      TODO: Having these strings everywhere is going to be a problem if you need to change one, refactor
+     */
     switch (exerciseType) {
       case 'Weightlifting':
         return WeightLift.fromJson(exerciseData);

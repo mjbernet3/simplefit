@@ -1,7 +1,7 @@
 import 'package:client/app_style.dart';
 import 'package:flutter/material.dart';
 
-class LargePopUp extends ModalRoute<void> {
+class LargePopUp<T> extends ModalRoute<T> {
   final Widget Function(BuildContext context) builder;
   final Color backgroundColor;
   final int animationLength;

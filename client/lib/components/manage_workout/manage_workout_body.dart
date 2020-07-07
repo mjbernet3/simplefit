@@ -4,18 +4,19 @@ import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/router.dart';
+import 'package:client/state_models/manage_workout_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class CreateWorkoutBody extends StatefulWidget {
+class ManageWorkoutBody extends StatefulWidget {
   @override
-  _CreateWorkoutBodyState createState() => _CreateWorkoutBodyState();
+  _ManageWorkoutBodyState createState() => _ManageWorkoutBodyState();
 }
 
-class _CreateWorkoutBodyState extends State<CreateWorkoutBody> {
+class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
   TextEditingController _nameController;
   TextEditingController _descriptionController;
   TextEditingController _notesController;
-  List<Exercise> exercises = [];
 
   @override
   void initState() {
@@ -42,8 +43,8 @@ class _CreateWorkoutBodyState extends State<CreateWorkoutBody> {
           onSubmitted: (_) => FocusScope.of(context).unfocus(),
         ),
         SizedBox(height: 24.0),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+        Align(
+          alignment: Alignment.center,
           child: Text(
             'Exercises',
             style: TextStyle(
@@ -53,11 +54,15 @@ class _CreateWorkoutBodyState extends State<CreateWorkoutBody> {
           ),
         ),
         AppDivider(),
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: exercises.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Container();
+        Consumer<ManageWorkoutModel>(
+          builder: (BuildContext context, ManageWorkoutModel model, _) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: model.exerciseForms.length,
+              itemBuilder: (BuildContext context, int index) {
+                return model.exerciseForms[index];
+              },
+            );
           },
         ),
         RoundedButton(
@@ -70,7 +75,7 @@ class _CreateWorkoutBodyState extends State<CreateWorkoutBody> {
           height: 30.0,
           color: AppStyle.dp4,
           borderColor: AppStyle.dp4,
-          onPressed: () => Navigator.pushNamed(context, Router.browser),
+          onPressed: () => _browseExercises(),
         ),
         SizedBox(height: 24.0),
 //        InputField(
@@ -81,6 +86,22 @@ class _CreateWorkoutBodyState extends State<CreateWorkoutBody> {
 //        ),
       ],
     );
+  }
+
+  void _browseExercises() async {
+    List<Exercise> chosenExercises =
+        await Navigator.pushNamed(context, Router.browser);
+
+    /*
+        The barrierDismissible property does not allow a return type other than
+        null, so this checks for that user interaction on prev popped route
+     */
+    if (chosenExercises != null) {
+      ManageWorkoutModel model =
+          Provider.of<ManageWorkoutModel>(context, listen: false);
+
+      model.addExercises(chosenExercises);
+    }
   }
 
   @override

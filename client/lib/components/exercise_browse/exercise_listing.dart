@@ -1,6 +1,6 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/shared/app_divider.dart';
-import 'package:client/components/shared/exercise_card.dart';
+import 'package:client/components/exercise_browse/exercise_card.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/router.dart';

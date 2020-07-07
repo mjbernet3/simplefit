@@ -1,8 +1,9 @@
 import 'package:client/app_style.dart';
+import 'package:client/models/exercise/exercise.dart';
 import 'package:client/pages/exercise_browse_page.dart';
 import 'package:client/pages/manage_exercise_page.dart';
 import 'package:client/components/shared/large_popup.dart';
-import 'package:client/pages/create_workout_page.dart';
+import 'package:client/pages/manage_workout_page.dart';
 import 'package:client/pages/home_page.dart';
 import 'package:client/pages/login_page.dart';
 import 'package:client/pages/register_page.dart';
@@ -10,6 +11,7 @@ import 'package:client/pages/settings_page.dart';
 import 'package:client/pages/unknown_page.dart';
 import 'package:client/pages/welcome_page.dart';
 import 'package:client/state_models/exercise_browse_model.dart';
+import 'package:client/state_models/manage_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,11 +38,16 @@ class Router {
       case login:
         return MaterialPageRoute(builder: (context) => LoginPage());
       case createWorkout:
-        return MaterialPageRoute(builder: (context) => CreateWorkoutPage());
+        return MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider<ManageWorkoutModel>(
+            create: (context) => ManageWorkoutModel(),
+            child: ManageWorkoutPage(),
+          ),
+        );
       case settings:
         return MaterialPageRoute(builder: (context) => SettingsPage());
       case browser:
-        return LargePopUp(
+        return LargePopUp<List<Exercise>>(
           backgroundColor: AppStyle.backgroundColor.withOpacity(0.5),
           builder: (context) => ChangeNotifierProvider<ExerciseBrowseModel>(
             create: (context) => ExerciseBrowseModel(),

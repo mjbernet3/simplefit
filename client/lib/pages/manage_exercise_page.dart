@@ -1,6 +1,6 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/shared/app_divider.dart';
-import 'package:client/components/shared/exercise_dropdown.dart';
+import 'package:client/components/manage_exercise/exercise_dropdown.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';

@@ -1,19 +1,17 @@
+import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/models/exercise/lift_set.dart';
 
 class WeightLift extends ExerciseData {
-  final String bodyPart;
   final List<LiftSet> sets;
 
   WeightLift({
-    String name,
-    String type,
+    Exercise exercise,
     String notes,
     int rest,
     bool isWarmUp,
-    this.bodyPart,
     this.sets,
-  }) : super(name, type, notes, rest, isWarmUp);
+  }) : super(exercise, notes, rest, isWarmUp);
 
   factory WeightLift.fromJson(Map<String, dynamic> exerciseData) {
     List<dynamic> setList = exerciseData['sets'] as List;
@@ -21,12 +19,10 @@ class WeightLift extends ExerciseData {
     List<LiftSet> sets = setList.map((set) => LiftSet.fromJson(set)).toList();
 
     return WeightLift(
-      name: exerciseData['name'],
-      type: exerciseData['type'],
+      exercise: exerciseData['exercise'],
       notes: exerciseData['notes'],
       rest: exerciseData['rest'],
       isWarmUp: exerciseData['isWarmUp'],
-      bodyPart: exerciseData['bodyPart'],
       sets: sets,
     );
   }
@@ -35,12 +31,10 @@ class WeightLift extends ExerciseData {
     List<dynamic> setList = sets.map((set) => set.toJson()).toList();
 
     return {
-      'name': name,
-      'type': type,
+      'exercise': exercise,
       'notes': notes,
       'rest': rest,
       'isWarmUp': isWarmUp,
-      'bodyPart': bodyPart,
       'sets': setList,
     };
   }

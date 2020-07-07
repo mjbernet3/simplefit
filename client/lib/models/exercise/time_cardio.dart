@@ -1,3 +1,4 @@
+import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 
 class TimeCardio extends ExerciseData {
@@ -6,20 +7,18 @@ class TimeCardio extends ExerciseData {
   final int repeat;
 
   TimeCardio({
-    String name,
-    String type,
+    Exercise exercise,
     String notes,
     int rest,
     bool isWarmUp,
     this.time,
     this.speed,
     this.repeat,
-  }) : super(name, type, notes, rest, isWarmUp);
+  }) : super(exercise, notes, rest, isWarmUp);
 
   factory TimeCardio.fromJson(Map<String, dynamic> exerciseData) {
     return TimeCardio(
-      name: exerciseData['name'],
-      type: exerciseData['type'],
+      exercise: exerciseData['exercise'],
       notes: exerciseData['notes'],
       rest: exerciseData['rest'],
       isWarmUp: exerciseData['isWarmUp'],
@@ -31,8 +30,7 @@ class TimeCardio extends ExerciseData {
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'type': type,
+      'exercise': exercise,
       'notes': notes,
       'rest': rest,
       'isWarmUp': isWarmUp,
