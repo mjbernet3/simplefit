@@ -2,16 +2,21 @@ import 'package:client/app_style.dart';
 import 'package:flutter/material.dart';
 
 class SmallInputField extends StatelessWidget {
+  final String initialValue;
   final Function onChanged;
 
-  const SmallInputField({this.onChanged});
+  const SmallInputField({
+    this.onChanged,
+    this.initialValue,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 30.0,
       width: 60.0,
-      child: TextField(
+      child: TextFormField(
+        initialValue: initialValue,
         maxLength: 4,
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,

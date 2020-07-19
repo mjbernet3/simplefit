@@ -47,6 +47,7 @@ class LiftSetRow extends StatelessWidget {
                   children: <Widget>[
                     _buildHint('Reps'),
                     SmallInputField(
+                      initialValue: model.sets[index].reps.toString(),
                       onChanged: (String value) {
                         if (value.isNotEmpty) {
                           model.sets[index].reps = int.parse(value);
@@ -59,6 +60,7 @@ class LiftSetRow extends StatelessWidget {
                   children: <Widget>[
                     _buildHint('Weight'),
                     SmallInputField(
+                      initialValue: model.sets[index].weight.toString(),
                       onChanged: (String value) {
                         if (value.isNotEmpty) {
                           model.sets[index].weight = int.parse(value);
@@ -71,9 +73,10 @@ class LiftSetRow extends StatelessWidget {
                   children: <Widget>[
                     _buildHint('Rest'),
                     SmallInputField(
+                      initialValue: model.sets[index].rest.toString(),
                       onChanged: (String value) {
                         if (value.isNotEmpty) {
-                          model.sets[index].reps = int.parse(value);
+                          model.sets[index].rest = int.parse(value);
                         }
                       },
                     ),

@@ -3,7 +3,6 @@ import 'package:client/components/exercise_detail/lift_set_row.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
-import 'package:client/models/exercise/weight_lift.dart';
 import 'package:client/state_models/lift_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +19,13 @@ class _LiftFormState extends State<LiftForm> {
   void initState() {
     super.initState();
     _notesController = TextEditingController();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    LiftFormModel model = Provider.of<LiftFormModel>(context, listen: false);
+    _notesController.text = model.liftData.notes;
   }
 
   @override

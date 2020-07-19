@@ -29,7 +29,7 @@ class ExerciseDetailPage extends StatelessWidget {
     switch (exerciseType) {
       case 'Weightlifting':
         return ChangeNotifierProvider<LiftFormModel>(
-          create: (context) => LiftFormModel(liftData: exerciseData),
+          create: (context) => LiftFormModel(exerciseData),
           child: LiftForm(),
         );
       case 'Timed Cardio':

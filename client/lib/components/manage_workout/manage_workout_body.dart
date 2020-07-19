@@ -72,7 +72,9 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
                       arguments: model.exercises[index],
                     );
 
-                    model.updateExercise(updatedExercise, index);
+                    if (updatedExercise != null) {
+                      model.updateExercise(updatedExercise, index);
+                    }
                   },
                   onRemovePressed: () => model.removeExerciseAt(index),
                   isEditing: isEditing,
