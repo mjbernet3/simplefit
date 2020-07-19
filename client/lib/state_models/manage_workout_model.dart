@@ -1,16 +1,30 @@
-import 'package:client/components/manage_workout/exercise_form.dart';
 import 'package:client/models/exercise/exercise.dart';
+import 'package:client/models/exercise/exercise_data.dart';
 import 'package:flutter/material.dart';
 
 class ManageWorkoutModel extends ChangeNotifier {
-  List<ExerciseForm> _exerciseForms = [];
+  List<ExerciseData> _exercises = [];
 
-  List<ExerciseForm> get exerciseForms => _exerciseForms;
+  List<ExerciseData> get exercises => _exercises;
 
-  void addExercises(List<Exercise> exercises) {
+  void initExercises(List<Exercise> exercises) {
     for (Exercise exercise in exercises) {
-      _exerciseForms.add(ExerciseForm(exercise: exercise));
+      ExerciseData newExerciseData = ExerciseData.initial(exercise);
+
+      _exercises.add(newExerciseData);
     }
+
+    notifyListeners();
+  }
+
+  void updateExercise(ExerciseData newData, int index) {
+    _exercises[index] = newData;
+
+    notifyListeners();
+  }
+
+  void removeExerciseAt(int index) {
+    _exercises.removeAt(index);
 
     notifyListeners();
   }

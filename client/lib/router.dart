@@ -1,6 +1,8 @@
 import 'package:client/app_style.dart';
 import 'package:client/models/exercise/exercise.dart';
+import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/pages/exercise_browse_page.dart';
+import 'package:client/pages/exercise_detail_page.dart';
 import 'package:client/pages/manage_exercise_page.dart';
 import 'package:client/components/shared/large_popup.dart';
 import 'package:client/pages/manage_workout_page.dart';
@@ -24,6 +26,7 @@ class Router {
   static const String login = '/login';
   static const String createWorkout = '/workouts/create';
   static const String manageExercise = '/exercises/manage';
+  static const String exerciseDetail = '/exercises/detail';
   static const String browser = '/browser';
   static const String settings = '/settings';
 
@@ -42,6 +45,12 @@ class Router {
           builder: (context) => ChangeNotifierProvider<ManageWorkoutModel>(
             create: (context) => ManageWorkoutModel(),
             child: ManageWorkoutPage(),
+          ),
+        );
+      case exerciseDetail:
+        return MaterialPageRoute<ExerciseData>(
+          builder: (context) => ExerciseDetailPage(
+            exerciseData: routeSettings.arguments,
           ),
         );
       case settings:

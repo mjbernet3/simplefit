@@ -2,8 +2,8 @@ import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 
 class DistanceCardio extends ExerciseData {
-  int distance;
-  int speed;
+  double distance;
+  double speed;
   int repeat;
 
   DistanceCardio({
@@ -15,6 +15,18 @@ class DistanceCardio extends ExerciseData {
     this.speed,
     this.repeat,
   }) : super(exercise, notes, rest, isWarmUp);
+
+  factory DistanceCardio.initial(Exercise exercise) {
+    return DistanceCardio(
+      exercise: exercise,
+      notes: '',
+      rest: 0,
+      isWarmUp: false,
+      distance: 0.0,
+      speed: 0.0,
+      repeat: 0,
+    );
+  }
 
   factory DistanceCardio.fromJson(Map<String, dynamic> exerciseData) {
     return DistanceCardio(

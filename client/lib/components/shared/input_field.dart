@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class InputField extends StatelessWidget {
   final String labelText;
+  final String hintText;
   final TextEditingController controller;
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
@@ -16,6 +17,7 @@ class InputField extends StatelessWidget {
 
   const InputField({
     this.labelText,
+    this.hintText,
     this.controller,
     this.onSubmitted,
     this.validator,
@@ -70,6 +72,7 @@ class InputField extends StatelessWidget {
               horizontal: 8.0,
             ),
             counterText: '',
+            hintText: hintText,
           ),
           maxLength: maxLength,
           maxLines: maxLines,

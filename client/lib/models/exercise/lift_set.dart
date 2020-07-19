@@ -11,6 +11,15 @@ class LiftSet {
     this.rest,
   });
 
+  factory LiftSet.initial() {
+    return LiftSet(
+      isWarmUp: false,
+      reps: 0,
+      weight: 0,
+      rest: 0,
+    );
+  }
+
   factory LiftSet.fromJson(Map<String, dynamic> setData) {
     return LiftSet(
       isWarmUp: setData['isWarmUp'],

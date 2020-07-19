@@ -1,8 +1,10 @@
 import 'package:client/app_style.dart';
+import 'package:client/components/manage_workout/chosen_exercise_card.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
+import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/router.dart';
 import 'package:client/state_models/manage_workout_model.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
   TextEditingController _nameController;
   TextEditingController _descriptionController;
   TextEditingController _notesController;
+  bool isEditing = false;
 
   @override
   void initState() {
@@ -58,9 +61,22 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
           builder: (BuildContext context, ManageWorkoutModel model, _) {
             return ListView.builder(
               shrinkWrap: true,
-              itemCount: model.exerciseForms.length,
+              itemCount: model.exercises.length,
               itemBuilder: (BuildContext context, int index) {
-                return model.exerciseForms[index];
+                return ChosenExerciseCard(
+                  exerciseData: model.exercises[index],
+                  onPressed: () async {
+                    ExerciseData updatedExercise = await Navigator.pushNamed(
+                      context,
+                      Router.exerciseDetail,
+                      arguments: model.exercises[index],
+                    );
+
+                    model.updateExercise(updatedExercise, index);
+                  },
+                  onRemovePressed: () => model.removeExerciseAt(index),
+                  isEditing: isEditing,
+                );
               },
             );
           },
@@ -100,7 +116,7 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
       ManageWorkoutModel model =
           Provider.of<ManageWorkoutModel>(context, listen: false);
 
-      model.addExercises(chosenExercises);
+      model.initExercises(chosenExercises);
     }
   }
 

@@ -4,10 +4,10 @@ import 'package:client/models/exercise/time_cardio.dart';
 import 'package:client/models/exercise/weight_lift.dart';
 
 abstract class ExerciseData {
-  final Exercise exercise;
-  final String notes;
-  final int rest;
-  final bool isWarmUp;
+  Exercise exercise;
+  String notes;
+  int rest;
+  bool isWarmUp;
 
   ExerciseData(
     this.exercise,
@@ -16,7 +16,21 @@ abstract class ExerciseData {
     this.isWarmUp,
   );
 
-  // Creates a concrete exercise depending on 'type' field from document
+  factory ExerciseData.initial(Exercise exercise) {
+    String exerciseType = exercise.type;
+
+    switch (exerciseType) {
+      case 'Weightlifting':
+        return WeightLift.initial(exercise);
+      case 'Timed Cardio':
+        return TimeCardio.initial(exercise);
+      case 'Distance Cardio':
+        return DistanceCardio.initial(exercise);
+      default:
+        return null;
+    }
+  }
+
   factory ExerciseData.fromJson(Map<String, dynamic> exerciseData) {
     String exerciseType = exerciseData['type'];
 
