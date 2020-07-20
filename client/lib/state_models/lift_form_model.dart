@@ -24,6 +24,8 @@ class LiftFormModel extends ChangeNotifier {
   }
 
   void removeSet(int index) {
-    print('removing');
+    newSets.removeAt(index);
+
+    notifyListeners();
   }
 }

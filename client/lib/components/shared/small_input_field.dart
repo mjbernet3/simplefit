@@ -6,8 +6,8 @@ class SmallInputField extends StatelessWidget {
   final Function onChanged;
 
   const SmallInputField({
-    this.onChanged,
     this.initialValue,
+    this.onChanged,
   });
 
   @override

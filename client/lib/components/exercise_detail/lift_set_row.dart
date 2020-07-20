@@ -1,4 +1,5 @@
 import 'package:client/app_style.dart';
+import 'package:client/components/exercise_detail/set_options.dart';
 import 'package:client/components/shared/small_input_field.dart';
 import 'package:client/state_models/lift_form_model.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,10 @@ class LiftSetRow extends StatelessWidget {
   final bool hintsOn;
 
   const LiftSetRow({
+    Key key,
     this.index,
     this.hintsOn = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class LiftSetRow extends StatelessWidget {
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
+            padding: EdgeInsets.only(left: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -85,6 +87,12 @@ class LiftSetRow extends StatelessWidget {
               ],
             ),
           ),
+        ),
+        Column(
+          children: <Widget>[
+            _buildHint(''),
+            SetOptions(index: index),
+          ],
         ),
       ],
     );
