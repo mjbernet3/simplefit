@@ -62,7 +62,7 @@ class _LiftFormState extends State<LiftForm> {
                       ListView.separated(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: model.sets.length,
+                        itemCount: model.newSets.length,
                         separatorBuilder: (BuildContext context, int index) =>
                             SizedBox(height: 10.0),
                         itemBuilder: (BuildContext context, int index) {
@@ -118,9 +118,9 @@ class _LiftFormState extends State<LiftForm> {
                   color: AppStyle.dp4,
                   borderColor: AppStyle.dp4,
                   onPressed: () {
-                    model.liftData.sets = model.sets;
+                    model.liftData.sets = model.newSets;
                     model.liftData.notes = _notesController.text;
-                    Navigator.pop(context, model.liftData);
+                    Navigator.pop(context);
                   },
                 ),
               ],

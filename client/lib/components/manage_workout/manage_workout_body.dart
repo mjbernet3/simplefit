@@ -65,17 +65,11 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
               itemBuilder: (BuildContext context, int index) {
                 return ChosenExerciseCard(
                   exerciseData: model.exercises[index],
-                  onPressed: () async {
-                    ExerciseData updatedExercise = await Navigator.pushNamed(
-                      context,
-                      Router.exerciseDetail,
-                      arguments: model.exercises[index],
-                    );
-
-                    if (updatedExercise != null) {
-                      model.updateExercise(updatedExercise, index);
-                    }
-                  },
+                  onPressed: () => Navigator.pushNamed(
+                    context,
+                    Router.exerciseDetail,
+                    arguments: model.exercises[index],
+                  ),
                   onRemovePressed: () => model.removeExerciseAt(index),
                   isEditing: isEditing,
                 );
@@ -110,10 +104,6 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
     List<Exercise> chosenExercises =
         await Navigator.pushNamed(context, Router.browser);
 
-    /*
-        The barrierDismissible property does not allow a return type other than
-        null, so this checks for that user interaction on prev popped route
-     */
     if (chosenExercises != null) {
       ManageWorkoutModel model =
           Provider.of<ManageWorkoutModel>(context, listen: false);

@@ -4,20 +4,21 @@ import 'package:flutter/material.dart';
 
 class LiftFormModel extends ChangeNotifier {
   WeightLift liftData;
-  List<LiftSet> sets;
+  List<LiftSet> newSets;
 
   LiftFormModel(WeightLift liftData) {
     this.liftData = liftData;
 
     if (liftData.sets.isEmpty) {
-      sets = [LiftSet.initial()];
+      newSets = [LiftSet.initial()];
     } else {
-      sets = liftData.sets;
+      // Copy existing sets so that changes can be ignored on cancellation
+      newSets = liftData.sets.map((LiftSet set) => LiftSet.copy(set)).toList();
     }
   }
 
   void addSet() {
-    sets.add(LiftSet.initial());
+    newSets.add(LiftSet.initial());
 
     notifyListeners();
   }

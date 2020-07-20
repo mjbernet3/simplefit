@@ -20,6 +20,15 @@ class LiftSet {
     );
   }
 
+  factory LiftSet.copy(LiftSet other) {
+    return LiftSet(
+      isWarmUp: other.isWarmUp,
+      reps: other.reps,
+      weight: other.weight,
+      rest: other.rest,
+    );
+  }
+
   factory LiftSet.fromJson(Map<String, dynamic> setData) {
     return LiftSet(
       isWarmUp: setData['isWarmUp'],
