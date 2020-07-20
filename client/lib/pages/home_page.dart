@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
           PopupMenuButton<PopupChoice>(
             icon: Icon(Icons.more_vert),
             color: AppStyle.dp2,
-            onSelected: (value) => _handleChoice(value, context),
+            onSelected: (PopupChoice value) => _handleChoice(value, context),
             itemBuilder: (BuildContext context) =>
                 <PopupMenuEntry<PopupChoice>>[
               PopupMenuItem<PopupChoice>(

@@ -1,5 +1,5 @@
 import 'package:client/app_style.dart';
-import 'package:client/state_models/lift_form_model.dart';
+import 'package:client/view_models/lift_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

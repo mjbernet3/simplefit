@@ -5,7 +5,7 @@ import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/services/exercise_service.dart';
-import 'package:client/utils/constants.dart';
+import 'package:client/utils/constant.dart';
 import 'package:client/utils/structures/response.dart';
 import 'package:client/utils/validator.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +62,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
                 SizedBox(height: 20.0),
                 ExerciseDropdown(
                   hintText: 'Select Exercise Type',
-                  items: kExerciseTypes,
+                  items: Constant.exerciseTypes,
                   enabled: !isLoading,
                   initialValue:
                       widget.exercise != null ? widget.exercise.type : null,
@@ -74,10 +74,10 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
                       Validator.validateExerciseType(value),
                 ),
                 SizedBox(height: 20.0),
-                chosenType == kExerciseTypes[0]
+                chosenType == Constant.lifting
                     ? ExerciseDropdown(
                         hintText: 'Select Body Part',
-                        items: kBodyParts,
+                        items: Constant.bodyParts,
                         enabled: !isLoading,
                         initialValue: widget.exercise != null
                             ? widget.exercise.bodyPart

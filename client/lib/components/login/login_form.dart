@@ -17,8 +17,8 @@ class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _emailController;
   TextEditingController _passwordController;
-  bool isLoading = false;
-  bool autovalidate = false;
+  bool _isLoading = false;
+  bool _autovalidate = false;
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidate: autovalidate,
+      autovalidate: _autovalidate,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -41,7 +41,7 @@ class _LoginFormState extends State<LoginForm> {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             autofocus: true,
-            enabled: !isLoading,
+            enabled: !_isLoading,
             validator: (value) => Validator.validateEmail(value),
             onSubmitted: (_) => FocusScope.of(context).nextFocus(),
           ),
@@ -50,7 +50,7 @@ class _LoginFormState extends State<LoginForm> {
             labelText: 'Password',
             controller: _passwordController,
             hidden: true,
-            enabled: !isLoading,
+            enabled: !_isLoading,
             validator: (value) => Validator.validatePassword(value),
             onSubmitted: (_) => _signIn(),
           ),
@@ -63,8 +63,8 @@ class _LoginFormState extends State<LoginForm> {
                 fontSize: 16.0,
               ),
             ),
-            disabled: isLoading,
-            onPressed: _signIn,
+            disabled: _isLoading,
+            onPressed: () => _signIn(),
           ),
         ],
       ),
@@ -82,9 +82,9 @@ class _LoginFormState extends State<LoginForm> {
         password: _passwordController.text,
       );
 
-      setState(() => isLoading = true);
+      setState(() => _isLoading = true);
       Response response = await authService.signIn(authInfo);
-      setState(() => isLoading = false);
+      setState(() => _isLoading = false);
 
       if (response.status == Status.FAILURE) {
         Scaffold.of(context).showSnackBar(
@@ -101,7 +101,7 @@ class _LoginFormState extends State<LoginForm> {
         );
       }
     } else {
-      setState(() => autovalidate = true);
+      setState(() => _autovalidate = true);
     }
   }
 

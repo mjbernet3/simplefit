@@ -3,8 +3,7 @@ import 'package:client/components/exercise_detail/lift_set_row.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
-import 'package:client/models/exercise/lift_set.dart';
-import 'package:client/state_models/lift_form_model.dart';
+import 'package:client/view_models/lift_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

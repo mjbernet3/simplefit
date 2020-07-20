@@ -2,7 +2,7 @@ import 'package:client/app_style.dart';
 import 'package:client/components/exercise_browse/exercise_listing.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/rounded_button.dart';
-import 'package:client/state_models/exercise_browse_model.dart';
+import 'package:client/view_models/exercise_browse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -17,12 +17,6 @@ class ManageWorkoutModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateExercise(ExerciseData newData, int index) {
-    _exercises[index] = newData;
-
-    notifyListeners();
-  }
-
   void removeExerciseAt(int index) {
     _exercises.removeAt(index);
 

@@ -5,7 +5,7 @@ import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/router.dart';
 import 'package:client/services/exercise_service.dart';
-import 'package:client/state_models/exercise_browse_model.dart';
+import 'package:client/view_models/exercise_browse_model.dart';
 import 'package:client/utils/structures/response.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,12 +1,12 @@
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 
-class TimeCardio extends ExerciseData {
-  final int time;
-  final double speed;
-  final int repeat;
+class TimedCardio extends ExerciseData {
+  int time;
+  double speed;
+  int repeat;
 
-  TimeCardio({
+  TimedCardio({
     Exercise exercise,
     String notes,
     int rest,
@@ -16,8 +16,8 @@ class TimeCardio extends ExerciseData {
     this.repeat,
   }) : super(exercise, notes, rest, isWarmUp);
 
-  factory TimeCardio.initial(Exercise exercise) {
-    return TimeCardio(
+  factory TimedCardio.initial(Exercise exercise) {
+    return TimedCardio(
       exercise: exercise,
       notes: '',
       rest: 0,
@@ -28,8 +28,8 @@ class TimeCardio extends ExerciseData {
     );
   }
 
-  factory TimeCardio.fromJson(Map<String, dynamic> exerciseData) {
-    return TimeCardio(
+  factory TimedCardio.fromJson(Map<String, dynamic> exerciseData) {
+    return TimedCardio(
       exercise: exerciseData['exercise'],
       notes: exerciseData['notes'],
       rest: exerciseData['rest'],

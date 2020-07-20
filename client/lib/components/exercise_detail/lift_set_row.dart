@@ -1,7 +1,7 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/exercise_detail/set_options.dart';
 import 'package:client/components/shared/small_input_field.dart';
-import 'package:client/state_models/lift_form_model.dart';
+import 'package:client/view_models/lift_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -18,8 +18,8 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController _emailController;
   TextEditingController _usernameController;
   TextEditingController _passwordController;
-  bool isLoading = false;
-  bool autovalidate = false;
+  bool _isLoading = false;
+  bool _autovalidate = false;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidate: autovalidate,
+      autovalidate: _autovalidate,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -43,7 +43,7 @@ class _RegisterFormState extends State<RegisterForm> {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             autofocus: true,
-            enabled: !isLoading,
+            enabled: !_isLoading,
             validator: (value) => Validator.validateEmail(value),
             onSubmitted: (_) => FocusScope.of(context).nextFocus(),
           ),
@@ -52,7 +52,7 @@ class _RegisterFormState extends State<RegisterForm> {
             labelText: 'Username',
             controller: _usernameController,
             textInputAction: TextInputAction.next,
-            enabled: !isLoading,
+            enabled: !_isLoading,
             validator: (value) => Validator.validateUsername(value),
             onSubmitted: (_) => FocusScope.of(context).nextFocus(),
           ),
@@ -61,7 +61,7 @@ class _RegisterFormState extends State<RegisterForm> {
             labelText: 'Password',
             controller: _passwordController,
             hidden: true,
-            enabled: !isLoading,
+            enabled: !_isLoading,
             validator: (value) => Validator.validatePassword(value),
             onSubmitted: (_) => _register(),
           ),
@@ -74,8 +74,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 fontSize: 16.0,
               ),
             ),
-            disabled: isLoading,
-            onPressed: _register,
+            disabled: _isLoading,
+            onPressed: () => _register(),
           ),
         ],
       ),
@@ -94,9 +94,9 @@ class _RegisterFormState extends State<RegisterForm> {
         password: _passwordController.text,
       );
 
-      setState(() => isLoading = true);
+      setState(() => _isLoading = true);
       Response response = await authService.register(authInfo);
-      setState(() => isLoading = false);
+      setState(() => _isLoading = false);
 
       if (response.status == Status.FAILURE) {
         Scaffold.of(context).showSnackBar(
@@ -113,7 +113,7 @@ class _RegisterFormState extends State<RegisterForm> {
         );
       }
     } else {
-      setState(() => autovalidate = true);
+      setState(() => _autovalidate = true);
     }
   }
 

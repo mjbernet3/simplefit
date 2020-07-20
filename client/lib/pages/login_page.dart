@@ -1,6 +1,5 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/login/login_form.dart';
-import 'package:client/components/shared/action_text.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -25,18 +24,18 @@ class LoginPage extends StatelessWidget {
             ),
             SizedBox(height: 32.0),
             LoginForm(),
+            SizedBox(height: 8.0),
             Align(
               alignment: Alignment.center,
-              child: ActionText(
-                text: Text(
+              child: GestureDetector(
+                onTap: () => print('Forgot password'),
+                child: Text(
                   'Forgot password?',
                   style: TextStyle(
                     fontSize: 12.0,
                     color: AppStyle.medEmphasisText,
                   ),
                 ),
-                padding: EdgeInsets.only(top: 8.0),
-                onPressed: () => print('hello'),
               ),
             ),
           ],

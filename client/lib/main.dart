@@ -20,7 +20,7 @@ class SimpleFit extends StatelessWidget {
       providers: [
         Provider<AuthService>(
           create: (context) => AuthService(),
-        )
+        ),
       ],
       child: AuthBuilder(
         builder: (BuildContext context, AsyncSnapshot<User> userSnapshot) {

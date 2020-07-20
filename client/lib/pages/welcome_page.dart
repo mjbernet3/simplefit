@@ -1,5 +1,4 @@
 import 'package:client/app_style.dart';
-import 'package:client/components/shared/action_text.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/router.dart';
 import 'package:flutter/material.dart';
@@ -60,16 +59,15 @@ class WelcomePage extends StatelessWidget {
                         color: AppStyle.medEmphasisText,
                       ),
                     ),
-                    ActionText(
-                      text: Text(
+                    SizedBox(width: 5.0),
+                    GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, Router.login),
+                      child: Text(
                         'Sign In',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      padding: EdgeInsets.only(left: 5.0),
-                      onPressed: () =>
-                          Navigator.pushNamed(context, Router.login),
                     ),
                   ],
                 ),

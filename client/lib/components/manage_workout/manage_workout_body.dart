@@ -6,7 +6,7 @@ import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/router.dart';
-import 'package:client/state_models/manage_workout_model.dart';
+import 'package:client/view_models/manage_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -63,12 +63,14 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
               shrinkWrap: true,
               itemCount: model.exercises.length,
               itemBuilder: (BuildContext context, int index) {
+                ExerciseData currentExercise = model.exercises[index];
+
                 return ChosenExerciseCard(
-                  exerciseData: model.exercises[index],
+                  exerciseData: currentExercise,
                   onPressed: () => Navigator.pushNamed(
                     context,
                     Router.exerciseDetail,
-                    arguments: model.exercises[index],
+                    arguments: currentExercise,
                   ),
                   onRemovePressed: () => model.removeExerciseAt(index),
                   isEditing: isEditing,

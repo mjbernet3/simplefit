@@ -1,7 +1,8 @@
 import 'package:client/models/exercise/distance_cardio.dart';
 import 'package:client/models/exercise/exercise.dart';
-import 'package:client/models/exercise/time_cardio.dart';
+import 'package:client/models/exercise/timed_cardio.dart';
 import 'package:client/models/exercise/weight_lift.dart';
+import 'package:client/utils/constant.dart';
 
 abstract class ExerciseData {
   Exercise exercise;
@@ -20,11 +21,11 @@ abstract class ExerciseData {
     String exerciseType = exercise.type;
 
     switch (exerciseType) {
-      case 'Weightlifting':
+      case Constant.lifting:
         return WeightLift.initial(exercise);
-      case 'Timed Cardio':
-        return TimeCardio.initial(exercise);
-      case 'Distance Cardio':
+      case Constant.timed:
+        return TimedCardio.initial(exercise);
+      case Constant.distance:
         return DistanceCardio.initial(exercise);
       default:
         return null;
@@ -34,15 +35,12 @@ abstract class ExerciseData {
   factory ExerciseData.fromJson(Map<String, dynamic> exerciseData) {
     String exerciseType = exerciseData['type'];
 
-    /*
-      TODO: Having these strings everywhere is going to be a problem if you need to change one, refactor
-     */
     switch (exerciseType) {
-      case 'Weightlifting':
+      case Constant.lifting:
         return WeightLift.fromJson(exerciseData);
-      case 'Timed Cardio':
-        return TimeCardio.fromJson(exerciseData);
-      case 'Distance Cardio':
+      case Constant.timed:
+        return TimedCardio.fromJson(exerciseData);
+      case Constant.distance:
         return DistanceCardio.fromJson(exerciseData);
       default:
         return null;
