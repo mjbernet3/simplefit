@@ -1,5 +1,6 @@
 import 'package:client/app_style.dart';
 import 'package:client/models/exercise/exercise.dart';
+import 'package:client/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseCard extends StatefulWidget {
@@ -45,7 +46,10 @@ class _ExerciseCardState extends State<ExerciseCard> {
           child: GestureDetector(
             onTap: () => {
               widget.onPressed(widget.exercise, !selected),
-              if (!widget.isEditing) {setState(() => selected = !selected)}
+              if (!widget.isEditing)
+                {
+                  setState(() => selected = !selected),
+                }
             },
             child: Card(
               color: AppStyle.dp6,
@@ -96,12 +100,14 @@ class _ExerciseCardState extends State<ExerciseCard> {
 
   Widget _buildExerciseIcon() {
     switch (widget.exercise.type) {
-      case 'Timed Cardio':
+      case Constant.lifting:
+        return Icon(Icons.fitness_center, color: AppStyle.lowEmphasisText);
+      case Constant.timed:
         return Icon(Icons.query_builder, color: AppStyle.lowEmphasisText);
-      case 'Distance Cardio':
+      case Constant.distance:
         return Icon(Icons.directions_run, color: AppStyle.lowEmphasisText);
       default:
-        return Icon(Icons.fitness_center, color: AppStyle.lowEmphasisText);
+        return null;
     }
   }
 }

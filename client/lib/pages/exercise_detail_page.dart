@@ -2,6 +2,7 @@ import 'package:client/components/exercise_detail/distance_form.dart';
 import 'package:client/components/exercise_detail/lift_form.dart';
 import 'package:client/components/exercise_detail/timed_form.dart';
 import 'package:client/models/exercise/exercise_data.dart';
+import 'package:client/utils/constant.dart';
 import 'package:client/view_models/lift_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,14 +28,14 @@ class ExerciseDetailPage extends StatelessWidget {
     String exerciseType = exerciseData.exercise.type;
 
     switch (exerciseType) {
-      case 'Weightlifting':
+      case Constant.lifting:
         return ChangeNotifierProvider<LiftFormModel>(
           create: (context) => LiftFormModel(exerciseData),
           child: LiftForm(),
         );
-      case 'Timed Cardio':
+      case Constant.timed:
         return TimedForm();
-      case 'Distance Cardio':
+      case Constant.distance:
         return DistanceForm();
       default:
         return Container();

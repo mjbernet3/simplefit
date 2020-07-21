@@ -5,26 +5,27 @@ class DistanceCardio extends ExerciseData {
   double distance;
   double speed;
   int repeat;
+  int rest;
 
   DistanceCardio({
     Exercise exercise,
     String notes,
-    int rest,
     bool isWarmUp,
     this.distance,
     this.speed,
     this.repeat,
-  }) : super(exercise, notes, rest, isWarmUp);
+    this.rest,
+  }) : super(exercise, notes, isWarmUp);
 
   factory DistanceCardio.initial(Exercise exercise) {
     return DistanceCardio(
       exercise: exercise,
       notes: '',
-      rest: 0,
       isWarmUp: false,
       distance: 0.0,
       speed: 0.0,
       repeat: 0,
+      rest: 0,
     );
   }
 
@@ -32,11 +33,11 @@ class DistanceCardio extends ExerciseData {
     return DistanceCardio(
       exercise: exerciseData['exercise'],
       notes: exerciseData['notes'],
-      rest: exerciseData['rest'],
       isWarmUp: exerciseData['isWarmUp'],
       distance: exerciseData['distance'],
       speed: exerciseData['speed'],
       repeat: exerciseData['repeat'],
+      rest: exerciseData['rest'],
     );
   }
 
@@ -44,11 +45,11 @@ class DistanceCardio extends ExerciseData {
     return {
       'exercise': exercise,
       'notes': notes,
-      'rest': rest,
       'isWarmUp': isWarmUp,
       'distance': distance,
       'speed': speed,
       'repeat': repeat,
+      'rest': rest,
     };
   }
 }

@@ -5,26 +5,27 @@ class TimedCardio extends ExerciseData {
   int time;
   double speed;
   int repeat;
+  int rest;
 
   TimedCardio({
     Exercise exercise,
     String notes,
-    int rest,
     bool isWarmUp,
     this.time,
     this.speed,
     this.repeat,
-  }) : super(exercise, notes, rest, isWarmUp);
+    this.rest,
+  }) : super(exercise, notes, isWarmUp);
 
   factory TimedCardio.initial(Exercise exercise) {
     return TimedCardio(
       exercise: exercise,
       notes: '',
-      rest: 0,
       isWarmUp: false,
       time: 0,
       speed: 0.0,
       repeat: 0,
+      rest: 0,
     );
   }
 
@@ -32,11 +33,11 @@ class TimedCardio extends ExerciseData {
     return TimedCardio(
       exercise: exerciseData['exercise'],
       notes: exerciseData['notes'],
-      rest: exerciseData['rest'],
       isWarmUp: exerciseData['isWarmUp'],
       time: exerciseData['time'],
       speed: exerciseData['speed'],
       repeat: exerciseData['repeat'],
+      rest: exerciseData['rest'],
     );
   }
 
@@ -44,11 +45,11 @@ class TimedCardio extends ExerciseData {
     return {
       'exercise': exercise,
       'notes': notes,
-      'rest': rest,
       'isWarmUp': isWarmUp,
       'time': time,
       'speed': speed,
       'repeat': repeat,
+      'rest': rest,
     };
   }
 }

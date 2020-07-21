@@ -23,10 +23,10 @@ class ManageExercisePage extends StatefulWidget {
 class _ManageExercisePageState extends State<ManageExercisePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _nameController;
-  String chosenType;
-  String chosenBodyPart;
-  bool isLoading = false;
-  bool autovalidate = false;
+  String _chosenType;
+  String _chosenBodyPart;
+  bool _isLoading = false;
+  bool _autovalidate = false;
 
   @override
   void initState() {
@@ -35,8 +35,8 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
 
     if (widget.exercise != null) {
       _nameController.text = widget.exercise.name;
-      chosenType = widget.exercise.type;
-      chosenBodyPart = widget.exercise.bodyPart;
+      _chosenType = widget.exercise.type;
+      _chosenBodyPart = widget.exercise.bodyPart;
     }
   }
 
@@ -44,7 +44,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidate: autovalidate,
+      autovalidate: _autovalidate,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -56,35 +56,35 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
                   labelText: 'Exercise Name',
                   controller: _nameController,
                   fillColor: AppStyle.dp8,
-                  enabled: !isLoading,
+                  enabled: !_isLoading,
                   onSubmitted: (_) => FocusScope.of(context).unfocus(),
                 ),
                 SizedBox(height: 20.0),
                 ExerciseDropdown(
                   hintText: 'Select Exercise Type',
                   items: Constant.exerciseTypes,
-                  enabled: !isLoading,
+                  enabled: !_isLoading,
                   initialValue:
                       widget.exercise != null ? widget.exercise.type : null,
                   onChanged: (String value) => setState(() => {
-                        chosenType = value,
-                        chosenBodyPart = null,
+                        _chosenType = value,
+                        _chosenBodyPart = null,
                       }),
                   validator: (String value) =>
                       Validator.validateExerciseType(value),
                 ),
                 SizedBox(height: 20.0),
-                chosenType == Constant.lifting
+                _chosenType == Constant.lifting
                     ? ExerciseDropdown(
                         hintText: 'Select Body Part',
                         items: Constant.bodyParts,
-                        enabled: !isLoading,
+                        enabled: !_isLoading,
                         initialValue: widget.exercise != null
                             ? widget.exercise.bodyPart
                             : null,
-                        onChanged: (String value) => chosenBodyPart = value,
+                        onChanged: (String value) => _chosenBodyPart = value,
                         validator: (String value) =>
-                            Validator.validateBodyPart(value, chosenType),
+                            Validator.validateBodyPart(value, _chosenType),
                       )
                     : SizedBox.shrink(),
               ],
@@ -104,7 +104,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
                     height: 30.0,
                     color: AppStyle.dp4,
                     borderColor: AppStyle.dp4,
-                    disabled: isLoading,
+                    disabled: _isLoading,
                     onPressed: () => Navigator.pop(context),
                   ),
                   RoundedButton(
@@ -117,7 +117,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
                     height: 30.0,
                     color: AppStyle.dp4,
                     borderColor: AppStyle.dp4,
-                    disabled: isLoading,
+                    disabled: _isLoading,
                     onPressed: () => _manageExercise(),
                   ),
                 ],
@@ -141,11 +141,11 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
 
       Exercise newExercise = Exercise(
         name: exerciseName,
-        type: chosenType,
-        bodyPart: chosenBodyPart,
+        type: _chosenType,
+        bodyPart: _chosenBodyPart,
       );
 
-      setState(() => isLoading = true);
+      setState(() => _isLoading = true);
 
       Response response;
       if (widget.exercise == null) {
@@ -160,7 +160,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
         }
       }
 
-      setState(() => isLoading = false);
+      setState(() => _isLoading = false);
 
       if (response.status == Status.SUCCESS) {
         Navigator.pop(context);
@@ -168,7 +168,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
         // TODO: Handle backend error
       }
     } else {
-      setState(() => autovalidate = true);
+      setState(() => _autovalidate = true);
     }
   }
 }

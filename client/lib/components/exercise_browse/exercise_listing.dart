@@ -16,7 +16,6 @@ class ExerciseListing extends StatefulWidget {
 }
 
 class _ExerciseListingState extends State<ExerciseListing> {
-  List<Exercise> chosenExercises = [];
   IconData listIcon = Icons.edit;
   bool isEditing = false;
 
@@ -74,7 +73,7 @@ class _ExerciseListingState extends State<ExerciseListing> {
                         'Choose exercises',
                         style: TextStyle(
                           color: AppStyle.highEmphasisText,
-                          fontSize: 16.0,
+                          fontSize: 18.0,
                         ),
                       ),
                       Row(
@@ -105,7 +104,9 @@ class _ExerciseListingState extends State<ExerciseListing> {
                           !isEditing
                               ? GestureDetector(
                                   onTap: () => Navigator.pushNamed(
-                                      context, Router.manageExercise),
+                                    context,
+                                    Router.manageExercise,
+                                  ),
                                   child: Icon(
                                     Icons.add,
                                     color: AppStyle.highEmphasisText,

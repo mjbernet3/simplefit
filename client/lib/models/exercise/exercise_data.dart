@@ -7,13 +7,11 @@ import 'package:client/utils/constant.dart';
 abstract class ExerciseData {
   Exercise exercise;
   String notes;
-  int rest;
   bool isWarmUp;
 
   ExerciseData(
     this.exercise,
     this.notes,
-    this.rest,
     this.isWarmUp,
   );
 

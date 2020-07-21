@@ -14,6 +14,7 @@ class LiftForm extends StatefulWidget {
 
 class _LiftFormState extends State<LiftForm> {
   TextEditingController _notesController;
+  bool isWarmUp;
 
   @override
   void initState() {
@@ -26,6 +27,7 @@ class _LiftFormState extends State<LiftForm> {
     super.didChangeDependencies();
     LiftFormModel model = Provider.of<LiftFormModel>(context, listen: false);
     _notesController.text = model.liftData.notes;
+    isWarmUp = model.liftData.isWarmUp;
   }
 
   @override
@@ -47,6 +49,24 @@ class _LiftFormState extends State<LiftForm> {
           keyboardType: TextInputType.multiline,
           textInputAction: TextInputAction.newline,
           maxLines: null,
+        ),
+        SizedBox(height: 14.0),
+        Row(
+          children: <Widget>[
+            Text(
+              'Warm-up Exercise',
+              style: TextStyle(color: AppStyle.medEmphasisText),
+            ),
+            SizedBox(width: 10.0),
+            SizedBox(
+              height: 15.0,
+              width: 15.0,
+              child: Checkbox(
+                value: isWarmUp,
+                onChanged: (status) => setState(() => isWarmUp = status),
+              ),
+            ),
+          ],
         ),
         SizedBox(height: 14.0),
         AppDivider(),
@@ -126,6 +146,7 @@ class _LiftFormState extends State<LiftForm> {
                   borderColor: AppStyle.dp4,
                   onPressed: () {
                     model.liftData.sets = model.newSets;
+                    model.liftData.isWarmUp = isWarmUp;
                     model.liftData.notes = _notesController.text;
                     Navigator.pop(context);
                   },

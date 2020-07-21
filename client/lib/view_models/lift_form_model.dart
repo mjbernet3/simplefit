@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class LiftFormModel extends ChangeNotifier {
   WeightLift liftData;
   List<LiftSet> newSets;
+  bool isWarmUp = false;
 
   LiftFormModel(WeightLift liftData) {
     this.liftData = liftData;
