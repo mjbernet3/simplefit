@@ -1,10 +1,8 @@
 import 'package:client/app_style.dart';
-import 'package:client/components/manage_workout/chosen_exercise_card.dart';
-import 'package:client/components/shared/app_divider.dart';
+import 'package:client/components/manage_workout/chosen_exercise_listing.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
-import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/router.dart';
 import 'package:client/view_models/manage_workout_model.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +17,6 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
   TextEditingController _nameController;
   TextEditingController _descriptionController;
   TextEditingController _notesController;
-  bool isEditing = false;
 
   @override
   void initState() {
@@ -41,44 +38,14 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
         ),
         SizedBox(height: 12.0),
         InputField(
-          controller: _descriptionController,
-          labelText: 'Workout Description',
-          onSubmitted: (_) => FocusScope.of(context).unfocus(),
+          controller: _notesController,
+          hintText: 'Notes...',
+          keyboardType: TextInputType.multiline,
+          textInputAction: TextInputAction.newline,
+          maxLines: null,
         ),
         SizedBox(height: 24.0),
-        Align(
-          alignment: Alignment.center,
-          child: Text(
-            'Exercises',
-            style: TextStyle(
-              fontSize: 18.0,
-              color: AppStyle.highEmphasisText,
-            ),
-          ),
-        ),
-        AppDivider(),
-        Consumer<ManageWorkoutModel>(
-          builder: (BuildContext context, ManageWorkoutModel model, _) {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: model.exercises.length,
-              itemBuilder: (BuildContext context, int index) {
-                ExerciseData currentExercise = model.exercises[index];
-
-                return ChosenExerciseCard(
-                  exerciseData: currentExercise,
-                  onPressed: () => Navigator.pushNamed(
-                    context,
-                    Router.exerciseDetail,
-                    arguments: currentExercise,
-                  ),
-                  onRemovePressed: () => model.removeExerciseAt(index),
-                  isEditing: isEditing,
-                );
-              },
-            );
-          },
-        ),
+        ChosenExerciseListing(),
         RoundedButton(
           buttonText: Text(
             'Add Exercise',
@@ -91,13 +58,6 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
           borderColor: AppStyle.dp4,
           onPressed: () => _browseExercises(),
         ),
-        SizedBox(height: 24.0),
-//        InputField(
-//          controller: _notesController,
-//          keyboardType: TextInputType.multiline,
-//          textInputAction: TextInputAction.newline,
-//          maxLines: null,
-//        ),
       ],
     );
   }

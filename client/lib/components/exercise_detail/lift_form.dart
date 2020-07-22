@@ -1,8 +1,10 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/exercise_detail/lift_set_row.dart';
+import 'package:client/components/exercise_detail/warm_up_check.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
+import 'package:client/models/exercise/lift_set.dart';
 import 'package:client/view_models/lift_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +16,6 @@ class LiftForm extends StatefulWidget {
 
 class _LiftFormState extends State<LiftForm> {
   TextEditingController _notesController;
-  bool isWarmUp;
 
   @override
   void initState() {
@@ -27,7 +28,6 @@ class _LiftFormState extends State<LiftForm> {
     super.didChangeDependencies();
     LiftFormModel model = Provider.of<LiftFormModel>(context, listen: false);
     _notesController.text = model.liftData.notes;
-    isWarmUp = model.liftData.isWarmUp;
   }
 
   @override
@@ -51,26 +51,11 @@ class _LiftFormState extends State<LiftForm> {
           maxLines: null,
         ),
         SizedBox(height: 14.0),
-        Row(
-          children: <Widget>[
-            Text(
-              'Warm-up Exercise',
-              style: TextStyle(color: AppStyle.medEmphasisText),
-            ),
-            SizedBox(width: 10.0),
-            SizedBox(
-              height: 15.0,
-              width: 15.0,
-              child: Checkbox(
-                value: isWarmUp,
-                onChanged: (status) => setState(() => isWarmUp = status),
-              ),
-            ),
-          ],
-        ),
+        WarmUpCheck(),
         SizedBox(height: 14.0),
         AppDivider(),
         SizedBox(height: 14.0),
+        // TODO: Check if this rebuilds on warm up change, same with warm up on set change, if so use selector
         Consumer<LiftFormModel>(
           builder: (BuildContext context, LiftFormModel model, _) {
             return Expanded(
@@ -86,16 +71,18 @@ class _LiftFormState extends State<LiftForm> {
                         separatorBuilder: (BuildContext context, int index) =>
                             SizedBox(height: 10.0),
                         itemBuilder: (BuildContext context, int index) {
+                          LiftSet currentSet = model.newSets[index];
+
                           if (index == 0) {
                             return LiftSetRow(
-                              key: ObjectKey(model.newSets[index]),
+                              key: ObjectKey(currentSet),
                               index: index,
                               hintsOn: true,
                             );
                           }
 
                           return LiftSetRow(
-                            key: ObjectKey(model.newSets[index]),
+                            key: ObjectKey(currentSet),
                             index: index,
                           );
                         },
@@ -146,7 +133,7 @@ class _LiftFormState extends State<LiftForm> {
                   borderColor: AppStyle.dp4,
                   onPressed: () {
                     model.liftData.sets = model.newSets;
-                    model.liftData.isWarmUp = isWarmUp;
+                    model.liftData.isWarmUp = model.isWarmUp;
                     model.liftData.notes = _notesController.text;
                     Navigator.pop(context);
                   },
@@ -157,5 +144,11 @@ class _LiftFormState extends State<LiftForm> {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _notesController.dispose();
+    super.dispose();
   }
 }

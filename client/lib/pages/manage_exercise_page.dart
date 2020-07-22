@@ -13,8 +13,9 @@ import 'package:provider/provider.dart';
 
 class ManageExercisePage extends StatefulWidget {
   final Exercise exercise;
+  final bool isEdit;
 
-  ManageExercisePage({this.exercise});
+  ManageExercisePage({this.exercise}) : isEdit = exercise != null;
 
   @override
   _ManageExercisePageState createState() => _ManageExercisePageState();
@@ -33,7 +34,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
     super.initState();
     _nameController = TextEditingController();
 
-    if (widget.exercise != null) {
+    if (widget.isEdit) {
       _nameController.text = widget.exercise.name;
       _chosenType = widget.exercise.type;
       _chosenBodyPart = widget.exercise.bodyPart;
@@ -64,8 +65,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
                   hintText: 'Select Exercise Type',
                   items: Constant.exerciseTypes,
                   enabled: !_isLoading,
-                  initialValue:
-                      widget.exercise != null ? widget.exercise.type : null,
+                  initialValue: widget.isEdit ? widget.exercise.type : null,
                   onChanged: (String value) => setState(() => {
                         _chosenType = value,
                         _chosenBodyPart = null,
@@ -79,9 +79,8 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
                         hintText: 'Select Body Part',
                         items: Constant.bodyParts,
                         enabled: !_isLoading,
-                        initialValue: widget.exercise != null
-                            ? widget.exercise.bodyPart
-                            : null,
+                        initialValue:
+                            widget.isEdit ? widget.exercise.bodyPart : null,
                         onChanged: (String value) => _chosenBodyPart = value,
                         validator: (String value) =>
                             Validator.validateBodyPart(value, _chosenType),
@@ -109,9 +108,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
                   ),
                   RoundedButton(
                     buttonText: Text(
-                      widget.exercise != null
-                          ? 'Update Exercise'
-                          : 'Create Exercise',
+                      widget.isEdit ? 'Update Exercise' : 'Create Exercise',
                       style: TextStyle(color: AppStyle.highEmphasisText),
                     ),
                     height: 30.0,
@@ -148,7 +145,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
       setState(() => _isLoading = true);
 
       Response response;
-      if (widget.exercise == null) {
+      if (!widget.isEdit) {
         response = await exerciseService.createExercise(newExercise);
       } else {
         if (!newExercise.equals(widget.exercise)) {

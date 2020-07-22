@@ -4,16 +4,19 @@ import 'package:flutter/material.dart';
 
 class LiftFormModel extends ChangeNotifier {
   WeightLift liftData;
+
+  // Used as temporary info holders so that changes can be reverted
   List<LiftSet> newSets;
-  bool isWarmUp = false;
+  bool isWarmUp;
 
   LiftFormModel(WeightLift liftData) {
     this.liftData = liftData;
 
+    isWarmUp = liftData.isWarmUp;
+
     if (liftData.sets.isEmpty) {
       newSets = [LiftSet.initial()];
     } else {
-      // Copy existing sets so that changes can be ignored on cancellation
       newSets = liftData.sets.map((LiftSet set) => LiftSet.copy(set)).toList();
     }
   }
