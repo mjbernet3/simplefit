@@ -22,8 +22,7 @@ class ExerciseBrowsePage extends StatelessWidget {
       children: <Widget>[
         StreamBuilder<List<Exercise>>(
           stream: _exerciseService.exercises,
-          builder:
-              (BuildContext context, AsyncSnapshot<List<Exercise>> snapshot) {
+          builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data.isEmpty) {
                 return Expanded(

@@ -46,25 +46,12 @@ class WorkoutCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          workoutPreview.name,
-                          style: TextStyle(
-                            color: AppStyle.highEmphasisText,
-                            fontSize: 16.0,
-                          ),
-                        ),
-                        SizedBox(height: 5.0),
-                        Text(
-                          workoutPreview.description,
-                          style: TextStyle(
-                            color: AppStyle.medEmphasisText,
-                            fontSize: 12.0,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      workoutPreview.name,
+                      style: TextStyle(
+                        color: AppStyle.highEmphasisText,
+                        fontSize: 16.0,
+                      ),
                     ),
                     isEditing
                         ? Icon(Icons.drag_handle,

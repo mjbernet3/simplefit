@@ -21,7 +21,7 @@ class AuthBuilder extends StatelessWidget {
         Provider.of<AuthService>(context, listen: false);
     return StreamBuilder<User>(
       stream: _authService.signedInUser,
-      builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+      builder: (context, snapshot) {
         if (snapshot.hasData) {
           final User _user = snapshot.data;
 

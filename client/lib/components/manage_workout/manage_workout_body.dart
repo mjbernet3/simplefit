@@ -15,14 +15,12 @@ class ManageWorkoutBody extends StatefulWidget {
 
 class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
   TextEditingController _nameController;
-  TextEditingController _descriptionController;
   TextEditingController _notesController;
 
   @override
   void initState() {
     super.initState();
     _nameController = TextEditingController();
-    _descriptionController = TextEditingController();
     _notesController = TextEditingController();
   }
 
@@ -77,7 +75,6 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
   @override
   void dispose() {
     _nameController.dispose();
-    _descriptionController.dispose();
     _notesController.dispose();
     super.dispose();
   }
