@@ -17,6 +17,8 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
 
   @override
   Widget build(BuildContext context) {
+    ManageWorkoutModel model =
+        Provider.of<ManageWorkoutModel>(context, listen: false);
     return Column(
       children: <Widget>[
         Align(
@@ -30,26 +32,33 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
           ),
         ),
         AppDivider(),
-        Consumer<ManageWorkoutModel>(
-          builder: (BuildContext context, ManageWorkoutModel model, _) {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: model.exercises.length,
-              itemBuilder: (BuildContext context, int index) {
-                ExerciseData currentExercise = model.exercises[index];
+        StreamBuilder<List<ExerciseData>>(
+          stream: model.exerciseStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<ExerciseData> exercises = snapshot.data;
 
-                return ChosenExerciseCard(
-                  exerciseData: currentExercise,
-                  onPressed: () => Navigator.pushNamed(
-                    context,
-                    Router.exerciseDetail,
-                    arguments: currentExercise,
-                  ),
-                  onRemovePressed: () => model.removeExerciseAt(index),
-                  isEditing: isEditing,
-                );
-              },
-            );
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: exercises.length,
+                itemBuilder: (BuildContext context, int index) {
+                  ExerciseData currentExercise = exercises[index];
+
+                  return ChosenExerciseCard(
+                    exerciseData: currentExercise,
+                    onPressed: () => Navigator.pushNamed(
+                      context,
+                      Router.exerciseDetail,
+                      arguments: currentExercise,
+                    ),
+                    onRemovePressed: () => model.removeExerciseAt(index),
+                    isEditing: isEditing,
+                  );
+                },
+              );
+            }
+
+            return Container();
           },
         ),
       ],

@@ -1,6 +1,5 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/exercise_detail/lift_set_row.dart';
-import 'package:client/components/exercise_detail/warm_up_check.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
@@ -51,60 +50,95 @@ class _LiftFormState extends State<LiftForm> {
           maxLines: null,
         ),
         SizedBox(height: 14.0),
-        WarmUpCheck(),
+        Row(
+          children: <Widget>[
+            Text(
+              'Warm-up Exercise',
+              style: TextStyle(color: AppStyle.medEmphasisText),
+            ),
+            SizedBox(width: 10.0),
+            SizedBox(
+              height: 15.0,
+              width: 15.0,
+              child: StreamBuilder<bool>(
+                stream: model.warmUpStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    bool isWarmUp = snapshot.data;
+
+                    return Checkbox(
+                      activeColor: AppStyle.primaryColor,
+                      checkColor: AppStyle.backgroundColor,
+                      value: isWarmUp,
+                      onChanged: (_) => model.toggleWarmUp(),
+                    );
+                  }
+
+                  return Container();
+                },
+              ),
+            ),
+          ],
+        ),
         SizedBox(height: 14.0),
         AppDivider(),
         SizedBox(height: 14.0),
-        // TODO: Check if this rebuilds on warm up change, same with warm up on set change, if so use selector
-        Consumer<LiftFormModel>(
-          builder: (BuildContext context, LiftFormModel model, _) {
-            return Expanded(
-              child: ListView(
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      ListView.separated(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: model.newSets.length,
-                        separatorBuilder: (BuildContext context, int index) =>
-                            SizedBox(height: 10.0),
-                        itemBuilder: (BuildContext context, int index) {
-                          LiftSet currentSet = model.newSets[index];
+        StreamBuilder<List<LiftSet>>(
+          stream: model.setStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<LiftSet> sets = snapshot.data;
 
-                          if (index == 0) {
+              return Expanded(
+                child: ListView(
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        ListView.separated(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: sets.length,
+                          separatorBuilder: (BuildContext context, int index) =>
+                              SizedBox(height: 10.0),
+                          itemBuilder: (BuildContext context, int index) {
+                            LiftSet currentSet = sets[index];
+
+                            if (index == 0) {
+                              return LiftSetRow(
+                                key: ObjectKey(currentSet),
+                                index: index,
+                                hintsOn: true,
+                              );
+                            }
+
                             return LiftSetRow(
                               key: ObjectKey(currentSet),
                               index: index,
-                              hintsOn: true,
                             );
-                          }
-
-                          return LiftSetRow(
-                            key: ObjectKey(currentSet),
-                            index: index,
-                          );
-                        },
-                      ),
-                      SizedBox(height: 14.0),
-                      RoundedButton(
-                        buttonText: Text(
-                          'Add Set',
-                          style: TextStyle(
-                            color: AppStyle.highEmphasisText,
-                          ),
+                          },
                         ),
-                        height: 30.0,
-                        color: AppStyle.dp4,
-                        borderColor: AppStyle.dp4,
-                        onPressed: () => model.addSet(),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            );
+                        SizedBox(height: 14.0),
+                        RoundedButton(
+                          buttonText: Text(
+                            'Add Set',
+                            style: TextStyle(
+                              color: AppStyle.highEmphasisText,
+                            ),
+                          ),
+                          height: 30.0,
+                          color: AppStyle.dp4,
+                          borderColor: AppStyle.dp4,
+                          onPressed: () => model.addSet(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            }
+
+            return Container();
           },
         ),
         Column(
@@ -132,7 +166,7 @@ class _LiftFormState extends State<LiftForm> {
                   color: AppStyle.dp4,
                   borderColor: AppStyle.dp4,
                   onPressed: () {
-                    model.liftData.sets = model.newSets;
+                    model.liftData.sets = model.workingSets;
                     model.liftData.isWarmUp = model.isWarmUp;
                     model.liftData.notes = _notesController.text;
                     Navigator.pop(context);

@@ -14,6 +14,8 @@ class ExerciseBrowsePage extends StatelessWidget {
   Widget build(BuildContext context) {
     ExerciseService _exerciseService =
         Provider.of<ExerciseService>(context, listen: false);
+    ExerciseBrowseModel model =
+        Provider.of<ExerciseBrowseModel>(context, listen: false);
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -61,27 +63,31 @@ class ExerciseBrowsePage extends StatelessWidget {
             return Container();
           },
         ),
-        Consumer<ExerciseBrowseModel>(
-          builder: (BuildContext context, ExerciseBrowseModel model, _) {
-            return model.exercises.length > 0
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      AppDivider(),
-                      RoundedButton(
-                        buttonText: Text(
-                          'Add ${model.exercises.length} Exercises',
-                          style: TextStyle(color: AppStyle.highEmphasisText),
-                        ),
-                        height: 30.0,
-                        color: AppStyle.dp4,
-                        borderColor: AppStyle.dp4,
-                        onPressed: () =>
-                            Navigator.pop(context, model.exercises),
-                      ),
-                    ],
-                  )
-                : SizedBox.shrink();
+        StreamBuilder<List<Exercise>>(
+          stream: model.exerciseStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData && snapshot.data.isNotEmpty) {
+              List<Exercise> exercises = snapshot.data;
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  AppDivider(),
+                  RoundedButton(
+                    buttonText: Text(
+                      'Add ${exercises.length} Exercises',
+                      style: TextStyle(color: AppStyle.highEmphasisText),
+                    ),
+                    height: 30.0,
+                    color: AppStyle.dp4,
+                    borderColor: AppStyle.dp4,
+                    onPressed: () => Navigator.pop(context, exercises),
+                  ),
+                ],
+              );
+            }
+
+            return Container();
           },
         ),
       ],

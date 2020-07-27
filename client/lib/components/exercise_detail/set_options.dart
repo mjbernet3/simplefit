@@ -24,7 +24,7 @@ class _SetOptionsState extends State<SetOptions> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     LiftFormModel model = Provider.of<LiftFormModel>(context, listen: false);
-    isWarmUp = model.newSets[widget.index].isWarmUp;
+    isWarmUp = model.workingSets[widget.index].isWarmUp;
   }
 
   @override
@@ -68,7 +68,7 @@ class _SetOptionsState extends State<SetOptions> {
         model.removeSet(widget.index);
         break;
       case PopupChoice.WARM_UP:
-        model.newSets[widget.index].isWarmUp = !isWarmUp;
+        model.workingSets[widget.index].isWarmUp = !isWarmUp;
 
         setState(() => isWarmUp = !isWarmUp);
         break;

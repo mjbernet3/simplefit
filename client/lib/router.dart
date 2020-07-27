@@ -41,8 +41,9 @@ class Router {
         return MaterialPageRoute(builder: (context) => LoginPage());
       case createWorkout:
         return MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider<ManageWorkoutModel>(
+          builder: (context) => Provider<ManageWorkoutModel>(
             create: (context) => ManageWorkoutModel(),
+            dispose: (context, model) => model.dispose(),
             child: ManageWorkoutPage(),
           ),
         );
@@ -56,8 +57,9 @@ class Router {
       case browser:
         return LargePopUp<List<Exercise>>(
           backgroundColor: AppStyle.backgroundColor.withOpacity(0.5),
-          builder: (context) => ChangeNotifierProvider<ExerciseBrowseModel>(
+          builder: (context) => Provider<ExerciseBrowseModel>(
             create: (context) => ExerciseBrowseModel(),
+            dispose: (context, model) => model.dispose(),
             child: ExerciseBrowsePage(),
           ),
         );

@@ -29,8 +29,9 @@ class ExerciseDetailPage extends StatelessWidget {
 
     switch (exerciseType) {
       case Constant.lifting:
-        return ChangeNotifierProvider<LiftFormModel>(
+        return Provider<LiftFormModel>(
           create: (context) => LiftFormModel(exerciseData),
+          dispose: (context, model) => model.dispose(),
           child: LiftForm(),
         );
       case Constant.timed:

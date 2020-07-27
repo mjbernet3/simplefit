@@ -1,11 +1,15 @@
+import 'dart:async';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
-import 'package:flutter/material.dart';
+import 'package:client/view_models/view_model.dart';
 
-class ManageWorkoutModel extends ChangeNotifier {
+class ManageWorkoutModel extends ViewModel {
   List<ExerciseData> _exercises = [];
 
-  List<ExerciseData> get exercises => _exercises;
+  final StreamController<List<ExerciseData>> _exerciseController =
+      StreamController<List<ExerciseData>>();
+
+  Stream<List<ExerciseData>> get exerciseStream => _exerciseController.stream;
 
   void initExercises(List<Exercise> exercises) {
     for (Exercise exercise in exercises) {
@@ -14,12 +18,17 @@ class ManageWorkoutModel extends ChangeNotifier {
       _exercises.add(newExerciseData);
     }
 
-    notifyListeners();
+    _exerciseController.sink.add(_exercises);
   }
 
   void removeExerciseAt(int index) {
     _exercises.removeAt(index);
 
-    notifyListeners();
+    _exerciseController.sink.add(_exercises);
+  }
+
+  @override
+  void dispose() {
+    _exerciseController.close();
   }
 }
