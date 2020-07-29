@@ -4,16 +4,16 @@ import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/lift_set.dart';
-import 'package:client/view_models/lift_form_model.dart';
+import 'package:client/view_models/lift_detail_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LiftForm extends StatefulWidget {
+class LiftDetail extends StatefulWidget {
   @override
-  _LiftFormState createState() => _LiftFormState();
+  _LiftDetailState createState() => _LiftDetailState();
 }
 
-class _LiftFormState extends State<LiftForm> {
+class _LiftDetailState extends State<LiftDetail> {
   TextEditingController _notesController;
 
   @override
@@ -25,13 +25,15 @@ class _LiftFormState extends State<LiftForm> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    LiftFormModel model = Provider.of<LiftFormModel>(context, listen: false);
+    LiftDetailModel model =
+        Provider.of<LiftDetailModel>(context, listen: false);
     _notesController.text = model.liftData.notes;
   }
 
   @override
   Widget build(BuildContext context) {
-    LiftFormModel model = Provider.of<LiftFormModel>(context, listen: false);
+    LiftDetailModel model =
+        Provider.of<LiftDetailModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -49,12 +51,15 @@ class _LiftFormState extends State<LiftForm> {
           textInputAction: TextInputAction.newline,
           maxLines: null,
         ),
-        SizedBox(height: 14.0),
+        SizedBox(height: 20.0),
         Row(
           children: <Widget>[
             Text(
               'Warm-up Exercise',
-              style: TextStyle(color: AppStyle.medEmphasisText),
+              style: TextStyle(
+                color: AppStyle.medEmphasisText,
+                fontSize: 14.0,
+              ),
             ),
             SizedBox(width: 10.0),
             SizedBox(
@@ -100,7 +105,7 @@ class _LiftFormState extends State<LiftForm> {
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: sets.length,
                           separatorBuilder: (BuildContext context, int index) =>
-                              SizedBox(height: 10.0),
+                              SizedBox(height: 4.0),
                           itemBuilder: (BuildContext context, int index) {
                             LiftSet currentSet = sets[index];
 
@@ -166,10 +171,7 @@ class _LiftFormState extends State<LiftForm> {
                   color: AppStyle.dp4,
                   borderColor: AppStyle.dp4,
                   onPressed: () {
-                    model.liftData.sets = model.workingSets;
-                    model.liftData.isWarmUp = model.isWarmUp;
-                    model.liftData.notes = _notesController.text;
-                    Navigator.pop(context);
+                    Navigator.pop(context, model.liftData);
                   },
                 ),
               ],

@@ -3,10 +3,8 @@ import 'package:client/models/exercise/lift_set.dart';
 import 'package:client/models/exercise/weight_lift.dart';
 import 'package:client/view_models/view_model.dart';
 
-class LiftFormModel extends ViewModel {
+class LiftDetailModel extends ViewModel {
   WeightLift liftData;
-  List<LiftSet> workingSets;
-  bool isWarmUp;
 
   final StreamController<List<LiftSet>> _setController =
       StreamController<List<LiftSet>>();
@@ -15,38 +13,34 @@ class LiftFormModel extends ViewModel {
   Stream<List<LiftSet>> get setStream => _setController.stream;
   Stream<bool> get warmUpStream => _warmUpController.stream;
 
-  LiftFormModel(WeightLift liftData) {
-    this.liftData = liftData;
-
-    isWarmUp = liftData.isWarmUp;
+  LiftDetailModel(WeightLift liftData) {
+    // Copy provided data so that changes do not take effect before saving
+    this.liftData = WeightLift.copy(liftData);
 
     if (liftData.sets.isEmpty) {
-      workingSets = [LiftSet.initial()];
-    } else {
-      workingSets =
-          liftData.sets.map((LiftSet set) => LiftSet.copy(set)).toList();
+      liftData.sets.add(LiftSet.initial());
     }
 
-    _setController.sink.add(workingSets);
-    _warmUpController.sink.add(isWarmUp);
+    _setController.sink.add(liftData.sets);
+    _warmUpController.sink.add(liftData.isWarmUp);
   }
 
   void addSet() {
-    workingSets.add(LiftSet.initial());
+    liftData.sets.add(LiftSet.initial());
 
-    _setController.sink.add(workingSets);
+    _setController.sink.add(liftData.sets);
   }
 
   void removeSet(int index) {
-    workingSets.removeAt(index);
+    liftData.sets.removeAt(index);
 
-    _setController.sink.add(workingSets);
+    _setController.sink.add(liftData.sets);
   }
 
   void toggleWarmUp() {
-    isWarmUp = !isWarmUp;
+    liftData.isWarmUp = !liftData.isWarmUp;
 
-    _warmUpController.sink.add(isWarmUp);
+    _warmUpController.sink.add(liftData.isWarmUp);
   }
 
   @override

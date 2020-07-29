@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TimedForm extends StatelessWidget {
+class DistanceDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container();

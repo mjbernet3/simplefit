@@ -1,5 +1,6 @@
 import 'package:client/app_style.dart';
-import 'package:client/view_models/lift_form_model.dart';
+import 'package:client/models/exercise/lift_set.dart';
+import 'package:client/view_models/lift_detail_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,8 +24,11 @@ class _SetOptionsState extends State<SetOptions> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    LiftFormModel model = Provider.of<LiftFormModel>(context, listen: false);
-    isWarmUp = model.workingSets[widget.index].isWarmUp;
+    LiftDetailModel model =
+        Provider.of<LiftDetailModel>(context, listen: false);
+    List<LiftSet> sets = model.liftData.sets;
+
+    isWarmUp = sets[widget.index].isWarmUp;
   }
 
   @override
@@ -62,13 +66,16 @@ class _SetOptionsState extends State<SetOptions> {
   }
 
   void _handleChoice(PopupChoice choice, BuildContext context) {
-    LiftFormModel model = Provider.of<LiftFormModel>(context, listen: false);
+    LiftDetailModel model =
+        Provider.of<LiftDetailModel>(context, listen: false);
+    List<LiftSet> sets = model.liftData.sets;
+
     switch (choice) {
       case PopupChoice.REMOVE:
         model.removeSet(widget.index);
         break;
       case PopupChoice.WARM_UP:
-        model.workingSets[widget.index].isWarmUp = !isWarmUp;
+        sets[widget.index].isWarmUp = !isWarmUp;
 
         setState(() => isWarmUp = !isWarmUp);
         break;

@@ -1,7 +1,8 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/exercise_detail/set_options.dart';
 import 'package:client/components/shared/small_input_field.dart';
-import 'package:client/view_models/lift_form_model.dart';
+import 'package:client/models/exercise/lift_set.dart';
+import 'package:client/view_models/lift_detail_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,9 @@ class LiftSetRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LiftFormModel model = Provider.of<LiftFormModel>(context, listen: false);
+    LiftDetailModel model =
+        Provider.of<LiftDetailModel>(context, listen: false);
+    List<LiftSet> sets = model.liftData.sets;
 
     return Row(
       children: <Widget>[
@@ -49,10 +52,10 @@ class LiftSetRow extends StatelessWidget {
                   children: <Widget>[
                     _buildHint('Reps'),
                     SmallInputField(
-                      initialValue: model.workingSets[index].reps.toString(),
+                      initialValue: sets[index].reps.toString(),
                       onChanged: (String value) {
                         if (value.isNotEmpty) {
-                          model.workingSets[index].reps = int.parse(value);
+                          sets[index].reps = int.parse(value);
                         }
                       },
                     ),
@@ -62,10 +65,10 @@ class LiftSetRow extends StatelessWidget {
                   children: <Widget>[
                     _buildHint('Weight'),
                     SmallInputField(
-                      initialValue: model.workingSets[index].weight.toString(),
+                      initialValue: sets[index].weight.toString(),
                       onChanged: (String value) {
                         if (value.isNotEmpty) {
-                          model.workingSets[index].weight = int.parse(value);
+                          sets[index].weight = int.parse(value);
                         }
                       },
                     ),
@@ -75,10 +78,10 @@ class LiftSetRow extends StatelessWidget {
                   children: <Widget>[
                     _buildHint('Rest'),
                     SmallInputField(
-                      initialValue: model.workingSets[index].rest.toString(),
+                      initialValue: sets[index].rest.toString(),
                       onChanged: (String value) {
                         if (value.isNotEmpty) {
-                          model.workingSets[index].rest = int.parse(value);
+                          sets[index].rest = int.parse(value);
                         }
                       },
                     ),

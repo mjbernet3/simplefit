@@ -1,5 +1,6 @@
 import 'package:client/app_style.dart';
 import 'package:client/models/exercise/exercise.dart';
+import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/pages/exercise_browse_page.dart';
 import 'package:client/pages/exercise_detail_page.dart';
 import 'package:client/pages/manage_exercise_page.dart';
@@ -48,7 +49,7 @@ class Router {
           ),
         );
       case exerciseDetail:
-        return MaterialPageRoute(
+        return MaterialPageRoute<ExerciseData>(
           builder: (context) =>
               ExerciseDetailPage(exerciseData: routeSettings.arguments),
         );

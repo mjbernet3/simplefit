@@ -1,9 +1,9 @@
-import 'package:client/components/exercise_detail/distance_form.dart';
-import 'package:client/components/exercise_detail/lift_form.dart';
-import 'package:client/components/exercise_detail/timed_form.dart';
+import 'package:client/components/exercise_detail/distance_detail.dart';
+import 'package:client/components/exercise_detail/lift_detail.dart';
+import 'package:client/components/exercise_detail/timed_detail.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/utils/constant.dart';
-import 'package:client/view_models/lift_form_model.dart';
+import 'package:client/view_models/lift_detail_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,15 +29,15 @@ class ExerciseDetailPage extends StatelessWidget {
 
     switch (exerciseType) {
       case Constant.lifting:
-        return Provider<LiftFormModel>(
-          create: (context) => LiftFormModel(exerciseData),
+        return Provider<LiftDetailModel>(
+          create: (context) => LiftDetailModel(exerciseData),
           dispose: (context, model) => model.dispose(),
-          child: LiftForm(),
+          child: LiftDetail(),
         );
       case Constant.timed:
-        return TimedForm();
+        return null;
       case Constant.distance:
-        return DistanceForm();
+        return DistanceDetail();
       default:
         return Container();
     }
