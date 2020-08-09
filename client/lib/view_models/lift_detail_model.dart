@@ -8,6 +8,7 @@ class LiftDetailModel extends ViewModel {
 
   final StreamController<List<LiftSet>> _setController =
       StreamController<List<LiftSet>>();
+
   final StreamController<bool> _warmUpController = StreamController<bool>();
 
   Stream<List<LiftSet>> get setStream => _setController.stream;
@@ -17,12 +18,12 @@ class LiftDetailModel extends ViewModel {
     // Copy provided data so that changes do not take effect before saving
     this.liftData = WeightLift.copy(liftData);
 
-    if (liftData.sets.isEmpty) {
-      liftData.sets.add(LiftSet.initial());
+    if (this.liftData.sets.isEmpty) {
+      this.liftData.sets.add(LiftSet.initial());
     }
 
-    _setController.sink.add(liftData.sets);
-    _warmUpController.sink.add(liftData.isWarmUp);
+    _setController.sink.add(this.liftData.sets);
+    _warmUpController.sink.add(this.liftData.isWarmUp);
   }
 
   void addSet() {

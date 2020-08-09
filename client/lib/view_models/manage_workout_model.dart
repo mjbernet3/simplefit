@@ -11,12 +11,22 @@ class ManageWorkoutModel extends ViewModel {
 
   Stream<List<ExerciseData>> get exerciseStream => _exerciseController.stream;
 
+  List<ExerciseData> getExercises() {
+    return _exercises;
+  }
+
   void initExercises(List<Exercise> exercises) {
     for (Exercise exercise in exercises) {
       ExerciseData newExerciseData = ExerciseData.initial(exercise);
 
       _exercises.add(newExerciseData);
     }
+
+    _exerciseController.sink.add(_exercises);
+  }
+
+  void updateExerciseAt(int index, ExerciseData newExerciseData) {
+    _exercises[index] = newExerciseData;
 
     _exerciseController.sink.add(_exercises);
   }

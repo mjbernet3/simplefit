@@ -11,7 +11,7 @@ class ManageWorkoutPage extends StatelessWidget {
           style: TextStyle(fontSize: 18.0),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Padding(
         padding: EdgeInsets.all(15.0),
         child: ManageWorkoutBody(),
       ),

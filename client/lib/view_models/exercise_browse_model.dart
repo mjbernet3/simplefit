@@ -5,25 +5,29 @@ import 'package:client/view_models/view_model.dart';
 class ExerciseBrowseModel extends ViewModel {
   List<Exercise> _exercises = [];
 
-  final StreamController<List<Exercise>> _exerciseController =
-      StreamController<List<Exercise>>();
+  final StreamController<int> _exerciseCountController =
+      StreamController<int>();
 
-  Stream<List<Exercise>> get exerciseStream => _exerciseController.stream;
+  Stream<int> get exerciseCountStream => _exerciseCountController.stream;
+
+  List<Exercise> getExercises() {
+    return _exercises;
+  }
 
   void addExercise(Exercise exercise) {
     _exercises.add(exercise);
 
-    _exerciseController.sink.add(_exercises);
+    _exerciseCountController.sink.add(_exercises.length);
   }
 
   void removeExercise(Exercise exercise) {
     _exercises.remove(exercise);
 
-    _exerciseController.sink.add(_exercises);
+    _exerciseCountController.sink.add(_exercises.length);
   }
 
   @override
   void dispose() {
-    _exerciseController.close();
+    _exerciseCountController.close();
   }
 }

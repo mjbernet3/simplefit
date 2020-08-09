@@ -31,7 +31,7 @@ abstract class ExerciseData {
   }
 
   factory ExerciseData.fromJson(Map<String, dynamic> exerciseData) {
-    String exerciseType = exerciseData['type'];
+    String exerciseType = exerciseData['exercise']['type'];
 
     switch (exerciseType) {
       case Constant.lifting:

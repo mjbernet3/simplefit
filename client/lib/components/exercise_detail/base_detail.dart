@@ -1,42 +1,52 @@
 import 'package:client/app_style.dart';
-import 'package:client/components/manage_workout/chosen_exercise_listing.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
-import 'package:client/models/workout/workout.dart';
-import 'package:client/services/workout_service.dart';
-import 'package:client/utils/structures/response.dart';
-import 'package:client/view_models/manage_workout_model.dart';
+import 'package:client/models/exercise/exercise_data.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class ManageWorkoutBody extends StatefulWidget {
+class BaseDetail extends StatefulWidget {
+  final ExerciseData exerciseData;
+  final StreamBuilder<bool> warmUpCheck;
+  final Widget child;
+
+  BaseDetail({
+    this.exerciseData,
+    this.warmUpCheck,
+    this.child,
+  });
+
   @override
-  _ManageWorkoutBodyState createState() => _ManageWorkoutBodyState();
+  _BaseDetailState createState() => _BaseDetailState();
 }
 
-class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
-  TextEditingController _nameController;
+class _BaseDetailState extends State<BaseDetail> {
   TextEditingController _notesController;
 
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController();
     _notesController = TextEditingController();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _notesController.text = widget.exerciseData.notes;
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        InputField(
-          controller: _nameController,
-          labelText: 'Workout Name',
-          onSubmitted: (_) => FocusScope.of(context).nextFocus(),
+        Text(
+          widget.exerciseData.exercise.name,
+          style: TextStyle(
+            fontSize: 24.0,
+          ),
         ),
-        SizedBox(height: 12.0),
+        SizedBox(height: 14.0),
         InputField(
           controller: _notesController,
           hintText: 'Notes...',
@@ -44,10 +54,28 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
           textInputAction: TextInputAction.newline,
           maxLines: null,
         ),
-        SizedBox(height: 24.0),
-        Expanded(
-          child: ChosenExerciseListing(),
+        SizedBox(height: 20.0),
+        Row(
+          children: <Widget>[
+            Text(
+              'Warm-up Exercise',
+              style: TextStyle(
+                color: AppStyle.medEmphasisText,
+                fontSize: 14.0,
+              ),
+            ),
+            SizedBox(width: 10.0),
+            SizedBox(
+              height: 15.0,
+              width: 15.0,
+              child: widget.warmUpCheck,
+            ),
+          ],
         ),
+        SizedBox(height: 14.0),
+        AppDivider(),
+        SizedBox(height: 14.0),
+        widget.child,
         Column(
           children: <Widget>[
             AppDivider(),
@@ -72,7 +100,10 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
                   height: 30.0,
                   color: AppStyle.dp4,
                   borderColor: AppStyle.dp4,
-                  onPressed: () => _createWorkout(),
+                  onPressed: () => {
+                    widget.exerciseData.notes = _notesController.text,
+                    Navigator.pop(context, widget.exerciseData),
+                  },
                 ),
               ],
             ),
@@ -82,36 +113,8 @@ class _ManageWorkoutBodyState extends State<ManageWorkoutBody> {
     );
   }
 
-  void _createWorkout() async {
-    ManageWorkoutModel model =
-        Provider.of<ManageWorkoutModel>(context, listen: false);
-
-    String workoutName = _nameController.text;
-    if (workoutName.isEmpty) {
-      workoutName = 'New Workout';
-    }
-
-    Workout newWorkout = Workout(
-      name: workoutName,
-      notes: _notesController.text,
-      exercises: model.getExercises(),
-    );
-
-    WorkoutService workoutService =
-        Provider.of<WorkoutService>(context, listen: false);
-
-    Response response = await workoutService.createWorkout(newWorkout);
-
-    if (response.status == Status.FAILURE) {
-      // TODO: Handle backend error
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
   @override
   void dispose() {
-    _nameController.dispose();
     _notesController.dispose();
     super.dispose();
   }

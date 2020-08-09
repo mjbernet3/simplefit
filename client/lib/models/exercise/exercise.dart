@@ -24,6 +24,14 @@ class Exercise {
     );
   }
 
+  factory Exercise.fromJson(Map<String, dynamic> exerciseData) {
+    return Exercise(
+      name: exerciseData['name'],
+      type: exerciseData['type'],
+      bodyPart: exerciseData['bodyPart'],
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'name': name,

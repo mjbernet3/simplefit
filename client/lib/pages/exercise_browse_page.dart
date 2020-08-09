@@ -62,11 +62,11 @@ class ExerciseBrowsePage extends StatelessWidget {
             return Container();
           },
         ),
-        StreamBuilder<List<Exercise>>(
-          stream: model.exerciseStream,
+        StreamBuilder<int>(
+          stream: model.exerciseCountStream,
           builder: (context, snapshot) {
-            if (snapshot.hasData && snapshot.data.isNotEmpty) {
-              List<Exercise> exercises = snapshot.data;
+            if (snapshot.hasData && snapshot.data != 0) {
+              int exerciseCount = snapshot.data;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -74,13 +74,14 @@ class ExerciseBrowsePage extends StatelessWidget {
                   AppDivider(),
                   RoundedButton(
                     buttonText: Text(
-                      'Add ${exercises.length} Exercises',
+                      'Add $exerciseCount Exercises',
                       style: TextStyle(color: AppStyle.highEmphasisText),
                     ),
                     height: 30.0,
                     color: AppStyle.dp4,
                     borderColor: AppStyle.dp4,
-                    onPressed: () => Navigator.pop(context, exercises),
+                    onPressed: () =>
+                        Navigator.pop(context, model.getExercises()),
                   ),
                 ],
               );

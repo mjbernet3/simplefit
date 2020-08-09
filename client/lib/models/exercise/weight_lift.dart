@@ -34,12 +34,13 @@ class WeightLift extends ExerciseData {
   }
 
   factory WeightLift.fromJson(Map<String, dynamic> exerciseData) {
-    List<dynamic> setList = exerciseData['sets'] as List;
+    Exercise exercise = Exercise.fromJson(exerciseData['exercise']);
 
+    List<dynamic> setList = exerciseData['sets'] as List;
     List<LiftSet> sets = setList.map((set) => LiftSet.fromJson(set)).toList();
 
     return WeightLift(
-      exercise: exerciseData['exercise'],
+      exercise: exercise,
       notes: exerciseData['notes'],
       isWarmUp: exerciseData['isWarmUp'],
       sets: sets,
@@ -50,7 +51,7 @@ class WeightLift extends ExerciseData {
     List<dynamic> setList = sets.map((set) => set.toJson()).toList();
 
     return {
-      'exercise': exercise,
+      'exercise': exercise.toJson(),
       'notes': notes,
       'isWarmUp': isWarmUp,
       'sets': setList,
