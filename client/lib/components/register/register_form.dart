@@ -96,9 +96,10 @@ class _RegisterFormState extends State<RegisterForm> {
 
       setState(() => _isLoading = true);
       Response response = await authService.register(authInfo);
-      setState(() => _isLoading = false);
 
       if (response.status == Status.FAILURE) {
+        setState(() => _isLoading = false);
+
         Scaffold.of(context).showSnackBar(
           SnackBar(
             content: Text(

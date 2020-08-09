@@ -84,9 +84,10 @@ class _LoginFormState extends State<LoginForm> {
 
       setState(() => _isLoading = true);
       Response response = await authService.signIn(authInfo);
-      setState(() => _isLoading = false);
 
       if (response.status == Status.FAILURE) {
+        setState(() => _isLoading = false);
+
         Scaffold.of(context).showSnackBar(
           SnackBar(
             content: Text(
