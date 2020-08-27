@@ -20,23 +20,23 @@ export const deleteUserProfile = functions.auth.user().onDelete(async (user) => 
     }
 });
 
-exports.addWorkoutPreview = functions.firestore.document('users/{userId}/workouts/{workoutId}').onCreate(
-    async (snapshot, context) => {
-        const userId = context.params.userId;
-        const workoutId = context.params.workoutId;
-        const newWorkout = snapshot.data();
+// exports.addWorkoutPreview = functions.firestore.document('users/{userId}/workouts/{workoutId}').onCreate(
+//     async (snapshot, context) => {
+//         const userId = context.params.userId;
+//         const workoutId = context.params.workoutId;
+//         const newWorkout = snapshot.data();
 
-        let workoutPreview = {
-            id: workoutId,
-            name: newWorkout.name,
-        };
+//         let workoutPreview = {
+//             id: workoutId,
+//             name: newWorkout.name,
+//         };
 
-        try {
-            await db.collection('users').doc(userId).update({
-                workouts: admin.firestore.FieldValue.arrayUnion(workoutPreview),
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    }
-);
+//         try {
+//             await db.collection('users').doc(userId).update({
+//                 workouts: admin.firestore.FieldValue.arrayUnion(workoutPreview),
+//             });
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     }
+// );
