@@ -12,7 +12,7 @@ class WorkoutService {
 
   Future<Response> createWorkout(Workout workout) async {
     try {
-      await _workoutCollection.add(workout.toJson());
+      // await _workoutCollection.add(workout.toJson());
 
       return Response(status: Status.SUCCESS);
     } catch (error) {
