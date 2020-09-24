@@ -43,34 +43,25 @@ class ChosenExerciseCard extends StatelessWidget {
               shadowColor: AppStyle.backgroundColor,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          exerciseData.exercise.name,
-                          style: TextStyle(
-                            color: AppStyle.highEmphasisText,
-                            fontSize: 16.0,
-                          ),
-                        ),
-                        SizedBox(height: 5.0),
-                        Text(
-                          exerciseData.exercise.bodyPart ??
-                              exerciseData.exercise.type,
-                          style: TextStyle(
-                            color: AppStyle.medEmphasisText,
-                            fontSize: 12.0,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      exerciseData.exercise.name,
+                      style: TextStyle(
+                        color: AppStyle.highEmphasisText,
+                        fontSize: 16.0,
+                      ),
                     ),
-                    isEditing
-                        ? Icon(Icons.drag_handle,
-                            color: AppStyle.medEmphasisText)
-                        : SizedBox.shrink(),
+                    SizedBox(height: 5.0),
+                    Text(
+                      exerciseData.exercise.bodyPart ??
+                          exerciseData.exercise.type,
+                      style: TextStyle(
+                        color: AppStyle.medEmphasisText,
+                        fontSize: 12.0,
+                      ),
+                    ),
                   ],
                 ),
               ),

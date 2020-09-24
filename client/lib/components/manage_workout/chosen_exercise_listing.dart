@@ -16,76 +16,130 @@ class ChosenExerciseListing extends StatefulWidget {
 
 class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
   bool isEditing = false;
+  IconData listIcon = Icons.edit;
 
   @override
   Widget build(BuildContext context) {
     ManageWorkoutModel model =
         Provider.of<ManageWorkoutModel>(context, listen: false);
-    return Column(
-      children: <Widget>[
-        Align(
-          alignment: Alignment.center,
-          child: Text(
-            'Exercises',
-            style: TextStyle(
-              fontSize: 18.0,
-              color: AppStyle.highEmphasisText,
-            ),
-          ),
-        ),
-        AppDivider(),
-        Expanded(
-          child: ListView(
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  StreamBuilder<List<ExerciseData>>(
-                    stream: model.exerciseStream,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<ExerciseData> exercises = snapshot.data;
-
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: exercises.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            ExerciseData currentExercise = exercises[index];
-
-                            return ChosenExerciseCard(
-                              exerciseData: currentExercise,
-                              onPressed: () =>
-                                  _detailExercise(currentExercise, index),
-                              onRemovePressed: () =>
-                                  model.removeExerciseAt(index),
-                              isEditing: isEditing,
-                            );
-                          },
-                        );
-                      }
-
-                      return Container();
-                    },
+    return StreamBuilder<List<ExerciseData>>(
+      stream: model.exerciseStream,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'Exercises',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    color: AppStyle.highEmphasisText,
                   ),
-                  RoundedButton(
-                    buttonText: Text(
-                      'Add Exercise',
-                      style: TextStyle(
-                        color: AppStyle.highEmphasisText,
-                      ),
+                ),
+              ),
+              AppDivider(),
+              RoundedButton(
+                buttonText: Text(
+                  'Add Exercise',
+                  style: TextStyle(
+                    color: AppStyle.highEmphasisText,
+                  ),
+                ),
+                height: 30.0,
+                color: AppStyle.dp4,
+                borderColor: AppStyle.dp4,
+                onPressed: () => _browseExercises(),
+              ),
+            ],
+          );
+        }
+
+        List<ExerciseData> exercises = snapshot.data;
+
+        return Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Exercises',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: AppStyle.highEmphasisText,
                     ),
-                    height: 30.0,
-                    color: AppStyle.dp4,
-                    borderColor: AppStyle.dp4,
-                    onPressed: () => _browseExercises(),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () => setState(
+                          () => {
+                            if (isEditing)
+                              {
+                                listIcon = Icons.edit,
+                              }
+                            else
+                              {
+                                listIcon = Icons.check,
+                              },
+                            isEditing = !isEditing
+                          },
+                        ),
+                        child: Container(
+                          height: 24.0,
+                          width: 24.0,
+                          child: Icon(
+                            listIcon,
+                            color: AppStyle.highEmphasisText,
+                            size: 20.0,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 8.0),
+                      !isEditing
+                          ? GestureDetector(
+                              onTap: () => _browseExercises(),
+                              child: Icon(
+                                Icons.add,
+                                color: AppStyle.highEmphasisText,
+                              ),
+                            )
+                          : SizedBox.shrink(),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
-      ],
+            ),
+            AppDivider(),
+            Expanded(
+              child: ListView(
+                children: <Widget>[
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: exercises.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      ExerciseData currentExercise = exercises[index];
+
+                      return ChosenExerciseCard(
+                        key: ObjectKey(currentExercise),
+                        exerciseData: currentExercise,
+                        onPressed: () =>
+                            _detailExercise(currentExercise, index),
+                        onRemovePressed: () => model.removeExerciseAt(index),
+                        isEditing: isEditing,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
