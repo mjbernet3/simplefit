@@ -47,7 +47,7 @@ class Router {
           builder: (context) => Provider<ManageWorkoutModel>(
             create: (context) => ManageWorkoutModel(),
             dispose: (context, model) => model.dispose(),
-            child: ManageWorkoutPage(),
+            child: ManageWorkoutPage(preview: routeSettings.arguments),
           ),
         );
       case startWorkout:

@@ -20,6 +20,29 @@ class WorkoutService {
     }
   }
 
+  Future<Response> updateWorkout(Workout workout) async {
+    try {
+      await _workoutCollection.document(workout.id).setData(workout.toJson());
+
+      return Response(status: Status.SUCCESS);
+    } catch (error) {
+      return Response(status: Status.FAILURE, message: error.toString());
+    }
+  }
+
+  Future<Response> getWorkout(String workoutId) async {
+    try {
+      DocumentSnapshot workoutSnap =
+          await _workoutCollection.document(workoutId).get();
+
+      Workout workout = Workout.fromSnapshot(workoutSnap);
+
+      return Response(status: Status.SUCCESS, data: workout);
+    } catch (error) {
+      return Response(status: Status.FAILURE, message: error.toString());
+    }
+  }
+
   Future<Response> removeWorkout(String workoutId) async {
     try {
       await _workoutCollection.document(workoutId).delete();

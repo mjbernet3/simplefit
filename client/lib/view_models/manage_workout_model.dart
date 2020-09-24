@@ -15,6 +15,12 @@ class ManageWorkoutModel extends ViewModel {
     return _exercises;
   }
 
+  void setExercises(List<ExerciseData> exercises) {
+    _exercises = exercises;
+
+    _exerciseController.sink.add(_exercises);
+  }
+
   void initExercises(List<Exercise> exercises) {
     for (Exercise exercise in exercises) {
       ExerciseData newExerciseData = ExerciseData.initial(exercise);
