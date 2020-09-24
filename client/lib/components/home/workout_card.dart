@@ -23,13 +23,11 @@ class WorkoutCard extends StatelessWidget {
         isEditing
             ? Expanded(
                 flex: 1,
-                child: Center(
-                  child: GestureDetector(
-                    onTap: onRemovePressed,
-                    child: Icon(
-                      Icons.remove_circle,
-                      color: AppStyle.dangerColor,
-                    ),
+                child: GestureDetector(
+                  onTap: onRemovePressed,
+                  child: Icon(
+                    Icons.remove_circle,
+                    color: AppStyle.dangerColor,
                   ),
                 ),
               )
@@ -53,10 +51,6 @@ class WorkoutCard extends StatelessWidget {
                         fontSize: 16.0,
                       ),
                     ),
-                    isEditing
-                        ? Icon(Icons.drag_handle,
-                            color: AppStyle.medEmphasisText)
-                        : SizedBox.shrink(),
                   ],
                 ),
               ),

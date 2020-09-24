@@ -38,26 +38,44 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         actions: <Widget>[
-          PopupMenuButton<PopupChoice>(
-            icon: Icon(Icons.more_vert),
-            color: AppStyle.dp2,
-            onSelected: (PopupChoice value) => _handleChoice(value, context),
-            itemBuilder: (BuildContext context) =>
-                <PopupMenuEntry<PopupChoice>>[
-              PopupMenuItem<PopupChoice>(
-                value: PopupChoice.ADD,
-                child: Text('Add Workout'),
-              ),
-              PopupMenuItem<PopupChoice>(
-                value: PopupChoice.EDIT,
-                child: Text('Edit Workout'),
-              ),
-              PopupMenuItem<PopupChoice>(
-                value: PopupChoice.SETTINGS,
-                child: Text('Settings'),
-              ),
-            ],
-          ),
+          !isEditing
+              ? PopupMenuButton<PopupChoice>(
+                  icon: Icon(Icons.more_vert),
+                  color: AppStyle.dp2,
+                  onSelected: (PopupChoice value) =>
+                      _handleChoice(value, context),
+                  itemBuilder: (BuildContext context) =>
+                      <PopupMenuEntry<PopupChoice>>[
+                    PopupMenuItem<PopupChoice>(
+                      value: PopupChoice.ADD,
+                      child: Text('Add Workout'),
+                    ),
+                    PopupMenuItem<PopupChoice>(
+                      value: PopupChoice.EDIT,
+                      child: Text('Edit Workout'),
+                    ),
+                    PopupMenuItem<PopupChoice>(
+                      value: PopupChoice.SETTINGS,
+                      child: Text('Settings'),
+                    ),
+                  ],
+                )
+              : Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
+                  child: GestureDetector(
+                    onTap: () => setState(() => isEditing = !isEditing),
+                    child: Container(
+                      height: 24.0,
+                      width: 24.0,
+                      child: Icon(
+                        Icons.check,
+                        color: AppStyle.highEmphasisText,
+                        size: 20.0,
+                      ),
+                    ),
+                  ),
+                ),
         ],
       ),
       body: SafeArea(
@@ -67,32 +85,33 @@ class _HomePageState extends State<HomePage> {
             stream: _profileService.userData,
             builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
               if (snapshot.hasData) {
-                final List<WorkoutPreview> _workouts = snapshot.data.workouts;
+                List<WorkoutPreview> _workouts = snapshot.data.workouts;
 
-                return ReorderableListView(
-                  children: _workouts
-                      .map(
-                        (workout) => WorkoutCard(
-                          key: ObjectKey(workout),
-                          isEditing: isEditing,
-                          onPressed: () => {
-                            if (!isEditing)
-                              {
-                                // Go start the workout
-                              }
-                            else
-                              {
-                                // Go edit the workout
-                              }
-                          },
-                          onRemovePressed: () => _removeWorkout(workout),
-                          workoutPreview: workout,
-                        ),
-                      )
-                      .toList(),
-                  onReorder: (int oldIndex, int newIndex) {
-                    print(oldIndex);
-                    print(newIndex);
+                return ListView.builder(
+                  itemCount: _workouts.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    WorkoutPreview _currentWorkout = _workouts[index];
+
+                    return WorkoutCard(
+                      key: ObjectKey(_currentWorkout),
+                      isEditing: isEditing,
+                      onPressed: () => {
+                        if (!isEditing)
+                          {
+                            Navigator.pushNamed(context, Router.startWorkout),
+                          }
+                        else
+                          {
+                            Navigator.pushNamed(
+                              context,
+                              Router.manageWorkout,
+                              arguments: _currentWorkout,
+                            ),
+                          }
+                      },
+                      onRemovePressed: () => _removeWorkout(_currentWorkout),
+                      workoutPreview: _currentWorkout,
+                    );
                   },
                 );
               }
@@ -109,7 +128,7 @@ class _HomePageState extends State<HomePage> {
   void _handleChoice(PopupChoice choice, BuildContext context) {
     switch (choice) {
       case PopupChoice.ADD:
-        Navigator.pushNamed(context, Router.createWorkout);
+        Navigator.pushNamed(context, Router.manageWorkout);
         break;
       case PopupChoice.EDIT:
         setState(() => isEditing = !isEditing);

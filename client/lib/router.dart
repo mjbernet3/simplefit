@@ -10,6 +10,7 @@ import 'package:client/pages/home_page.dart';
 import 'package:client/pages/login_page.dart';
 import 'package:client/pages/register_page.dart';
 import 'package:client/pages/settings_page.dart';
+import 'package:client/pages/start_workout_page.dart';
 import 'package:client/pages/unknown_page.dart';
 import 'package:client/pages/welcome_page.dart';
 import 'package:client/view_models/exercise_browse_model.dart';
@@ -24,7 +25,8 @@ class Router {
   static const String welcome = '/welcome';
   static const String register = '/register';
   static const String login = '/login';
-  static const String createWorkout = '/workouts/create';
+  static const String manageWorkout = '/workouts/create';
+  static const String startWorkout = '/workouts/start';
   static const String manageExercise = '/exercises/manage';
   static const String exerciseDetail = '/exercises/detail';
   static const String browser = '/browser';
@@ -40,7 +42,7 @@ class Router {
         return MaterialPageRoute(builder: (context) => RegisterPage());
       case login:
         return MaterialPageRoute(builder: (context) => LoginPage());
-      case createWorkout:
+      case manageWorkout:
         return MaterialPageRoute(
           builder: (context) => Provider<ManageWorkoutModel>(
             create: (context) => ManageWorkoutModel(),
@@ -48,6 +50,8 @@ class Router {
             child: ManageWorkoutPage(),
           ),
         );
+      case startWorkout:
+        return MaterialPageRoute(builder: (context) => StartWorkoutPage());
       case exerciseDetail:
         return MaterialPageRoute<ExerciseData>(
           builder: (context) =>
