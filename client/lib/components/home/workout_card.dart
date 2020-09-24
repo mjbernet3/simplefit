@@ -42,7 +42,7 @@ class WorkoutCard extends StatelessWidget {
               color: AppStyle.dp3,
               shadowColor: AppStyle.backgroundColor,
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
+                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 14.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[

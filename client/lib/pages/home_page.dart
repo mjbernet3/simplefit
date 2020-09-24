@@ -3,8 +3,9 @@ import 'package:client/components/home/workout_card.dart';
 import 'package:client/models/user/user_data.dart';
 import 'package:client/models/workout/workout_preview.dart';
 import 'package:client/router.dart';
-import 'package:client/services/auth_service.dart';
 import 'package:client/services/profile_service.dart';
+import 'package:client/services/workout_service.dart';
+import 'package:client/utils/structures/response.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,14 @@ enum PopupChoice {
   SETTINGS,
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool isEditing = false;
+
   @override
   Widget build(BuildContext context) {
     ProfileService _profileService =
@@ -63,9 +71,29 @@ class HomePage extends StatelessWidget {
 
                 return ReorderableListView(
                   children: _workouts
-                      .map((workout) => WorkoutCard(workoutPreview: workout))
+                      .map(
+                        (workout) => WorkoutCard(
+                          key: ObjectKey(workout),
+                          isEditing: isEditing,
+                          onPressed: () => {
+                            if (!isEditing)
+                              {
+                                // Go start the workout
+                              }
+                            else
+                              {
+                                // Go edit the workout
+                              }
+                          },
+                          onRemovePressed: () => _removeWorkout(workout),
+                          workoutPreview: workout,
+                        ),
+                      )
                       .toList(),
-                  onReorder: (int oldIndex, int newIndex) {},
+                  onReorder: (int oldIndex, int newIndex) {
+                    print(oldIndex);
+                    print(newIndex);
+                  },
                 );
               }
 
@@ -84,13 +112,22 @@ class HomePage extends StatelessWidget {
         Navigator.pushNamed(context, Router.createWorkout);
         break;
       case PopupChoice.EDIT:
-        AuthService authService =
-            Provider.of<AuthService>(context, listen: false);
-        authService.signOut();
+        setState(() => isEditing = !isEditing);
         break;
       case PopupChoice.SETTINGS:
         Navigator.pushNamed(context, Router.settings);
         break;
+    }
+  }
+
+  void _removeWorkout(WorkoutPreview workout) async {
+    WorkoutService workoutService =
+        Provider.of<WorkoutService>(context, listen: false);
+
+    Response response = await workoutService.removeWorkout(workout.id);
+
+    if (response.status == Status.FAILURE) {
+      //TODO: Show backend error
     }
   }
 }
