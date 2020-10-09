@@ -1,6 +1,6 @@
 class WorkoutPreview {
   final String id;
-  final String name;
+  String name;
 
   WorkoutPreview({
     this.id,
@@ -12,5 +12,12 @@ class WorkoutPreview {
       id: workoutData['id'],
       name: workoutData['name'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+    };
   }
 }

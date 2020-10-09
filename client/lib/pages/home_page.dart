@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
     WorkoutService workoutService =
         Provider.of<WorkoutService>(context, listen: false);
 
-    Response response = await workoutService.removeWorkout(workout.id);
+    Response response = await workoutService.removeWorkout(workout);
 
     if (response.status == Status.FAILURE) {
       //TODO: Show backend error
