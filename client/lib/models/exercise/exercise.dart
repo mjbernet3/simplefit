@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Exercise {
-  String id;
+  final String id;
   String name;
   String type;
   String bodyPart;

@@ -76,6 +76,10 @@ class AuthService {
   Future<Response> signOut() async {
     try {
       await _auth.signOut();
+
+      return Response(status: Status.SUCCESS);
+    } on PlatformException catch (error) {
+      return Response(status: Status.FAILURE, message: error.message);
     } catch (error) {
       return Response(
           status: Status.FAILURE, message: 'Unable to sign out of application');

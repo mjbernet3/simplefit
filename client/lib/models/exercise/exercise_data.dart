@@ -5,7 +5,7 @@ import 'package:client/models/exercise/weight_lift.dart';
 import 'package:client/utils/constant.dart';
 
 abstract class ExerciseData {
-  Exercise exercise;
+  final Exercise exercise;
   String notes;
   bool isWarmUp;
 

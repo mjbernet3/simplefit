@@ -33,10 +33,12 @@ class UserData {
   }
 
   Map<String, dynamic> toJson() {
+    List<dynamic> workoutList = workouts.map((prev) => prev.toJson()).toList();
+
     return {
       'username': username,
       'workoutCount': workoutCount,
-      'workouts': workouts,
+      'workouts': workoutList,
     };
   }
 }

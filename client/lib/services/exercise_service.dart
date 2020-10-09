@@ -4,9 +4,8 @@ import 'package:client/models/exercise/exercise.dart';
 
 class ExerciseService {
   final CollectionReference _exerciseCollection;
-  final String _userId;
 
-  ExerciseService(this._userId)
+  ExerciseService(_userId)
       : _exerciseCollection =
             Firestore.instance.collection('users/$_userId/exercises');
 

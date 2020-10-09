@@ -2,10 +2,9 @@ import 'package:client/models/user/user_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfileService {
+  final String _userId;
   final CollectionReference _userCollection =
       Firestore.instance.collection('users');
-
-  final String _userId;
 
   ProfileService(this._userId);
 

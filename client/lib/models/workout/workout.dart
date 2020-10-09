@@ -2,7 +2,7 @@ import 'package:client/models/exercise/exercise_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Workout {
-  String id;
+  final String id;
   String name;
   String notes;
   List<ExerciseData> exercises;

@@ -25,7 +25,7 @@ class Router {
   static const String welcome = '/welcome';
   static const String register = '/register';
   static const String login = '/login';
-  static const String manageWorkout = '/workouts/create';
+  static const String manageWorkout = '/workouts/manage';
   static const String startWorkout = '/workouts/start';
   static const String manageExercise = '/exercises/manage';
   static const String exerciseDetail = '/exercises/detail';

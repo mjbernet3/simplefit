@@ -83,16 +83,16 @@ class WorkoutService {
     }
   }
 
-  Future<Response> removeWorkout(WorkoutPreview workout) async {
+  Future<Response> removeWorkout(WorkoutPreview preview) async {
     try {
       final DocumentReference workoutRef =
-          _workoutCollection.document(workout.id);
+          _workoutCollection.document(preview.id);
 
       WriteBatch batch = Firestore.instance.batch();
       batch.delete(workoutRef);
 
       batch.updateData(_userRef, {
-        'workouts': FieldValue.arrayRemove([workout.toJson()])
+        'workouts': FieldValue.arrayRemove([preview.toJson()])
       });
 
       await batch.commit();
