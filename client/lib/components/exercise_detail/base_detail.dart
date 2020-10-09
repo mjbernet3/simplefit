@@ -1,18 +1,17 @@
 import 'package:client/app_style.dart';
+import 'package:client/components/exercise_detail/warm_up_check.dart';
+import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/input_field.dart';
-import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:flutter/material.dart';
 
 class BaseDetail extends StatefulWidget {
   final ExerciseData exerciseData;
-  final StreamBuilder<bool> warmUpCheck;
   final Widget child;
 
   BaseDetail({
     this.exerciseData,
-    this.warmUpCheck,
     this.child,
   });
 
@@ -22,17 +21,14 @@ class BaseDetail extends StatefulWidget {
 
 class _BaseDetailState extends State<BaseDetail> {
   TextEditingController _notesController;
+  bool _isWarmUp;
 
   @override
   void initState() {
     super.initState();
     _notesController = TextEditingController();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
     _notesController.text = widget.exerciseData.notes;
+    _isWarmUp = widget.exerciseData.isWarmUp;
   }
 
   @override
@@ -68,7 +64,10 @@ class _BaseDetailState extends State<BaseDetail> {
             SizedBox(
               height: 15.0,
               width: 15.0,
-              child: widget.warmUpCheck,
+              child: WarmUpCheck(
+                initialValue: _isWarmUp,
+                onChanged: (value) => _isWarmUp = value,
+              ),
             ),
           ],
         ),
@@ -76,38 +75,12 @@ class _BaseDetailState extends State<BaseDetail> {
         AppDivider(),
         SizedBox(height: 14.0),
         widget.child,
-        Column(
-          children: <Widget>[
-            AppDivider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                RoundedButton(
-                  buttonText: Text(
-                    'Cancel',
-                    style: TextStyle(color: AppStyle.highEmphasisText),
-                  ),
-                  height: 30.0,
-                  color: AppStyle.dp4,
-                  borderColor: AppStyle.dp4,
-                  onPressed: () => Navigator.pop(context),
-                ),
-                RoundedButton(
-                  buttonText: Text(
-                    'Save Changes',
-                    style: TextStyle(color: AppStyle.highEmphasisText),
-                  ),
-                  height: 30.0,
-                  color: AppStyle.dp4,
-                  borderColor: AppStyle.dp4,
-                  onPressed: () => {
-                    widget.exerciseData.notes = _notesController.text,
-                    Navigator.pop(context, widget.exerciseData),
-                  },
-                ),
-              ],
-            ),
-          ],
+        ActionButtons(
+          onConfirmed: () => {
+            widget.exerciseData.notes = _notesController.text,
+            widget.exerciseData.isWarmUp = _isWarmUp,
+            Navigator.pop(context, widget.exerciseData),
+          },
         ),
       ],
     );

@@ -20,7 +20,7 @@ class LiftSetRow extends StatelessWidget {
   Widget build(BuildContext context) {
     LiftDetailModel model =
         Provider.of<LiftDetailModel>(context, listen: false);
-    List<LiftSet> sets = model.liftData.sets;
+    List<LiftSet> sets = model.getSets();
 
     return Row(
       children: <Widget>[

@@ -1,4 +1,5 @@
 import 'package:client/app_style.dart';
+import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/manage_exercise/exercise_dropdown.dart';
 import 'package:client/components/shared/input_field.dart';
@@ -89,37 +90,10 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
               ],
             ),
           ),
-          Column(
-            children: <Widget>[
-              AppDivider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  RoundedButton(
-                    buttonText: Text(
-                      'Cancel',
-                      style: TextStyle(color: AppStyle.highEmphasisText),
-                    ),
-                    height: 30.0,
-                    color: AppStyle.dp4,
-                    borderColor: AppStyle.dp4,
-                    disabled: _isLoading,
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  RoundedButton(
-                    buttonText: Text(
-                      widget.isEdit ? 'Update Exercise' : 'Create Exercise',
-                      style: TextStyle(color: AppStyle.highEmphasisText),
-                    ),
-                    height: 30.0,
-                    color: AppStyle.dp4,
-                    borderColor: AppStyle.dp4,
-                    disabled: _isLoading,
-                    onPressed: () => _manageExercise(),
-                  ),
-                ],
-              ),
-            ],
+          ActionButtons(
+            confirmText: widget.isEdit ? 'Update Exercise' : 'Create Exercise',
+            disabled: _isLoading,
+            onConfirmed: () => _manageExercise(),
           ),
         ],
       ),
@@ -133,7 +107,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
 
       String exerciseName = _nameController.text;
       if (exerciseName.isEmpty) {
-        exerciseName = 'My Workout';
+        exerciseName = 'My Exercise';
       }
 
       Exercise newExercise = Exercise(

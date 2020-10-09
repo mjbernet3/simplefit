@@ -12,7 +12,7 @@ enum PopupChoice {
 class SetOptions extends StatefulWidget {
   final int index;
 
-  SetOptions({this.index});
+  const SetOptions({this.index});
 
   @override
   _SetOptionsState createState() => _SetOptionsState();
@@ -26,7 +26,7 @@ class _SetOptionsState extends State<SetOptions> {
     super.didChangeDependencies();
     LiftDetailModel model =
         Provider.of<LiftDetailModel>(context, listen: false);
-    List<LiftSet> sets = model.liftData.sets;
+    List<LiftSet> sets = model.getSets();
 
     isWarmUp = sets[widget.index].isWarmUp;
   }
@@ -68,16 +68,16 @@ class _SetOptionsState extends State<SetOptions> {
   void _handleChoice(PopupChoice choice, BuildContext context) {
     LiftDetailModel model =
         Provider.of<LiftDetailModel>(context, listen: false);
-    List<LiftSet> sets = model.liftData.sets;
+    List<LiftSet> sets = model.getSets();
 
     switch (choice) {
-      case PopupChoice.REMOVE:
-        model.removeSet(widget.index);
-        break;
       case PopupChoice.WARM_UP:
         sets[widget.index].isWarmUp = !isWarmUp;
 
         setState(() => isWarmUp = !isWarmUp);
+        break;
+      case PopupChoice.REMOVE:
+        model.removeSetAt(widget.index);
         break;
       default:
         break;

@@ -3,34 +3,22 @@ import 'package:client/components/exercise_detail/base_detail.dart';
 import 'package:client/components/exercise_detail/lift_set_row.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/lift_set.dart';
+import 'package:client/models/exercise/weight_lift.dart';
 import 'package:client/view_models/lift_detail_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LiftDetail extends StatelessWidget {
+  final WeightLift liftData;
+
+  const LiftDetail(this.liftData);
+
   @override
   Widget build(BuildContext context) {
     LiftDetailModel model =
         Provider.of<LiftDetailModel>(context, listen: false);
     return BaseDetail(
-      exerciseData: model.liftData,
-      warmUpCheck: StreamBuilder<bool>(
-        stream: model.warmUpStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            bool isWarmUp = snapshot.data;
-
-            return Checkbox(
-              activeColor: AppStyle.primaryColor,
-              checkColor: AppStyle.backgroundColor,
-              value: isWarmUp,
-              onChanged: (_) => model.toggleWarmUp(),
-            );
-          }
-
-          return Container();
-        },
-      ),
+      exerciseData: liftData,
       child: StreamBuilder<List<LiftSet>>(
         stream: model.setStream,
         builder: (context, snapshot) {

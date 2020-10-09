@@ -1,8 +1,6 @@
-import 'package:client/app_style.dart';
 import 'package:client/components/manage_workout/chosen_exercise_listing.dart';
-import 'package:client/components/shared/app_divider.dart';
+import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/input_field.dart';
-import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/workout/workout.dart';
 import 'package:client/models/workout/workout_preview.dart';
 import 'package:client/services/workout_service.dart';
@@ -83,37 +81,9 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
                 Expanded(
                   child: ChosenExerciseListing(),
                 ),
-                Column(
-                  children: <Widget>[
-                    AppDivider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        RoundedButton(
-                          buttonText: Text(
-                            'Cancel',
-                            style: TextStyle(color: AppStyle.highEmphasisText),
-                          ),
-                          height: 30.0,
-                          color: AppStyle.dp4,
-                          borderColor: AppStyle.dp4,
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        RoundedButton(
-                          buttonText: Text(
-                            'Save Changes',
-                            style: TextStyle(color: AppStyle.highEmphasisText),
-                          ),
-                          height: 30.0,
-                          color: AppStyle.dp4,
-                          borderColor: AppStyle.dp4,
-                          onPressed: () => widget.isEdit
-                              ? _updateWorkout()
-                              : _createWorkout(),
-                        ),
-                      ],
-                    ),
-                  ],
+                ActionButtons(
+                  onConfirmed: () =>
+                      widget.isEdit ? _updateWorkout() : _createWorkout(),
                 ),
               ],
             );

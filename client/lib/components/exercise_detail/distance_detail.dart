@@ -1,34 +1,17 @@
-import 'package:client/app_style.dart';
 import 'package:client/components/exercise_detail/base_detail.dart';
 import 'package:client/components/exercise_detail/detail_card.dart';
-import 'package:client/view_models/distance_detail_model.dart';
+import 'package:client/models/exercise/distance_cardio.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class DistanceDetail extends StatelessWidget {
+  final DistanceCardio distanceData;
+
+  const DistanceDetail(this.distanceData);
+
   @override
   Widget build(BuildContext context) {
-    DistanceDetailModel model =
-        Provider.of<DistanceDetailModel>(context, listen: false);
     return BaseDetail(
-      exerciseData: model.distanceData,
-      warmUpCheck: StreamBuilder<bool>(
-        stream: model.warmUpStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            bool isWarmUp = snapshot.data;
-
-            return Checkbox(
-              activeColor: AppStyle.primaryColor,
-              checkColor: AppStyle.backgroundColor,
-              value: isWarmUp,
-              onChanged: (_) => model.toggleWarmUp(),
-            );
-          }
-
-          return Container();
-        },
-      ),
+      exerciseData: distanceData,
       child: Expanded(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -37,27 +20,27 @@ class DistanceDetail extends StatelessWidget {
             children: <Widget>[
               DetailCard(
                 text: 'Cardio Distance:',
-                initialValue: model.distanceData.distance.toString(),
+                initialValue: distanceData.distance.toString(),
                 onChanged: (String value) =>
-                    model.distanceData.distance = double.parse(value),
+                    distanceData.distance = double.parse(value),
               ),
               DetailCard(
                 text: 'Cardio Speed:',
-                initialValue: model.distanceData.speed.toString(),
+                initialValue: distanceData.speed.toString(),
                 onChanged: (String value) =>
-                    model.distanceData.speed = double.parse(value),
+                    distanceData.speed = double.parse(value),
               ),
               DetailCard(
                 text: 'Post-Cardio Rest: ',
-                initialValue: model.distanceData.rest.toString(),
+                initialValue: distanceData.rest.toString(),
                 onChanged: (String value) =>
-                    model.distanceData.rest = int.parse(value),
+                    distanceData.rest = int.parse(value),
               ),
               DetailCard(
                 text: 'Times to Repeat:',
-                initialValue: model.distanceData.repeat.toString(),
+                initialValue: distanceData.repeat.toString(),
                 onChanged: (String value) =>
-                    model.distanceData.repeat = int.parse(value),
+                    distanceData.repeat = int.parse(value),
               ),
             ],
           ),

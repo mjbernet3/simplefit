@@ -1,34 +1,17 @@
-import 'package:client/app_style.dart';
 import 'package:client/components/exercise_detail/base_detail.dart';
 import 'package:client/components/exercise_detail/detail_card.dart';
-import 'package:client/view_models/timed_detail_model.dart';
+import 'package:client/models/exercise/timed_cardio.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class TimedDetail extends StatelessWidget {
+  final TimedCardio timedData;
+
+  const TimedDetail(this.timedData);
+
   @override
   Widget build(BuildContext context) {
-    TimedDetailModel model =
-        Provider.of<TimedDetailModel>(context, listen: false);
     return BaseDetail(
-      exerciseData: model.timedData,
-      warmUpCheck: StreamBuilder<bool>(
-        stream: model.warmUpStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            bool isWarmUp = snapshot.data;
-
-            return Checkbox(
-              activeColor: AppStyle.primaryColor,
-              checkColor: AppStyle.backgroundColor,
-              value: isWarmUp,
-              onChanged: (_) => model.toggleWarmUp(),
-            );
-          }
-
-          return Container();
-        },
-      ),
+      exerciseData: timedData,
       child: Expanded(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -37,27 +20,25 @@ class TimedDetail extends StatelessWidget {
             children: <Widget>[
               DetailCard(
                 text: 'Cardio Time:',
-                initialValue: model.timedData.time.toString(),
-                onChanged: (String value) =>
-                    model.timedData.time = int.parse(value),
+                initialValue: timedData.time.toString(),
+                onChanged: (String value) => timedData.time = int.parse(value),
               ),
               DetailCard(
                 text: 'Cardio Speed:',
-                initialValue: model.timedData.speed.toString(),
+                initialValue: timedData.speed.toString(),
                 onChanged: (String value) =>
-                    model.timedData.speed = double.parse(value),
+                    timedData.speed = double.parse(value),
               ),
               DetailCard(
                 text: 'Post-Cardio Rest: ',
-                initialValue: model.timedData.rest.toString(),
-                onChanged: (String value) =>
-                    model.timedData.rest = int.parse(value),
+                initialValue: timedData.rest.toString(),
+                onChanged: (String value) => timedData.rest = int.parse(value),
               ),
               DetailCard(
                 text: 'Times to Repeat:',
-                initialValue: model.timedData.repeat.toString(),
+                initialValue: timedData.repeat.toString(),
                 onChanged: (String value) =>
-                    model.timedData.repeat = int.parse(value),
+                    timedData.repeat = int.parse(value),
               ),
             ],
           ),
