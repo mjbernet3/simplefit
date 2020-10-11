@@ -1,11 +1,13 @@
 import 'package:client/app_style.dart';
 import 'package:client/components/home/workout_card.dart';
 import 'package:client/models/user/user_data.dart';
+import 'package:client/models/workout/workout.dart';
 import 'package:client/models/workout/workout_preview.dart';
 import 'package:client/router.dart';
 import 'package:client/services/profile_service.dart';
 import 'package:client/services/workout_service.dart';
 import 'package:client/utils/structures/response.dart';
+import 'package:client/view_models/progress_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -98,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () => {
                         if (!isEditing)
                           {
-                            Navigator.pushNamed(context, Router.startWorkout),
+                            _startWorkout(_currentWorkout),
                           }
                         else
                           {
@@ -139,11 +141,26 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _removeWorkout(WorkoutPreview workout) async {
+  void _startWorkout(WorkoutPreview preview) async {
+    ProgressModel model = Provider.of<ProgressModel>(context, listen: false);
+
+    Response response = await model.initWorkout(preview.id);
+
+    if (response.status == Status.FAILURE) {
+      print(response.message);
+      //TODO: Show backend error
+    } else {
+      Workout workout = response.data;
+
+      Navigator.pushNamed(context, Router.startWorkout, arguments: workout);
+    }
+  }
+
+  void _removeWorkout(WorkoutPreview preview) async {
     WorkoutService workoutService =
         Provider.of<WorkoutService>(context, listen: false);
 
-    Response response = await workoutService.removeWorkout(workout);
+    Response response = await workoutService.removeWorkout(preview);
 
     if (response.status == Status.FAILURE) {
       //TODO: Show backend error

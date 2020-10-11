@@ -51,7 +51,10 @@ class Router {
           ),
         );
       case startWorkout:
-        return MaterialPageRoute(builder: (context) => StartWorkoutPage());
+        return MaterialPageRoute(
+          builder: (context) =>
+              StartWorkoutPage(workout: routeSettings.arguments),
+        );
       case exerciseDetail:
         return MaterialPageRoute<ExerciseData>(
           builder: (context) =>
