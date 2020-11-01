@@ -7,8 +7,7 @@ import 'package:client/view_models/view_model.dart';
 
 class ProgressModel extends ViewModel {
   WorkoutService _workoutService;
-  String _workoutId;
-  List<ExerciseData> _exercises;
+  Workout _workout;
   int _index;
 
   ProgressModel({WorkoutService workoutService})
@@ -25,13 +24,27 @@ class ProgressModel extends ViewModel {
     if (response.status == Status.SUCCESS) {
       Workout workout = response.data;
 
-      _workoutId = workout.id;
-      _exercises = workout.exercises;
-      _index = 0;
-      _exerciseController.sink.add(_exercises[_index]);
+      _workout = workout;
+      _index = -1;
     }
 
     return response;
+  }
+
+  String getNotes() {
+    if (_index >= 0) {
+      return _workout.exercises[_index].notes;
+    }
+
+    return _workout.notes;
+  }
+
+  void setNotes(String notes) {
+    if (_index >= 0) {
+      _workout.exercises[_index].notes = notes;
+    } else {
+      _workout.notes = notes;
+    }
   }
 
   @override

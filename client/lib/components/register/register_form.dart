@@ -1,4 +1,4 @@
-import 'package:client/app_style.dart';
+import 'package:client/utils/app_style.dart';
 import 'package:client/components/shared/auth_input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/services/auth_service.dart';

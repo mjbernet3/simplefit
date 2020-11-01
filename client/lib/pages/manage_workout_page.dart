@@ -39,6 +39,7 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text(
           widget.isEdit ? 'Edit Workout' : 'Create Workout',

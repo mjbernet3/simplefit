@@ -1,4 +1,4 @@
-import 'package:client/app_style.dart';
+import 'package:client/utils/app_style.dart';
 import 'package:client/models/exercise/lift_set.dart';
 import 'package:client/view_models/lift_detail_model.dart';
 import 'package:flutter/material.dart';

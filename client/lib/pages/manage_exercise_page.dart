@@ -1,4 +1,4 @@
-import 'package:client/app_style.dart';
+import 'package:client/utils/app_style.dart';
 import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/manage_exercise/exercise_dropdown.dart';

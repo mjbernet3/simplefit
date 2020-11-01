@@ -1,4 +1,4 @@
-import 'package:client/app_style.dart';
+import 'package:client/utils/app_style.dart';
 import 'package:client/components/exercise_detail/warm_up_check.dart';
 import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/app_divider.dart';

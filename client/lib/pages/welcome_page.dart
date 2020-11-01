@@ -1,6 +1,6 @@
-import 'package:client/app_style.dart';
+import 'package:client/utils/app_style.dart';
 import 'package:client/components/shared/rounded_button.dart';
-import 'package:client/router.dart';
+import 'package:client/utils/router.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {

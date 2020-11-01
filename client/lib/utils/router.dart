@@ -1,13 +1,14 @@
-import 'package:client/app_style.dart';
+import 'package:client/utils/app_style.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/pages/exercise_browse_page.dart';
 import 'package:client/pages/exercise_detail_page.dart';
 import 'package:client/pages/manage_exercise_page.dart';
-import 'package:client/components/shared/large_popup.dart';
+import 'package:client/components/shared/simple_popup.dart';
 import 'package:client/pages/manage_workout_page.dart';
 import 'package:client/pages/home_page.dart';
 import 'package:client/pages/login_page.dart';
+import 'package:client/pages/notes_page.dart';
 import 'package:client/pages/register_page.dart';
 import 'package:client/pages/settings_page.dart';
 import 'package:client/pages/start_workout_page.dart';
@@ -29,6 +30,7 @@ class Router {
   static const String startWorkout = '/workouts/start';
   static const String manageExercise = '/exercises/manage';
   static const String exerciseDetail = '/exercises/detail';
+  static const String notes = '/notes';
   static const String browser = '/browser';
   static const String settings = '/settings';
 
@@ -62,8 +64,14 @@ class Router {
         );
       case settings:
         return MaterialPageRoute(builder: (context) => SettingsPage());
+      case notes:
+        return SimplePopUp<String>(
+          isAnimated: false,
+          renderBox: routeSettings.arguments,
+          builder: (context) => NotesPage(),
+        );
       case browser:
-        return LargePopUp<List<Exercise>>(
+        return SimplePopUp<List<Exercise>>(
           backgroundColor: AppStyle.backgroundColor.withOpacity(0.5),
           builder: (context) => Provider<ExerciseBrowseModel>(
             create: (context) => ExerciseBrowseModel(),
@@ -72,8 +80,8 @@ class Router {
           ),
         );
       case manageExercise:
-        return LargePopUp(
-          animationLength: 0,
+        return SimplePopUp(
+          isAnimated: false,
           builder: (context) =>
               ManageExercisePage(exercise: routeSettings.arguments),
         );

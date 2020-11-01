@@ -1,4 +1,4 @@
-import 'package:client/app_style.dart';
+import 'package:client/utils/app_style.dart';
 import 'package:client/components/exercise_detail/base_detail.dart';
 import 'package:client/components/exercise_detail/lift_set_row.dart';
 import 'package:client/components/shared/rounded_button.dart';

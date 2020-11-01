@@ -1,10 +1,10 @@
-import 'package:client/app_style.dart';
+import 'package:client/utils/app_style.dart';
 import 'package:client/components/manage_workout/chosen_exercise_card.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
-import 'package:client/router.dart';
+import 'package:client/utils/router.dart';
 import 'package:client/view_models/manage_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
