@@ -4,7 +4,7 @@ import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
-import 'package:client/utils/router.dart';
+import 'package:client/utils/app_router.dart';
 import 'package:client/view_models/manage_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -145,7 +145,7 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
 
   void _browseExercises() async {
     List<Exercise> chosenExercises =
-        await Navigator.pushNamed(context, Router.browser);
+        await Navigator.pushNamed(context, AppRouter.browser);
 
     if (chosenExercises != null) {
       ManageWorkoutModel model =
@@ -158,7 +158,7 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
   void _detailExercise(ExerciseData exercise, int position) async {
     ExerciseData newExerciseData = await Navigator.pushNamed(
       context,
-      Router.exerciseDetail,
+      AppRouter.exerciseDetail,
       arguments: exercise,
     );
 

@@ -19,7 +19,7 @@ class _RegisterFormState extends State<RegisterForm> {
   TextEditingController _usernameController;
   TextEditingController _passwordController;
   bool _isLoading = false;
-  bool _autovalidate = false;
+  AutovalidateMode _autovalidate = AutovalidateMode.disabled;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidate: _autovalidate,
+      autovalidateMode: _autovalidate,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -114,7 +114,7 @@ class _RegisterFormState extends State<RegisterForm> {
         );
       }
     } else {
-      setState(() => _autovalidate = true);
+      setState(() => _autovalidate = AutovalidateMode.always);
     }
   }
 

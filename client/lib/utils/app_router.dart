@@ -19,8 +19,8 @@ import 'package:client/view_models/manage_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Router {
-  Router._();
+class AppRouter {
+  AppRouter._();
 
   static const String home = '/';
   static const String welcome = '/welcome';

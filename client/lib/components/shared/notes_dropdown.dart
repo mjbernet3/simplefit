@@ -1,5 +1,5 @@
 import 'package:client/utils/app_style.dart';
-import 'package:client/utils/router.dart';
+import 'package:client/utils/app_router.dart';
 import 'package:flutter/material.dart';
 
 class NotesDropdown extends StatefulWidget {
@@ -49,7 +49,7 @@ class _NotesDropdownState extends State<NotesDropdown> {
     RenderBox renderBox = context.findRenderObject();
     await Navigator.pushNamed(
       context,
-      Router.notes,
+      AppRouter.notes,
       arguments: renderBox,
     );
 

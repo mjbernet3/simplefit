@@ -3,7 +3,7 @@ import 'package:client/components/home/workout_card.dart';
 import 'package:client/models/user/user_data.dart';
 import 'package:client/models/workout/workout.dart';
 import 'package:client/models/workout/workout_preview.dart';
-import 'package:client/utils/router.dart';
+import 'package:client/utils/app_router.dart';
 import 'package:client/services/profile_service.dart';
 import 'package:client/services/workout_service.dart';
 import 'package:client/utils/structures/response.dart';
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                           {
                             Navigator.pushNamed(
                               context,
-                              Router.manageWorkout,
+                              AppRouter.manageWorkout,
                               arguments: _currentWorkout,
                             ),
                           }
@@ -130,13 +130,13 @@ class _HomePageState extends State<HomePage> {
   void _handleChoice(PopupChoice choice, BuildContext context) {
     switch (choice) {
       case PopupChoice.ADD:
-        Navigator.pushNamed(context, Router.manageWorkout);
+        Navigator.pushNamed(context, AppRouter.manageWorkout);
         break;
       case PopupChoice.EDIT:
         setState(() => isEditing = !isEditing);
         break;
       case PopupChoice.SETTINGS:
-        Navigator.pushNamed(context, Router.settings);
+        Navigator.pushNamed(context, AppRouter.settings);
         break;
     }
   }
@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> {
     } else {
       Workout workout = response.data;
 
-      Navigator.pushNamed(context, Router.startWorkout, arguments: workout);
+      Navigator.pushNamed(context, AppRouter.startWorkout, arguments: workout);
     }
   }
 

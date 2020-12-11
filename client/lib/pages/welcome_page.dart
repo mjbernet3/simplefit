@@ -1,6 +1,6 @@
 import 'package:client/utils/app_style.dart';
 import 'package:client/components/shared/rounded_button.dart';
-import 'package:client/utils/router.dart';
+import 'package:client/utils/app_router.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -47,7 +47,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ),
                   onPressed: () =>
-                      Navigator.pushNamed(context, Router.register),
+                      Navigator.pushNamed(context, AppRouter.register),
                 ),
                 SizedBox(height: 8.0),
                 Row(
@@ -61,7 +61,8 @@ class WelcomePage extends StatelessWidget {
                     ),
                     SizedBox(width: 5.0),
                     GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, Router.login),
+                      onTap: () =>
+                          Navigator.pushNamed(context, AppRouter.login),
                       child: Text(
                         'Sign In',
                         style: TextStyle(

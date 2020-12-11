@@ -2,7 +2,7 @@ import 'package:client/utils/app_style.dart';
 import 'package:client/components/exercise_browse/exercise_card.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/models/exercise/exercise.dart';
-import 'package:client/utils/router.dart';
+import 'package:client/utils/app_router.dart';
 import 'package:client/services/exercise_service.dart';
 import 'package:client/utils/structures/response.dart';
 import 'package:client/view_models/exercise_browse_model.dart';
@@ -69,7 +69,7 @@ class _ExerciseListingState extends State<ExerciseListing> {
                         ? GestureDetector(
                             onTap: () => Navigator.pushNamed(
                               context,
-                              Router.manageExercise,
+                              AppRouter.manageExercise,
                             ),
                             child: Icon(
                               Icons.add,
@@ -95,7 +95,7 @@ class _ExerciseListingState extends State<ExerciseListing> {
                   onPressed: isEditing
                       ? (Exercise exercise, _) => Navigator.pushNamed(
                             context,
-                            Router.manageExercise,
+                            AppRouter.manageExercise,
                             arguments: exercise,
                           )
                       : (Exercise exercise, bool selected) {

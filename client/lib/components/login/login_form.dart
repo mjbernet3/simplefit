@@ -18,7 +18,7 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController _emailController;
   TextEditingController _passwordController;
   bool _isLoading = false;
-  bool _autovalidate = false;
+  AutovalidateMode _autovalidate = AutovalidateMode.disabled;
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidate: _autovalidate,
+      autovalidateMode: _autovalidate,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -102,7 +102,7 @@ class _LoginFormState extends State<LoginForm> {
         );
       }
     } else {
-      setState(() => _autovalidate = true);
+      setState(() => _autovalidate = AutovalidateMode.always);
     }
   }
 

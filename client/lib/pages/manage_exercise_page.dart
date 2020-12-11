@@ -1,9 +1,7 @@
 import 'package:client/utils/app_style.dart';
 import 'package:client/components/shared/action_buttons.dart';
-import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/manage_exercise/exercise_dropdown.dart';
 import 'package:client/components/shared/input_field.dart';
-import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/services/exercise_service.dart';
 import 'package:client/utils/constant.dart';
@@ -28,7 +26,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
   String _chosenType;
   String _chosenBodyPart;
   bool _isLoading = false;
-  bool _autovalidate = false;
+  AutovalidateMode _autovalidate = AutovalidateMode.disabled;
 
   @override
   void initState() {
@@ -46,7 +44,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidate: _autovalidate,
+      autovalidateMode: _autovalidate,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -139,7 +137,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
         // TODO: Handle backend error
       }
     } else {
-      setState(() => _autovalidate = true);
+      setState(() => _autovalidate = AutovalidateMode.always);
     }
   }
 }

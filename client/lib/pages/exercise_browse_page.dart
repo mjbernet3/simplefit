@@ -3,7 +3,7 @@ import 'package:client/components/exercise_browse/exercise_listing.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
-import 'package:client/utils/router.dart';
+import 'package:client/utils/app_router.dart';
 import 'package:client/services/exercise_service.dart';
 import 'package:client/view_models/exercise_browse_model.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +46,9 @@ class ExerciseBrowsePage extends StatelessWidget {
                           color: AppStyle.dp4,
                           borderColor: AppStyle.dp4,
                           onPressed: () => Navigator.pushNamed(
-                              context, Router.manageExercise),
+                            context,
+                            AppRouter.manageExercise,
+                          ),
                         ),
                       ],
                     ),

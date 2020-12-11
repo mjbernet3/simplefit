@@ -4,7 +4,7 @@ import 'package:client/components/shared/loading_indicator.dart';
 import 'package:client/models/user/user.dart';
 import 'package:client/pages/home_page.dart';
 import 'package:client/pages/welcome_page.dart';
-import 'package:client/utils/router.dart';
+import 'package:client/utils/app_router.dart';
 import 'package:client/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +30,7 @@ class SimpleFit extends StatelessWidget {
             theme: ThemeData.dark().copyWith(
               scaffoldBackgroundColor: AppStyle.backgroundColor,
             ),
-            onGenerateRoute: Router.generateRoute,
+            onGenerateRoute: AppRouter.generateRoute,
           );
         },
       ),
