@@ -2,7 +2,7 @@ import 'package:client/utils/app_style.dart';
 import 'package:client/components/exercise_detail/set_options.dart';
 import 'package:client/components/shared/small_input_field.dart';
 import 'package:client/models/exercise/lift_set.dart';
-import 'package:client/view_models/lift_detail_model.dart';
+import 'package:client/view_models/detail_lift_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +18,8 @@ class LiftSetRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LiftDetailModel model =
-        Provider.of<LiftDetailModel>(context, listen: false);
+    DetailLiftModel model =
+        Provider.of<DetailLiftModel>(context, listen: false);
     List<LiftSet> sets = model.getSets();
 
     return Row(

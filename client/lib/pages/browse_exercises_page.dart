@@ -1,21 +1,21 @@
+import 'package:client/components/browse_exercises/exercise_listing.dart';
 import 'package:client/utils/app_style.dart';
-import 'package:client/components/exercise_browse/exercise_listing.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/utils/app_router.dart';
 import 'package:client/services/exercise_service.dart';
-import 'package:client/view_models/exercise_browse_model.dart';
+import 'package:client/view_models/browse_exercises_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ExerciseBrowsePage extends StatelessWidget {
+class BrowseExercisesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ExerciseService _exerciseService =
         Provider.of<ExerciseService>(context, listen: false);
-    ExerciseBrowseModel model =
-        Provider.of<ExerciseBrowseModel>(context, listen: false);
+    BrowseExercisesModel model =
+        Provider.of<BrowseExercisesModel>(context, listen: false);
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.stretch,

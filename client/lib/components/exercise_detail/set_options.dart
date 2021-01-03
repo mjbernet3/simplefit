@@ -1,6 +1,6 @@
 import 'package:client/utils/app_style.dart';
 import 'package:client/models/exercise/lift_set.dart';
-import 'package:client/view_models/lift_detail_model.dart';
+import 'package:client/view_models/detail_lift_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +24,8 @@ class _SetOptionsState extends State<SetOptions> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    LiftDetailModel model =
-        Provider.of<LiftDetailModel>(context, listen: false);
+    DetailLiftModel model =
+        Provider.of<DetailLiftModel>(context, listen: false);
     List<LiftSet> sets = model.getSets();
 
     isWarmUp = sets[widget.index].isWarmUp;
@@ -66,8 +66,8 @@ class _SetOptionsState extends State<SetOptions> {
   }
 
   void _handleChoice(PopupChoice choice, BuildContext context) {
-    LiftDetailModel model =
-        Provider.of<LiftDetailModel>(context, listen: false);
+    DetailLiftModel model =
+        Provider.of<DetailLiftModel>(context, listen: false);
     List<LiftSet> sets = model.getSets();
 
     switch (choice) {

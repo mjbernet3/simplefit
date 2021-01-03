@@ -145,7 +145,7 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
 
   void _browseExercises() async {
     List<Exercise> chosenExercises =
-        await Navigator.pushNamed(context, AppRouter.browser);
+        await Navigator.pushNamed(context, AppRouter.browseExercises);
 
     if (chosenExercises != null) {
       ManageWorkoutModel model =
@@ -158,7 +158,7 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
   void _detailExercise(ExerciseData exercise, int position) async {
     ExerciseData newExerciseData = await Navigator.pushNamed(
       context,
-      AppRouter.exerciseDetail,
+      AppRouter.detailExercise,
       arguments: exercise,
     );
 

@@ -1,8 +1,12 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:client/components/perform_workout/perform_distance.dart';
+import 'package:client/components/perform_workout/perform_lift.dart';
+import 'package:client/components/perform_workout/perform_timed.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/models/exercise/weight_lift.dart';
 import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constant.dart';
 import 'package:client/view_models/progress_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -134,7 +138,18 @@ class _PerformExercisePageState extends State<PerformExercisePage> {
   }
 
   Widget _buildExercise(ExerciseData exercise) {
-    return Container(color: Colors.black26);
+    String type = exercise.exercise.type;
+
+    switch (type) {
+      case Constant.lifting:
+        return PerformLift();
+      case Constant.distance:
+        return PerformDistance();
+      case Constant.timed:
+        return PerformTimed();
+      default:
+        return Container();
+    }
   }
 
   void _previous() {

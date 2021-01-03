@@ -3,7 +3,7 @@ import 'package:client/models/exercise/lift_set.dart';
 import 'package:client/models/exercise/weight_lift.dart';
 import 'package:client/view_models/view_model.dart';
 
-class LiftDetailModel extends ViewModel {
+class DetailLiftModel extends ViewModel {
   List<LiftSet> _sets;
 
   final StreamController<List<LiftSet>> _setController =
@@ -11,7 +11,7 @@ class LiftDetailModel extends ViewModel {
 
   Stream<List<LiftSet>> get setStream => _setController.stream;
 
-  LiftDetailModel(WeightLift liftData) {
+  DetailLiftModel(WeightLift liftData) {
     this._sets = liftData.sets;
 
     if (_sets.isEmpty) {

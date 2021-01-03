@@ -4,7 +4,6 @@ import 'package:client/models/exercise/exercise_data.dart';
 class DistanceCardio extends ExerciseData {
   double distance;
   double speed;
-  int repeat;
 
   DistanceCardio({
     Exercise exercise,
@@ -13,7 +12,6 @@ class DistanceCardio extends ExerciseData {
     bool isWarmUp,
     this.distance,
     this.speed,
-    this.repeat,
   }) : super(exercise, notes, rest, isWarmUp);
 
   factory DistanceCardio.initial(Exercise exercise) {
@@ -24,7 +22,6 @@ class DistanceCardio extends ExerciseData {
       isWarmUp: false,
       distance: 0.0,
       speed: 0.0,
-      repeat: 0,
     );
   }
 
@@ -36,7 +33,6 @@ class DistanceCardio extends ExerciseData {
       isWarmUp: other.isWarmUp,
       distance: other.distance,
       speed: other.speed,
-      repeat: other.repeat,
     );
   }
 
@@ -50,7 +46,6 @@ class DistanceCardio extends ExerciseData {
       isWarmUp: exerciseData['isWarmUp'],
       distance: exerciseData['distance'],
       speed: exerciseData['speed'],
-      repeat: exerciseData['repeat'],
     );
   }
 
@@ -62,7 +57,6 @@ class DistanceCardio extends ExerciseData {
       'isWarmUp': isWarmUp,
       'distance': distance,
       'speed': speed,
-      'repeat': repeat,
     };
   }
 }

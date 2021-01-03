@@ -1,11 +1,11 @@
+import 'package:client/components/browse_exercises/exercise_card.dart';
 import 'package:client/utils/app_style.dart';
-import 'package:client/components/exercise_browse/exercise_card.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/utils/app_router.dart';
 import 'package:client/services/exercise_service.dart';
 import 'package:client/utils/structures/response.dart';
-import 'package:client/view_models/exercise_browse_model.dart';
+import 'package:client/view_models/browse_exercises_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -88,8 +88,8 @@ class _ExerciseListingState extends State<ExerciseListing> {
               padding: EdgeInsets.all(0.0),
               itemCount: widget.exercises.length,
               itemBuilder: (BuildContext context, int index) {
-                ExerciseBrowseModel browseModel =
-                    Provider.of<ExerciseBrowseModel>(context, listen: false);
+                BrowseExercisesModel browseModel =
+                    Provider.of<BrowseExercisesModel>(context, listen: false);
                 return ExerciseCard(
                   exercise: widget.exercises[index],
                   onPressed: isEditing

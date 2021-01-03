@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/view_models/view_model.dart';
 
-class ExerciseBrowseModel extends ViewModel {
+class BrowseExercisesModel extends ViewModel {
   List<Exercise> _exercises = [];
 
   final StreamController<int> _exerciseCountController =
