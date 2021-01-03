@@ -1,14 +1,11 @@
-import 'package:client/components/exercise_detail/detail_distance.dart';
-import 'package:client/components/exercise_detail/detail_lift.dart';
-import 'package:client/components/exercise_detail/detail_timed.dart';
-import 'package:client/components/exercise_detail/warm_up_check.dart';
+import 'package:client/components/detail_exercise/detail_distance.dart';
+import 'package:client/components/detail_exercise/detail_lift.dart';
+import 'package:client/components/detail_exercise/detail_timed.dart';
+import 'package:client/components/detail_exercise/warm_up_check.dart';
 import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/input_field.dart';
-import 'package:client/models/exercise/distance_cardio.dart';
 import 'package:client/models/exercise/exercise_data.dart';
-import 'package:client/models/exercise/timed_cardio.dart';
-import 'package:client/models/exercise/weight_lift.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/utils/constant.dart';
 import 'package:client/view_models/detail_lift_model.dart';
@@ -105,18 +102,15 @@ class _DetailExercisePageState extends State<DetailExercisePage> {
 
     switch (exerciseType) {
       case Constant.lifting:
-        WeightLift liftData = WeightLift.copy(widget.exerciseData);
         return Provider<DetailLiftModel>(
-          create: (context) => DetailLiftModel(liftData),
+          create: (context) => DetailLiftModel(widget.exerciseData),
           dispose: (context, model) => model.dispose(),
-          child: DetailLift(liftData),
+          child: DetailLift(widget.exerciseData),
         );
       case Constant.timed:
-        TimedCardio timedData = TimedCardio.copy(widget.exerciseData);
-        return DetailTimed(timedData);
+        return DetailTimed(widget.exerciseData);
       case Constant.distance:
-        DistanceCardio distanceData = DistanceCardio.copy(widget.exerciseData);
-        return DetailDistance(distanceData);
+        return DetailDistance(widget.exerciseData);
       default:
         return Container();
     }

@@ -159,7 +159,7 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
     ExerciseData newExerciseData = await Navigator.pushNamed(
       context,
       AppRouter.detailExercise,
-      arguments: exercise,
+      arguments: exercise.copy(),
     );
 
     if (newExerciseData != null) {

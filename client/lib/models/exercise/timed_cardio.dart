@@ -28,18 +28,6 @@ class TimedCardio extends ExerciseData {
     );
   }
 
-  factory TimedCardio.copy(TimedCardio other) {
-    return TimedCardio(
-      exercise: other.exercise,
-      notes: other.notes,
-      rest: other.rest,
-      isWarmUp: other.isWarmUp,
-      time: other.time,
-      speed: other.speed,
-      repeat: other.repeat,
-    );
-  }
-
   factory TimedCardio.fromJson(Map<String, dynamic> exerciseData) {
     Exercise exercise = Exercise.fromJson(exerciseData['exercise']);
 
@@ -64,5 +52,17 @@ class TimedCardio extends ExerciseData {
       'speed': speed,
       'repeat': repeat,
     };
+  }
+
+  TimedCardio copy() {
+    return TimedCardio(
+      exercise: exercise,
+      notes: notes,
+      rest: rest,
+      isWarmUp: isWarmUp,
+      time: time,
+      speed: speed,
+      repeat: repeat,
+    );
   }
 }

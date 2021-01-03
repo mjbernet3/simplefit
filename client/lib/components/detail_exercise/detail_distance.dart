@@ -1,4 +1,4 @@
-import 'package:client/components/exercise_detail/detail_card.dart';
+import 'package:client/components/detail_exercise/detail_card.dart';
 import 'package:client/models/exercise/distance_cardio.dart';
 import 'package:flutter/material.dart';
 

@@ -25,17 +25,6 @@ class DistanceCardio extends ExerciseData {
     );
   }
 
-  factory DistanceCardio.copy(DistanceCardio other) {
-    return DistanceCardio(
-      exercise: other.exercise,
-      notes: other.notes,
-      rest: other.rest,
-      isWarmUp: other.isWarmUp,
-      distance: other.distance,
-      speed: other.speed,
-    );
-  }
-
   factory DistanceCardio.fromJson(Map<String, dynamic> exerciseData) {
     Exercise exercise = Exercise.fromJson(exerciseData['exercise']);
 
@@ -58,5 +47,16 @@ class DistanceCardio extends ExerciseData {
       'distance': distance,
       'speed': speed,
     };
+  }
+
+  DistanceCardio copy() {
+    return DistanceCardio(
+      exercise: exercise,
+      notes: notes,
+      rest: rest,
+      isWarmUp: isWarmUp,
+      distance: distance,
+      speed: speed,
+    );
   }
 }

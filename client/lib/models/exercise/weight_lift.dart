@@ -23,19 +23,6 @@ class WeightLift extends ExerciseData {
     );
   }
 
-  factory WeightLift.copy(WeightLift other) {
-    List<LiftSet> otherSets =
-        other.sets.map((LiftSet set) => LiftSet.copy(set)).toList();
-
-    return WeightLift(
-      exercise: other.exercise,
-      notes: other.notes,
-      rest: 0,
-      isWarmUp: other.isWarmUp,
-      sets: otherSets,
-    );
-  }
-
   factory WeightLift.fromJson(Map<String, dynamic> exerciseData) {
     Exercise exercise = Exercise.fromJson(exerciseData['exercise']);
 
@@ -60,5 +47,17 @@ class WeightLift extends ExerciseData {
       'isWarmUp': isWarmUp,
       'sets': setList,
     };
+  }
+
+  WeightLift copy() {
+    List<LiftSet> copiedSets = sets.map((LiftSet set) => set.copy()).toList();
+
+    return WeightLift(
+      exercise: exercise,
+      notes: notes,
+      rest: 0,
+      isWarmUp: isWarmUp,
+      sets: copiedSets,
+    );
   }
 }

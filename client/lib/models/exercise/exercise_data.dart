@@ -48,4 +48,6 @@ abstract class ExerciseData {
   }
 
   Map<String, dynamic> toJson();
+
+  ExerciseData copy();
 }

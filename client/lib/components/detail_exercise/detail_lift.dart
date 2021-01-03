@@ -1,5 +1,5 @@
+import 'package:client/components/detail_exercise/lift_set_row.dart';
 import 'package:client/utils/app_style.dart';
-import 'package:client/components/exercise_detail/lift_set_row.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/lift_set.dart';
 import 'package:client/models/exercise/weight_lift.dart';

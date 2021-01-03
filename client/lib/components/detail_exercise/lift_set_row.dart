@@ -1,5 +1,6 @@
+import 'package:client/components/detail_exercise/set_options.dart';
 import 'package:client/utils/app_style.dart';
-import 'package:client/components/exercise_detail/set_options.dart';
+
 import 'package:client/components/shared/small_input_field.dart';
 import 'package:client/models/exercise/lift_set.dart';
 import 'package:client/view_models/detail_lift_model.dart';
