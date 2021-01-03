@@ -142,17 +142,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _startWorkout(WorkoutPreview preview) async {
-    ProgressModel model = Provider.of<ProgressModel>(context, listen: false);
-
-    Response response = await model.initWorkout(preview.id);
+    WorkoutService workoutService =
+        Provider.of<WorkoutService>(context, listen: false);
+    Response response = await workoutService.getWorkout(preview.id);
 
     if (response.status == Status.FAILURE) {
       print(response.message);
       //TODO: Show backend error
     } else {
-      Workout workout = response.data;
-
-      Navigator.pushNamed(context, AppRouter.startWorkout, arguments: workout);
+      Navigator.pushNamed(
+        context,
+        AppRouter.startWorkout,
+        arguments: response.data,
+      );
     }
   }
 

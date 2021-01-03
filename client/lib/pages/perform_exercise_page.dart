@@ -4,7 +4,7 @@ import 'package:client/components/perform_workout/perform_lift.dart';
 import 'package:client/components/perform_workout/perform_timed.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/models/exercise/exercise_data.dart';
-import 'package:client/models/exercise/weight_lift.dart';
+import 'package:client/models/exercise/timed_cardio.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/utils/constant.dart';
 import 'package:client/view_models/progress_model.dart';
@@ -95,8 +95,7 @@ class _PerformExercisePageState extends State<PerformExercisePage> {
                           ),
                         ),
                         Visibility(
-                          visible:
-                              !isResting && !(currentExercise is WeightLift),
+                          visible: !isResting && currentExercise is TimedCardio,
                           child: RawMaterialButton(
                             padding: EdgeInsets.all(15.0),
                             fillColor: AppStyle.primaryColor,
@@ -106,7 +105,7 @@ class _PerformExercisePageState extends State<PerformExercisePage> {
                               color: AppStyle.backgroundColor,
                               size: 40.0,
                             ),
-                            onPressed: () => print('hello world'),
+                            onPressed: () => print("hello world"),
                           ),
                         ),
                         RawMaterialButton(

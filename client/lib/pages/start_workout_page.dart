@@ -28,7 +28,10 @@ class StartWorkoutPage extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            NotesDropdown(),
+            NotesDropdown(
+              notes: workout.notes,
+              onComplete: (String newNotes) => workout.notes = newNotes,
+            ),
             SizedBox(height: 20.0),
             Expanded(
               child: ListView.builder(
@@ -50,8 +53,11 @@ class StartWorkoutPage extends StatelessWidget {
                     color: AppStyle.highEmphasisText,
                   ),
                 ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, AppRouter.performExercise),
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  AppRouter.performExercise,
+                  arguments: workout,
+                ),
               ),
             ),
           ],

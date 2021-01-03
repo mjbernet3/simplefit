@@ -1,4 +1,5 @@
 import 'package:client/pages/perform_exercise_page.dart';
+import 'package:client/services/workout_service.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
@@ -15,8 +16,10 @@ import 'package:client/pages/settings_page.dart';
 import 'package:client/pages/start_workout_page.dart';
 import 'package:client/pages/unknown_page.dart';
 import 'package:client/pages/welcome_page.dart';
+import 'package:client/utils/structures/route_arguments.dart';
 import 'package:client/view_models/browse_exercises_model.dart';
 import 'package:client/view_models/manage_workout_model.dart';
+import 'package:client/view_models/progress_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -65,14 +68,30 @@ class AppRouter {
               DetailExercisePage(exerciseData: routeSettings.arguments),
         );
       case performExercise:
-        return MaterialPageRoute(builder: (context) => PerformExercisePage());
+        return MaterialPageRoute(
+          builder: (context) => Provider<ProgressModel>(
+            create: (context) => ProgressModel(
+              workoutService: Provider.of<WorkoutService>(
+                context,
+                listen: false,
+              ),
+              workout: routeSettings.arguments,
+            ),
+            dispose: (context, model) => model.dispose(),
+            child: PerformExercisePage(),
+          ),
+        );
       case settings:
         return MaterialPageRoute(builder: (context) => SettingsPage());
       case notes:
-        return SimplePopUp<String>(
+        RouteArguments routeArgs = routeSettings.arguments;
+
+        return SimplePopUp(
           isAnimated: false,
-          renderBox: routeSettings.arguments,
-          builder: (context) => NotesPage(),
+          renderBox: routeArgs.arguments["renderBox"],
+          builder: (context) => NotesPage(
+            messenger: routeArgs.arguments["messenger"],
+          ),
         );
       case browseExercises:
         return SimplePopUp<List<Exercise>>(

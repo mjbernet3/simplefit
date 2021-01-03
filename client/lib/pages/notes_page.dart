@@ -1,23 +1,24 @@
 import 'package:client/utils/app_style.dart';
-import 'package:client/view_models/progress_model.dart';
+import 'package:client/utils/structures/notes_messenger.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class NotesPage extends StatefulWidget {
+  final NotesMessenger messenger;
+
+  const NotesPage({this.messenger});
+
   @override
   _NotesPageState createState() => _NotesPageState();
 }
 
 class _NotesPageState extends State<NotesPage> {
-  ProgressModel model;
   TextEditingController _notesController;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _notesController = TextEditingController();
-    model = Provider.of<ProgressModel>(context, listen: false);
-    _notesController.text = model.workoutNotes;
+    _notesController.text = widget.messenger.notes;
   }
 
   @override
@@ -42,8 +43,8 @@ class _NotesPageState extends State<NotesPage> {
           maxLines: null,
           cursorColor: Colors.white,
           keyboardType: TextInputType.multiline,
-          onChanged: (value) => {
-            model.setWorkoutNotes(_notesController.text),
+          onChanged: (_) => {
+            widget.messenger.notes = _notesController.text,
           },
         ),
       ],

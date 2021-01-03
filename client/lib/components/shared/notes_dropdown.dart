@@ -1,8 +1,15 @@
 import 'package:client/utils/app_style.dart';
 import 'package:client/utils/app_router.dart';
+import 'package:client/utils/structures/notes_messenger.dart';
+import 'package:client/utils/structures/route_arguments.dart';
 import 'package:flutter/material.dart';
 
 class NotesDropdown extends StatefulWidget {
+  final String notes;
+  final Function onComplete;
+
+  const NotesDropdown({this.notes, this.onComplete});
+
   @override
   _NotesDropdownState createState() => _NotesDropdownState();
 }
@@ -44,15 +51,24 @@ class _NotesDropdownState extends State<NotesDropdown> {
   }
 
   void _toggleNotes() async {
-    setState(() => _hidden = !_hidden);
+    setState(() => _hidden = false);
 
     RenderBox renderBox = context.findRenderObject();
+    NotesMessenger messenger = NotesMessenger(notes: widget.notes);
+
     await Navigator.pushNamed(
       context,
       AppRouter.notes,
-      arguments: renderBox,
+      arguments: RouteArguments(
+        arguments: {
+          "renderBox": renderBox,
+          "messenger": messenger,
+        },
+      ),
     );
 
-    setState(() => _hidden = !_hidden);
+    widget.onComplete(messenger.notes);
+
+    setState(() => _hidden = true);
   }
 }
