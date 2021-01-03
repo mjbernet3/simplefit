@@ -8,14 +8,16 @@ class WeightLift extends ExerciseData {
   WeightLift({
     Exercise exercise,
     String notes,
+    int rest,
     bool isWarmUp,
     this.sets,
-  }) : super(exercise, notes, isWarmUp);
+  }) : super(exercise, notes, 0, isWarmUp);
 
   factory WeightLift.initial(Exercise exercise) {
     return WeightLift(
       exercise: exercise,
       notes: '',
+      rest: 0,
       isWarmUp: false,
       sets: [],
     );
@@ -28,6 +30,7 @@ class WeightLift extends ExerciseData {
     return WeightLift(
       exercise: other.exercise,
       notes: other.notes,
+      rest: 0,
       isWarmUp: other.isWarmUp,
       sets: otherSets,
     );
@@ -42,6 +45,7 @@ class WeightLift extends ExerciseData {
     return WeightLift(
       exercise: exercise,
       notes: exerciseData['notes'],
+      rest: 0,
       isWarmUp: exerciseData['isWarmUp'],
       sets: sets,
     );

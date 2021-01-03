@@ -17,7 +17,7 @@ class _NotesPageState extends State<NotesPage> {
     super.didChangeDependencies();
     _notesController = TextEditingController();
     model = Provider.of<ProgressModel>(context, listen: false);
-    _notesController.text = model.getNotes();
+    _notesController.text = model.workoutNotes;
   }
 
   @override
@@ -43,7 +43,7 @@ class _NotesPageState extends State<NotesPage> {
           cursorColor: Colors.white,
           keyboardType: TextInputType.multiline,
           onChanged: (value) => {
-            model.setNotes(_notesController.text),
+            model.setWorkoutNotes(_notesController.text),
           },
         ),
       ],

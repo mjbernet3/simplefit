@@ -1,3 +1,4 @@
+import 'package:client/pages/perform_exercise_page.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
@@ -30,6 +31,7 @@ class AppRouter {
   static const String startWorkout = '/workouts/start';
   static const String manageExercise = '/exercises/manage';
   static const String exerciseDetail = '/exercises/detail';
+  static const String performExercise = '/exercises/perform';
   static const String notes = '/notes';
   static const String browser = '/browser';
   static const String settings = '/settings';
@@ -62,6 +64,8 @@ class AppRouter {
           builder: (context) =>
               ExerciseDetailPage(exerciseData: routeSettings.arguments),
         );
+      case performExercise:
+        return MaterialPageRoute(builder: (context) => PerformExercisePage());
       case settings:
         return MaterialPageRoute(builder: (context) => SettingsPage());
       case notes:

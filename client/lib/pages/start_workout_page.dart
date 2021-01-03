@@ -1,3 +1,4 @@
+import 'package:client/utils/app_router.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/components/shared/notes_dropdown.dart';
 import 'package:client/components/shared/rounded_button.dart';
@@ -49,7 +50,8 @@ class StartWorkoutPage extends StatelessWidget {
                     color: AppStyle.highEmphasisText,
                   ),
                 ),
-                onPressed: () => print("start workout"),
+                onPressed: () =>
+                    Navigator.pushNamed(context, AppRouter.performExercise),
               ),
             ),
           ],

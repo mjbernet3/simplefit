@@ -25,26 +25,42 @@ class ProgressModel extends ViewModel {
       Workout workout = response.data;
 
       _workout = workout;
-      _index = -1;
+      _index = 0;
+
+      _exerciseController.sink.add(_workout.exercises[0]);
     }
 
     return response;
   }
 
-  String getNotes() {
-    if (_index >= 0) {
-      return _workout.exercises[_index].notes;
-    }
-
-    return _workout.notes;
+  bool hasPrevious() {
+    return (_index - 1) >= 0;
   }
 
-  void setNotes(String notes) {
-    if (_index >= 0) {
-      _workout.exercises[_index].notes = notes;
-    } else {
-      _workout.notes = notes;
-    }
+  void previous() {
+    _index--;
+
+    _exerciseController.sink.add(_workout.exercises[_index]);
+  }
+
+  String peekNext() {
+    return _workout.exercises[_index + 1].exercise.name;
+  }
+
+  bool hasNext() {
+    return (_index + 1) < _workout.exercises.length;
+  }
+
+  void next() {
+    _index++;
+
+    _exerciseController.sink.add(_workout.exercises[_index]);
+  }
+
+  String get workoutNotes => _workout.notes;
+
+  void setWorkoutNotes(String notes) {
+    _workout.notes = notes;
   }
 
   @override
