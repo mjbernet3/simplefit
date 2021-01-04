@@ -46,6 +46,10 @@ class PerformWorkoutModel extends ViewModel {
     _exerciseController.sink.add(_workout.exercises[_index]);
   }
 
+  void setNotes(String notes) {
+    _workout.exercises[_index].notes = notes;
+  }
+
   @override
   void dispose() {
     _exerciseController.close();

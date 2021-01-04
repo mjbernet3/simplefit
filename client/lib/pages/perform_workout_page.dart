@@ -1,8 +1,10 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:client/components/perform_workout/control_button.dart';
 import 'package:client/components/perform_workout/perform_distance.dart';
 import 'package:client/components/perform_workout/perform_lift.dart';
 import 'package:client/components/perform_workout/perform_timed.dart';
 import 'package:client/components/shared/app_divider.dart';
+import 'package:client/components/shared/notes_dropdown.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/models/exercise/timed_cardio.dart';
 import 'package:client/utils/app_style.dart';
@@ -36,6 +38,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
             stream: model.exerciseStream,
             builder:
                 (BuildContext context, AsyncSnapshot<ExerciseData> snapshot) {
+              print("rebuilding");
               if (snapshot.hasData) {
                 ExerciseData currentExercise = snapshot.data;
 
@@ -54,10 +57,19 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                         ),
                       ),
                     ),
-                    AppDivider(),
+                    !isResting
+                        ? NotesDropdown(
+                            notes: currentExercise.notes,
+                            onComplete: (String newNotes) =>
+                                model.setNotes(newNotes),
+                          )
+                        : SizedBox.shrink(),
                     Expanded(
                       child: !isResting
-                          ? _buildExercise(currentExercise)
+                          ? Padding(
+                              padding: EdgeInsets.symmetric(vertical: 20.0),
+                              child: _buildExercise(currentExercise),
+                            )
                           : CircularCountDownTimer(
                               isReverse: true,
                               isReverseAnimation: true,
@@ -94,19 +106,9 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                             onPressed: () => _previous(),
                           ),
                         ),
-                        Visibility(
+                        ControlButton(
                           visible: !isResting && currentExercise is TimedCardio,
-                          child: RawMaterialButton(
-                            padding: EdgeInsets.all(15.0),
-                            fillColor: AppStyle.primaryColor,
-                            shape: CircleBorder(),
-                            child: Icon(
-                              Icons.play_arrow_rounded,
-                              color: AppStyle.backgroundColor,
-                              size: 40.0,
-                            ),
-                            onPressed: () => print("hello world"),
-                          ),
+                          onPressed: () => print("control button pressed"),
                         ),
                         RawMaterialButton(
                           padding: EdgeInsets.all(15.0),

@@ -15,7 +15,14 @@ class NotesDropdown extends StatefulWidget {
 }
 
 class _NotesDropdownState extends State<NotesDropdown> {
+  String _currentNotes;
   bool _hidden = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentNotes = widget.notes;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +61,7 @@ class _NotesDropdownState extends State<NotesDropdown> {
     setState(() => _hidden = false);
 
     RenderBox renderBox = context.findRenderObject();
-    NotesMessenger messenger = NotesMessenger(notes: widget.notes);
+    NotesMessenger messenger = NotesMessenger(notes: _currentNotes);
 
     await Navigator.pushNamed(
       context,
@@ -67,8 +74,13 @@ class _NotesDropdownState extends State<NotesDropdown> {
       ),
     );
 
-    widget.onComplete(messenger.notes);
+    setState(
+      () => {
+        _currentNotes = messenger.notes,
+        _hidden = true,
+      },
+    );
 
-    setState(() => _hidden = true);
+    widget.onComplete(_currentNotes);
   }
 }
