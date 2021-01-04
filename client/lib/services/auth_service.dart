@@ -1,10 +1,8 @@
 import 'package:client/models/user/user.dart';
 import 'package:client/models/user/user_data.dart';
 import 'package:client/utils/structures/auth_info.dart';
-import 'package:client/utils/structures/response.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -25,64 +23,29 @@ class AuthService {
     });
   }
 
-  Future<Response> register(AuthInfo authInfo) async {
-    try {
-      AuthResult result = await _auth.createUserWithEmailAndPassword(
-          email: authInfo.email, password: authInfo.password);
+  Future<void> register(AuthInfo authInfo) async {
+    AuthResult result = await _auth.createUserWithEmailAndPassword(
+        email: authInfo.email, password: authInfo.password);
 
-      if (result.user == null) {
-        return Response(
-            status: Status.FAILURE,
-            message: 'User does not exist after registration');
-      }
+    if (result.user == null) {
+      throw Exception("User is null after successful registration");
+    }
 
-      await _initUserData(result.user.uid, authInfo.username);
+    UserData userData = UserData.initial(authInfo.username);
 
-      return Response(status: Status.SUCCESS);
-    } on PlatformException catch (error) {
-      return Response(status: Status.FAILURE, message: error.message);
-    } catch (error) {
-      return Response(
-          status: Status.FAILURE, message: 'Unable to create an account');
+    await _userCollection.document(result.user.uid).setData(userData.toJson());
+  }
+
+  Future<void> signIn(AuthInfo authInfo) async {
+    AuthResult result = await _auth.signInWithEmailAndPassword(
+        email: authInfo.email, password: authInfo.password);
+
+    if (result.user == null) {
+      throw Exception("User is null after successful sign in");
     }
   }
 
-  Future<void> _initUserData(String uid, String username) async {
-    UserData userData = UserData.initial(username);
-
-    await _userCollection.document(uid).setData(userData.toJson());
-  }
-
-  Future<Response> signIn(AuthInfo authInfo) async {
-    try {
-      AuthResult result = await _auth.signInWithEmailAndPassword(
-          email: authInfo.email, password: authInfo.password);
-
-      if (result.user == null) {
-        return Response(
-            status: Status.FAILURE,
-            message: 'User does not exist after successful sign in');
-      }
-
-      return Response(status: Status.SUCCESS);
-    } on PlatformException catch (error) {
-      return Response(status: Status.FAILURE, message: error.message);
-    } catch (error) {
-      return Response(
-          status: Status.FAILURE, message: 'Unable to sign in to application');
-    }
-  }
-
-  Future<Response> signOut() async {
-    try {
-      await _auth.signOut();
-
-      return Response(status: Status.SUCCESS);
-    } on PlatformException catch (error) {
-      return Response(status: Status.FAILURE, message: error.message);
-    } catch (error) {
-      return Response(
-          status: Status.FAILURE, message: 'Unable to sign out of application');
-    }
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 }

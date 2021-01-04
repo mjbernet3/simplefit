@@ -7,23 +7,23 @@ import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/models/exercise/timed_cardio.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/utils/constant.dart';
-import 'package:client/view_models/progress_model.dart';
+import 'package:client/view_models/perform_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PerformExercisePage extends StatefulWidget {
+class PerformWorkoutPage extends StatefulWidget {
   @override
-  _PerformExercisePageState createState() => _PerformExercisePageState();
+  _PerformWorkoutPageState createState() => _PerformWorkoutPageState();
 }
 
-class _PerformExercisePageState extends State<PerformExercisePage> {
-  ProgressModel model;
+class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
+  PerformWorkoutModel model;
   bool isResting = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    model = Provider.of<ProgressModel>(context, listen: false);
+    model = Provider.of<PerformWorkoutModel>(context, listen: false);
   }
 
   @override

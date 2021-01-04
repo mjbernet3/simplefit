@@ -4,7 +4,7 @@ import 'package:client/components/shared/input_field.dart';
 import 'package:client/models/workout/workout.dart';
 import 'package:client/models/workout/workout_preview.dart';
 import 'package:client/services/workout_service.dart';
-import 'package:client/utils/structures/response.dart';
+import 'package:client/utils/app_error.dart';
 import 'package:client/view_models/manage_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,13 +48,13 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
       ),
       body: Padding(
         padding: EdgeInsets.all(15.0),
-        child: FutureBuilder<Response>(
+        child: FutureBuilder<Workout>(
           future: widget.isEdit
               ? workoutService.getWorkout(widget.preview.id)
               : null,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              Workout workout = snapshot.data.data;
+              Workout workout = snapshot.data;
 
               _nameController.text = workout.name;
               _notesController.text = workout.notes;
@@ -83,8 +83,7 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
                   child: ChosenExerciseListing(),
                 ),
                 ActionButtons(
-                  onConfirmed: () =>
-                      widget.isEdit ? _updateWorkout() : _createWorkout(),
+                  onConfirmed: () => _manageWorkout(),
                 ),
               ],
             );
@@ -94,13 +93,13 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
     );
   }
 
-  void _createWorkout() async {
+  void _manageWorkout() async {
     ManageWorkoutModel model =
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
     String workoutName = _nameController.text;
     if (workoutName.isEmpty) {
-      workoutName = 'New Workout';
+      workoutName = 'My Workout';
     }
 
     Workout newWorkout = Workout(
@@ -112,40 +111,16 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
     WorkoutService workoutService =
         Provider.of<WorkoutService>(context, listen: false);
 
-    Response response = await workoutService.createWorkout(newWorkout);
+    try {
+      if (!widget.isEdit) {
+        await workoutService.createWorkout(newWorkout);
+      } else {
+        await workoutService.updateWorkout(widget.preview.id, newWorkout);
+      }
 
-    if (response.status == Status.FAILURE) {
-      // TODO: Handle backend error
-    } else {
       Navigator.pop(context);
-    }
-  }
-
-  void _updateWorkout() async {
-    ManageWorkoutModel model =
-        Provider.of<ManageWorkoutModel>(context, listen: false);
-
-    String workoutName = _nameController.text;
-    if (workoutName.isEmpty) {
-      workoutName = 'Updated Workout';
-    }
-
-    Workout updatedWorkout = Workout(
-      id: widget.preview.id,
-      name: workoutName,
-      notes: _notesController.text,
-      exercises: model.getExercises(),
-    );
-
-    WorkoutService workoutService =
-        Provider.of<WorkoutService>(context, listen: false);
-
-    Response response = await workoutService.updateWorkout(updatedWorkout);
-
-    if (response.status == Status.FAILURE) {
-      // TODO: Handle backend error
-    } else {
-      Navigator.pop(context);
+    } catch (e) {
+      AppError.show(context, e.message);
     }
   }
 

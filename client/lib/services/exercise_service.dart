@@ -1,4 +1,3 @@
-import 'package:client/utils/structures/response.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:client/models/exercise/exercise.dart';
 
@@ -16,35 +15,17 @@ class ExerciseService {
         .toList());
   }
 
-  Future<Response> createExercise(Exercise exercise) async {
-    try {
-      await _exerciseCollection.add(exercise.toJson());
-
-      return Response(status: Status.SUCCESS);
-    } catch (error) {
-      return Response(status: Status.FAILURE, message: error.toString());
-    }
+  Future<void> createExercise(Exercise exercise) async {
+    await _exerciseCollection.add(exercise.toJson());
   }
 
-  Future<Response> editExercise(String exerciseId, Exercise exercise) async {
-    try {
-      await _exerciseCollection
-          .document(exerciseId)
-          .updateData(exercise.toJson());
-
-      return Response(status: Status.SUCCESS);
-    } catch (error) {
-      return Response(status: Status.FAILURE, message: error.toString());
-    }
+  Future<void> updateExercise(String exerciseId, Exercise exercise) async {
+    await _exerciseCollection
+        .document(exerciseId)
+        .updateData(exercise.toJson());
   }
 
-  Future<Response> removeExercise(String exerciseId) async {
-    try {
-      await _exerciseCollection.document(exerciseId).delete();
-
-      return Response(status: Status.SUCCESS);
-    } catch (error) {
-      return Response(status: Status.FAILURE, message: error.toString());
-    }
+  Future<void> removeExercise(String exerciseId) async {
+    await _exerciseCollection.document(exerciseId).delete();
   }
 }

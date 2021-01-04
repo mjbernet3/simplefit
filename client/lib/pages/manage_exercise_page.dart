@@ -1,3 +1,4 @@
+import 'package:client/utils/app_error.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/manage_exercise/exercise_dropdown.dart';
@@ -5,7 +6,6 @@ import 'package:client/components/shared/input_field.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/services/exercise_service.dart';
 import 'package:client/utils/constant.dart';
-import 'package:client/utils/structures/response.dart';
 import 'package:client/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -116,25 +116,20 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
 
       setState(() => _isLoading = true);
 
-      Response response;
-      if (!widget.isEdit) {
-        response = await exerciseService.createExercise(newExercise);
-      } else {
-        if (!newExercise.equals(widget.exercise)) {
-          response = await exerciseService.editExercise(
-              widget.exercise.id, newExercise);
+      try {
+        if (!widget.isEdit) {
+          await exerciseService.createExercise(newExercise);
         } else {
-          Navigator.pop(context);
-          return;
+          if (!newExercise.equals(widget.exercise)) {
+            await exerciseService.updateExercise(
+                widget.exercise.id, newExercise);
+          }
         }
-      }
 
-      setState(() => _isLoading = false);
-
-      if (response.status == Status.SUCCESS) {
         Navigator.pop(context);
-      } else {
-        // TODO: Handle backend error
+      } catch (e) {
+        setState(() => _isLoading = false);
+        AppError.show(context, e.message);
       }
     } else {
       setState(() => _autovalidate = AutovalidateMode.always);

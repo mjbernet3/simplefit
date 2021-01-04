@@ -1,13 +1,11 @@
+import 'package:client/utils/app_error.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/components/home/workout_card.dart';
 import 'package:client/models/user/user_data.dart';
-import 'package:client/models/workout/workout.dart';
 import 'package:client/models/workout/workout_preview.dart';
 import 'package:client/utils/app_router.dart';
 import 'package:client/services/profile_service.dart';
 import 'package:client/services/workout_service.dart';
-import 'package:client/utils/structures/response.dart';
-import 'package:client/view_models/progress_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -100,7 +98,11 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () => {
                         if (!isEditing)
                           {
-                            _startWorkout(_currentWorkout),
+                            Navigator.pushNamed(
+                              context,
+                              AppRouter.startWorkout,
+                              arguments: _currentWorkout,
+                            ),
                           }
                         else
                           {
@@ -118,7 +120,6 @@ class _HomePageState extends State<HomePage> {
                 );
               }
 
-              // TODO: Decide whether to use loading indicator here
               return Container();
             },
           ),
@@ -141,31 +142,14 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _startWorkout(WorkoutPreview preview) async {
-    WorkoutService workoutService =
-        Provider.of<WorkoutService>(context, listen: false);
-    Response response = await workoutService.getWorkout(preview.id);
-
-    if (response.status == Status.FAILURE) {
-      print(response.message);
-      //TODO: Show backend error
-    } else {
-      Navigator.pushNamed(
-        context,
-        AppRouter.startWorkout,
-        arguments: response.data,
-      );
-    }
-  }
-
   void _removeWorkout(WorkoutPreview preview) async {
     WorkoutService workoutService =
         Provider.of<WorkoutService>(context, listen: false);
 
-    Response response = await workoutService.removeWorkout(preview);
-
-    if (response.status == Status.FAILURE) {
-      //TODO: Show backend error
+    try {
+      await workoutService.removeWorkout(preview);
+    } catch (e) {
+      AppError.show(context, e.message);
     }
   }
 }

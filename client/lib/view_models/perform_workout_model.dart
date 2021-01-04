@@ -4,12 +4,12 @@ import 'package:client/models/workout/workout.dart';
 import 'package:client/services/workout_service.dart';
 import 'package:client/view_models/view_model.dart';
 
-class ProgressModel extends ViewModel {
+class PerformWorkoutModel extends ViewModel {
   WorkoutService _workoutService;
   Workout _workout;
   int _index;
 
-  ProgressModel({WorkoutService workoutService, Workout workout}) {
+  PerformWorkoutModel({WorkoutService workoutService, Workout workout}) {
     _workoutService = workoutService;
     _workout = workout;
     _index = 0;

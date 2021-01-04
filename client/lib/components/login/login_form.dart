@@ -1,9 +1,9 @@
+import 'package:client/utils/app_error.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/components/shared/auth_input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/services/auth_service.dart';
 import 'package:client/utils/structures/auth_info.dart';
-import 'package:client/utils/structures/response.dart';
 import 'package:client/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -83,23 +83,13 @@ class _LoginFormState extends State<LoginForm> {
       );
 
       setState(() => _isLoading = true);
-      Response response = await authService.signIn(authInfo);
 
-      if (response.status == Status.FAILURE) {
+      try {
+        await authService.signIn(authInfo);
+      } catch (e) {
         setState(() => _isLoading = false);
 
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              response.message,
-              style: TextStyle(
-                color: AppStyle.highEmphasisText,
-              ),
-            ),
-            backgroundColor: AppStyle.dp8,
-            duration: Duration(seconds: 5),
-          ),
-        );
+        AppError.show(context, e.message);
       }
     } else {
       setState(() => _autovalidate = AutovalidateMode.always);

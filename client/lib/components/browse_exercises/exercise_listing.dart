@@ -1,10 +1,10 @@
 import 'package:client/components/browse_exercises/exercise_card.dart';
+import 'package:client/utils/app_error.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/utils/app_router.dart';
 import 'package:client/services/exercise_service.dart';
-import 'package:client/utils/structures/response.dart';
 import 'package:client/view_models/browse_exercises_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -121,10 +121,10 @@ class _ExerciseListingState extends State<ExerciseListing> {
     ExerciseService _exerciseService =
         Provider.of<ExerciseService>(context, listen: false);
 
-    Response response = await _exerciseService.removeExercise(exerciseId);
-
-    if (response.status == Status.FAILURE) {
-      // TODO: Handle backend error
+    try {
+      await _exerciseService.removeExercise(exerciseId);
+    } catch (e) {
+      AppError.show(context, e.message);
     }
   }
 }
