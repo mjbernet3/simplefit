@@ -38,7 +38,6 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
             stream: model.exerciseStream,
             builder:
                 (BuildContext context, AsyncSnapshot<ExerciseData> snapshot) {
-              print("rebuilding");
               if (snapshot.hasData) {
                 ExerciseData currentExercise = snapshot.data;
 
@@ -47,13 +46,21 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.all(15.0),
-                      child: Text(
-                        !isResting
-                            ? currentExercise.exercise.name
-                            : "Next: " + model.peekNext(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24.0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppStyle.dp4,
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 15.0, horizontal: 30.0),
+                        child: Text(
+                          !isResting
+                              ? currentExercise.exercise.name
+                              : "Next: " + model.peekNext(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                          ),
                         ),
                       ),
                     ),

@@ -8,7 +8,7 @@ class NotesDropdown extends StatefulWidget {
   final String notes;
   final Function onComplete;
 
-  const NotesDropdown({this.notes, this.onComplete});
+  NotesDropdown({this.notes, this.onComplete});
 
   @override
   _NotesDropdownState createState() => _NotesDropdownState();
@@ -22,6 +22,15 @@ class _NotesDropdownState extends State<NotesDropdown> {
   void initState() {
     super.initState();
     _currentNotes = widget.notes;
+  }
+
+  @override
+  void didUpdateWidget(NotesDropdown oldWidget) {
+    if (widget.notes != oldWidget.notes) {
+      setState(() => _currentNotes = widget.notes);
+    }
+
+    super.didUpdateWidget(oldWidget);
   }
 
   @override

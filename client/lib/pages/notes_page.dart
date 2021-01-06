@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class NotesPage extends StatefulWidget {
   final NotesMessenger messenger;
 
-  const NotesPage({this.messenger});
+  NotesPage({this.messenger});
 
   @override
   _NotesPageState createState() => _NotesPageState();
