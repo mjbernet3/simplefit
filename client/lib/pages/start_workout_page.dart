@@ -65,7 +65,7 @@ class StartWorkoutPage extends StatelessWidget {
                           color: AppStyle.highEmphasisText,
                         ),
                       ),
-                      onPressed: () => Navigator.pushNamed(
+                      onPressed: () => Navigator.pushReplacementNamed(
                         context,
                         AppRouter.performWorkout,
                         arguments: workout,

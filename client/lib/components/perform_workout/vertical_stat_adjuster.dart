@@ -2,26 +2,24 @@ import 'package:client/components/shared/app_divider.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:flutter/material.dart';
 
-class StatAdjuster extends StatefulWidget {
+class VerticalStatAdjuster extends StatefulWidget {
   final double stat;
   final String unit;
   final double adjustAmount;
-  final Function onIncrement;
-  final Function onDecrement;
+  final Function onChanged;
 
-  StatAdjuster({
+  VerticalStatAdjuster({
     this.stat,
     this.unit,
     this.adjustAmount,
-    this.onIncrement,
-    this.onDecrement,
+    this.onChanged,
   });
 
   @override
-  _StatAdjusterState createState() => _StatAdjusterState();
+  _VerticalStatAdjusterState createState() => _VerticalStatAdjusterState();
 }
 
-class _StatAdjusterState extends State<StatAdjuster> {
+class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
   double _currentStat;
 
   @override
@@ -75,7 +73,7 @@ class _StatAdjusterState extends State<StatAdjuster> {
                   onPressed: () => setState(
                     () => {
                       _currentStat -= widget.adjustAmount,
-                      widget.onDecrement(),
+                      widget.onChanged(_currentStat),
                     },
                   ),
                 ),
@@ -90,7 +88,7 @@ class _StatAdjusterState extends State<StatAdjuster> {
                   onPressed: () => setState(
                     () => {
                       _currentStat += widget.adjustAmount,
-                      widget.onIncrement(),
+                      widget.onChanged(_currentStat),
                     },
                   ),
                 ),

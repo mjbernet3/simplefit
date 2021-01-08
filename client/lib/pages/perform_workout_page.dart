@@ -1,12 +1,10 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:client/components/perform_workout/control_button.dart';
 import 'package:client/components/perform_workout/perform_distance.dart';
 import 'package:client/components/perform_workout/perform_lift.dart';
 import 'package:client/components/perform_workout/perform_timed.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/notes_dropdown.dart';
 import 'package:client/models/exercise/exercise_data.dart';
-import 'package:client/models/exercise/timed_cardio.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/utils/constant.dart';
 import 'package:client/view_models/perform_workout_model.dart';
@@ -68,7 +66,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                         ? NotesDropdown(
                             notes: currentExercise.notes,
                             onComplete: (String newNotes) =>
-                                model.setNotes(newNotes),
+                                currentExercise.notes = newNotes,
                           )
                         : SizedBox.shrink(),
                     Expanded(
@@ -100,8 +98,8 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                         Visibility(
                           visible: model.hasPrevious(),
                           maintainSize: true,
-                          maintainAnimation: true,
                           maintainState: true,
+                          maintainAnimation: true,
                           child: RawMaterialButton(
                             padding: EdgeInsets.all(15.0),
                             fillColor: AppStyle.dp4,
@@ -113,24 +111,29 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                             onPressed: () => _previous(),
                           ),
                         ),
-                        ControlButton(
-                          visible: !isResting && currentExercise is TimedCardio,
-                          onPressed: () => print("control button pressed"),
-                        ),
-                        RawMaterialButton(
-                          padding: EdgeInsets.all(15.0),
-                          fillColor: AppStyle.dp4,
-                          shape: CircleBorder(),
-                          child: Icon(
-                            model.hasNext()
-                                ? Icons.arrow_forward_rounded
-                                : Icons.flag_rounded,
-                            size: 25.0,
-                          ),
-                          onPressed: () => model.hasNext()
-                              ? _next(currentExercise)
-                              : _finishWorkout(),
-                        ),
+                        model.hasNext()
+                            ? RawMaterialButton(
+                                padding: EdgeInsets.all(15.0),
+                                fillColor: AppStyle.dp4,
+                                shape: CircleBorder(),
+                                child: Icon(
+                                  Icons.arrow_forward_rounded,
+                                  size: 25.0,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () => _next(currentExercise),
+                              )
+                            : RawMaterialButton(
+                                padding: EdgeInsets.all(15.0),
+                                fillColor: AppStyle.primaryColor,
+                                shape: CircleBorder(),
+                                child: Icon(
+                                  Icons.flag_rounded,
+                                  size: 25.0,
+                                  color: AppStyle.backgroundColor,
+                                ),
+                                onPressed: () => _finishWorkout(),
+                              ),
                       ],
                     ),
                   ],
@@ -152,9 +155,13 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
       case Constant.lifting:
         return PerformLift();
       case Constant.distance:
-        return PerformDistance();
+        return PerformDistance(exercise: exercise);
       case Constant.timed:
-        return PerformTimed();
+        return PerformTimed(
+          exercise: exercise,
+          onTimeExpired: () =>
+              model.hasNext() ? _next(exercise) : _finishWorkout(),
+        );
       default:
         return Container();
     }
