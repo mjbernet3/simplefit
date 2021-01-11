@@ -29,11 +29,6 @@ class DetailTimed extends StatelessWidget {
             initialValue: timedData.rest.toString(),
             onChanged: (String value) => timedData.rest = int.parse(value),
           ),
-          DetailCard(
-            text: 'Times to Repeat:',
-            initialValue: timedData.repeat.toString(),
-            onChanged: (String value) => timedData.repeat = int.parse(value),
-          ),
         ],
       ),
     );

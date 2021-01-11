@@ -4,17 +4,16 @@ import 'package:client/models/exercise/exercise_data.dart';
 class TimedCardio extends ExerciseData {
   int time;
   double speed;
-  int repeat;
 
   TimedCardio({
     Exercise exercise,
     String notes,
     int rest,
     bool isWarmUp,
+    bool shouldAdvance,
     this.time,
     this.speed,
-    this.repeat,
-  }) : super(exercise, notes, rest, isWarmUp);
+  }) : super(exercise, notes, rest, isWarmUp, shouldAdvance);
 
   factory TimedCardio.initial(Exercise exercise) {
     return TimedCardio(
@@ -22,9 +21,9 @@ class TimedCardio extends ExerciseData {
       notes: '',
       rest: 0,
       isWarmUp: false,
+      shouldAdvance: false,
       time: 0,
       speed: 0.0,
-      repeat: 0,
     );
   }
 
@@ -36,9 +35,9 @@ class TimedCardio extends ExerciseData {
       notes: exerciseData['notes'],
       rest: exerciseData['rest'],
       isWarmUp: exerciseData['isWarmUp'],
+      shouldAdvance: exerciseData['shouldAdvance'],
       time: exerciseData['time'],
       speed: exerciseData['speed'],
-      repeat: exerciseData['repeat'],
     );
   }
 
@@ -48,9 +47,9 @@ class TimedCardio extends ExerciseData {
       'notes': notes,
       'rest': rest,
       'isWarmUp': isWarmUp,
+      'shouldAdvance': shouldAdvance,
       'time': time,
       'speed': speed,
-      'repeat': repeat,
     };
   }
 
@@ -60,9 +59,9 @@ class TimedCardio extends ExerciseData {
       notes: notes,
       rest: rest,
       isWarmUp: isWarmUp,
+      shouldAdvance: shouldAdvance,
       time: time,
       speed: speed,
-      repeat: repeat,
     );
   }
 }

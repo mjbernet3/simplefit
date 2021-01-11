@@ -10,9 +10,10 @@ class DistanceCardio extends ExerciseData {
     String notes,
     int rest,
     bool isWarmUp,
+    bool shouldAdvance,
     this.distance,
     this.speed,
-  }) : super(exercise, notes, rest, isWarmUp);
+  }) : super(exercise, notes, rest, isWarmUp, shouldAdvance);
 
   factory DistanceCardio.initial(Exercise exercise) {
     return DistanceCardio(
@@ -20,6 +21,7 @@ class DistanceCardio extends ExerciseData {
       notes: '',
       rest: 0,
       isWarmUp: false,
+      shouldAdvance: false,
       distance: 0.0,
       speed: 0.0,
     );
@@ -33,6 +35,7 @@ class DistanceCardio extends ExerciseData {
       notes: exerciseData['notes'],
       rest: exerciseData['rest'],
       isWarmUp: exerciseData['isWarmUp'],
+      shouldAdvance: exerciseData['shouldAdvance'],
       distance: exerciseData['distance'],
       speed: exerciseData['speed'],
     );
@@ -44,6 +47,7 @@ class DistanceCardio extends ExerciseData {
       'notes': notes,
       'rest': rest,
       'isWarmUp': isWarmUp,
+      'shouldAdvance': shouldAdvance,
       'distance': distance,
       'speed': speed,
     };
@@ -55,6 +59,7 @@ class DistanceCardio extends ExerciseData {
       notes: notes,
       rest: rest,
       isWarmUp: isWarmUp,
+      shouldAdvance: shouldAdvance,
       distance: distance,
       speed: speed,
     );
