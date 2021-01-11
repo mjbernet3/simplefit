@@ -45,7 +45,6 @@ class _RegisterFormState extends State<RegisterForm> {
             autofocus: true,
             enabled: !_isLoading,
             validator: (value) => Validator.validateEmail(value),
-            onSubmitted: (_) => FocusScope.of(context).nextFocus(),
           ),
           SizedBox(height: 32.0),
           AuthInputField(
@@ -54,7 +53,6 @@ class _RegisterFormState extends State<RegisterForm> {
             textInputAction: TextInputAction.next,
             enabled: !_isLoading,
             validator: (value) => Validator.validateUsername(value),
-            onSubmitted: (_) => FocusScope.of(context).nextFocus(),
           ),
           SizedBox(height: 32.0),
           AuthInputField(
@@ -70,12 +68,12 @@ class _RegisterFormState extends State<RegisterForm> {
             buttonText: Text(
               'Create Account',
               style: TextStyle(
-                color: AppStyle.highEmphasisText,
+                color: AppStyle.highEmphasis,
                 fontSize: 16.0,
               ),
             ),
             disabled: _isLoading,
-            onPressed: () => _register(),
+            onPressed: _register,
           ),
         ],
       ),

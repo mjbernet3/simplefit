@@ -38,7 +38,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppStyle.dp4,
+      color: AppStyle.firstElevation,
       padding: EdgeInsets.all(10.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +50,10 @@ class _CountdownTimerState extends State<CountdownTimer> {
             children: [
               Text(
                 Formatter.secondsToTime(_currentTime),
-                style: TextStyle(fontSize: 56.0),
+                style: TextStyle(
+                  fontSize: 56.0,
+                  color: AppStyle.highEmphasis,
+                ),
               ),
               SizedBox(width: 5.0),
               !_isStarted
@@ -69,10 +72,13 @@ class _CountdownTimerState extends State<CountdownTimer> {
                           child: Container(
                             padding: EdgeInsets.all(4.0),
                             decoration: BoxDecoration(
-                              color: AppStyle.dp12,
+                              color: AppStyle.secondElevation,
                               borderRadius: BorderRadius.circular(5.0),
                             ),
-                            child: Icon(Icons.add),
+                            child: Icon(
+                              Icons.add,
+                              color: AppStyle.highEmphasis,
+                            ),
                           ),
                         ),
                         SizedBox(height: 10.0),
@@ -89,10 +95,13 @@ class _CountdownTimerState extends State<CountdownTimer> {
                           child: Container(
                             padding: EdgeInsets.all(4.0),
                             decoration: BoxDecoration(
-                              color: AppStyle.dp12,
+                              color: AppStyle.secondElevation,
                               borderRadius: BorderRadius.circular(5.0),
                             ),
-                            child: Icon(Icons.remove),
+                            child: Icon(
+                              Icons.remove,
+                              color: AppStyle.highEmphasis,
+                            ),
                           ),
                         ),
                       ],
@@ -107,8 +116,8 @@ class _CountdownTimerState extends State<CountdownTimer> {
                 child: RoundedButton(
                   height: 30.0,
                   buttonText: Text('Reset'),
-                  color: AppStyle.dp16,
-                  borderColor: AppStyle.dp16,
+                  color: AppStyle.secondElevation,
+                  borderColor: AppStyle.secondElevation,
                   onPressed: _resetTimer,
                 ),
               ),
@@ -116,10 +125,21 @@ class _CountdownTimerState extends State<CountdownTimer> {
               Expanded(
                 child: RoundedButton(
                   height: 30.0,
-                  buttonText:
-                      !_stopwatch.isRunning ? Text('Start') : Text("Stop"),
-                  color: AppStyle.dp16,
-                  borderColor: AppStyle.dp16,
+                  buttonText: !_stopwatch.isRunning
+                      ? Text(
+                          'Start',
+                          style: TextStyle(
+                            color: AppStyle.highEmphasis,
+                          ),
+                        )
+                      : Text(
+                          "Stop",
+                          style: TextStyle(
+                            color: AppStyle.highEmphasis,
+                          ),
+                        ),
+                  color: AppStyle.secondElevation,
+                  borderColor: AppStyle.secondElevation,
                   onPressed: _toggleTimer,
                 ),
               ),

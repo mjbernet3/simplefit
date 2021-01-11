@@ -36,7 +36,7 @@ class _ExerciseListingState extends State<ExerciseListing> {
                 Text(
                   'Choose exercises',
                   style: TextStyle(
-                    color: AppStyle.highEmphasisText,
+                    color: AppStyle.highEmphasis,
                     fontSize: 18.0,
                   ),
                 ),
@@ -59,7 +59,7 @@ class _ExerciseListingState extends State<ExerciseListing> {
                         width: 24.0,
                         child: Icon(
                           listIcon,
-                          color: AppStyle.highEmphasisText,
+                          color: AppStyle.highEmphasis,
                           size: 20.0,
                         ),
                       ),
@@ -73,7 +73,7 @@ class _ExerciseListingState extends State<ExerciseListing> {
                             ),
                             child: Icon(
                               Icons.add,
-                              color: AppStyle.highEmphasisText,
+                              color: AppStyle.highEmphasis,
                             ),
                           )
                         : SizedBox.shrink(),

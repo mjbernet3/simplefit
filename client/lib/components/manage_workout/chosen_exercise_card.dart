@@ -39,7 +39,7 @@ class ChosenExerciseCard extends StatelessWidget {
           child: GestureDetector(
             onTap: onPressed,
             child: Card(
-              color: AppStyle.dp3,
+              color: AppStyle.firstElevation,
               shadowColor: AppStyle.backgroundColor,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
@@ -49,7 +49,7 @@ class ChosenExerciseCard extends StatelessWidget {
                     Text(
                       exerciseData.exercise.name,
                       style: TextStyle(
-                        color: AppStyle.highEmphasisText,
+                        color: AppStyle.highEmphasis,
                         fontSize: 16.0,
                       ),
                     ),
@@ -58,7 +58,7 @@ class ChosenExerciseCard extends StatelessWidget {
                       exerciseData.exercise.bodyPart ??
                           exerciseData.exercise.type,
                       style: TextStyle(
-                        color: AppStyle.medEmphasisText,
+                        color: AppStyle.medEmphasis,
                         fontSize: 12.0,
                       ),
                     ),

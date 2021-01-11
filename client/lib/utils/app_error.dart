@@ -10,10 +10,10 @@ class AppError {
         content: Text(
           errorMessage,
           style: TextStyle(
-            color: AppStyle.highEmphasisText,
+            color: AppStyle.highEmphasis,
           ),
         ),
-        backgroundColor: AppStyle.dp8,
+        backgroundColor: AppStyle.secondElevation,
         duration: Duration(seconds: 5),
       ),
     );

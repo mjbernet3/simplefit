@@ -55,12 +55,10 @@ class DetailLift extends StatelessWidget {
                     buttonText: Text(
                       'Add Set',
                       style: TextStyle(
-                        color: AppStyle.highEmphasisText,
+                        color: AppStyle.highEmphasis,
                       ),
                     ),
                     height: 30.0,
-                    color: AppStyle.dp4,
-                    borderColor: AppStyle.dp4,
                     onPressed: () => model.addSet(),
                   ),
                 ],

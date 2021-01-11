@@ -1,6 +1,7 @@
 import 'package:client/components/perform_workout/previous_card.dart';
 import 'package:client/components/perform_workout/vertical_stat_adjuster.dart';
 import 'package:client/models/exercise/distance_cardio.dart';
+import 'package:client/utils/app_style.dart';
 import 'package:flutter/material.dart';
 
 class PerformDistance extends StatelessWidget {
@@ -14,9 +15,24 @@ class PerformDistance extends StatelessWidget {
       children: [
         PreviousCard(
           stats: {
-            "Distance": Text(exercise.distance.toStringAsFixed(1)),
-            "Speed": Text(exercise.speed.toStringAsFixed(1)),
-            "Advance": Text("Yes"),
+            "Distance": Text(
+              exercise.distance.toStringAsFixed(1),
+              style: TextStyle(
+                color: AppStyle.highEmphasis,
+              ),
+            ),
+            "Speed": Text(
+              exercise.speed.toStringAsFixed(1),
+              style: TextStyle(
+                color: AppStyle.highEmphasis,
+              ),
+            ),
+            "Advance": Text(
+              "Yes",
+              style: TextStyle(
+                color: AppStyle.highEmphasis,
+              ),
+            ),
           },
         ),
         SizedBox(height: 20.0),

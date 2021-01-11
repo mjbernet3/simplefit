@@ -1,3 +1,4 @@
+import 'package:client/services/auth_service.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/components/home/workout_card.dart';
@@ -30,33 +31,52 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        backgroundColor: AppStyle.dp2,
+        backgroundColor: AppStyle.firstElevation,
         title: Text(
           'My Workouts',
           style: TextStyle(
+            color: AppStyle.highEmphasis,
             fontSize: 20.0,
           ),
         ),
         actions: <Widget>[
           !isEditing
               ? PopupMenuButton<PopupChoice>(
-                  icon: Icon(Icons.more_vert),
-                  color: AppStyle.dp2,
+                  icon: Icon(
+                    Icons.more_vert,
+                    color: AppStyle.highEmphasis,
+                  ),
+                  color: AppStyle.secondElevation,
                   onSelected: (PopupChoice value) =>
                       _handleChoice(value, context),
                   itemBuilder: (BuildContext context) =>
                       <PopupMenuEntry<PopupChoice>>[
                     PopupMenuItem<PopupChoice>(
                       value: PopupChoice.ADD,
-                      child: Text('Add Workout'),
+                      child: Text(
+                        'Add Workout',
+                        style: TextStyle(
+                          color: AppStyle.highEmphasis,
+                        ),
+                      ),
                     ),
                     PopupMenuItem<PopupChoice>(
                       value: PopupChoice.EDIT,
-                      child: Text('Edit Workout'),
+                      child: Text(
+                        'Edit Workout',
+                        style: TextStyle(
+                          color: AppStyle.highEmphasis,
+                        ),
+                      ),
                     ),
                     PopupMenuItem<PopupChoice>(
                       value: PopupChoice.SETTINGS,
-                      child: Text('Settings'),
+                      child: Text(
+                        'Settings',
+                        style: TextStyle(
+                          color: AppStyle.highEmphasis,
+                        ),
+                      ),
                     ),
                   ],
                 )
@@ -70,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                       width: 24.0,
                       child: Icon(
                         Icons.check,
-                        color: AppStyle.highEmphasisText,
+                        color: AppStyle.highEmphasis,
                         size: 20.0,
                       ),
                     ),
@@ -137,7 +157,10 @@ class _HomePageState extends State<HomePage> {
         setState(() => isEditing = !isEditing);
         break;
       case PopupChoice.SETTINGS:
-        Navigator.pushNamed(context, AppRouter.settings);
+        AuthService authService =
+            Provider.of<AuthService>(context, listen: false);
+        authService.signOut();
+        // Navigator.pushNamed(context, AppRouter.settings);
         break;
     }
   }

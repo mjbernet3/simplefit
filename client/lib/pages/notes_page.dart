@@ -32,7 +32,7 @@ class _NotesPageState extends State<NotesPage> {
           textInputAction: TextInputAction.newline,
           style: TextStyle(
             fontSize: 14.0,
-            color: AppStyle.highEmphasisText,
+            color: AppStyle.highEmphasis,
           ),
           decoration: InputDecoration(
             fillColor: Colors.transparent,
@@ -41,7 +41,7 @@ class _NotesPageState extends State<NotesPage> {
             counterText: '',
           ),
           maxLines: null,
-          cursorColor: Colors.white,
+          cursorColor: AppStyle.highEmphasis,
           keyboardType: TextInputType.multiline,
           onChanged: (_) => {
             widget.messenger.notes = _notesController.text,

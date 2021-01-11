@@ -19,7 +19,7 @@ class WelcomePage extends StatelessWidget {
                   Text(
                     'SimpleFit',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppStyle.highEmphasis,
                       fontSize: 32.0,
                     ),
                   ),
@@ -27,7 +27,7 @@ class WelcomePage extends StatelessWidget {
                   Text(
                     'Make this page less boring later.',
                     style: TextStyle(
-                      color: AppStyle.medEmphasisText,
+                      color: AppStyle.medEmphasis,
                       fontSize: 14.0,
                     ),
                   ),
@@ -42,7 +42,7 @@ class WelcomePage extends StatelessWidget {
                   buttonText: Text(
                     'Create an Account',
                     style: TextStyle(
-                      color: AppStyle.highEmphasisText,
+                      color: AppStyle.highEmphasis,
                       fontSize: 16.0,
                     ),
                   ),
@@ -56,7 +56,7 @@ class WelcomePage extends StatelessWidget {
                     Text(
                       'Already have an account?',
                       style: TextStyle(
-                        color: AppStyle.medEmphasisText,
+                        color: AppStyle.medEmphasis,
                       ),
                     ),
                     SizedBox(width: 5.0),
@@ -66,7 +66,7 @@ class WelcomePage extends StatelessWidget {
                       child: Text(
                         'Sign In',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppStyle.highEmphasis,
                         ),
                       ),
                     ),

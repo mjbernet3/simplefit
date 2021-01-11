@@ -35,7 +35,7 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
                   'Exercises',
                   style: TextStyle(
                     fontSize: 18.0,
-                    color: AppStyle.highEmphasisText,
+                    color: AppStyle.highEmphasis,
                   ),
                 ),
               ),
@@ -44,13 +44,11 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
                 buttonText: Text(
                   'Add Exercise',
                   style: TextStyle(
-                    color: AppStyle.highEmphasisText,
+                    color: AppStyle.highEmphasis,
                   ),
                 ),
                 height: 30.0,
-                color: AppStyle.dp4,
-                borderColor: AppStyle.dp4,
-                onPressed: () => _browseExercises(),
+                onPressed: _browseExercises,
               ),
             ],
           );
@@ -69,7 +67,7 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
                     'Exercises',
                     style: TextStyle(
                       fontSize: 18.0,
-                      color: AppStyle.highEmphasisText,
+                      color: AppStyle.highEmphasis,
                     ),
                   ),
                   Row(
@@ -93,7 +91,7 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
                           width: 24.0,
                           child: Icon(
                             listIcon,
-                            color: AppStyle.highEmphasisText,
+                            color: AppStyle.highEmphasis,
                             size: 20.0,
                           ),
                         ),
@@ -101,10 +99,10 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
                       SizedBox(width: 8.0),
                       !isEditing
                           ? GestureDetector(
-                              onTap: () => _browseExercises(),
+                              onTap: _browseExercises,
                               child: Icon(
                                 Icons.add,
-                                color: AppStyle.highEmphasisText,
+                                color: AppStyle.highEmphasis,
                               ),
                             )
                           : SizedBox.shrink(),

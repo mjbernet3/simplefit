@@ -4,12 +4,14 @@ import 'package:client/components/shared/rounded_button.dart';
 import 'package:flutter/material.dart';
 
 class ActionButtons extends StatelessWidget {
-  final String confirmText;
   final Function onConfirmed;
+  final Color color;
+  final String confirmText;
   final bool disabled;
 
   const ActionButtons({
     this.onConfirmed,
+    this.color = AppStyle.firstElevation,
     this.confirmText = 'Save Changes',
     this.disabled = false,
   });
@@ -25,23 +27,23 @@ class ActionButtons extends StatelessWidget {
             RoundedButton(
               buttonText: Text(
                 'Cancel',
-                style: TextStyle(color: AppStyle.highEmphasisText),
+                style: TextStyle(color: AppStyle.highEmphasis),
               ),
               height: 30.0,
-              color: AppStyle.dp4,
+              color: color,
+              borderColor: color,
               disabled: disabled,
-              borderColor: AppStyle.dp4,
               onPressed: () => Navigator.pop(context),
             ),
             RoundedButton(
               buttonText: Text(
                 confirmText,
-                style: TextStyle(color: AppStyle.highEmphasisText),
+                style: TextStyle(color: AppStyle.highEmphasis),
               ),
               height: 30.0,
-              color: AppStyle.dp4,
+              color: color,
+              borderColor: color,
               disabled: disabled,
-              borderColor: AppStyle.dp4,
               onPressed: onConfirmed,
             ),
           ],

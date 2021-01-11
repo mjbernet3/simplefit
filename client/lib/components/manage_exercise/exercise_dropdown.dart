@@ -34,10 +34,11 @@ class _ExerciseDropdownState extends State<ExerciseDropdown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
+      dropdownColor: AppStyle.thirdElevation,
       hint: Text(widget.hintText),
       value: selectedValue,
       isExpanded: true,
-      style: TextStyle(color: AppStyle.highEmphasisText),
+      style: TextStyle(color: AppStyle.highEmphasis),
       items: widget.items
           .map(
             (String item) => DropdownMenuItem<String>(

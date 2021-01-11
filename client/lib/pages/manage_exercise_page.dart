@@ -55,7 +55,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
                 InputField(
                   labelText: 'Exercise Name',
                   controller: _nameController,
-                  fillColor: AppStyle.dp8,
+                  fillColor: AppStyle.secondElevation,
                   enabled: !_isLoading,
                   onSubmitted: (_) => FocusScope.of(context).unfocus(),
                 ),
@@ -90,6 +90,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
           ),
           ActionButtons(
             confirmText: widget.isEdit ? 'Update Exercise' : 'Create Exercise',
+            color: AppStyle.secondElevation,
             disabled: _isLoading,
             onConfirmed: () => _manageExercise(),
           ),

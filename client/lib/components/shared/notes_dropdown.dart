@@ -40,7 +40,7 @@ class _NotesDropdownState extends State<NotesDropdown> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: AppStyle.dp24,
+            color: AppStyle.thirdElevation,
           ),
         ),
       ),
@@ -51,14 +51,14 @@ class _NotesDropdownState extends State<NotesDropdown> {
             'Notes',
             style: TextStyle(
               fontSize: 16.0,
-              color: AppStyle.medEmphasisText,
+              color: AppStyle.medEmphasis,
             ),
           ),
           GestureDetector(
             onTap: () => _toggleNotes(),
             child: Icon(
               _hidden ? Icons.expand_more : Icons.expand_less,
-              color: AppStyle.medEmphasisText,
+              color: AppStyle.medEmphasis,
             ),
           )
         ],

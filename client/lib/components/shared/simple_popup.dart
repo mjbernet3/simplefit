@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 
 class SimplePopUp<T> extends ModalRoute<T> {
   final Widget Function(BuildContext context) builder;
-  final bool isAnimated;
   final RenderBox renderBox;
   final Color backgroundColor;
+  final bool isAnimated;
 
   SimplePopUp({
     @required this.builder,
-    this.isAnimated = true,
     this.renderBox,
     this.backgroundColor,
+    this.isAnimated = true,
   });
 
   @override
@@ -46,7 +46,7 @@ class SimplePopUp<T> extends ModalRoute<T> {
           child: Container(
             padding: EdgeInsets.all(15.0),
             decoration: BoxDecoration(
-              color: AppStyle.dp2,
+              color: AppStyle.firstElevation,
               borderRadius: BorderRadius.all(
                 Radius.circular(10.0),
               ),
@@ -72,7 +72,7 @@ class SimplePopUp<T> extends ModalRoute<T> {
               child: Container(
                 padding: EdgeInsets.all(15.0),
                 decoration: BoxDecoration(
-                  color: AppStyle.dp1,
+                  color: AppStyle.firstElevation,
                   borderRadius: BorderRadius.vertical(
                     bottom: Radius.circular(10.0),
                   ),

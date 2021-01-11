@@ -33,18 +33,18 @@ class BrowseExercisesPage extends StatelessWidget {
                         Text(
                           'You have no exercises.',
                           style: TextStyle(
-                            color: AppStyle.medEmphasisText,
+                            color: AppStyle.medEmphasis,
                           ),
                         ),
                         SizedBox(height: 5.0),
                         RoundedButton(
                           buttonText: Text(
                             'Add Exercise',
-                            style: TextStyle(color: AppStyle.highEmphasisText),
+                            style: TextStyle(color: AppStyle.highEmphasis),
                           ),
                           height: 30.0,
-                          color: AppStyle.dp4,
-                          borderColor: AppStyle.dp4,
+                          color: AppStyle.secondElevation,
+                          borderColor: AppStyle.secondElevation,
                           onPressed: () => Navigator.pushNamed(
                             context,
                             AppRouter.manageExercise,
@@ -77,11 +77,11 @@ class BrowseExercisesPage extends StatelessWidget {
                   RoundedButton(
                     buttonText: Text(
                       'Add $exerciseCount Exercises',
-                      style: TextStyle(color: AppStyle.highEmphasisText),
+                      style: TextStyle(color: AppStyle.highEmphasis),
                     ),
                     height: 30.0,
-                    color: AppStyle.dp4,
-                    borderColor: AppStyle.dp4,
+                    color: AppStyle.secondElevation,
+                    borderColor: AppStyle.secondElevation,
                     onPressed: () =>
                         Navigator.pop(context, model.getExercises()),
                   ),

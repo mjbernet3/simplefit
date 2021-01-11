@@ -9,12 +9,12 @@ class RoundedButton extends StatelessWidget {
   final Color borderColor;
   final bool disabled;
 
-  const RoundedButton({
+  RoundedButton({
     @required this.buttonText,
     @required this.onPressed,
     this.height = 45.0,
-    this.color = AppStyle.backgroundColor,
-    this.borderColor = Colors.white,
+    this.color = AppStyle.firstElevation,
+    this.borderColor = AppStyle.firstElevation,
     this.disabled = false,
   });
 

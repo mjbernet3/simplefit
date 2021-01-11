@@ -45,6 +45,7 @@ class _DetailExercisePageState extends State<DetailExercisePage> {
               Text(
                 widget.exerciseData.exercise.name,
                 style: TextStyle(
+                  color: AppStyle.highEmphasis,
                   fontSize: 24.0,
                 ),
               ),
@@ -62,7 +63,7 @@ class _DetailExercisePageState extends State<DetailExercisePage> {
                   Text(
                     'Warm-up Exercise',
                     style: TextStyle(
-                      color: AppStyle.medEmphasisText,
+                      color: AppStyle.medEmphasis,
                       fontSize: 14.0,
                     ),
                   ),

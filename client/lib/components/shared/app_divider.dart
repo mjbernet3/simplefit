@@ -6,7 +6,7 @@ class AppDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Divider(
       thickness: 1.5,
-      color: AppStyle.dp24,
+      color: AppStyle.thirdElevation,
     );
   }
 }

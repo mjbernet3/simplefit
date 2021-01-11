@@ -31,7 +31,7 @@ class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppStyle.dp4,
+      color: AppStyle.firstElevation,
       child: Column(
         children: [
           Expanded(
@@ -43,13 +43,14 @@ class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
                   Text(
                     _currentStat.toStringAsFixed(1),
                     style: TextStyle(
+                      color: AppStyle.highEmphasis,
                       fontSize: 36.0,
                     ),
                   ),
                   SizedBox(height: 5.0),
                   Text(
                     widget.unit,
-                    style: TextStyle(color: AppStyle.medEmphasisText),
+                    style: TextStyle(color: AppStyle.medEmphasis),
                   ),
                 ],
               ),
@@ -67,9 +68,12 @@ class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
                     minWidth: 0.0,
                   ),
                   padding: EdgeInsets.all(8.0),
-                  fillColor: AppStyle.dp12,
+                  fillColor: AppStyle.secondElevation,
                   shape: CircleBorder(),
-                  child: Icon(Icons.remove),
+                  child: Icon(
+                    Icons.remove,
+                    color: AppStyle.highEmphasis,
+                  ),
                   onPressed: () => setState(
                     () => {
                       _currentStat -= widget.adjustAmount,
@@ -82,9 +86,12 @@ class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
                     minWidth: 0.0,
                   ),
                   padding: EdgeInsets.all(8.0),
-                  fillColor: AppStyle.dp12,
+                  fillColor: AppStyle.secondElevation,
                   shape: CircleBorder(),
-                  child: Icon(Icons.add),
+                  child: Icon(
+                    Icons.add,
+                    color: AppStyle.highEmphasis,
+                  ),
                   onPressed: () => setState(
                     () => {
                       _currentStat += widget.adjustAmount,

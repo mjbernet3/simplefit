@@ -5,6 +5,7 @@ import 'package:client/models/workout/workout.dart';
 import 'package:client/models/workout/workout_preview.dart';
 import 'package:client/services/workout_service.dart';
 import 'package:client/utils/app_error.dart';
+import 'package:client/utils/app_style.dart';
 import 'package:client/view_models/manage_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,10 +42,17 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: AppStyle.highEmphasis,
+        ),
         title: Text(
           widget.isEdit ? 'Edit Workout' : 'Create Workout',
-          style: TextStyle(fontSize: 18.0),
+          style: TextStyle(
+            color: AppStyle.highEmphasis,
+            fontSize: 18.0,
+          ),
         ),
+        backgroundColor: AppStyle.firstElevation,
       ),
       body: Padding(
         padding: EdgeInsets.all(15.0),
@@ -67,8 +75,8 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
               children: <Widget>[
                 InputField(
                   controller: _nameController,
+                  textInputAction: TextInputAction.next,
                   labelText: 'Workout Name',
-                  onSubmitted: (_) => FocusScope.of(context).nextFocus(),
                 ),
                 SizedBox(height: 12.0),
                 InputField(
@@ -83,7 +91,7 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
                   child: ChosenExerciseListing(),
                 ),
                 ActionButtons(
-                  onConfirmed: () => _manageWorkout(),
+                  onConfirmed: _manageWorkout,
                 ),
               ],
             );

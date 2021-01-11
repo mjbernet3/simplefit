@@ -52,11 +52,11 @@ class _ExerciseCardState extends State<ExerciseCard> {
                 }
             },
             child: Card(
-              color: AppStyle.dp6,
+              color: AppStyle.secondElevation,
               shadowColor: AppStyle.backgroundColor,
               shape: selected && !widget.isEditing
                   ? RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.white),
+                      side: BorderSide(color: AppStyle.highEmphasis),
                       borderRadius: BorderRadius.circular(4.0),
                     )
                   : null,
@@ -74,7 +74,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                         Text(
                           widget.exercise.name,
                           style: TextStyle(
-                            color: AppStyle.highEmphasisText,
+                            color: AppStyle.highEmphasis,
                             fontSize: 16.0,
                           ),
                         ),
@@ -82,7 +82,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                         Text(
                           widget.exercise.bodyPart ?? widget.exercise.type,
                           style: TextStyle(
-                            color: AppStyle.medEmphasisText,
+                            color: AppStyle.medEmphasis,
                             fontSize: 12.0,
                           ),
                         ),
@@ -101,11 +101,11 @@ class _ExerciseCardState extends State<ExerciseCard> {
   Widget _buildExerciseIcon() {
     switch (widget.exercise.type) {
       case Constant.lifting:
-        return Icon(Icons.fitness_center, color: AppStyle.lowEmphasisText);
+        return Icon(Icons.fitness_center, color: AppStyle.lowEmphasis);
       case Constant.timed:
-        return Icon(Icons.query_builder, color: AppStyle.lowEmphasisText);
+        return Icon(Icons.query_builder, color: AppStyle.lowEmphasis);
       case Constant.distance:
-        return Icon(Icons.directions_run, color: AppStyle.lowEmphasisText);
+        return Icon(Icons.directions_run, color: AppStyle.lowEmphasis);
       default:
         return null;
     }

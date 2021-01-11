@@ -46,7 +46,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                       padding: EdgeInsets.all(15.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: AppStyle.dp4,
+                          color: AppStyle.firstElevation,
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         padding: EdgeInsets.symmetric(
@@ -56,7 +56,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                               ? currentExercise.exercise.name
                               : "Next: " + model.peekNext(),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: AppStyle.highEmphasis,
                             fontSize: 20.0,
                           ),
                         ),
@@ -82,10 +82,10 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                               height: MediaQuery.of(context).size.height,
                               duration: currentExercise.rest,
                               fillColor: AppStyle.primaryColor,
-                              color: AppStyle.dp4,
+                              color: AppStyle.firstElevation,
                               strokeWidth: 15.0,
                               textStyle: TextStyle(
-                                color: Colors.white,
+                                color: AppStyle.highEmphasis,
                                 fontSize: 40.0,
                               ),
                               onComplete: () => _next(currentExercise),
@@ -102,11 +102,12 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                           maintainAnimation: true,
                           child: RawMaterialButton(
                             padding: EdgeInsets.all(15.0),
-                            fillColor: AppStyle.dp4,
+                            fillColor: AppStyle.firstElevation,
                             shape: CircleBorder(),
                             child: Icon(
                               Icons.arrow_back_rounded,
                               size: 25.0,
+                              color: AppStyle.highEmphasis,
                             ),
                             onPressed: () => _previous(),
                           ),
@@ -114,12 +115,12 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                         model.hasNext()
                             ? RawMaterialButton(
                                 padding: EdgeInsets.all(15.0),
-                                fillColor: AppStyle.dp4,
+                                fillColor: AppStyle.firstElevation,
                                 shape: CircleBorder(),
                                 child: Icon(
                                   Icons.arrow_forward_rounded,
                                   size: 25.0,
-                                  color: Colors.white,
+                                  color: AppStyle.highEmphasis,
                                 ),
                                 onPressed: () => _next(currentExercise),
                               )

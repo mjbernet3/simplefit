@@ -12,7 +12,7 @@ class AuthInputField extends StatelessWidget {
   final bool autofocus;
   final bool enabled;
 
-  const AuthInputField({
+  AuthInputField({
     @required this.labelText,
     this.controller,
     this.validator,
@@ -31,7 +31,7 @@ class AuthInputField extends StatelessWidget {
       children: <Widget>[
         Text(
           labelText,
-          style: TextStyle(color: AppStyle.medEmphasisText),
+          style: TextStyle(color: AppStyle.medEmphasis),
         ),
         TextFormField(
           controller: controller,
@@ -41,14 +41,14 @@ class AuthInputField extends StatelessWidget {
           enabled: enabled,
           obscureText: hidden,
           maxLength: 30,
-          cursorColor: Colors.white,
+          cursorColor: AppStyle.highEmphasis,
           style: TextStyle(
             fontSize: 14.0,
-            color: AppStyle.highEmphasisText,
+            color: AppStyle.highEmphasis,
           ),
           decoration: InputDecoration(
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: AppStyle.highEmphasis),
             ),
             contentPadding: EdgeInsets.symmetric(
               vertical: 0.0,

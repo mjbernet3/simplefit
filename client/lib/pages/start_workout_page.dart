@@ -37,9 +37,10 @@ class StartWorkoutPage extends StatelessWidget {
                     workout.name,
                     style: TextStyle(
                       fontSize: 24.0,
-                      color: Colors.white,
+                      color: AppStyle.highEmphasis,
                     ),
                   ),
+                  SizedBox(height: 10.0),
                   NotesDropdown(
                     notes: workout.notes,
                     onComplete: (String newNotes) => workout.notes = newNotes,
@@ -57,12 +58,11 @@ class StartWorkoutPage extends StatelessWidget {
                   ),
                   Center(
                     child: RoundedButton(
-                      color: AppStyle.dp4,
                       borderColor: AppStyle.primaryColor,
                       buttonText: Text(
                         "Start Workout",
                         style: TextStyle(
-                          color: AppStyle.highEmphasisText,
+                          color: AppStyle.highEmphasis,
                         ),
                       ),
                       onPressed: () => Navigator.pushReplacementNamed(

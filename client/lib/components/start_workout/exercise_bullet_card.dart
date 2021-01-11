@@ -16,13 +16,13 @@ class ExerciseBulletCard extends StatelessWidget {
             Container(
               height: 50.0,
               width: 3.0,
-              color: AppStyle.dp4,
+              color: AppStyle.firstElevation,
             ),
             Container(
               height: 35.0,
               width: 35.0,
               decoration: BoxDecoration(
-                color: AppStyle.dp4,
+                color: AppStyle.firstElevation,
                 shape: BoxShape.circle,
                 border: Border.all(color: AppStyle.primaryColor),
               ),
@@ -33,7 +33,7 @@ class ExerciseBulletCard extends StatelessWidget {
         Text(
           exerciseName,
           style: TextStyle(
-            color: AppStyle.highEmphasisText,
+            color: AppStyle.highEmphasis,
             fontSize: 18.0,
           ),
         ),

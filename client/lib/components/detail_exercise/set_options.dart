@@ -36,21 +36,27 @@ class _SetOptionsState extends State<SetOptions> {
     return PopupMenuButton<PopupChoice>(
       icon: Icon(
         Icons.more_vert,
-        color: AppStyle.medEmphasisText,
+        color: AppStyle.highEmphasis,
       ),
-      color: AppStyle.dp2,
+      color: AppStyle.secondElevation,
       onSelected: (PopupChoice value) => _handleChoice(value, context),
       itemBuilder: (BuildContext context) => <PopupMenuEntry<PopupChoice>>[
         PopupMenuItem<PopupChoice>(
           value: PopupChoice.WARM_UP,
           child: Row(
             children: <Widget>[
-              Text('Warm up set'),
+              Text(
+                'Warm up set',
+                style: TextStyle(color: AppStyle.highEmphasis),
+              ),
               isWarmUp
                   ? Row(
                       children: <Widget>[
                         SizedBox(width: 5.0),
-                        Icon(Icons.check),
+                        Icon(
+                          Icons.check,
+                          color: AppStyle.highEmphasis,
+                        ),
                       ],
                     )
                   : SizedBox.shrink(),
@@ -59,7 +65,10 @@ class _SetOptionsState extends State<SetOptions> {
         ),
         PopupMenuItem<PopupChoice>(
           value: PopupChoice.REMOVE,
-          child: Text('Remove this set'),
+          child: Text(
+            'Remove this set',
+            style: TextStyle(color: AppStyle.highEmphasis),
+          ),
         ),
       ],
     );

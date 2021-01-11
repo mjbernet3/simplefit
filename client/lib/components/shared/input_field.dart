@@ -22,9 +22,9 @@ class InputField extends StatelessWidget {
     this.onSubmitted,
     this.validator,
     this.maxLength,
-    this.fillColor = AppStyle.dp2,
+    this.fillColor = AppStyle.firstElevation,
     this.maxLines = 1,
-    this.textInputAction = TextInputAction.next,
+    this.textInputAction = TextInputAction.done,
     this.keyboardType = TextInputType.text,
     this.autofocus = false,
     this.enabled = true,
@@ -40,7 +40,7 @@ class InputField extends StatelessWidget {
                 labelText,
                 style: TextStyle(
                   fontSize: 14.0,
-                  color: AppStyle.highEmphasisText,
+                  color: AppStyle.medEmphasis,
                 ),
               )
             : SizedBox.shrink(),
@@ -53,19 +53,19 @@ class InputField extends StatelessWidget {
           enabled: enabled,
           style: TextStyle(
             fontSize: 14.0,
-            color: AppStyle.highEmphasisText,
+            color: AppStyle.highEmphasis,
           ),
           decoration: InputDecoration(
             fillColor: fillColor,
             filled: true,
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppStyle.dp2),
+              borderSide: BorderSide(color: AppStyle.firstElevation),
               borderRadius: BorderRadius.all(
                 Radius.circular(5.0),
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppStyle.dp24),
+              borderSide: BorderSide(color: AppStyle.thirdElevation),
             ),
             contentPadding: EdgeInsets.symmetric(
               vertical: 8.0,

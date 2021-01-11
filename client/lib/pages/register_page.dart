@@ -7,6 +7,9 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: AppStyle.highEmphasis,
+        ),
         backgroundColor: AppStyle.backgroundColor,
         elevation: 0.0,
       ),
@@ -18,7 +21,7 @@ class RegisterPage extends StatelessWidget {
             Text(
               'Register',
               style: TextStyle(
-                color: Colors.white,
+                color: AppStyle.highEmphasis,
                 fontSize: 32.0,
               ),
             ),

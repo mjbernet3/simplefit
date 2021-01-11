@@ -7,6 +7,9 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: AppStyle.highEmphasis,
+        ),
         backgroundColor: AppStyle.backgroundColor,
         elevation: 0.0,
       ),
@@ -18,7 +21,7 @@ class LoginPage extends StatelessWidget {
             Text(
               'Sign In',
               style: TextStyle(
-                color: Colors.white,
+                color: AppStyle.highEmphasis,
                 fontSize: 32.0,
               ),
             ),
@@ -33,7 +36,7 @@ class LoginPage extends StatelessWidget {
                   'Forgot password?',
                   style: TextStyle(
                     fontSize: 12.0,
-                    color: AppStyle.medEmphasisText,
+                    color: AppStyle.medEmphasis,
                   ),
                 ),
               ),

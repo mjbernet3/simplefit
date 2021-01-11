@@ -17,7 +17,7 @@ class PreviousCard extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              color: AppStyle.dp4,
+              color: AppStyle.firstElevation,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: _buildStats(),
@@ -29,9 +29,12 @@ class PreviousCard extends StatelessWidget {
             onTap: () =>
                 AppError.show(context, "Exercise history is in development"),
             child: Container(
-              color: AppStyle.dp4,
+              color: AppStyle.firstElevation,
               padding: EdgeInsets.symmetric(horizontal: 15.0),
-              child: Icon(Icons.history_rounded),
+              child: Icon(
+                Icons.history_rounded,
+                color: AppStyle.highEmphasis,
+              ),
             ),
           ),
         ],
@@ -50,7 +53,7 @@ class PreviousCard extends StatelessWidget {
                 Text(
                   entry.key,
                   style: TextStyle(
-                    color: AppStyle.medEmphasisText,
+                    color: AppStyle.medEmphasis,
                   ),
                 ),
                 SizedBox(height: 10.0),

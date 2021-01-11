@@ -32,12 +32,13 @@ class LiftSetRow extends StatelessWidget {
               height: 30.0,
               width: 30.0,
               decoration: BoxDecoration(
-                color: AppStyle.dp8,
+                color: AppStyle.firstElevation,
                 shape: BoxShape.circle,
               ),
               child: Center(
                 child: Text(
                   (index + 1).toString(),
+                  style: TextStyle(color: AppStyle.highEmphasis),
                 ),
               ),
             ),
@@ -109,7 +110,7 @@ class LiftSetRow extends StatelessWidget {
               Text(
                 hintText,
                 style: TextStyle(
-                  color: AppStyle.highEmphasisText,
+                  color: AppStyle.highEmphasis,
                 ),
               ),
               SizedBox(height: 10.0),

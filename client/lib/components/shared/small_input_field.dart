@@ -23,20 +23,20 @@ class SmallInputField extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         style: TextStyle(
           fontSize: 14.0,
-          color: AppStyle.highEmphasisText,
+          color: AppStyle.highEmphasis,
         ),
-        cursorColor: AppStyle.dp8,
+        cursorColor: AppStyle.highEmphasis,
         decoration: InputDecoration(
-          fillColor: AppStyle.dp8,
+          fillColor: AppStyle.firstElevation,
           filled: true,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppStyle.dp2),
+            borderSide: BorderSide(color: AppStyle.firstElevation),
             borderRadius: BorderRadius.all(
               Radius.circular(5.0),
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
+            borderSide: BorderSide(color: AppStyle.highEmphasis),
           ),
           contentPadding: EdgeInsets.symmetric(
             vertical: 8.0,

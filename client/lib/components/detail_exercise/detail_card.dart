@@ -1,4 +1,5 @@
 import 'package:client/components/shared/small_input_field.dart';
+import 'package:client/utils/app_style.dart';
 import 'package:flutter/material.dart';
 
 class DetailCard extends StatelessWidget {
@@ -19,7 +20,10 @@ class DetailCard extends StatelessWidget {
       children: <Widget>[
         Text(
           text,
-          style: TextStyle(fontSize: 16.0),
+          style: TextStyle(
+            fontSize: 16.0,
+            color: AppStyle.highEmphasis,
+          ),
         ),
         SmallInputField(
           initialValue: initialValue,

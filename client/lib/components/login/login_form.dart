@@ -43,7 +43,6 @@ class _LoginFormState extends State<LoginForm> {
             autofocus: true,
             enabled: !_isLoading,
             validator: (value) => Validator.validateEmail(value),
-            onSubmitted: (_) => FocusScope.of(context).nextFocus(),
           ),
           SizedBox(height: 32.0),
           AuthInputField(
@@ -59,12 +58,12 @@ class _LoginFormState extends State<LoginForm> {
             buttonText: Text(
               'Sign In',
               style: TextStyle(
-                color: AppStyle.highEmphasisText,
+                color: AppStyle.highEmphasis,
                 fontSize: 16.0,
               ),
             ),
             disabled: _isLoading,
-            onPressed: () => _signIn(),
+            onPressed: _signIn,
           ),
         ],
       ),
