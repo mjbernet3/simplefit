@@ -65,4 +65,19 @@ class WeightLift extends ExerciseData {
       sets: copiedSets,
     );
   }
+
+  void printExercise() {
+    print(exercise.name);
+    print(notes);
+    print(rest);
+    print(isWarmUp);
+    print(shouldAdvance);
+    sets.forEach((set) => {
+          print(set.rest),
+          print(set.isWarmUp),
+          print(set.weight),
+          print(set.reps),
+          print(set.targetReps),
+        });
+  }
 }

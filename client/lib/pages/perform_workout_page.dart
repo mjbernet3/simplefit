@@ -5,6 +5,7 @@ import 'package:client/components/perform_workout/perform_timed.dart';
 import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/notes_dropdown.dart';
 import 'package:client/models/exercise/exercise_data.dart';
+import 'package:client/utils/app_error.dart';
 import 'package:client/utils/app_style.dart';
 import 'package:client/utils/constant.dart';
 import 'package:client/view_models/perform_workout_model.dart';
@@ -133,7 +134,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                                   size: 25.0,
                                   color: AppStyle.backgroundColor,
                                 ),
-                                onPressed: () => _finishWorkout(),
+                                onPressed: _finishWorkout,
                               ),
                       ],
                     ),
@@ -154,7 +155,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
 
     switch (type) {
       case Constant.lifting:
-        return PerformLift();
+        return PerformLift(exercise: exercise);
       case Constant.distance:
         return PerformDistance(exercise: exercise);
       case Constant.timed:
@@ -185,7 +186,15 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
     }
   }
 
-  void _finishWorkout() {
-    print("save and exit");
+  void _finishWorkout() async {
+    PerformWorkoutModel model =
+        Provider.of<PerformWorkoutModel>(context, listen: false);
+
+    try {
+      await model.finishWorkout();
+      Navigator.pop(context);
+    } catch (e) {
+      AppError.show(context, e.message);
+    }
   }
 }

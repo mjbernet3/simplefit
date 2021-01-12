@@ -49,7 +49,7 @@ class TimedCardio extends ExerciseData {
       'isWarmUp': isWarmUp,
       'shouldAdvance': shouldAdvance,
       'time': time,
-      'speed': speed,
+      'speed': double.parse(speed.toStringAsFixed(1)),
     };
   }
 
@@ -63,5 +63,15 @@ class TimedCardio extends ExerciseData {
       time: time,
       speed: speed,
     );
+  }
+
+  void printExercise() {
+    print(exercise.name);
+    print(notes);
+    print(rest);
+    print(isWarmUp);
+    print(shouldAdvance);
+    print(time);
+    print(speed);
   }
 }

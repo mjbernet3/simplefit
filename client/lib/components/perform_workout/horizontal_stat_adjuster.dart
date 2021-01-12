@@ -6,12 +6,14 @@ class HorizontalStatAdjuster extends StatefulWidget {
   final String unit;
   final double adjustAmount;
   final Function onChanged;
+  final bool displayPrecise;
 
-  const HorizontalStatAdjuster({
+  HorizontalStatAdjuster({
     this.stat,
     this.unit,
     this.adjustAmount,
     this.onChanged,
+    this.displayPrecise = true,
   });
 
   @override
@@ -28,6 +30,15 @@ class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
   }
 
   @override
+  void didUpdateWidget(HorizontalStatAdjuster oldWidget) {
+    if (_currentStat != widget.stat) {
+      setState(() => _currentStat = widget.stat);
+    }
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       color: AppStyle.firstElevation,
@@ -35,24 +46,22 @@ class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              children: [
-                Text(
-                  _currentStat.toStringAsFixed(1),
-                  style: TextStyle(
-                    color: AppStyle.highEmphasis,
-                    fontSize: 36.0,
-                  ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            children: [
+              Text(
+                _currentStat.toStringAsFixed(widget.displayPrecise ? 1 : 0),
+                style: TextStyle(
+                  color: AppStyle.highEmphasis,
+                  fontSize: 36.0,
                 ),
-                SizedBox(width: 5.0),
-                Text(
-                  widget.unit,
-                  style: TextStyle(color: AppStyle.medEmphasis),
-                ),
-              ],
-            ),
+              ),
+              SizedBox(width: 5.0),
+              Text(
+                widget.unit,
+                style: TextStyle(color: AppStyle.medEmphasis),
+              ),
+            ],
           ),
           Row(
             children: [

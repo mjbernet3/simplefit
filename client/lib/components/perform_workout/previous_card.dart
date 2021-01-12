@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 class PreviousCard extends StatelessWidget {
   final Map<String, Text> stats;
 
-  const PreviousCard({@required this.stats}) : assert(stats.length <= 3);
+  const PreviousCard({
+    @required this.stats,
+  }) : assert(stats.length <= 3);
 
   @override
   Widget build(BuildContext context) {

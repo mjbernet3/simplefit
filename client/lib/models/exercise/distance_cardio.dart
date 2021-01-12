@@ -48,8 +48,8 @@ class DistanceCardio extends ExerciseData {
       'rest': rest,
       'isWarmUp': isWarmUp,
       'shouldAdvance': shouldAdvance,
-      'distance': distance,
-      'speed': speed,
+      'distance': double.parse(distance.toStringAsFixed(1)),
+      'speed': double.parse(speed.toStringAsFixed(1)),
     };
   }
 
@@ -63,5 +63,15 @@ class DistanceCardio extends ExerciseData {
       distance: distance,
       speed: speed,
     );
+  }
+
+  void printExercise() {
+    print(exercise.name);
+    print(notes);
+    print(rest);
+    print(isWarmUp);
+    print(shouldAdvance);
+    print(distance);
+    print(speed);
   }
 }

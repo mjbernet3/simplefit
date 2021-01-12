@@ -52,4 +52,7 @@ abstract class ExerciseData {
   Map<String, dynamic> toJson();
 
   ExerciseData copy();
+
+  // TODO: For debugging, remove implementations later
+  void printExercise();
 }

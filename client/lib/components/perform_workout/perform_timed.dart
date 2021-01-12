@@ -21,23 +21,21 @@ class PerformTimed extends StatelessWidget {
       children: [
         PreviousCard(
           stats: {
-            "Time": Text(
+            'Time': Text(
               Formatter.secondsToTime(exercise.time),
               style: TextStyle(
                 color: AppStyle.highEmphasis,
               ),
             ),
-            "Speed": Text(
+            'Speed': Text(
               exercise.speed.toStringAsFixed(1),
               style: TextStyle(
                 color: AppStyle.highEmphasis,
               ),
             ),
-            "Advance": Text(
-              "Yes",
-              style: TextStyle(
-                color: AppStyle.highEmphasis,
-              ),
+            'Advance': Text(
+              exercise.shouldAdvance ? 'Yes' : 'No',
+              style: TextStyle(color: AppStyle.highEmphasis),
             ),
           },
         ),
@@ -52,7 +50,7 @@ class PerformTimed extends StatelessWidget {
         SizedBox(height: 20.0),
         HorizontalStatAdjuster(
           stat: exercise.speed,
-          unit: "MPH",
+          unit: 'MPH',
           adjustAmount: 0.1,
           onChanged: (double newSpeed) => exercise.speed = newSpeed,
         ),

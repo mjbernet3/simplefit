@@ -54,10 +54,10 @@ class LiftSetRow extends StatelessWidget {
                   children: <Widget>[
                     _buildHint('Reps'),
                     SmallInputField(
-                      initialValue: sets[index].reps.toString(),
+                      initialValue: sets[index].targetReps.toString(),
                       onChanged: (String value) {
                         if (value.isNotEmpty) {
-                          sets[index].reps = int.parse(value);
+                          sets[index].targetReps = int.parse(value);
                         }
                       },
                     ),

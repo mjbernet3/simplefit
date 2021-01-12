@@ -15,23 +15,21 @@ class PerformDistance extends StatelessWidget {
       children: [
         PreviousCard(
           stats: {
-            "Distance": Text(
+            'Distance': Text(
               exercise.distance.toStringAsFixed(1),
               style: TextStyle(
                 color: AppStyle.highEmphasis,
               ),
             ),
-            "Speed": Text(
+            'Speed': Text(
               exercise.speed.toStringAsFixed(1),
               style: TextStyle(
                 color: AppStyle.highEmphasis,
               ),
             ),
-            "Advance": Text(
-              "Yes",
-              style: TextStyle(
-                color: AppStyle.highEmphasis,
-              ),
+            'Advance': Text(
+              exercise.shouldAdvance ? 'Yes' : 'No',
+              style: TextStyle(color: AppStyle.highEmphasis),
             ),
           },
         ),
@@ -42,7 +40,7 @@ class PerformDistance extends StatelessWidget {
               Expanded(
                 child: VerticalStatAdjuster(
                   stat: exercise.distance,
-                  unit: "Miles",
+                  unit: 'Miles',
                   adjustAmount: 0.1,
                   onChanged: (double value) => exercise.distance = value,
                 ),
@@ -51,7 +49,7 @@ class PerformDistance extends StatelessWidget {
               Expanded(
                 child: VerticalStatAdjuster(
                   stat: exercise.speed,
-                  unit: "MPH",
+                  unit: 'MPH',
                   adjustAmount: 0.1,
                   onChanged: (double value) => exercise.speed = value,
                 ),

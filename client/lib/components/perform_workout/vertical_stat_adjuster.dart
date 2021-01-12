@@ -7,12 +7,14 @@ class VerticalStatAdjuster extends StatefulWidget {
   final String unit;
   final double adjustAmount;
   final Function onChanged;
+  final bool displayPrecise;
 
   VerticalStatAdjuster({
     this.stat,
     this.unit,
     this.adjustAmount,
     this.onChanged,
+    this.displayPrecise = true,
   });
 
   @override
@@ -41,7 +43,7 @@ class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    _currentStat.toStringAsFixed(1),
+                    _currentStat.toStringAsFixed(widget.displayPrecise ? 1 : 0),
                     style: TextStyle(
                       color: AppStyle.highEmphasis,
                       fontSize: 36.0,
