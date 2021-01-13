@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class AppError {
@@ -7,13 +7,8 @@ class AppError {
   static void show(BuildContext context, String errorMessage) {
     Scaffold.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          errorMessage,
-          style: TextStyle(
-            color: AppStyle.highEmphasis,
-          ),
-        ),
-        backgroundColor: AppStyle.secondElevation,
+        content: Text(errorMessage),
+        backgroundColor: Constants.secondElevation,
         duration: Duration(seconds: 5),
       ),
     );

@@ -1,4 +1,4 @@
-import 'package:client/utils/constant.dart';
+import 'package:client/utils/constants.dart';
 
 class Validator {
   static const String EMAIL_EMPTY = 'Please enter an email address';
@@ -47,7 +47,7 @@ class Validator {
   }
 
   static String validateBodyPart(String bodyPart, String exerciseType) {
-    if (exerciseType == Constant.lifting && bodyPart == null) {
+    if (exerciseType == Constants.lifting && bodyPart == null) {
       return NO_BODY_PART;
     }
 

@@ -1,5 +1,4 @@
 import 'package:client/components/detail_exercise/lift_set_row.dart';
-import 'package:client/utils/app_style.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/lift_set.dart';
 import 'package:client/models/exercise/weight_lift.dart';
@@ -52,12 +51,7 @@ class DetailLift extends StatelessWidget {
                   ),
                   SizedBox(height: 14.0),
                   RoundedButton(
-                    buttonText: Text(
-                      'Add Set',
-                      style: TextStyle(
-                        color: AppStyle.highEmphasis,
-                      ),
-                    ),
+                    buttonText: 'Add Set',
                     height: 30.0,
                     onPressed: () => model.addSet(),
                   ),

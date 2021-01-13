@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseDropdown extends StatefulWidget {
@@ -34,11 +34,11 @@ class _ExerciseDropdownState extends State<ExerciseDropdown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      dropdownColor: AppStyle.thirdElevation,
+      dropdownColor: Constants.thirdElevation,
       hint: Text(widget.hintText),
       value: selectedValue,
       isExpanded: true,
-      style: TextStyle(color: AppStyle.highEmphasis),
+      style: TextStyle(),
       items: widget.items
           .map(
             (String item) => DropdownMenuItem<String>(

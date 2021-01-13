@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/app_theme.dart';
 import 'package:client/utils/auth_builder.dart';
 import 'package:client/components/shared/loading_indicator.dart';
 import 'package:client/models/user/user.dart';
@@ -27,9 +27,7 @@ class SimpleFit extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: _buildHome(userSnapshot),
-            theme: ThemeData.dark().copyWith(
-              scaffoldBackgroundColor: AppStyle.backgroundColor,
-            ),
+            theme: AppTheme(context).darkTheme,
             onGenerateRoute: AppRouter.generateRoute,
           );
         },

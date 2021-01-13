@@ -1,5 +1,4 @@
-import 'package:client/utils/app_style.dart';
-import 'package:client/components/shared/app_divider.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +10,7 @@ class ActionButtons extends StatelessWidget {
 
   const ActionButtons({
     this.onConfirmed,
-    this.color = AppStyle.firstElevation,
+    this.color = Constants.firstElevation,
     this.confirmText = 'Save Changes',
     this.disabled = false,
   });
@@ -20,15 +19,12 @@ class ActionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        AppDivider(),
+        Divider(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             RoundedButton(
-              buttonText: Text(
-                'Cancel',
-                style: TextStyle(color: AppStyle.highEmphasis),
-              ),
+              buttonText: 'Cancel',
               height: 30.0,
               color: color,
               borderColor: color,
@@ -36,10 +32,7 @@ class ActionButtons extends StatelessWidget {
               onPressed: () => Navigator.pop(context),
             ),
             RoundedButton(
-              buttonText: Text(
-                confirmText,
-                style: TextStyle(color: AppStyle.highEmphasis),
-              ),
+              buttonText: confirmText,
               height: 30.0,
               color: color,
               borderColor: color,

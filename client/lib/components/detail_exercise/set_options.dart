@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/models/exercise/lift_set.dart';
 import 'package:client/view_models/detail_lift_model.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +34,8 @@ class _SetOptionsState extends State<SetOptions> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<PopupChoice>(
-      icon: Icon(
-        Icons.more_vert,
-        color: AppStyle.highEmphasis,
-      ),
-      color: AppStyle.secondElevation,
+      icon: Icon(Icons.more_vert),
+      color: Constants.secondElevation,
       onSelected: (PopupChoice value) => _handleChoice(value, context),
       itemBuilder: (BuildContext context) => <PopupMenuEntry<PopupChoice>>[
         PopupMenuItem<PopupChoice>(
@@ -47,16 +44,13 @@ class _SetOptionsState extends State<SetOptions> {
             children: <Widget>[
               Text(
                 'Warm up set',
-                style: TextStyle(color: AppStyle.highEmphasis),
+                style: TextStyle(),
               ),
               isWarmUp
                   ? Row(
                       children: <Widget>[
                         SizedBox(width: 5.0),
-                        Icon(
-                          Icons.check,
-                          color: AppStyle.highEmphasis,
-                        ),
+                        Icon(Icons.check),
                       ],
                     )
                   : SizedBox.shrink(),
@@ -67,7 +61,7 @@ class _SetOptionsState extends State<SetOptions> {
           value: PopupChoice.REMOVE,
           child: Text(
             'Remove this set',
-            style: TextStyle(color: AppStyle.highEmphasis),
+            style: TextStyle(),
           ),
         ),
       ],

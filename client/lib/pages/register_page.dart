@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/components/register/register_form.dart';
 import 'package:flutter/material.dart';
 
@@ -7,10 +7,7 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: AppStyle.highEmphasis,
-        ),
-        backgroundColor: AppStyle.backgroundColor,
+        backgroundColor: Constants.backgroundColor,
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
@@ -20,10 +17,7 @@ class RegisterPage extends StatelessWidget {
           children: <Widget>[
             Text(
               'Register',
-              style: TextStyle(
-                color: AppStyle.highEmphasis,
-                fontSize: 32.0,
-              ),
+              style: TextStyle(fontSize: 32.0),
             ),
             SizedBox(height: 32.0),
             RegisterForm(),

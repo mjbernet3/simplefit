@@ -3,11 +3,10 @@ import 'package:client/components/detail_exercise/detail_lift.dart';
 import 'package:client/components/detail_exercise/detail_timed.dart';
 import 'package:client/components/detail_exercise/warm_up_check.dart';
 import 'package:client/components/shared/action_buttons.dart';
-import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/models/exercise/exercise_data.dart';
-import 'package:client/utils/app_style.dart';
-import 'package:client/utils/constant.dart';
+import 'package:client/utils/constants.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/view_models/detail_lift_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,10 +43,7 @@ class _DetailExercisePageState extends State<DetailExercisePage> {
             children: <Widget>[
               Text(
                 widget.exerciseData.exercise.name,
-                style: TextStyle(
-                  color: AppStyle.highEmphasis,
-                  fontSize: 24.0,
-                ),
+                style: TextStyle(fontSize: 24.0),
               ),
               SizedBox(height: 14.0),
               InputField(
@@ -63,7 +59,7 @@ class _DetailExercisePageState extends State<DetailExercisePage> {
                   Text(
                     'Warm-up Exercise',
                     style: TextStyle(
-                      color: AppStyle.medEmphasis,
+                      color: Constants.medEmphasis,
                       fontSize: 14.0,
                     ),
                   ),
@@ -79,7 +75,7 @@ class _DetailExercisePageState extends State<DetailExercisePage> {
                 ],
               ),
               SizedBox(height: 14.0),
-              AppDivider(),
+              Divider(),
               SizedBox(height: 14.0),
               Expanded(
                 child: _buildExerciseForm(),
@@ -102,15 +98,15 @@ class _DetailExercisePageState extends State<DetailExercisePage> {
     String exerciseType = widget.exerciseData.exercise.type;
 
     switch (exerciseType) {
-      case Constant.lifting:
+      case Constants.lifting:
         return Provider<DetailLiftModel>(
           create: (context) => DetailLiftModel(widget.exerciseData),
           dispose: (context, model) => model.dispose(),
           child: DetailLift(widget.exerciseData),
         );
-      case Constant.timed:
+      case Constants.timed:
         return DetailTimed(widget.exerciseData);
-      case Constant.distance:
+      case Constants.distance:
         return DetailDistance(widget.exerciseData);
       default:
         return Container();

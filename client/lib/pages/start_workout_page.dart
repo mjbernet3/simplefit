@@ -1,7 +1,7 @@
 import 'package:client/models/workout/workout_preview.dart';
 import 'package:client/services/workout_service.dart';
 import 'package:client/utils/app_router.dart';
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/components/shared/notes_dropdown.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/components/start_workout/exercise_bullet_card.dart';
@@ -35,10 +35,7 @@ class StartWorkoutPage extends StatelessWidget {
                 children: [
                   Text(
                     workout.name,
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      color: AppStyle.highEmphasis,
-                    ),
+                    style: TextStyle(fontSize: 24.0),
                   ),
                   SizedBox(height: 10.0),
                   NotesDropdown(
@@ -58,13 +55,8 @@ class StartWorkoutPage extends StatelessWidget {
                   ),
                   Center(
                     child: RoundedButton(
-                      borderColor: AppStyle.primaryColor,
-                      buttonText: Text(
-                        "Start Workout",
-                        style: TextStyle(
-                          color: AppStyle.highEmphasis,
-                        ),
-                      ),
+                      borderColor: Constants.primaryColor,
+                      buttonText: 'Start Workout',
                       onPressed: () => Navigator.pushReplacementNamed(
                         context,
                         AppRouter.performWorkout,

@@ -1,5 +1,4 @@
 import 'package:client/utils/app_error.dart';
-import 'package:client/utils/app_style.dart';
 import 'package:client/components/shared/auth_input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/services/auth_service.dart';
@@ -65,13 +64,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           SizedBox(height: 16.0),
           RoundedButton(
-            buttonText: Text(
-              'Create Account',
-              style: TextStyle(
-                color: AppStyle.highEmphasis,
-                fontSize: 16.0,
-              ),
-            ),
+            buttonText: 'Create Account',
             disabled: _isLoading,
             onPressed: _register,
           ),

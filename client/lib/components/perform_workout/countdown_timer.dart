@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:client/components/shared/rounded_button.dart';
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/utils/formatter.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +38,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppStyle.firstElevation,
+      color: Constants.firstElevation,
       padding: EdgeInsets.all(10.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -50,10 +50,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
             children: [
               Text(
                 Formatter.secondsToTime(_currentTime),
-                style: TextStyle(
-                  fontSize: 56.0,
-                  color: AppStyle.highEmphasis,
-                ),
+                style: TextStyle(fontSize: 56.0),
               ),
               SizedBox(width: 5.0),
               !_isStarted
@@ -72,13 +69,10 @@ class _CountdownTimerState extends State<CountdownTimer> {
                           child: Container(
                             padding: EdgeInsets.all(4.0),
                             decoration: BoxDecoration(
-                              color: AppStyle.secondElevation,
+                              color: Constants.secondElevation,
                               borderRadius: BorderRadius.circular(5.0),
                             ),
-                            child: Icon(
-                              Icons.add,
-                              color: AppStyle.highEmphasis,
-                            ),
+                            child: Icon(Icons.add),
                           ),
                         ),
                         SizedBox(height: 10.0),
@@ -95,13 +89,10 @@ class _CountdownTimerState extends State<CountdownTimer> {
                           child: Container(
                             padding: EdgeInsets.all(4.0),
                             decoration: BoxDecoration(
-                              color: AppStyle.secondElevation,
+                              color: Constants.secondElevation,
                               borderRadius: BorderRadius.circular(5.0),
                             ),
-                            child: Icon(
-                              Icons.remove,
-                              color: AppStyle.highEmphasis,
-                            ),
+                            child: Icon(Icons.remove),
                           ),
                         ),
                       ],
@@ -115,9 +106,9 @@ class _CountdownTimerState extends State<CountdownTimer> {
               Expanded(
                 child: RoundedButton(
                   height: 30.0,
-                  buttonText: Text('Reset'),
-                  color: AppStyle.secondElevation,
-                  borderColor: AppStyle.secondElevation,
+                  buttonText: 'Reset',
+                  color: Constants.secondElevation,
+                  borderColor: Constants.secondElevation,
                   onPressed: _resetTimer,
                 ),
               ),
@@ -125,21 +116,9 @@ class _CountdownTimerState extends State<CountdownTimer> {
               Expanded(
                 child: RoundedButton(
                   height: 30.0,
-                  buttonText: !_stopwatch.isRunning
-                      ? Text(
-                          'Start',
-                          style: TextStyle(
-                            color: AppStyle.highEmphasis,
-                          ),
-                        )
-                      : Text(
-                          "Stop",
-                          style: TextStyle(
-                            color: AppStyle.highEmphasis,
-                          ),
-                        ),
-                  color: AppStyle.secondElevation,
-                  borderColor: AppStyle.secondElevation,
+                  buttonText: !_stopwatch.isRunning ? 'Start' : 'Stop',
+                  color: Constants.secondElevation,
+                  borderColor: Constants.secondElevation,
                   onPressed: _toggleTimer,
                 ),
               ),

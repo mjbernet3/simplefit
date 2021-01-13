@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class SimplePopUp<T> extends ModalRoute<T> {
@@ -46,7 +46,7 @@ class SimplePopUp<T> extends ModalRoute<T> {
           child: Container(
             padding: EdgeInsets.all(15.0),
             decoration: BoxDecoration(
-              color: AppStyle.firstElevation,
+              color: Constants.firstElevation,
               borderRadius: BorderRadius.all(
                 Radius.circular(10.0),
               ),
@@ -72,7 +72,7 @@ class SimplePopUp<T> extends ModalRoute<T> {
               child: Container(
                 padding: EdgeInsets.all(15.0),
                 decoration: BoxDecoration(
-                  color: AppStyle.firstElevation,
+                  color: Constants.firstElevation,
                   borderRadius: BorderRadius.vertical(
                     bottom: Radius.circular(10.0),
                   ),

@@ -1,5 +1,5 @@
 import 'package:client/utils/app_error.dart';
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class PreviousCard extends StatelessWidget {
@@ -19,7 +19,7 @@ class PreviousCard extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              color: AppStyle.firstElevation,
+              color: Constants.firstElevation,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: _buildStats(),
@@ -31,12 +31,9 @@ class PreviousCard extends StatelessWidget {
             onTap: () =>
                 AppError.show(context, "Exercise history is in development"),
             child: Container(
-              color: AppStyle.firstElevation,
+              color: Constants.firstElevation,
               padding: EdgeInsets.symmetric(horizontal: 15.0),
-              child: Icon(
-                Icons.history_rounded,
-                color: AppStyle.highEmphasis,
-              ),
+              child: Icon(Icons.history_rounded),
             ),
           ),
         ],
@@ -55,7 +52,7 @@ class PreviousCard extends StatelessWidget {
                 Text(
                   entry.key,
                   style: TextStyle(
-                    color: AppStyle.medEmphasis,
+                    color: Constants.medEmphasis,
                   ),
                 ),
                 SizedBox(height: 10.0),

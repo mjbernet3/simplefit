@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/models/workout/workout_preview.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +27,7 @@ class WorkoutCard extends StatelessWidget {
                   onTap: onRemovePressed,
                   child: Icon(
                     Icons.remove_circle,
-                    color: AppStyle.dangerColor,
+                    color: Constants.dangerColor,
                   ),
                 ),
               )
@@ -37,8 +37,8 @@ class WorkoutCard extends StatelessWidget {
           child: GestureDetector(
             onTap: onPressed,
             child: Card(
-              color: AppStyle.firstElevation,
-              shadowColor: AppStyle.backgroundColor,
+              color: Constants.firstElevation,
+              shadowColor: Constants.backgroundColor,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 14.0),
                 child: Row(
@@ -46,10 +46,7 @@ class WorkoutCard extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       workoutPreview.name,
-                      style: TextStyle(
-                        color: AppStyle.highEmphasis,
-                        fontSize: 16.0,
-                      ),
+                      style: TextStyle(fontSize: 16.0),
                     ),
                   ],
                 ),

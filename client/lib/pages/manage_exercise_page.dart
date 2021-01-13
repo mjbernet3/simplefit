@@ -1,11 +1,11 @@
 import 'package:client/utils/app_error.dart';
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/manage_exercise/exercise_dropdown.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/services/exercise_service.dart';
-import 'package:client/utils/constant.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -55,14 +55,14 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
                 InputField(
                   labelText: 'Exercise Name',
                   controller: _nameController,
-                  fillColor: AppStyle.secondElevation,
+                  fillColor: Constants.secondElevation,
                   enabled: !_isLoading,
                   onSubmitted: (_) => FocusScope.of(context).unfocus(),
                 ),
                 SizedBox(height: 20.0),
                 ExerciseDropdown(
                   hintText: 'Select Exercise Type',
-                  items: Constant.exerciseTypes,
+                  items: Constants.exerciseTypes,
                   enabled: !_isLoading,
                   initialValue: widget.isEdit ? widget.exercise.type : null,
                   onChanged: (String value) => setState(() => {
@@ -73,10 +73,10 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
                       Validator.validateExerciseType(value),
                 ),
                 SizedBox(height: 20.0),
-                _chosenType == Constant.lifting
+                _chosenType == Constants.lifting
                     ? ExerciseDropdown(
                         hintText: 'Select Body Part',
-                        items: Constant.bodyParts,
+                        items: Constants.bodyParts,
                         enabled: !_isLoading,
                         initialValue:
                             widget.isEdit ? widget.exercise.bodyPart : null,
@@ -90,7 +90,7 @@ class _ManageExercisePageState extends State<ManageExercisePage> {
           ),
           ActionButtons(
             confirmText: widget.isEdit ? 'Update Exercise' : 'Create Exercise',
-            color: AppStyle.secondElevation,
+            color: Constants.secondElevation,
             disabled: _isLoading,
             onConfirmed: () => _manageExercise(),
           ),

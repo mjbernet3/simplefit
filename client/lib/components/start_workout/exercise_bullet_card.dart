@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseBulletCard extends StatelessWidget {
@@ -16,15 +16,15 @@ class ExerciseBulletCard extends StatelessWidget {
             Container(
               height: 50.0,
               width: 3.0,
-              color: AppStyle.firstElevation,
+              color: Constants.firstElevation,
             ),
             Container(
               height: 35.0,
               width: 35.0,
               decoration: BoxDecoration(
-                color: AppStyle.firstElevation,
+                color: Constants.firstElevation,
                 shape: BoxShape.circle,
-                border: Border.all(color: AppStyle.primaryColor),
+                border: Border.all(color: Constants.primaryColor),
               ),
             ),
           ],
@@ -32,10 +32,7 @@ class ExerciseBulletCard extends StatelessWidget {
         SizedBox(width: 20.0),
         Text(
           exerciseName,
-          style: TextStyle(
-            color: AppStyle.highEmphasis,
-            fontSize: 18.0,
-          ),
+          style: TextStyle(fontSize: 18.0),
         ),
       ],
     );

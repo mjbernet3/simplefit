@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class InputField extends StatelessWidget {
@@ -22,7 +22,7 @@ class InputField extends StatelessWidget {
     this.onSubmitted,
     this.validator,
     this.maxLength,
-    this.fillColor = AppStyle.firstElevation,
+    this.fillColor = Constants.firstElevation,
     this.maxLines = 1,
     this.textInputAction = TextInputAction.done,
     this.keyboardType = TextInputType.text,
@@ -40,7 +40,7 @@ class InputField extends StatelessWidget {
                 labelText,
                 style: TextStyle(
                   fontSize: 14.0,
-                  color: AppStyle.medEmphasis,
+                  color: Constants.medEmphasis,
                 ),
               )
             : SizedBox.shrink(),
@@ -51,21 +51,18 @@ class InputField extends StatelessWidget {
           autofocus: autofocus,
           autocorrect: false,
           enabled: enabled,
-          style: TextStyle(
-            fontSize: 14.0,
-            color: AppStyle.highEmphasis,
-          ),
+          style: TextStyle(fontSize: 14.0),
           decoration: InputDecoration(
             fillColor: fillColor,
             filled: true,
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppStyle.firstElevation),
+              borderSide: BorderSide(color: Constants.firstElevation),
               borderRadius: BorderRadius.all(
                 Radius.circular(5.0),
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppStyle.thirdElevation),
+              borderSide: BorderSide(color: Constants.thirdElevation),
             ),
             contentPadding: EdgeInsets.symmetric(
               vertical: 8.0,
@@ -76,7 +73,7 @@ class InputField extends StatelessWidget {
           ),
           maxLength: maxLength,
           maxLines: maxLines,
-          cursorColor: Colors.white,
+          cursorColor: Constants.highEmphasis,
           keyboardType: keyboardType,
           validator: validator,
           onFieldSubmitted: onSubmitted,

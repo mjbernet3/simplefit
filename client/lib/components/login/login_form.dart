@@ -1,5 +1,4 @@
 import 'package:client/utils/app_error.dart';
-import 'package:client/utils/app_style.dart';
 import 'package:client/components/shared/auth_input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/services/auth_service.dart';
@@ -55,13 +54,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           SizedBox(height: 16.0),
           RoundedButton(
-            buttonText: Text(
-              'Sign In',
-              style: TextStyle(
-                color: AppStyle.highEmphasis,
-                fontSize: 16.0,
-              ),
-            ),
+            buttonText: 'Sign In',
             disabled: _isLoading,
             onPressed: _signIn,
           ),

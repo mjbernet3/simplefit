@@ -1,6 +1,5 @@
 import 'package:client/components/detail_exercise/set_options.dart';
-import 'package:client/utils/app_style.dart';
-
+import 'package:client/utils/constants.dart';
 import 'package:client/components/shared/small_input_field.dart';
 import 'package:client/models/exercise/lift_set.dart';
 import 'package:client/view_models/detail_lift_model.dart';
@@ -32,13 +31,13 @@ class LiftSetRow extends StatelessWidget {
               height: 30.0,
               width: 30.0,
               decoration: BoxDecoration(
-                color: AppStyle.firstElevation,
+                color: Constants.firstElevation,
                 shape: BoxShape.circle,
               ),
               child: Center(
                 child: Text(
                   (index + 1).toString(),
-                  style: TextStyle(color: AppStyle.highEmphasis),
+                  style: TextStyle(),
                 ),
               ),
             ),
@@ -107,12 +106,7 @@ class LiftSetRow extends StatelessWidget {
     return hintsOn
         ? Column(
             children: <Widget>[
-              Text(
-                hintText,
-                style: TextStyle(
-                  color: AppStyle.highEmphasis,
-                ),
-              ),
+              Text(hintText),
               SizedBox(height: 10.0),
             ],
           )

@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class SmallInputField extends StatelessWidget {
@@ -21,22 +21,19 @@ class SmallInputField extends StatelessWidget {
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,
-        style: TextStyle(
-          fontSize: 14.0,
-          color: AppStyle.highEmphasis,
-        ),
-        cursorColor: AppStyle.highEmphasis,
+        style: TextStyle(fontSize: 14.0),
+        cursorColor: Constants.highEmphasis,
         decoration: InputDecoration(
-          fillColor: AppStyle.firstElevation,
+          fillColor: Constants.firstElevation,
           filled: true,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppStyle.firstElevation),
+            borderSide: BorderSide(color: Constants.firstElevation),
             borderRadius: BorderRadius.all(
               Radius.circular(5.0),
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppStyle.highEmphasis),
+            borderSide: BorderSide(),
           ),
           contentPadding: EdgeInsets.symmetric(
             vertical: 8.0,

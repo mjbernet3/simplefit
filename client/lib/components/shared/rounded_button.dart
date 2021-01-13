@@ -1,10 +1,11 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class RoundedButton extends StatelessWidget {
-  final Text buttonText;
+  final String buttonText;
   final Function onPressed;
   final double height;
+  final double fontSize;
   final Color color;
   final Color borderColor;
   final bool disabled;
@@ -13,8 +14,9 @@ class RoundedButton extends StatelessWidget {
     @required this.buttonText,
     @required this.onPressed,
     this.height = 45.0,
-    this.color = AppStyle.firstElevation,
-    this.borderColor = AppStyle.firstElevation,
+    this.fontSize = 14.0,
+    this.color = Constants.firstElevation,
+    this.borderColor = Constants.firstElevation,
     this.disabled = false,
   });
 
@@ -23,7 +25,14 @@ class RoundedButton extends StatelessWidget {
     return ButtonTheme(
       height: height,
       child: RaisedButton(
-        child: buttonText,
+        elevation: 0.0,
+        child: Text(
+          buttonText,
+          style: TextStyle(
+            color: Constants.highEmphasis,
+            fontSize: fontSize,
+          ),
+        ),
         color: color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),

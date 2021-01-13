@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalStatAdjuster extends StatefulWidget {
@@ -41,7 +41,7 @@ class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppStyle.firstElevation,
+      color: Constants.firstElevation,
       padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,15 +51,12 @@ class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
             children: [
               Text(
                 _currentStat.toStringAsFixed(widget.displayPrecise ? 1 : 0),
-                style: TextStyle(
-                  color: AppStyle.highEmphasis,
-                  fontSize: 36.0,
-                ),
+                style: TextStyle(fontSize: 36.0),
               ),
               SizedBox(width: 5.0),
               Text(
                 widget.unit,
-                style: TextStyle(color: AppStyle.medEmphasis),
+                style: TextStyle(color: Constants.medEmphasis),
               ),
             ],
           ),
@@ -73,13 +70,10 @@ class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
                 child: Container(
                   padding: EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
-                    color: AppStyle.secondElevation,
+                    color: Constants.secondElevation,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  child: Icon(
-                    Icons.remove,
-                    color: AppStyle.highEmphasis,
-                  ),
+                  child: Icon(Icons.remove),
                 ),
               ),
               SizedBox(width: 10.0),
@@ -91,13 +85,10 @@ class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
                 child: Container(
                   padding: EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
-                    color: AppStyle.secondElevation,
+                    color: Constants.secondElevation,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  child: Icon(
-                    Icons.add,
-                    color: AppStyle.highEmphasis,
-                  ),
+                  child: Icon(Icons.add),
                 ),
               ),
             ],

@@ -1,6 +1,5 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/models/exercise/exercise.dart';
-import 'package:client/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseCard extends StatefulWidget {
@@ -35,7 +34,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                     onTap: () => widget.onRemovePressed(widget.exercise.id),
                     child: Icon(
                       Icons.remove_circle,
-                      color: AppStyle.dangerColor,
+                      color: Constants.dangerColor,
                     ),
                   ),
                 ),
@@ -52,11 +51,12 @@ class _ExerciseCardState extends State<ExerciseCard> {
                 }
             },
             child: Card(
-              color: AppStyle.secondElevation,
-              shadowColor: AppStyle.backgroundColor,
+              elevation: 2.0,
+              color: Constants.secondElevation,
+              shadowColor: Constants.backgroundColor,
               shape: selected && !widget.isEditing
                   ? RoundedRectangleBorder(
-                      side: BorderSide(color: AppStyle.highEmphasis),
+                      side: BorderSide(color: Constants.highEmphasis),
                       borderRadius: BorderRadius.circular(4.0),
                     )
                   : null,
@@ -73,16 +73,13 @@ class _ExerciseCardState extends State<ExerciseCard> {
                       children: <Widget>[
                         Text(
                           widget.exercise.name,
-                          style: TextStyle(
-                            color: AppStyle.highEmphasis,
-                            fontSize: 16.0,
-                          ),
+                          style: TextStyle(fontSize: 16.0),
                         ),
                         SizedBox(height: 5.0),
                         Text(
                           widget.exercise.bodyPart ?? widget.exercise.type,
                           style: TextStyle(
-                            color: AppStyle.medEmphasis,
+                            color: Constants.medEmphasis,
                             fontSize: 12.0,
                           ),
                         ),
@@ -100,12 +97,12 @@ class _ExerciseCardState extends State<ExerciseCard> {
 
   Widget _buildExerciseIcon() {
     switch (widget.exercise.type) {
-      case Constant.lifting:
-        return Icon(Icons.fitness_center, color: AppStyle.lowEmphasis);
-      case Constant.timed:
-        return Icon(Icons.query_builder, color: AppStyle.lowEmphasis);
-      case Constant.distance:
-        return Icon(Icons.directions_run, color: AppStyle.lowEmphasis);
+      case Constants.lifting:
+        return Icon(Icons.fitness_center, color: Constants.lowEmphasis);
+      case Constants.timed:
+        return Icon(Icons.query_builder, color: Constants.lowEmphasis);
+      case Constants.distance:
+        return Icon(Icons.directions_run, color: Constants.lowEmphasis);
       default:
         return null;
     }

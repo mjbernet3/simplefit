@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AppStyle {
-  AppStyle._();
+class Constants {
+  Constants._();
 
   static const Color backgroundColor = Color(0xFF131313);
   static const Color firstElevation = Color(0xFF1F1F1F);
@@ -14,4 +14,23 @@ class AppStyle {
 
   static const Color primaryColor = Color(0xFF6FF9FF);
   static const Color dangerColor = Colors.red;
+
+  static const String lifting = 'Weightlifting';
+  static const String timed = 'Timed Cardio';
+  static const String distance = 'Distance Cardio';
+
+  static const List<String> exerciseTypes = [
+    'Weightlifting',
+    'Timed Cardio',
+    'Distance Cardio'
+  ];
+
+  static const List<String> bodyParts = [
+    'Chest',
+    'Core',
+    'Back',
+    'Arms',
+    'Legs',
+    'Full Body'
+  ];
 }

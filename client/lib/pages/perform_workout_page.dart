@@ -2,12 +2,11 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:client/components/perform_workout/perform_distance.dart';
 import 'package:client/components/perform_workout/perform_lift.dart';
 import 'package:client/components/perform_workout/perform_timed.dart';
-import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/notes_dropdown.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/utils/app_error.dart';
-import 'package:client/utils/app_style.dart';
-import 'package:client/utils/constant.dart';
+import 'package:client/utils/constants.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/view_models/perform_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +46,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                       padding: EdgeInsets.all(15.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: AppStyle.firstElevation,
+                          color: Constants.firstElevation,
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         padding: EdgeInsets.symmetric(
@@ -56,10 +55,7 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                           !isResting
                               ? currentExercise.exercise.name
                               : "Next: " + model.peekNext(),
-                          style: TextStyle(
-                            color: AppStyle.highEmphasis,
-                            fontSize: 20.0,
-                          ),
+                          style: TextStyle(fontSize: 20.0),
                         ),
                       ),
                     ),
@@ -82,17 +78,14 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                               width: MediaQuery.of(context).size.width * 0.75,
                               height: MediaQuery.of(context).size.height,
                               duration: currentExercise.rest,
-                              fillColor: AppStyle.primaryColor,
-                              color: AppStyle.firstElevation,
+                              fillColor: Constants.primaryColor,
+                              color: Constants.firstElevation,
                               strokeWidth: 15.0,
-                              textStyle: TextStyle(
-                                color: AppStyle.highEmphasis,
-                                fontSize: 40.0,
-                              ),
+                              textStyle: TextStyle(fontSize: 40.0),
                               onComplete: () => _next(currentExercise),
                             ),
                     ),
-                    AppDivider(),
+                    Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -103,12 +96,11 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                           maintainAnimation: true,
                           child: RawMaterialButton(
                             padding: EdgeInsets.all(15.0),
-                            fillColor: AppStyle.firstElevation,
+                            fillColor: Constants.firstElevation,
                             shape: CircleBorder(),
                             child: Icon(
                               Icons.arrow_back_rounded,
                               size: 25.0,
-                              color: AppStyle.highEmphasis,
                             ),
                             onPressed: () => _previous(),
                           ),
@@ -116,23 +108,22 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
                         model.hasNext()
                             ? RawMaterialButton(
                                 padding: EdgeInsets.all(15.0),
-                                fillColor: AppStyle.firstElevation,
+                                fillColor: Constants.firstElevation,
                                 shape: CircleBorder(),
                                 child: Icon(
                                   Icons.arrow_forward_rounded,
                                   size: 25.0,
-                                  color: AppStyle.highEmphasis,
                                 ),
                                 onPressed: () => _next(currentExercise),
                               )
                             : RawMaterialButton(
                                 padding: EdgeInsets.all(15.0),
-                                fillColor: AppStyle.primaryColor,
+                                fillColor: Constants.primaryColor,
                                 shape: CircleBorder(),
                                 child: Icon(
                                   Icons.flag_rounded,
                                   size: 25.0,
-                                  color: AppStyle.backgroundColor,
+                                  color: Constants.backgroundColor,
                                 ),
                                 onPressed: _finishWorkout,
                               ),
@@ -154,11 +145,11 @@ class _PerformWorkoutPageState extends State<PerformWorkoutPage> {
     String type = exercise.exercise.type;
 
     switch (type) {
-      case Constant.lifting:
+      case Constants.lifting:
         return PerformLift(exercise: exercise);
-      case Constant.distance:
+      case Constants.distance:
         return PerformDistance(exercise: exercise);
-      case Constant.timed:
+      case Constants.timed:
         return PerformTimed(
           exercise: exercise,
           onTimeExpired: () =>

@@ -1,6 +1,4 @@
-import 'package:client/utils/app_style.dart';
 import 'package:client/components/manage_workout/chosen_exercise_card.dart';
-import 'package:client/components/shared/app_divider.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
@@ -33,20 +31,12 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
                 alignment: Alignment.center,
                 child: Text(
                   'Exercises',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    color: AppStyle.highEmphasis,
-                  ),
+                  style: TextStyle(fontSize: 18.0),
                 ),
               ),
-              AppDivider(),
+              Divider(),
               RoundedButton(
-                buttonText: Text(
-                  'Add Exercise',
-                  style: TextStyle(
-                    color: AppStyle.highEmphasis,
-                  ),
-                ),
+                buttonText: 'Add Exercise',
                 height: 30.0,
                 onPressed: _browseExercises,
               ),
@@ -65,10 +55,7 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
                 children: [
                   Text(
                     'Exercises',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      color: AppStyle.highEmphasis,
-                    ),
+                    style: TextStyle(fontSize: 18.0),
                   ),
                   Row(
                     children: <Widget>[
@@ -91,7 +78,6 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
                           width: 24.0,
                           child: Icon(
                             listIcon,
-                            color: AppStyle.highEmphasis,
                             size: 20.0,
                           ),
                         ),
@@ -100,10 +86,7 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
                       !isEditing
                           ? GestureDetector(
                               onTap: _browseExercises,
-                              child: Icon(
-                                Icons.add,
-                                color: AppStyle.highEmphasis,
-                              ),
+                              child: Icon(Icons.add),
                             )
                           : SizedBox.shrink(),
                     ],
@@ -111,7 +94,7 @@ class _ChosenExerciseListingState extends State<ChosenExerciseListing> {
                 ],
               ),
             ),
-            AppDivider(),
+            Divider(),
             Expanded(
               child: ListView(
                 children: <Widget>[

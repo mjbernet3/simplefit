@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/utils/app_router.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,6 @@ class WelcomePage extends StatelessWidget {
                   Text(
                     'SimpleFit',
                     style: TextStyle(
-                      color: AppStyle.highEmphasis,
                       fontSize: 32.0,
                     ),
                   ),
@@ -27,7 +26,7 @@ class WelcomePage extends StatelessWidget {
                   Text(
                     'Make this page less boring later.',
                     style: TextStyle(
-                      color: AppStyle.medEmphasis,
+                      color: Constants.medEmphasis,
                       fontSize: 14.0,
                     ),
                   ),
@@ -39,13 +38,7 @@ class WelcomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 RoundedButton(
-                  buttonText: Text(
-                    'Create an Account',
-                    style: TextStyle(
-                      color: AppStyle.highEmphasis,
-                      fontSize: 16.0,
-                    ),
-                  ),
+                  buttonText: 'Create an Account',
                   onPressed: () =>
                       Navigator.pushNamed(context, AppRouter.register),
                 ),
@@ -56,19 +49,14 @@ class WelcomePage extends StatelessWidget {
                     Text(
                       'Already have an account?',
                       style: TextStyle(
-                        color: AppStyle.medEmphasis,
+                        color: Constants.medEmphasis,
                       ),
                     ),
                     SizedBox(width: 5.0),
                     GestureDetector(
                       onTap: () =>
                           Navigator.pushNamed(context, AppRouter.login),
-                      child: Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: AppStyle.highEmphasis,
-                        ),
-                      ),
+                      child: Text('Sign In'),
                     ),
                   ],
                 ),

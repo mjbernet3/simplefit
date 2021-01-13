@@ -2,7 +2,7 @@ import 'package:client/models/exercise/distance_cardio.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/timed_cardio.dart';
 import 'package:client/models/exercise/weight_lift.dart';
-import 'package:client/utils/constant.dart';
+import 'package:client/utils/constants.dart';
 
 abstract class ExerciseData {
   final Exercise exercise;
@@ -23,11 +23,11 @@ abstract class ExerciseData {
     String exerciseType = exercise.type;
 
     switch (exerciseType) {
-      case Constant.lifting:
+      case Constants.lifting:
         return WeightLift.initial(exercise);
-      case Constant.timed:
+      case Constants.timed:
         return TimedCardio.initial(exercise);
-      case Constant.distance:
+      case Constants.distance:
         return DistanceCardio.initial(exercise);
       default:
         return null;
@@ -38,11 +38,11 @@ abstract class ExerciseData {
     String exerciseType = exerciseData['exercise']['type'];
 
     switch (exerciseType) {
-      case Constant.lifting:
+      case Constants.lifting:
         return WeightLift.fromJson(exerciseData);
-      case Constant.timed:
+      case Constants.timed:
         return TimedCardio.fromJson(exerciseData);
-      case Constant.distance:
+      case Constants.distance:
         return DistanceCardio.fromJson(exerciseData);
       default:
         return null;

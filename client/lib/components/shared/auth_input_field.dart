@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class AuthInputField extends StatelessWidget {
@@ -31,7 +31,7 @@ class AuthInputField extends StatelessWidget {
       children: <Widget>[
         Text(
           labelText,
-          style: TextStyle(color: AppStyle.medEmphasis),
+          style: TextStyle(color: Constants.medEmphasis),
         ),
         TextFormField(
           controller: controller,
@@ -41,14 +41,11 @@ class AuthInputField extends StatelessWidget {
           enabled: enabled,
           obscureText: hidden,
           maxLength: 30,
-          cursorColor: AppStyle.highEmphasis,
-          style: TextStyle(
-            fontSize: 14.0,
-            color: AppStyle.highEmphasis,
-          ),
+          cursorColor: Constants.highEmphasis,
+          style: TextStyle(fontSize: 14.0),
           decoration: InputDecoration(
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppStyle.highEmphasis),
+              borderSide: BorderSide(color: Constants.highEmphasis),
             ),
             contentPadding: EdgeInsets.symmetric(
               vertical: 0.0,

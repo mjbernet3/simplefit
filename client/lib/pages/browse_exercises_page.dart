@@ -1,6 +1,5 @@
 import 'package:client/components/browse_exercises/exercise_listing.dart';
-import 'package:client/utils/app_style.dart';
-import 'package:client/components/shared/app_divider.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/utils/app_router.dart';
@@ -33,18 +32,15 @@ class BrowseExercisesPage extends StatelessWidget {
                         Text(
                           'You have no exercises.',
                           style: TextStyle(
-                            color: AppStyle.medEmphasis,
+                            color: Constants.medEmphasis,
                           ),
                         ),
                         SizedBox(height: 5.0),
                         RoundedButton(
-                          buttonText: Text(
-                            'Add Exercise',
-                            style: TextStyle(color: AppStyle.highEmphasis),
-                          ),
+                          buttonText: 'Add Exercise',
                           height: 30.0,
-                          color: AppStyle.secondElevation,
-                          borderColor: AppStyle.secondElevation,
+                          color: Constants.secondElevation,
+                          borderColor: Constants.secondElevation,
                           onPressed: () => Navigator.pushNamed(
                             context,
                             AppRouter.manageExercise,
@@ -73,15 +69,12 @@ class BrowseExercisesPage extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  AppDivider(),
+                  Divider(),
                   RoundedButton(
-                    buttonText: Text(
-                      'Add $exerciseCount Exercises',
-                      style: TextStyle(color: AppStyle.highEmphasis),
-                    ),
+                    buttonText: 'Add $exerciseCount Exercises',
                     height: 30.0,
-                    color: AppStyle.secondElevation,
-                    borderColor: AppStyle.secondElevation,
+                    color: Constants.secondElevation,
+                    borderColor: Constants.secondElevation,
                     onPressed: () =>
                         Navigator.pop(context, model.getExercises()),
                   ),

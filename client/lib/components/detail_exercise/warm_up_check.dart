@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class WarmUpCheck extends StatefulWidget {
@@ -26,8 +26,8 @@ class _WarmUpCheckState extends State<WarmUpCheck> {
   @override
   Widget build(BuildContext context) {
     return Checkbox(
-      activeColor: AppStyle.primaryColor,
-      checkColor: AppStyle.backgroundColor,
+      activeColor: Constants.primaryColor,
+      checkColor: Constants.backgroundColor,
       value: _isWarmUp,
       onChanged: (bool value) => {
         widget.onChanged(value),

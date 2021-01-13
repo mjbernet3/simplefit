@@ -1,6 +1,6 @@
 import 'package:client/pages/perform_workout_page.dart';
 import 'package:client/services/workout_service.dart';
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/pages/browse_exercises_page.dart';
@@ -95,7 +95,7 @@ class AppRouter {
         );
       case browseExercises:
         return SimplePopUp<List<Exercise>>(
-          backgroundColor: AppStyle.backgroundColor.withOpacity(0.5),
+          backgroundColor: Constants.backgroundColor.withOpacity(0.5),
           builder: (context) => Provider<BrowseExercisesModel>(
             create: (context) => BrowseExercisesModel(),
             dispose: (context, model) => model.dispose(),

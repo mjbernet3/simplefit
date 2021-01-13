@@ -1,7 +1,5 @@
 import 'package:client/components/browse_exercises/exercise_card.dart';
 import 'package:client/utils/app_error.dart';
-import 'package:client/utils/app_style.dart';
-import 'package:client/components/shared/app_divider.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/utils/app_router.dart';
 import 'package:client/services/exercise_service.dart';
@@ -35,10 +33,7 @@ class _ExerciseListingState extends State<ExerciseListing> {
               children: <Widget>[
                 Text(
                   'Choose exercises',
-                  style: TextStyle(
-                    color: AppStyle.highEmphasis,
-                    fontSize: 18.0,
-                  ),
+                  style: TextStyle(fontSize: 18.0),
                 ),
                 Row(
                   children: <Widget>[
@@ -59,7 +54,6 @@ class _ExerciseListingState extends State<ExerciseListing> {
                         width: 24.0,
                         child: Icon(
                           listIcon,
-                          color: AppStyle.highEmphasis,
                           size: 20.0,
                         ),
                       ),
@@ -71,10 +65,7 @@ class _ExerciseListingState extends State<ExerciseListing> {
                               context,
                               AppRouter.manageExercise,
                             ),
-                            child: Icon(
-                              Icons.add,
-                              color: AppStyle.highEmphasis,
-                            ),
+                            child: Icon(Icons.add),
                           )
                         : SizedBox.shrink(),
                   ],
@@ -82,7 +73,7 @@ class _ExerciseListingState extends State<ExerciseListing> {
               ],
             ),
           ),
-          AppDivider(),
+          Divider(),
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.all(0.0),

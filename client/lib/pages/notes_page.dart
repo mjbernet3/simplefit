@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/utils/structures/notes_messenger.dart';
 import 'package:flutter/material.dart';
 
@@ -30,10 +30,7 @@ class _NotesPageState extends State<NotesPage> {
         TextField(
           controller: _notesController,
           textInputAction: TextInputAction.newline,
-          style: TextStyle(
-            fontSize: 14.0,
-            color: AppStyle.highEmphasis,
-          ),
+          style: TextStyle(fontSize: 14.0),
           decoration: InputDecoration(
             fillColor: Colors.transparent,
             filled: true,
@@ -41,7 +38,7 @@ class _NotesPageState extends State<NotesPage> {
             counterText: '',
           ),
           maxLines: null,
-          cursorColor: AppStyle.highEmphasis,
+          cursorColor: Constants.highEmphasis,
           keyboardType: TextInputType.multiline,
           onChanged: (_) => {
             widget.messenger.notes = _notesController.text,

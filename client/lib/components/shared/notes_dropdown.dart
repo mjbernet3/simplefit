@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/utils/app_router.dart';
 import 'package:client/utils/structures/notes_messenger.dart';
 import 'package:client/utils/structures/route_arguments.dart';
@@ -40,7 +40,7 @@ class _NotesDropdownState extends State<NotesDropdown> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: AppStyle.thirdElevation,
+            color: Constants.thirdElevation,
           ),
         ),
       ),
@@ -51,14 +51,14 @@ class _NotesDropdownState extends State<NotesDropdown> {
             'Notes',
             style: TextStyle(
               fontSize: 16.0,
-              color: AppStyle.medEmphasis,
+              color: Constants.medEmphasis,
             ),
           ),
           GestureDetector(
             onTap: () => _toggleNotes(),
             child: Icon(
               _hidden ? Icons.expand_more : Icons.expand_less,
-              color: AppStyle.medEmphasis,
+              color: Constants.medEmphasis,
             ),
           )
         ],

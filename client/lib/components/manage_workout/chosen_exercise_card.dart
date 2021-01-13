@@ -1,4 +1,4 @@
-import 'package:client/utils/app_style.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +28,7 @@ class ChosenExerciseCard extends StatelessWidget {
                     onTap: onRemovePressed,
                     child: Icon(
                       Icons.remove_circle,
-                      color: AppStyle.dangerColor,
+                      color: Constants.dangerColor,
                     ),
                   ),
                 ),
@@ -39,8 +39,8 @@ class ChosenExerciseCard extends StatelessWidget {
           child: GestureDetector(
             onTap: onPressed,
             child: Card(
-              color: AppStyle.firstElevation,
-              shadowColor: AppStyle.backgroundColor,
+              color: Constants.firstElevation,
+              shadowColor: Constants.backgroundColor,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
                 child: Column(
@@ -48,17 +48,14 @@ class ChosenExerciseCard extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       exerciseData.exercise.name,
-                      style: TextStyle(
-                        color: AppStyle.highEmphasis,
-                        fontSize: 16.0,
-                      ),
+                      style: TextStyle(fontSize: 16.0),
                     ),
                     SizedBox(height: 5.0),
                     Text(
                       exerciseData.exercise.bodyPart ??
                           exerciseData.exercise.type,
                       style: TextStyle(
-                        color: AppStyle.medEmphasis,
+                        color: Constants.medEmphasis,
                         fontSize: 12.0,
                       ),
                     ),
