@@ -8,33 +8,30 @@ class AppTheme {
 
   ThemeData get darkTheme => ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Constants.backgroundColor,
-        cardColor: Colors.blue,
+        cardColor: Constants.firstElevation,
         appBarTheme: AppBarTheme(
-          color: Colors.blue,
+          color: Constants.firstElevation,
           textTheme: Theme.of(context).primaryTextTheme.apply(
-                bodyColor: Colors.pink,
-                displayColor: Colors.pink,
+                bodyColor: Constants.highEmphasis,
+                displayColor: Constants.highEmphasis,
               ),
           iconTheme: IconThemeData(
-            color: Colors.pink,
+            color: Constants.highEmphasis,
           ),
         ),
         textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.pink,
-              displayColor: Colors.pink,
+              bodyColor: Constants.highEmphasis,
+              displayColor: Constants.highEmphasis,
             ),
-        buttonTheme: ButtonThemeData(
-          textTheme: ButtonTextTheme.primary,
-        ),
         iconTheme: IconThemeData(
-          color: Colors.pink,
+          color: Constants.highEmphasis,
         ),
-        cursorColor: Colors.pink,
-        disabledColor: Colors.pink,
-        errorColor: Colors.pink,
-        shadowColor: Colors.pink,
+        cursorColor: Constants.highEmphasis,
+        disabledColor: Constants.secondElevation,
+        errorColor: Constants.dangerColor,
+        shadowColor: Constants.firstElevation,
         dividerTheme: DividerThemeData(
-          color: Colors.pink,
+          color: Constants.thirdElevation,
           thickness: 1.5,
         ),
       );

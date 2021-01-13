@@ -65,6 +65,7 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(height: 16.0),
           RoundedButton(
             buttonText: 'Create Account',
+            fontSize: 16.0,
             disabled: _isLoading,
             onPressed: _register,
           ),

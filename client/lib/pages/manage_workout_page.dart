@@ -46,7 +46,6 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
           widget.isEdit ? 'Edit Workout' : 'Create Workout',
           style: TextStyle(fontSize: 18.0),
         ),
-        backgroundColor: Constants.firstElevation,
       ),
       body: Padding(
         padding: EdgeInsets.all(15.0),

@@ -39,6 +39,7 @@ class WelcomePage extends StatelessWidget {
               children: <Widget>[
                 RoundedButton(
                   buttonText: 'Create an Account',
+                  fontSize: 16.0,
                   onPressed: () =>
                       Navigator.pushNamed(context, AppRouter.register),
                 ),

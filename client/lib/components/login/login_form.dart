@@ -55,6 +55,7 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(height: 16.0),
           RoundedButton(
             buttonText: 'Sign In',
+            fontSize: 16.0,
             disabled: _isLoading,
             onPressed: _signIn,
           ),
