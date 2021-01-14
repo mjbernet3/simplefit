@@ -8,28 +8,42 @@ import 'package:client/view_models/view_model.dart';
 class ManageWorkoutModel extends ViewModel {
   Workout _workout;
   WorkoutService _workoutService;
-  bool _isEdit;
+  bool _isEditMode;
 
   ManageWorkoutModel({String workoutId, WorkoutService workoutService}) {
     _workoutService = workoutService;
-    _isEdit = (workoutId != null);
+    _isEditMode = (workoutId != null);
+    _editingController.sink.add(false);
+    _loadingController.sink.add(false);
     getWorkout(workoutId);
   }
 
   final StreamController<Workout> _workoutController =
       StreamController<Workout>();
 
-  final StreamController<List<ExerciseData>> _exerciseController =
+  final StreamController<List<ExerciseData>> _exercisesController =
       StreamController<List<ExerciseData>>();
+
+  final StreamController<bool> _loadingController = StreamController<bool>();
+
+  final StreamController<bool> _editingController = StreamController<bool>();
+
+  bool get isEditMode => _isEditMode;
 
   Stream<Workout> get workoutStream => _workoutController.stream;
 
-  Stream<List<ExerciseData>> get exerciseStream => _exerciseController.stream;
+  Stream<List<ExerciseData>> get exerciseStream => _exercisesController.stream;
 
-  bool get isEdit => _isEdit;
+  Stream<bool> get isLoading => _loadingController.stream;
+
+  Stream<bool> get isEditing => _editingController.stream;
+
+  void setEditing(bool value) {
+    _editingController.sink.add(value);
+  }
 
   Future<void> getWorkout(String workoutId) async {
-    if (_isEdit) {
+    if (_isEditMode) {
       try {
         _workout = await _workoutService.getWorkout(workoutId);
       } catch (e) {
@@ -40,7 +54,7 @@ class ManageWorkoutModel extends ViewModel {
       _workout = Workout.initial();
     }
 
-    _exerciseController.sink.add(_workout.exercises);
+    _exercisesController.sink.add(_workout.exercises);
     _workoutController.sink.add(_workout);
   }
 
@@ -51,22 +65,24 @@ class ManageWorkoutModel extends ViewModel {
       _workout.exercises.add(newExerciseData);
     }
 
-    _exerciseController.sink.add(_workout.exercises);
+    _exercisesController.sink.add(_workout.exercises);
   }
 
   void updateExerciseAt(int index, ExerciseData newExerciseData) {
     _workout.exercises[index] = newExerciseData;
 
-    _exerciseController.sink.add(_workout.exercises);
+    _exercisesController.sink.add(_workout.exercises);
   }
 
   void removeExerciseAt(int index) {
     _workout.exercises.removeAt(index);
 
-    _exerciseController.sink.add(_workout.exercises);
+    _exercisesController.sink.add(_workout.exercises);
   }
 
   Future<void> saveWorkout(String name, String notes) async {
+    _loadingController.sink.add(true);
+
     if (name.isEmpty) {
       name = 'My Workout';
     }
@@ -75,7 +91,7 @@ class ManageWorkoutModel extends ViewModel {
     _workout.notes = notes;
 
     try {
-      if (!_isEdit) {
+      if (!_isEditMode) {
         await _workoutService.createWorkout(_workout);
       } else {
         await _workoutService.updateWorkout(_workout.id, _workout);
@@ -83,11 +99,15 @@ class ManageWorkoutModel extends ViewModel {
     } catch (e) {
       rethrow;
     }
+
+    _loadingController.sink.add(false);
   }
 
   @override
   void dispose() {
     _workoutController.close();
-    _exerciseController.close();
+    _exercisesController.close();
+    _loadingController.close();
+    _editingController.close();
   }
 }

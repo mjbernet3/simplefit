@@ -1,6 +1,7 @@
-import 'package:client/components/manage_workout/chosen_exercise_listing.dart';
+import 'package:client/components/manage_workout/chosen_exercises_builder.dart';
 import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/input_field.dart';
+import 'package:client/components/shared/linear_loading_indicator.dart';
 import 'package:client/models/workout/workout.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/view_models/manage_workout_model.dart';
@@ -31,8 +32,12 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text(
-          _model.isEdit ? 'Edit Workout' : 'Create Workout',
+          _model.isEditMode ? 'Edit Workout' : 'Create Workout',
           style: TextStyle(fontSize: 18.0),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.5),
+          child: LinearLoadingIndicator(isLoading: _model.isLoading),
         ),
       ),
       body: Padding(
@@ -64,7 +69,7 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
                   ),
                   SizedBox(height: 24.0),
                   Expanded(
-                    child: ChosenExerciseListing(),
+                    child: ChosenExercisesBuilder(),
                   ),
                   ActionButtons(
                     onConfirmed: () => _saveWorkout(context),
