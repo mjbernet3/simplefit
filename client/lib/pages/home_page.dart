@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.pushNamed(
                               context,
                               AppRouter.manageWorkout,
-                              arguments: _currentWorkout,
+                              arguments: _currentWorkout.id,
                             ),
                           }
                       },

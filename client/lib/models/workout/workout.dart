@@ -14,6 +14,14 @@ class Workout {
     this.exercises,
   });
 
+  factory Workout.initial() {
+    return Workout(
+      name: '',
+      notes: '',
+      exercises: [],
+    );
+  }
+
   factory Workout.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> workoutData = snapshot.data;
 

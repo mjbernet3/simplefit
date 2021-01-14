@@ -52,9 +52,15 @@ class AppRouter {
       case manageWorkout:
         return MaterialPageRoute(
           builder: (context) => Provider<ManageWorkoutModel>(
-            create: (context) => ManageWorkoutModel(),
+            create: (context) => ManageWorkoutModel(
+              workoutId: routeSettings.arguments,
+              workoutService: Provider.of<WorkoutService>(
+                context,
+                listen: false,
+              ),
+            ),
             dispose: (context, model) => model.dispose(),
-            child: ManageWorkoutPage(preview: routeSettings.arguments),
+            child: ManageWorkoutPage(),
           ),
         );
       case startWorkout:
