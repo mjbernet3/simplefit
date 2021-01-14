@@ -5,7 +5,6 @@ import 'package:client/components/manage_exercise/exercise_dropdown.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/services/exercise_service.dart';
-import 'package:client/utils/constants.dart';
 import 'package:client/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

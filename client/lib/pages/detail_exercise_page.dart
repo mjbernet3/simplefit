@@ -6,7 +6,6 @@ import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/utils/constants.dart';
-import 'package:client/utils/constants.dart';
 import 'package:client/view_models/detail_lift_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

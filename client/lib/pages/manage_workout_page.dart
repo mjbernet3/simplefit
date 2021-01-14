@@ -5,7 +5,6 @@ import 'package:client/models/workout/workout.dart';
 import 'package:client/models/workout/workout_preview.dart';
 import 'package:client/services/workout_service.dart';
 import 'package:client/utils/app_error.dart';
-import 'package:client/utils/constants.dart';
 import 'package:client/view_models/manage_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

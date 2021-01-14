@@ -34,5 +34,9 @@ class AppTheme {
           color: Constants.thirdElevation,
           thickness: 1.5,
         ),
+        snackBarTheme: SnackBarThemeData(
+          backgroundColor: Constants.secondElevation,
+          contentTextStyle: TextStyle(color: Constants.highEmphasis),
+        ),
       );
 }
