@@ -17,79 +17,76 @@ class ChosenExercisesEditor extends StatelessWidget {
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
     return StreamBuilder<bool>(
+      initialData: false,
       stream: _model.isEditing,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (snapshot.hasData) {
-          bool _isEditing = snapshot.data;
+        bool _isEditing = snapshot.data;
 
-          return Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Exercises',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () => _model.setEditing(!_isEditing),
-                          child: Container(
-                            height: 24.0,
-                            width: 24.0,
-                            child: Icon(
-                              _isEditing ? Icons.check : Icons.edit,
-                              size: 20.0,
-                            ),
+        return Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Exercises',
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () => _model.setEditing(!_isEditing),
+                        child: Container(
+                          height: 24.0,
+                          width: 24.0,
+                          child: Icon(
+                            _isEditing ? Icons.check : Icons.edit,
+                            size: 20.0,
                           ),
                         ),
-                        SizedBox(width: 8.0),
-                        !_isEditing
-                            ? GestureDetector(
-                                onTap: () => _browseExercises(context),
-                                child: Icon(Icons.add),
-                              )
-                            : SizedBox.shrink(),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      SizedBox(width: 8.0),
+                      !_isEditing
+                          ? GestureDetector(
+                              onTap: () => _browseExercises(context),
+                              child: Icon(Icons.add),
+                            )
+                          : SizedBox.shrink(),
+                    ],
+                  ),
+                ],
               ),
-              Divider(),
-              Expanded(
-                child: ListView(
-                  children: <Widget>[
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: exercises.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        ExerciseData currentExercise = exercises[index];
+            ),
+            Divider(),
+            Expanded(
+              child: ListView(
+                children: <Widget>[
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: exercises.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      ExerciseData currentExercise = exercises[index];
 
-                        return ChosenExerciseCard(
-                          key: ObjectKey(currentExercise),
-                          exerciseData: currentExercise,
-                          onPressed: () => _detailExercise(
-                            context,
-                            index,
-                            currentExercise,
-                          ),
-                          onRemovePressed: () => _model.removeExerciseAt(index),
-                          isEditing: _isEditing,
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                      return ChosenExerciseCard(
+                        key: ObjectKey(currentExercise),
+                        exerciseData: currentExercise,
+                        onPressed: () => _detailExercise(
+                          context,
+                          index,
+                          currentExercise,
+                        ),
+                        onRemovePressed: () => _model.removeExerciseAt(index),
+                        isEditing: _isEditing,
+                      );
+                    },
+                  ),
+                ],
               ),
-            ],
-          );
-        }
-
-        return Container();
+            ),
+          ],
+        );
       },
     );
   }

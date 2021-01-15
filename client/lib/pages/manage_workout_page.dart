@@ -1,7 +1,7 @@
 import 'package:client/components/manage_workout/chosen_exercises_builder.dart';
 import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/input_field.dart';
-import 'package:client/components/shared/linear_loading_indicator.dart';
+import 'package:client/components/shared/app_bar_loading_indicator.dart';
 import 'package:client/models/workout/workout.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/view_models/manage_workout_model.dart';
@@ -35,10 +35,7 @@ class _ManageWorkoutPageState extends State<ManageWorkoutPage> {
           _model.isEditMode ? 'Edit Workout' : 'Create Workout',
           style: TextStyle(fontSize: 18.0),
         ),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1.5),
-          child: LinearLoadingIndicator(isLoading: _model.isLoading),
-        ),
+        bottom: AppBarLoadingIndicator(isLoading: _model.isLoading),
       ),
       body: Padding(
         padding: EdgeInsets.all(15.0),

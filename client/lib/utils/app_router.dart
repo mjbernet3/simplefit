@@ -1,4 +1,5 @@
 import 'package:client/pages/perform_workout_page.dart';
+import 'package:client/services/auth_service.dart';
 import 'package:client/services/workout_service.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/models/exercise/exercise.dart';
@@ -20,6 +21,7 @@ import 'package:client/utils/structures/route_arguments.dart';
 import 'package:client/view_models/browse_exercises_model.dart';
 import 'package:client/view_models/manage_workout_model.dart';
 import 'package:client/view_models/perform_workout_model.dart';
+import 'package:client/view_models/register_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +48,18 @@ class AppRouter {
       case welcome:
         return MaterialPageRoute(builder: (context) => WelcomePage());
       case register:
-        return MaterialPageRoute(builder: (context) => RegisterPage());
+        return MaterialPageRoute(
+          builder: (context) => Provider<RegisterModel>(
+            create: (context) => RegisterModel(
+              authService: Provider.of<AuthService>(
+                context,
+                listen: false,
+              ),
+            ),
+            dispose: (context, model) => model.dispose(),
+            child: RegisterPage(),
+          ),
+        );
       case login:
         return MaterialPageRoute(builder: (context) => LoginPage());
       case manageWorkout:

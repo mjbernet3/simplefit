@@ -13,8 +13,6 @@ class ManageWorkoutModel extends ViewModel {
   ManageWorkoutModel({String workoutId, WorkoutService workoutService}) {
     _workoutService = workoutService;
     _isEditMode = (workoutId != null);
-    _editingController.sink.add(false);
-    _loadingController.sink.add(false);
     getWorkout(workoutId);
   }
 
@@ -97,6 +95,7 @@ class ManageWorkoutModel extends ViewModel {
         await _workoutService.updateWorkout(_workout.id, _workout);
       }
     } catch (e) {
+      _loadingController.sink.add(false);
       rethrow;
     }
 
