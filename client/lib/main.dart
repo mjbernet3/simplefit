@@ -5,6 +5,7 @@ import 'package:client/pages/home_page.dart';
 import 'package:client/pages/welcome_page.dart';
 import 'package:client/utils/app_router.dart';
 import 'package:client/services/auth_service.dart';
+import 'package:client/view_models/home_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,7 @@ class SimpleFit extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<User> userSnapshot) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: _buildHome(userSnapshot),
+            home: _buildHome(context, userSnapshot),
             theme: AppTheme(context).darkTheme,
             onGenerateRoute: AppRouter.generateRoute,
           );
@@ -34,9 +35,15 @@ class SimpleFit extends StatelessWidget {
     );
   }
 
-  Widget _buildHome(AsyncSnapshot<User> userSnapshot) {
+  Widget _buildHome(BuildContext context, AsyncSnapshot<User> userSnapshot) {
     if (userSnapshot.connectionState == ConnectionState.active) {
-      return userSnapshot.hasData ? HomePage() : WelcomePage();
+      return userSnapshot.hasData
+          ? Provider<HomeModel>(
+              create: (context) => HomeModel(),
+              dispose: (context, model) => model.dispose(),
+              child: HomePage(),
+            )
+          : WelcomePage();
     } else {
       return Container();
     }

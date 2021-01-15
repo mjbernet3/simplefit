@@ -19,6 +19,7 @@ import 'package:client/pages/unknown_page.dart';
 import 'package:client/pages/welcome_page.dart';
 import 'package:client/utils/structures/route_arguments.dart';
 import 'package:client/view_models/browse_exercises_model.dart';
+import 'package:client/view_models/home_model.dart';
 import 'package:client/view_models/login_model.dart';
 import 'package:client/view_models/manage_workout_model.dart';
 import 'package:client/view_models/perform_workout_model.dart';
@@ -45,7 +46,13 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case home:
-        return MaterialPageRoute(builder: (context) => HomePage());
+        return MaterialPageRoute(
+          builder: (context) => Provider<HomeModel>(
+            create: (context) => HomeModel(),
+            dispose: (context, model) => model.dispose(),
+            child: HomePage(),
+          ),
+        );
       case welcome:
         return MaterialPageRoute(builder: (context) => WelcomePage());
       case register:

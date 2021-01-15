@@ -2,13 +2,13 @@ import 'package:client/utils/constants.dart';
 import 'package:client/models/workout/workout_preview.dart';
 import 'package:flutter/material.dart';
 
-class WorkoutCard extends StatelessWidget {
+class PreviewCard extends StatelessWidget {
   final WorkoutPreview workoutPreview;
   final Function onPressed;
   final Function onRemovePressed;
   final bool isEditing;
 
-  const WorkoutCard({
+  const PreviewCard({
     Key key,
     @required this.workoutPreview,
     this.onPressed,
