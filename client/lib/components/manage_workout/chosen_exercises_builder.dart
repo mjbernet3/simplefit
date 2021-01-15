@@ -39,9 +39,9 @@ class ChosenExercisesBuilder extends StatelessWidget {
                 ),
               ],
             );
-          } else {
-            return ChosenExercisesEditor(exercises: exercises);
           }
+
+          return ChosenExercisesEditor(exercises: exercises);
         }
 
         return Container();

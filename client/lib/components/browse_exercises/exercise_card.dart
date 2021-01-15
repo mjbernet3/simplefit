@@ -31,7 +31,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                 flex: 1,
                 child: Center(
                   child: GestureDetector(
-                    onTap: () => widget.onRemovePressed(widget.exercise.id),
+                    onTap: widget.onRemovePressed,
                     child: Icon(
                       Icons.remove_circle,
                       color: Constants.dangerColor,
@@ -44,11 +44,11 @@ class _ExerciseCardState extends State<ExerciseCard> {
           flex: 10,
           child: GestureDetector(
             onTap: () => {
-              widget.onPressed(widget.exercise, !selected),
               if (!widget.isEditing)
                 {
                   setState(() => selected = !selected),
-                }
+                },
+              widget.onPressed(selected),
             },
             child: Card(
               elevation: 2.0,
@@ -65,7 +65,10 @@ class _ExerciseCardState extends State<ExerciseCard> {
                 child: Row(
                   children: <Widget>[
                     Container(
-                      child: _buildExerciseIcon(),
+                      child: Icon(
+                        _buildExerciseIcon(),
+                        color: Constants.lowEmphasis,
+                      ),
                     ),
                     SizedBox(width: 14.0),
                     Column(
@@ -95,14 +98,14 @@ class _ExerciseCardState extends State<ExerciseCard> {
     );
   }
 
-  Widget _buildExerciseIcon() {
+  IconData _buildExerciseIcon() {
     switch (widget.exercise.type) {
       case Constants.lifting:
-        return Icon(Icons.fitness_center, color: Constants.lowEmphasis);
+        return Icons.fitness_center;
       case Constants.timed:
-        return Icon(Icons.query_builder, color: Constants.lowEmphasis);
+        return Icons.query_builder;
       case Constants.distance:
-        return Icon(Icons.directions_run, color: Constants.lowEmphasis);
+        return Icons.directions_run;
       default:
         return null;
     }

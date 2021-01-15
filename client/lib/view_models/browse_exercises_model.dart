@@ -1,33 +1,40 @@
 import 'dart:async';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/view_models/view_model.dart';
+import 'package:rxdart/rxdart.dart';
 
 class BrowseExercisesModel extends ViewModel {
-  List<Exercise> _exercises = [];
+  List<Exercise> _chosenExercises = [];
 
-  final StreamController<int> _exerciseCountController =
-      StreamController<int>();
+  final StreamController<List<Exercise>> _chosenExercisesController =
+      StreamController<List<Exercise>>();
 
-  Stream<int> get exerciseCountStream => _exerciseCountController.stream;
+  final StreamController<bool> _editingController = BehaviorSubject<bool>();
 
-  List<Exercise> getExercises() {
-    return _exercises;
+  Stream<List<Exercise>> get chosenExercisesStream =>
+      _chosenExercisesController.stream;
+
+  Stream<bool> get isEditing => _editingController.stream;
+
+  void setEditing(bool value) {
+    _editingController.sink.add(value);
   }
 
   void addExercise(Exercise exercise) {
-    _exercises.add(exercise);
+    _chosenExercises.add(exercise);
 
-    _exerciseCountController.sink.add(_exercises.length);
+    _chosenExercisesController.sink.add(_chosenExercises);
   }
 
   void removeExercise(Exercise exercise) {
-    _exercises.remove(exercise);
+    _chosenExercises.remove(exercise);
 
-    _exerciseCountController.sink.add(_exercises.length);
+    _chosenExercisesController.sink.add(_chosenExercises);
   }
 
   @override
   void dispose() {
-    _exerciseCountController.close();
+    _chosenExercisesController.close();
+    _editingController.close();
   }
 }

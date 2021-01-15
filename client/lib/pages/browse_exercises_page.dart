@@ -1,4 +1,4 @@
-import 'package:client/components/browse_exercises/exercise_listing.dart';
+import 'package:client/components/browse_exercises/exercises_editor.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/exercise.dart';
@@ -13,17 +13,21 @@ class BrowseExercisesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ExerciseService _exerciseService =
         Provider.of<ExerciseService>(context, listen: false);
-    BrowseExercisesModel model =
+    BrowseExercisesModel _model =
         Provider.of<BrowseExercisesModel>(context, listen: false);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         StreamBuilder<List<Exercise>>(
           stream: _exerciseService.exercises,
-          builder: (context, snapshot) {
+          builder:
+              (BuildContext context, AsyncSnapshot<List<Exercise>> snapshot) {
             if (snapshot.hasData) {
-              if (snapshot.data.isEmpty) {
+              List<Exercise> _exercises = snapshot.data;
+
+              if (_exercises.isEmpty) {
                 return Expanded(
                   child: Center(
                     child: Column(
@@ -52,31 +56,31 @@ class BrowseExercisesPage extends StatelessWidget {
                 );
               }
 
-              final List<Exercise> exercises = snapshot.data;
-
-              return ExerciseListing(exercises: exercises);
+              return Expanded(
+                child: ExercisesEditor(exercises: _exercises),
+              );
             }
 
             return Container();
           },
         ),
-        StreamBuilder<int>(
-          stream: model.exerciseCountStream,
-          builder: (context, snapshot) {
-            if (snapshot.hasData && snapshot.data != 0) {
-              int exerciseCount = snapshot.data;
+        StreamBuilder<List<Exercise>>(
+          stream: _model.chosenExercisesStream,
+          builder:
+              (BuildContext context, AsyncSnapshot<List<Exercise>> snapshot) {
+            if (snapshot.hasData && snapshot.data.isNotEmpty) {
+              List<Exercise> _chosenExercises = snapshot.data;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Divider(),
                   RoundedButton(
-                    buttonText: 'Add $exerciseCount Exercises',
+                    buttonText: 'Add ${_chosenExercises.length} Exercises',
                     height: 30.0,
                     color: Constants.secondElevation,
                     borderColor: Constants.secondElevation,
-                    onPressed: () =>
-                        Navigator.pop(context, model.getExercises()),
+                    onPressed: () => Navigator.pop(context, _chosenExercises),
                   ),
                 ],
               );
