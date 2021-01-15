@@ -4,6 +4,7 @@ class AppError {
   AppError._();
 
   static void show(BuildContext context, String errorMessage) {
+    Scaffold.of(context).hideCurrentSnackBar();
     Scaffold.of(context).showSnackBar(
       SnackBar(
         content: Text(errorMessage),

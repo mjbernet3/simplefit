@@ -19,6 +19,7 @@ import 'package:client/pages/unknown_page.dart';
 import 'package:client/pages/welcome_page.dart';
 import 'package:client/utils/structures/route_arguments.dart';
 import 'package:client/view_models/browse_exercises_model.dart';
+import 'package:client/view_models/login_model.dart';
 import 'package:client/view_models/manage_workout_model.dart';
 import 'package:client/view_models/perform_workout_model.dart';
 import 'package:client/view_models/register_model.dart';
@@ -61,7 +62,18 @@ class AppRouter {
           ),
         );
       case login:
-        return MaterialPageRoute(builder: (context) => LoginPage());
+        return MaterialPageRoute(
+          builder: (context) => Provider<LoginModel>(
+            create: (context) => LoginModel(
+              authService: Provider.of<AuthService>(
+                context,
+                listen: false,
+              ),
+            ),
+            dispose: (context, model) => model.dispose(),
+            child: LoginPage(),
+          ),
+        );
       case manageWorkout:
         return MaterialPageRoute(
           builder: (context) => Provider<ManageWorkoutModel>(
