@@ -1,34 +1,19 @@
 import 'package:client/utils/constants.dart';
-import 'package:client/utils/structures/notes_messenger.dart';
+import 'package:client/view_models/notes_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class NotesPage extends StatefulWidget {
-  final NotesMessenger messenger;
-
-  NotesPage({this.messenger});
-
-  @override
-  _NotesPageState createState() => _NotesPageState();
-}
-
-class _NotesPageState extends State<NotesPage> {
-  TextEditingController _notesController;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _notesController = TextEditingController();
-    _notesController.text = widget.messenger.notes;
-  }
-
+class NotesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    NotesModel _model = Provider.of<NotesModel>(context, listen: false);
+
     return ListView(
       padding: EdgeInsets.all(0.0),
       shrinkWrap: true,
       children: [
         TextField(
-          controller: _notesController,
+          controller: _model.notesController,
           textInputAction: TextInputAction.newline,
           style: TextStyle(fontSize: 14.0),
           decoration: InputDecoration(
@@ -40,9 +25,7 @@ class _NotesPageState extends State<NotesPage> {
           maxLines: null,
           cursorColor: Constants.highEmphasis,
           keyboardType: TextInputType.multiline,
-          onChanged: (_) => {
-            widget.messenger.notes = _notesController.text,
-          },
+          onChanged: (_) => _model.updateMessenger(),
         ),
       ],
     );

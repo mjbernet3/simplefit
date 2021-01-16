@@ -20,8 +20,8 @@ class _NotesDropdownState extends State<NotesDropdown> {
 
   @override
   void initState() {
-    super.initState();
     _currentNotes = widget.notes;
+    super.initState();
   }
 
   @override
@@ -55,7 +55,7 @@ class _NotesDropdownState extends State<NotesDropdown> {
             ),
           ),
           GestureDetector(
-            onTap: () => _toggleNotes(),
+            onTap: () => _toggleNotes(context),
             child: Icon(
               _hidden ? Icons.expand_more : Icons.expand_less,
               color: Constants.medEmphasis,
@@ -66,7 +66,7 @@ class _NotesDropdownState extends State<NotesDropdown> {
     );
   }
 
-  void _toggleNotes() async {
+  void _toggleNotes(BuildContext context) async {
     setState(() => _hidden = false);
 
     RenderBox renderBox = context.findRenderObject();

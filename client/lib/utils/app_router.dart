@@ -24,6 +24,7 @@ import 'package:client/view_models/home_model.dart';
 import 'package:client/view_models/login_model.dart';
 import 'package:client/view_models/manage_exercise_model.dart';
 import 'package:client/view_models/manage_workout_model.dart';
+import 'package:client/view_models/notes_model.dart';
 import 'package:client/view_models/perform_workout_model.dart';
 import 'package:client/view_models/register_model.dart';
 import 'package:flutter/material.dart';
@@ -105,7 +106,7 @@ class AppRouter {
       case startWorkout:
         return MaterialPageRoute(
           builder: (context) =>
-              StartWorkoutPage(preview: routeSettings.arguments),
+              StartWorkoutPage(workout: routeSettings.arguments),
         );
       case detailExercise:
         return MaterialPageRoute<ExerciseData>(
@@ -134,8 +135,12 @@ class AppRouter {
         return SimplePopUp(
           isAnimated: false,
           renderBox: routeArgs.arguments["renderBox"],
-          builder: (context) => NotesPage(
-            messenger: routeArgs.arguments["messenger"],
+          builder: (context) => Provider<NotesModel>(
+            create: (context) => NotesModel(
+              messenger: routeArgs.arguments["messenger"],
+            ),
+            dispose: (context, model) => model.dispose(),
+            child: NotesPage(),
           ),
         );
       case browseExercises:
