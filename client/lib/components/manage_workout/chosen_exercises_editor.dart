@@ -113,7 +113,7 @@ class ChosenExercisesEditor extends StatelessWidget {
     ExerciseData newExerciseData = await Navigator.pushNamed(
       context,
       AppRouter.detailExercise,
-      arguments: exercise.copy(),
+      arguments: exercise.clone(),
     );
 
     if (newExerciseData != null) {

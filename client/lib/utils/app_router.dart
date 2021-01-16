@@ -1,5 +1,6 @@
 import 'package:client/pages/perform_workout_page.dart';
 import 'package:client/services/auth_service.dart';
+import 'package:client/services/exercise_service.dart';
 import 'package:client/services/workout_service.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/models/exercise/exercise.dart';
@@ -21,6 +22,7 @@ import 'package:client/utils/structures/route_arguments.dart';
 import 'package:client/view_models/browse_exercises_model.dart';
 import 'package:client/view_models/home_model.dart';
 import 'package:client/view_models/login_model.dart';
+import 'package:client/view_models/manage_exercise_model.dart';
 import 'package:client/view_models/manage_workout_model.dart';
 import 'package:client/view_models/perform_workout_model.dart';
 import 'package:client/view_models/register_model.dart';
@@ -48,7 +50,12 @@ class AppRouter {
       case home:
         return MaterialPageRoute(
           builder: (context) => Provider<HomeModel>(
-            create: (context) => HomeModel(),
+            create: (context) => HomeModel(
+              workoutService: Provider.of<WorkoutService>(
+                context,
+                listen: false,
+              ),
+            ),
             dispose: (context, model) => model.dispose(),
             child: HomePage(),
           ),
@@ -85,7 +92,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => Provider<ManageWorkoutModel>(
             create: (context) => ManageWorkoutModel(
-              workoutId: routeSettings.arguments,
+              workout: routeSettings.arguments,
               workoutService: Provider.of<WorkoutService>(
                 context,
                 listen: false,
@@ -143,8 +150,17 @@ class AppRouter {
       case manageExercise:
         return SimplePopUp(
           isAnimated: false,
-          builder: (context) =>
-              ManageExercisePage(exercise: routeSettings.arguments),
+          builder: (context) => Provider<ManageExerciseModel>(
+            create: (context) => ManageExerciseModel(
+              exercise: routeSettings.arguments,
+              exerciseService: Provider.of<ExerciseService>(
+                context,
+                listen: false,
+              ),
+            ),
+            dispose: (context, model) => model.dispose(),
+            child: ManageExercisePage(),
+          ),
         );
       default:
         return MaterialPageRoute(builder: (context) => UnknownPage());

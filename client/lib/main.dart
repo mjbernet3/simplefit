@@ -1,3 +1,4 @@
+import 'package:client/services/workout_service.dart';
 import 'package:client/utils/app_theme.dart';
 import 'package:client/utils/auth_builder.dart';
 import 'package:client/models/user/user.dart';
@@ -39,7 +40,12 @@ class SimpleFit extends StatelessWidget {
     if (userSnapshot.connectionState == ConnectionState.active) {
       return userSnapshot.hasData
           ? Provider<HomeModel>(
-              create: (context) => HomeModel(),
+              create: (context) => HomeModel(
+                workoutService: Provider.of<WorkoutService>(
+                  context,
+                  listen: false,
+                ),
+              ),
               dispose: (context, model) => model.dispose(),
               child: HomePage(),
             )

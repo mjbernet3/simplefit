@@ -53,7 +53,7 @@ class TimedCardio extends ExerciseData {
     };
   }
 
-  TimedCardio copy() {
+  TimedCardio clone() {
     return TimedCardio(
       exercise: exercise,
       notes: notes,

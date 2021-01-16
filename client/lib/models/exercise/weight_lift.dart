@@ -53,7 +53,7 @@ class WeightLift extends ExerciseData {
     };
   }
 
-  WeightLift copy() {
+  WeightLift clone() {
     List<LiftSet> copiedSets = sets.map((LiftSet set) => set.copy()).toList();
 
     return WeightLift(

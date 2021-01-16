@@ -53,7 +53,7 @@ class DistanceCardio extends ExerciseData {
     };
   }
 
-  DistanceCardio copy() {
+  DistanceCardio clone() {
     return DistanceCardio(
       exercise: exercise,
       notes: notes,

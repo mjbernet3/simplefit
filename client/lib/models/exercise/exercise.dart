@@ -13,6 +13,14 @@ class Exercise {
     this.bodyPart,
   });
 
+  factory Exercise.initial() {
+    return Exercise(
+      name: '',
+      type: '',
+      bodyPart: '',
+    );
+  }
+
   factory Exercise.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> exerciseData = snapshot.data;
 
@@ -48,5 +56,14 @@ class Exercise {
     }
 
     return false;
+  }
+
+  Exercise clone() {
+    return Exercise(
+      id: id,
+      name: name,
+      type: type,
+      bodyPart: bodyPart,
+    );
   }
 }
