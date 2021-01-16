@@ -1,33 +1,18 @@
 import 'package:client/utils/app_error.dart';
 import 'package:client/components/shared/auth_input_field.dart';
 import 'package:client/components/shared/rounded_button.dart';
-import 'package:client/utils/structures/auth_info.dart';
 import 'package:client/utils/validator.dart';
 import 'package:client/view_models/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginForm extends StatefulWidget {
-  @override
-  _LoginFormState createState() => _LoginFormState();
-}
-
-class _LoginFormState extends State<LoginForm> {
-  LoginModel _model;
+class LoginForm extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController _emailController;
-  TextEditingController _passwordController;
-
-  @override
-  void initState() {
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-    _model = Provider.of<LoginModel>(context, listen: false);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    LoginModel _model = Provider.of<LoginModel>(context, listen: false);
+
     return StreamBuilder<bool>(
       initialData: false,
       stream: _model.autovalidate,
@@ -50,7 +35,7 @@ class _LoginFormState extends State<LoginForm> {
                 children: <Widget>[
                   AuthInputField(
                     labelText: 'Email address',
-                    controller: _emailController,
+                    controller: _model.emailController,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     autofocus: true,
@@ -60,7 +45,7 @@ class _LoginFormState extends State<LoginForm> {
                   SizedBox(height: 32.0),
                   AuthInputField(
                     labelText: 'Password',
-                    controller: _passwordController,
+                    controller: _model.passwordController,
                     hidden: true,
                     enabled: !_isLoading,
                     validator: (value) => Validator.validatePassword(value),
@@ -83,28 +68,18 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _signIn(BuildContext context) async {
+    LoginModel _model = Provider.of<LoginModel>(context, listen: false);
+
     if (_formKey.currentState.validate()) {
       FocusScope.of(context).unfocus();
 
-      AuthInfo authInfo = AuthInfo(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-
       try {
-        await _model.signIn(authInfo);
+        await _model.signIn();
       } catch (e) {
         AppError.show(context, e.message);
       }
     } else {
       _model.setAutovalidate(true);
     }
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 }
