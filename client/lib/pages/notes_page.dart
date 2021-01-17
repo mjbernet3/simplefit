@@ -23,7 +23,6 @@ class NotesPage extends StatelessWidget {
             counterText: '',
           ),
           maxLines: null,
-          cursorColor: Constants.highEmphasis,
           keyboardType: TextInputType.multiline,
           onChanged: (_) => _model.updateMessenger(),
         ),

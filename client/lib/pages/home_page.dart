@@ -3,6 +3,7 @@ import 'package:client/components/shared/app_bar_loading_indicator.dart';
 import 'package:client/services/auth_service.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/utils/app_router.dart';
+import 'package:client/utils/page_wrapper.dart';
 import 'package:client/view_models/home_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         bool _isEditing = snapshot.data;
 
-        return Scaffold(
+        return PageWrapper(
           appBar: AppBar(
             centerTitle: false,
             title: Text(
@@ -72,12 +73,7 @@ class HomePage extends StatelessWidget {
             ],
             bottom: AppBarLoadingIndicator(isLoading: _model.isLoading),
           ),
-          body: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.all(15.0),
-              child: PreviewListing(isEditing: _isEditing),
-            ),
-          ),
+          body: PreviewListing(isEditing: _isEditing),
         );
       },
     );

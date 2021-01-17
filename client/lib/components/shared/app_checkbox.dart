@@ -1,26 +1,26 @@
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class WarmUpCheck extends StatefulWidget {
+class AppCheckbox extends StatefulWidget {
   final bool initialValue;
   final Function onChanged;
 
-  const WarmUpCheck({
-    this.initialValue,
+  AppCheckbox({
+    @required this.initialValue,
     this.onChanged,
   });
 
   @override
-  _WarmUpCheckState createState() => _WarmUpCheckState();
+  _AppCheckboxState createState() => _AppCheckboxState();
 }
 
-class _WarmUpCheckState extends State<WarmUpCheck> {
-  bool _isWarmUp;
+class _AppCheckboxState extends State<AppCheckbox> {
+  bool _currentValue;
 
   @override
   void initState() {
+    _currentValue = widget.initialValue;
     super.initState();
-    _isWarmUp = widget.initialValue;
   }
 
   @override
@@ -28,10 +28,10 @@ class _WarmUpCheckState extends State<WarmUpCheck> {
     return Checkbox(
       activeColor: Constants.primaryColor,
       checkColor: Constants.backgroundColor,
-      value: _isWarmUp,
+      value: _currentValue,
       onChanged: (bool value) => {
-        widget.onChanged(value),
-        setState(() => _isWarmUp = value),
+        setState(() => _currentValue = value),
+        widget.onChanged(_currentValue),
       },
     );
   }

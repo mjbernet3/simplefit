@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ManageExercisePage extends StatelessWidget {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     ManageExerciseModel _model =
@@ -24,7 +22,7 @@ class ManageExercisePage extends StatelessWidget {
         bool _autovalidate = snapshot.data;
 
         return Form(
-          key: _formKey,
+          key: _model.formKey,
           autovalidateMode: _autovalidate
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
@@ -44,6 +42,8 @@ class ManageExercisePage extends StatelessWidget {
                           AsyncSnapshot<Exercise> snapshot) {
                         if (snapshot.hasData) {
                           Exercise _exercise = snapshot.data;
+
+                          print(_exercise);
 
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +113,7 @@ class ManageExercisePage extends StatelessWidget {
     ManageExerciseModel _model =
         Provider.of<ManageExerciseModel>(context, listen: false);
 
-    if (_formKey.currentState.validate()) {
+    if (_model.formKey.currentState.validate()) {
       try {
         await _model.saveExercise();
         Navigator.pop(context);

@@ -106,14 +106,14 @@ class ChosenExercisesEditor extends StatelessWidget {
   }
 
   void _detailExercise(
-      BuildContext context, int index, ExerciseData exercise) async {
+      BuildContext context, int index, ExerciseData exerciseData) async {
     ManageWorkoutModel _model =
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
     ExerciseData newExerciseData = await Navigator.pushNamed(
       context,
       AppRouter.detailExercise,
-      arguments: exercise.clone(),
+      arguments: exerciseData,
     );
 
     if (newExerciseData != null) {

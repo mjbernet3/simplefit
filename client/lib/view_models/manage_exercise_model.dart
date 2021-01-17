@@ -3,6 +3,7 @@ import 'package:client/models/exercise/exercise.dart';
 import 'package:client/services/exercise_service.dart';
 import 'package:client/view_models/view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 class ManageExerciseModel extends ViewModel {
   ExerciseService _exerciseService;
@@ -10,9 +11,11 @@ class ManageExerciseModel extends ViewModel {
   Exercise _exercise;
   bool _isEditMode;
   TextEditingController _nameController;
+  GlobalKey<FormState> _formKey;
 
   ManageExerciseModel({ExerciseService exerciseService, Exercise exercise}) {
     _nameController = TextEditingController();
+    _formKey = GlobalKey<FormState>();
     _exerciseService = exerciseService;
     _isEditMode = (exercise != null);
     _prevExercise = exercise;
@@ -20,9 +23,9 @@ class ManageExerciseModel extends ViewModel {
   }
 
   final StreamController<Exercise> _exerciseController =
-      StreamController<Exercise>();
+      BehaviorSubject<Exercise>();
 
-  final StreamController<bool> _loadingController = StreamController<bool>();
+  final StreamController<bool> _loadingController = BehaviorSubject<bool>();
 
   final StreamController<bool> _autovalidateController =
       StreamController<bool>();
@@ -34,6 +37,8 @@ class ManageExerciseModel extends ViewModel {
   Stream<bool> get autovalidate => _autovalidateController.stream;
 
   TextEditingController get nameController => _nameController;
+
+  GlobalKey<FormState> get formKey => _formKey;
 
   bool get isEditMode => _isEditMode;
 

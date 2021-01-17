@@ -11,7 +11,7 @@ class InputField extends StatelessWidget {
   final Function validator;
   final Color fillColor;
   final int maxLength;
-  final int maxLines;
+  final int numLines;
   final bool autofocus;
   final bool enabled;
 
@@ -23,7 +23,7 @@ class InputField extends StatelessWidget {
     this.validator,
     this.maxLength,
     this.fillColor = Constants.firstElevation,
-    this.maxLines = 1,
+    this.numLines = 1,
     this.textInputAction = TextInputAction.done,
     this.keyboardType = TextInputType.text,
     this.autofocus = false,
@@ -72,7 +72,8 @@ class InputField extends StatelessWidget {
             hintText: hintText,
           ),
           maxLength: maxLength,
-          maxLines: maxLines,
+          maxLines: numLines,
+          minLines: numLines,
           cursorColor: Constants.highEmphasis,
           keyboardType: keyboardType,
           validator: validator,

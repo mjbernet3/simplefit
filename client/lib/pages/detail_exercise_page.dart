@@ -1,120 +1,103 @@
 import 'package:client/components/detail_exercise/detail_distance.dart';
 import 'package:client/components/detail_exercise/detail_lift.dart';
 import 'package:client/components/detail_exercise/detail_timed.dart';
-import 'package:client/components/detail_exercise/warm_up_check.dart';
+import 'package:client/components/shared/app_checkbox.dart';
 import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/utils/constants.dart';
+import 'package:client/utils/page_wrapper.dart';
+import 'package:client/view_models/detail_exercise_model.dart';
 import 'package:client/view_models/detail_lift_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DetailExercisePage extends StatefulWidget {
-  final ExerciseData exerciseData;
-
-  const DetailExercisePage({this.exerciseData});
-
-  @override
-  _DetailExercisePageState createState() => _DetailExercisePageState();
-}
-
-class _DetailExercisePageState extends State<DetailExercisePage> {
-  TextEditingController _notesController;
-  bool _isWarmUp;
-
-  @override
-  void initState() {
-    super.initState();
-    _notesController = TextEditingController();
-    _notesController.text = widget.exerciseData.notes;
-    _isWarmUp = widget.exerciseData.isWarmUp;
-  }
-
+class DetailExercisePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(30.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                widget.exerciseData.exercise.name,
-                style: TextStyle(fontSize: 24.0),
-              ),
-              SizedBox(height: 14.0),
-              InputField(
-                controller: _notesController,
-                hintText: 'Notes...',
-                keyboardType: TextInputType.multiline,
-                textInputAction: TextInputAction.newline,
-                maxLines: null,
-              ),
-              SizedBox(height: 20.0),
-              Row(
-                children: <Widget>[
-                  Text(
-                    'Warm-up Exercise',
-                    style: TextStyle(
-                      color: Constants.medEmphasis,
-                      fontSize: 14.0,
-                    ),
+    DetailExerciseModel _model =
+        Provider.of<DetailExerciseModel>(context, listen: false);
+
+    ExerciseData _exerciseData = _model.exerciseData;
+
+    return PageWrapper(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    _exerciseData.exercise.name,
+                    style: TextStyle(fontSize: 24.0),
                   ),
-                  SizedBox(width: 10.0),
-                  SizedBox(
-                    height: 15.0,
-                    width: 15.0,
-                    child: WarmUpCheck(
-                      initialValue: _isWarmUp,
-                      onChanged: (value) => _isWarmUp = value,
+                ),
+                SizedBox(height: 14.0),
+                InputField(
+                  controller: _model.notesController,
+                  hintText: 'Notes...',
+                  keyboardType: TextInputType.multiline,
+                  textInputAction: TextInputAction.newline,
+                  numLines: 5,
+                ),
+                SizedBox(height: 20.0),
+                Row(
+                  children: <Widget>[
+                    Text(
+                      'Warm-up Exercise',
+                      style: TextStyle(
+                        color: Constants.medEmphasis,
+                        fontSize: 14.0,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 14.0),
-              Divider(),
-              SizedBox(height: 14.0),
-              Expanded(
-                child: _buildExerciseForm(),
-              ),
-              ActionButtons(
-                onConfirmed: () => {
-                  widget.exerciseData.notes = _notesController.text,
-                  widget.exerciseData.isWarmUp = _isWarmUp,
-                  Navigator.pop(context, widget.exerciseData),
-                },
-              ),
-            ],
+                    SizedBox(width: 10.0),
+                    SizedBox(
+                      height: 15.0,
+                      width: 15.0,
+                      child: AppCheckbox(
+                        initialValue: _exerciseData.isWarmUp,
+                        onChanged: (bool value) =>
+                            _exerciseData.isWarmUp = value,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
+          SizedBox(height: 14.0),
+          Divider(),
+          SizedBox(height: 14.0),
+          Expanded(child: _buildExerciseForm(_exerciseData)),
+          ActionButtons(
+            onConfirmed: () => {
+              Navigator.pop(context, _exerciseData),
+            },
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildExerciseForm() {
-    String exerciseType = widget.exerciseData.exercise.type;
+  Widget _buildExerciseForm(ExerciseData exerciseData) {
+    String exerciseType = exerciseData.exercise.type;
 
     switch (exerciseType) {
       case Constants.lifting:
         return Provider<DetailLiftModel>(
-          create: (context) => DetailLiftModel(widget.exerciseData),
+          create: (context) => DetailLiftModel(exerciseData),
           dispose: (context, model) => model.dispose(),
-          child: DetailLift(widget.exerciseData),
+          child: DetailLift(exerciseData),
         );
       case Constants.timed:
-        return DetailTimed(widget.exerciseData);
+        return DetailTimed(exerciseData);
       case Constants.distance:
-        return DetailDistance(widget.exerciseData);
+        return DetailDistance(exerciseData);
       default:
         return Container();
     }
-  }
-
-  @override
-  void dispose() {
-    _notesController.dispose();
-    super.dispose();
   }
 }

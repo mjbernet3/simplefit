@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class DetailTimed extends StatelessWidget {
   final TimedCardio timedData;
 
-  const DetailTimed(this.timedData);
+  DetailTimed(this.timedData);
 
   @override
   Widget build(BuildContext context) {

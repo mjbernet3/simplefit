@@ -1,12 +1,13 @@
 import 'package:client/utils/constants.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/utils/app_router.dart';
+import 'package:client/utils/page_wrapper.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PageWrapper(
       body: Container(
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 15.0),
