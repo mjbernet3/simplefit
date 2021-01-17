@@ -70,8 +70,12 @@ class DetailExercisePage extends StatelessWidget {
           ),
           SizedBox(height: 14.0),
           Divider(),
-          SizedBox(height: 14.0),
-          Expanded(child: _buildExerciseForm(_exerciseData)),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: _buildExerciseForm(_exerciseData),
+            ),
+          ),
           ActionButtons(
             onConfirmed: () => {
               Navigator.pop(context, _exerciseData),
@@ -90,7 +94,7 @@ class DetailExercisePage extends StatelessWidget {
         return Provider<DetailLiftModel>(
           create: (context) => DetailLiftModel(exerciseData),
           dispose: (context, model) => model.dispose(),
-          child: DetailLift(exerciseData),
+          child: DetailLift(),
         );
       case Constants.timed:
         return DetailTimed(exerciseData);

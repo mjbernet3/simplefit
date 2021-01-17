@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class SmallInputField extends StatelessWidget {
   final String initialValue;
   final Function onChanged;
+  final Color fillColor;
 
   const SmallInputField({
     this.initialValue,
     this.onChanged,
+    this.fillColor = Constants.firstElevation,
   });
 
   @override
@@ -24,16 +26,18 @@ class SmallInputField extends StatelessWidget {
         style: TextStyle(fontSize: 14.0),
         cursorColor: Constants.highEmphasis,
         decoration: InputDecoration(
-          fillColor: Constants.firstElevation,
+          fillColor: fillColor,
           filled: true,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Constants.firstElevation),
+            borderSide: BorderSide(color: fillColor),
             borderRadius: BorderRadius.all(
               Radius.circular(5.0),
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(),
+            borderSide: BorderSide(
+              color: Constants.thirdElevation,
+            ),
           ),
           contentPadding: EdgeInsets.symmetric(
             vertical: 8.0,

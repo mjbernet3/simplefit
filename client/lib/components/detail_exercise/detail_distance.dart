@@ -5,34 +5,30 @@ import 'package:flutter/material.dart';
 class DetailDistance extends StatelessWidget {
   final DistanceCardio distanceData;
 
-  const DetailDistance(this.distanceData);
+  DetailDistance(this.distanceData);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          DetailCard(
-            text: 'Cardio Distance:',
-            initialValue: distanceData.distance.toString(),
-            onChanged: (String value) =>
-                distanceData.distance = double.parse(value),
-          ),
-          DetailCard(
-            text: 'Cardio Speed:',
-            initialValue: distanceData.speed.toString(),
-            onChanged: (String value) =>
-                distanceData.speed = double.parse(value),
-          ),
-          DetailCard(
-            text: 'Post-Cardio Rest: ',
-            initialValue: distanceData.rest.toString(),
-            onChanged: (String value) => distanceData.rest = int.parse(value),
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        DetailCard(
+          text: 'Cardio Distance:',
+          initialValue: distanceData.distance.toString(),
+          onChanged: (String value) =>
+              distanceData.distance = double.parse(value),
+        ),
+        DetailCard(
+          text: 'Cardio Speed:',
+          initialValue: distanceData.speed.toString(),
+          onChanged: (String value) => distanceData.speed = double.parse(value),
+        ),
+        DetailCard(
+          text: 'Post-Cardio Rest: ',
+          initialValue: distanceData.rest.toString(),
+          onChanged: (String value) => distanceData.rest = int.parse(value),
+        ),
+      ],
     );
   }
 }

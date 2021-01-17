@@ -9,28 +9,25 @@ class DetailTimed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          DetailCard(
-            text: 'Cardio Time:',
-            initialValue: timedData.time.toString(),
-            onChanged: (String value) => timedData.time = int.parse(value),
-          ),
-          DetailCard(
-            text: 'Cardio Speed:',
-            initialValue: timedData.speed.toString(),
-            onChanged: (String value) => timedData.speed = double.parse(value),
-          ),
-          DetailCard(
-            text: 'Post-Cardio Rest: ',
-            initialValue: timedData.rest.toString(),
-            onChanged: (String value) => timedData.rest = int.parse(value),
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        DetailCard(
+          text: 'Cardio Time:',
+          initialValue: timedData.time.toString(),
+          onChanged: (String value) => timedData.time = int.parse(value),
+        ),
+        DetailCard(
+          text: 'Cardio Speed:',
+          initialValue: timedData.speed.toString(),
+          onChanged: (String value) => timedData.speed = double.parse(value),
+        ),
+        DetailCard(
+          text: 'Post-Cardio Rest: ',
+          initialValue: timedData.rest.toString(),
+          onChanged: (String value) => timedData.rest = int.parse(value),
+        ),
+      ],
     );
   }
 }

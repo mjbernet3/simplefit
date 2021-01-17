@@ -1,27 +1,29 @@
-import 'package:client/components/detail_exercise/set_options.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/components/shared/small_input_field.dart';
 import 'package:client/models/exercise/lift_set.dart';
-import 'package:client/view_models/detail_lift_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+enum PopupChoice {
+  WARM_UP,
+  REMOVE,
+}
 
 class LiftSetRow extends StatelessWidget {
-  final int index;
+  final LiftSet set;
+  final String setNumber;
+  final Function onRemovePressed;
   final bool hintsOn;
 
-  const LiftSetRow({
-    Key key,
-    this.index,
+  LiftSetRow({
+    @required Key key,
+    @required this.set,
+    @required this.setNumber,
+    @required this.onRemovePressed,
     this.hintsOn = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    DetailLiftModel model =
-        Provider.of<DetailLiftModel>(context, listen: false);
-    List<LiftSet> sets = model.getSets();
-
     return Row(
       children: <Widget>[
         Column(
@@ -36,7 +38,7 @@ class LiftSetRow extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  (index + 1).toString(),
+                  setNumber,
                   style: TextStyle(),
                 ),
               ),
@@ -53,12 +55,9 @@ class LiftSetRow extends StatelessWidget {
                   children: <Widget>[
                     _buildHint('Reps'),
                     SmallInputField(
-                      initialValue: sets[index].targetReps.toString(),
-                      onChanged: (String value) {
-                        if (value.isNotEmpty) {
-                          sets[index].targetReps = int.parse(value);
-                        }
-                      },
+                      initialValue: set.targetReps.toString(),
+                      onChanged: (String value) =>
+                          set.targetReps = int.parse(value),
                     ),
                   ],
                 ),
@@ -66,12 +65,9 @@ class LiftSetRow extends StatelessWidget {
                   children: <Widget>[
                     _buildHint('Weight'),
                     SmallInputField(
-                      initialValue: sets[index].weight.toString(),
-                      onChanged: (String value) {
-                        if (value.isNotEmpty) {
-                          sets[index].weight = int.parse(value);
-                        }
-                      },
+                      initialValue: set.weight.toString(),
+                      onChanged: (String value) =>
+                          set.weight = int.parse(value),
                     ),
                   ],
                 ),
@@ -79,12 +75,8 @@ class LiftSetRow extends StatelessWidget {
                   children: <Widget>[
                     _buildHint('Rest'),
                     SmallInputField(
-                      initialValue: sets[index].rest.toString(),
-                      onChanged: (String value) {
-                        if (value.isNotEmpty) {
-                          sets[index].rest = int.parse(value);
-                        }
-                      },
+                      initialValue: set.rest.toString(),
+                      onChanged: (String value) => set.rest = int.parse(value),
                     ),
                   ],
                 ),
@@ -95,7 +87,41 @@ class LiftSetRow extends StatelessWidget {
         Column(
           children: <Widget>[
             _buildHint(''),
-            SetOptions(index: index),
+            PopupMenuButton<PopupChoice>(
+              icon: Icon(Icons.more_vert),
+              color: Constants.secondElevation,
+              onSelected: (PopupChoice choice) =>
+                  _handleChoice(context, choice),
+              itemBuilder: (BuildContext context) =>
+                  <PopupMenuEntry<PopupChoice>>[
+                PopupMenuItem<PopupChoice>(
+                  value: PopupChoice.WARM_UP,
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        'Warm up set',
+                        style: TextStyle(),
+                      ),
+                      set.isWarmUp
+                          ? Row(
+                              children: <Widget>[
+                                SizedBox(width: 5.0),
+                                Icon(Icons.check),
+                              ],
+                            )
+                          : SizedBox.shrink(),
+                    ],
+                  ),
+                ),
+                PopupMenuItem<PopupChoice>(
+                  value: PopupChoice.REMOVE,
+                  child: Text(
+                    'Remove this set',
+                    style: TextStyle(),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ],
@@ -111,5 +137,18 @@ class LiftSetRow extends StatelessWidget {
             ],
           )
         : SizedBox.shrink();
+  }
+
+  void _handleChoice(BuildContext context, PopupChoice choice) {
+    switch (choice) {
+      case PopupChoice.WARM_UP:
+        set.isWarmUp = !set.isWarmUp;
+        break;
+      case PopupChoice.REMOVE:
+        onRemovePressed();
+        break;
+      default:
+        break;
+    }
   }
 }

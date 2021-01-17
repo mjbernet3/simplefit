@@ -1,4 +1,5 @@
 import 'package:client/components/shared/small_input_field.dart';
+import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class DetailCard extends StatelessWidget {
@@ -14,18 +15,24 @@ class DetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Text(
-          text,
-          style: TextStyle(fontSize: 16.0),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              text,
+              style: TextStyle(fontSize: 16.0),
+            ),
+            SmallInputField(
+              initialValue: initialValue,
+              fillColor: Constants.secondElevation,
+              onChanged: onChanged,
+            ),
+          ],
         ),
-        SmallInputField(
-          initialValue: initialValue,
-          onChanged: onChanged,
-        ),
-      ],
+      ),
     );
   }
 }
