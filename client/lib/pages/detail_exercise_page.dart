@@ -78,6 +78,7 @@ class DetailExercisePage extends StatelessWidget {
           ),
           ActionButtons(
             onConfirmed: () => {
+              _exerciseData.notes = _model.notesController.text,
               Navigator.pop(context, _exerciseData),
             },
           ),
