@@ -113,15 +113,14 @@ class ManageExercisePage extends StatelessWidget {
     ManageExerciseModel _model =
         Provider.of<ManageExerciseModel>(context, listen: false);
 
-    if (_model.formKey.currentState.validate()) {
-      try {
-        await _model.saveExercise();
+    try {
+      bool success = await _model.saveExercise();
+
+      if (success) {
         Navigator.pop(context);
-      } catch (e) {
-        AppError.show(context, e.message);
       }
-    } else {
-      _model.setAutovalidate(true);
+    } catch (e) {
+      AppError.show(context, e.message);
     }
   }
 }

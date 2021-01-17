@@ -49,10 +49,6 @@ class ManageExerciseModel extends ViewModel {
     _exerciseController.sink.add(_exercise);
   }
 
-  void setAutovalidate(bool value) {
-    _autovalidateController.sink.add(value);
-  }
-
   void _initExercise() {
     if (_isEditMode) {
       _exercise = _prevExercise.clone();
@@ -64,30 +60,36 @@ class ManageExerciseModel extends ViewModel {
     _exerciseController.sink.add(_exercise);
   }
 
-  Future<void> saveExercise() async {
-    String name = _nameController.text;
-    if (name.isEmpty) {
-      name = 'My Exercise';
-    }
-
-    _exercise.name = name;
-
-    _loadingController.sink.add(true);
-
-    try {
-      if (!_isEditMode) {
-        await _exerciseService.createExercise(_exercise);
-      } else {
-        if (!_exercise.equals(_prevExercise)) {
-          await _exerciseService.updateExercise(_exercise.id, _exercise);
-        }
+  Future<bool> saveExercise() async {
+    if (_formKey.currentState.validate()) {
+      String name = _nameController.text;
+      if (name.isEmpty) {
+        name = 'My Exercise';
       }
-    } catch (e) {
-      _loadingController.sink.add(false);
-      rethrow;
-    }
 
-    _loadingController.sink.add(false);
+      _exercise.name = name;
+
+      _loadingController.sink.add(true);
+
+      try {
+        if (!_isEditMode) {
+          await _exerciseService.createExercise(_exercise);
+        } else {
+          if (!_exercise.equals(_prevExercise)) {
+            await _exerciseService.updateExercise(_exercise.id, _exercise);
+          }
+        }
+      } catch (e) {
+        _loadingController.sink.add(false);
+        rethrow;
+      }
+
+      _loadingController.sink.add(false);
+      return true;
+    } else {
+      _autovalidateController.sink.add(true);
+      return false;
+    }
   }
 
   @override

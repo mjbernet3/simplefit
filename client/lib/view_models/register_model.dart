@@ -6,15 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 class RegisterModel extends ViewModel {
+  AuthService _authService;
   TextEditingController _emailController;
   TextEditingController _usernameController;
   TextEditingController _passwordController;
-  AuthService _authService;
+  GlobalKey<FormState> _formKey;
 
   RegisterModel({AuthService authService}) {
     _emailController = TextEditingController();
     _usernameController = TextEditingController();
     _passwordController = TextEditingController();
+    _formKey = GlobalKey<FormState>();
     _authService = authService;
   }
 
@@ -33,24 +35,26 @@ class RegisterModel extends ViewModel {
 
   TextEditingController get passwordController => _passwordController;
 
-  void setAutovalidate(bool value) {
-    _autovalidateController.sink.add(value);
-  }
+  GlobalKey<FormState> get formKey => _formKey;
 
   Future<void> register() async {
-    AuthInfo authInfo = AuthInfo(
-      email: _emailController.text,
-      username: _usernameController.text,
-      password: _passwordController.text,
-    );
+    if (_formKey.currentState.validate()) {
+      AuthInfo authInfo = AuthInfo(
+        email: _emailController.text,
+        username: _usernameController.text,
+        password: _passwordController.text,
+      );
 
-    _loadingController.sink.add(true);
+      _loadingController.sink.add(true);
 
-    try {
-      await _authService.register(authInfo);
-    } catch (e) {
-      _loadingController.sink.add(false);
-      rethrow;
+      try {
+        await _authService.register(authInfo);
+      } catch (e) {
+        _loadingController.sink.add(false);
+        rethrow;
+      }
+    } else {
+      _autovalidateController.sink.add(true);
     }
   }
 

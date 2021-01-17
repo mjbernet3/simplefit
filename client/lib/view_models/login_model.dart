@@ -6,13 +6,15 @@ import 'package:rxdart/rxdart.dart';
 import 'package:flutter/material.dart';
 
 class LoginModel extends ViewModel {
+  AuthService _authService;
   TextEditingController _emailController;
   TextEditingController _passwordController;
-  AuthService _authService;
+  GlobalKey<FormState> _formKey;
 
   LoginModel({AuthService authService}) {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _formKey = GlobalKey<FormState>();
     _authService = authService;
   }
 
@@ -29,23 +31,25 @@ class LoginModel extends ViewModel {
 
   TextEditingController get passwordController => _passwordController;
 
-  void setAutovalidate(bool value) {
-    _autovalidateController.sink.add(value);
-  }
+  GlobalKey<FormState> get formKey => _formKey;
 
   Future<void> signIn() async {
-    AuthInfo authInfo = AuthInfo(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
+    if (_formKey.currentState.validate()) {
+      AuthInfo authInfo = AuthInfo(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
 
-    _loadingController.sink.add(true);
+      _loadingController.sink.add(true);
 
-    try {
-      await _authService.signIn(authInfo);
-    } catch (e) {
-      _loadingController.sink.add(false);
-      rethrow;
+      try {
+        await _authService.signIn(authInfo);
+      } catch (e) {
+        _loadingController.sink.add(false);
+        rethrow;
+      }
+    } else {
+      _autovalidateController.sink.add(true);
     }
   }
 

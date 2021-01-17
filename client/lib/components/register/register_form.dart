@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RegisterForm extends StatelessWidget {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     RegisterModel _model = Provider.of<RegisterModel>(context, listen: false);
@@ -20,7 +18,7 @@ class RegisterForm extends StatelessWidget {
         bool _autovalidate = snapshot.data;
 
         return Form(
-          key: _formKey,
+          key: _model.formKey,
           autovalidateMode: _autovalidate
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
@@ -76,18 +74,14 @@ class RegisterForm extends StatelessWidget {
   }
 
   void _register(BuildContext context) async {
+    FocusScope.of(context).unfocus();
+
     RegisterModel _model = Provider.of<RegisterModel>(context, listen: false);
 
-    if (_formKey.currentState.validate()) {
-      FocusScope.of(context).unfocus();
-
-      try {
-        await _model.register();
-      } catch (e) {
-        AppError.show(context, e.message);
-      }
-    } else {
-      _model.setAutovalidate(true);
+    try {
+      await _model.register();
+    } catch (e) {
+      AppError.show(context, e.message);
     }
   }
 }

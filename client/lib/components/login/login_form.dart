@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginForm extends StatelessWidget {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     LoginModel _model = Provider.of<LoginModel>(context, listen: false);
@@ -20,7 +18,7 @@ class LoginForm extends StatelessWidget {
         bool _autovalidate = snapshot.data;
 
         return Form(
-          key: _formKey,
+          key: _model.formKey,
           autovalidateMode: _autovalidate
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
@@ -68,18 +66,14 @@ class LoginForm extends StatelessWidget {
   }
 
   void _signIn(BuildContext context) async {
+    FocusScope.of(context).unfocus();
+
     LoginModel _model = Provider.of<LoginModel>(context, listen: false);
 
-    if (_formKey.currentState.validate()) {
-      FocusScope.of(context).unfocus();
-
-      try {
-        await _model.signIn();
-      } catch (e) {
-        AppError.show(context, e.message);
-      }
-    } else {
-      _model.setAutovalidate(true);
+    try {
+      await _model.signIn();
+    } catch (e) {
+      AppError.show(context, e.message);
     }
   }
 }
