@@ -1,4 +1,3 @@
-import 'package:client/utils/constants.dart';
 import 'package:client/view_models/notes_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

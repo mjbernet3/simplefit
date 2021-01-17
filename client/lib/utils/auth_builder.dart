@@ -10,7 +10,7 @@ class AuthBuilder extends StatelessWidget {
   final Widget Function(BuildContext context, AsyncSnapshot<User> userSnapshot)
       builder;
 
-  const AuthBuilder({
+  AuthBuilder({
     Key key,
     this.builder,
   }) : super(key: key);

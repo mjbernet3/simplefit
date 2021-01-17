@@ -4,7 +4,7 @@ import 'package:client/components/shared/notes_dropdown.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/components/start_workout/exercise_bullet_card.dart';
 import 'package:client/models/workout/workout.dart';
-import 'package:client/utils/page_wrapper.dart';
+import 'package:client/components/shared/page_wrapper.dart';
 import 'package:flutter/material.dart';
 
 class StartWorkoutPage extends StatelessWidget {

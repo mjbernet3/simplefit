@@ -43,8 +43,6 @@ class ManageExercisePage extends StatelessWidget {
                         if (snapshot.hasData) {
                           Exercise _exercise = snapshot.data;
 
-                          print(_exercise);
-
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[

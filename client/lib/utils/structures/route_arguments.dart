@@ -2,5 +2,5 @@
 class RouteArguments {
   final Map<String, dynamic> arguments;
 
-  const RouteArguments({this.arguments});
+  RouteArguments({this.arguments});
 }
