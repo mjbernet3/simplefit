@@ -9,7 +9,7 @@ class PerformTimed extends StatelessWidget {
   final TimedCardio exercise;
   final Function onTimeExpired;
 
-  const PerformTimed({
+  PerformTimed({
     this.exercise,
     this.onTimeExpired,
   });

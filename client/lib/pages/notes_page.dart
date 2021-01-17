@@ -21,7 +21,7 @@ class NotesPage extends StatelessWidget {
             border: InputBorder.none,
             counterText: '',
           ),
-          maxLines: null,
+          maxLines: 5,
           keyboardType: TextInputType.multiline,
           onChanged: (_) => _model.updateMessenger(),
         ),
