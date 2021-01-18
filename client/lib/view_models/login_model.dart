@@ -9,47 +9,34 @@ class LoginModel extends ViewModel {
   AuthService _authService;
   TextEditingController _emailController;
   TextEditingController _passwordController;
-  GlobalKey<FormState> _formKey;
 
   LoginModel({AuthService authService}) {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
-    _formKey = GlobalKey<FormState>();
     _authService = authService;
   }
 
   final StreamController<bool> _loadingController = BehaviorSubject<bool>();
 
-  final StreamController<bool> _autovalidateController =
-      StreamController<bool>();
-
   Stream<bool> get isLoading => _loadingController.stream;
-
-  Stream<bool> get autovalidate => _autovalidateController.stream;
 
   TextEditingController get emailController => _emailController;
 
   TextEditingController get passwordController => _passwordController;
 
-  GlobalKey<FormState> get formKey => _formKey;
-
   Future<void> signIn() async {
-    if (_formKey.currentState.validate()) {
-      AuthInfo authInfo = AuthInfo(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
+    AuthInfo authInfo = AuthInfo(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
 
-      _loadingController.sink.add(true);
+    _loadingController.sink.add(true);
 
-      try {
-        await _authService.signIn(authInfo);
-      } catch (e) {
-        _loadingController.sink.add(false);
-        rethrow;
-      }
-    } else {
-      _autovalidateController.sink.add(true);
+    try {
+      await _authService.signIn(authInfo);
+    } catch (e) {
+      _loadingController.sink.add(false);
+      rethrow;
     }
   }
 
@@ -58,6 +45,5 @@ class LoginModel extends ViewModel {
     _emailController.dispose();
     _passwordController.dispose();
     _loadingController.close();
-    _autovalidateController.close();
   }
 }

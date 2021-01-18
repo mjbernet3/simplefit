@@ -17,12 +17,8 @@ void main() {
 class SimpleFit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<AuthService>(
-          create: (context) => AuthService(),
-        ),
-      ],
+    return Provider<AuthService>(
+      create: (context) => AuthService(),
       child: AuthBuilder(
         builder: (BuildContext context, AsyncSnapshot<User> userSnapshot) {
           return MaterialApp(

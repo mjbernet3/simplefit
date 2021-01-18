@@ -1,6 +1,9 @@
 import 'package:client/utils/constants.dart';
+import 'package:client/utils/structures/auth_info.dart';
 
 class Validator {
+  Validator._();
+
   static const String EMAIL_EMPTY = 'Please enter an email address';
   static const String EMAIL_INVALID = 'Please enter a valid email address';
   static const String USERNAME_EMPTY = 'Please enter a username';
@@ -10,32 +13,32 @@ class Validator {
   static const String NO_EXERCISE_TYPE = 'Please select an exercise type';
   static const String NO_BODY_PART = 'Please select a body part';
 
-  static String validateEmail(String email) {
+  static void validateAuthInfo(AuthInfo authInfo) {
+    validateEmail(authInfo.email);
+    validateUsername(authInfo.username);
+    validatePassword(authInfo.password);
+  }
+
+  static void validateEmail(String email) {
     if (email.isEmpty) {
-      return EMAIL_EMPTY;
+      throw FormatException(EMAIL_EMPTY);
     } else if (!email.contains('@') || !email.contains('.')) {
-      return EMAIL_INVALID;
+      throw FormatException(EMAIL_INVALID);
     }
-
-    return null;
   }
 
-  static String validateUsername(String username) {
+  static void validateUsername(String username) {
     if (username.isEmpty) {
-      return USERNAME_EMPTY;
+      throw FormatException(USERNAME_EMPTY);
     }
-
-    return null;
   }
 
-  static String validatePassword(String password) {
+  static void validatePassword(String password) {
     if (password.isEmpty) {
-      return PASSWORD_EMPTY;
+      throw FormatException(PASSWORD_EMPTY);
     } else if (password.length < 6) {
-      return PASSWORD_SHORT;
+      throw FormatException(PASSWORD_SHORT);
     }
-
-    return null;
   }
 
   static String validateExerciseType(String exerciseType) {

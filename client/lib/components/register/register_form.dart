@@ -9,59 +9,59 @@ import 'package:provider/provider.dart';
 class RegisterForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    RegisterModel _model = Provider.of<RegisterModel>(context, listen: false);
+    RegisterModel model = Provider.of<RegisterModel>(context, listen: false);
 
     return StreamBuilder<bool>(
       initialData: false,
-      stream: _model.autovalidate,
+      stream: model.autovalidate,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        bool _autovalidate = snapshot.data;
+        bool autovalidate = snapshot.data;
 
         return Form(
-          key: _model.formKey,
-          autovalidateMode: _autovalidate
+          key: model.formKey,
+          autovalidateMode: autovalidate
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
           child: StreamBuilder<bool>(
             initialData: false,
-            stream: _model.isLoading,
+            stream: model.isLoading,
             builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-              bool _isLoading = snapshot.data;
+              bool isLoading = snapshot.data;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   AuthInputField(
                     labelText: 'Email address',
-                    controller: _model.emailController,
+                    controller: model.emailController,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     autofocus: true,
-                    enabled: !_isLoading,
-                    validator: (value) => Validator.validateEmail(value),
+                    enabled: !isLoading,
+                    validator: _checkEmail,
                   ),
                   SizedBox(height: 32.0),
                   AuthInputField(
                     labelText: 'Username',
-                    controller: _model.usernameController,
+                    controller: model.usernameController,
                     textInputAction: TextInputAction.next,
-                    enabled: !_isLoading,
-                    validator: (value) => Validator.validateUsername(value),
+                    enabled: !isLoading,
+                    validator: _checkUsername,
                   ),
                   SizedBox(height: 32.0),
                   AuthInputField(
                     labelText: 'Password',
-                    controller: _model.passwordController,
+                    controller: model.passwordController,
                     hidden: true,
-                    enabled: !_isLoading,
-                    validator: (value) => Validator.validatePassword(value),
+                    enabled: !isLoading,
+                    validator: _checkPassword,
                     onSubmitted: (_) => _register(context),
                   ),
                   SizedBox(height: 16.0),
                   RoundedButton(
                     buttonText: 'Create Account',
                     fontSize: 16.0,
-                    disabled: _isLoading,
+                    disabled: isLoading,
                     onPressed: () => _register(context),
                   ),
                 ],
@@ -73,13 +73,43 @@ class RegisterForm extends StatelessWidget {
     );
   }
 
+  String _checkEmail(String email) {
+    try {
+      Validator.validateEmail(email);
+    } catch (e) {
+      return e.message;
+    }
+
+    return null;
+  }
+
+  String _checkUsername(String username) {
+    try {
+      Validator.validateUsername(username);
+    } catch (e) {
+      return e.message;
+    }
+
+    return null;
+  }
+
+  String _checkPassword(String password) {
+    try {
+      Validator.validatePassword(password);
+    } catch (e) {
+      return e.message;
+    }
+
+    return null;
+  }
+
   void _register(BuildContext context) async {
     FocusScope.of(context).unfocus();
 
-    RegisterModel _model = Provider.of<RegisterModel>(context, listen: false);
+    RegisterModel model = Provider.of<RegisterModel>(context, listen: false);
 
     try {
-      await _model.register();
+      await model.register();
     } catch (e) {
       AppError.show(context, e.message);
     }

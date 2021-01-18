@@ -10,31 +10,29 @@ class AuthBuilder extends StatelessWidget {
   final Widget Function(BuildContext context, AsyncSnapshot<User> userSnapshot)
       builder;
 
-  AuthBuilder({
-    Key key,
-    this.builder,
-  }) : super(key: key);
+  AuthBuilder({this.builder});
 
   @override
   Widget build(BuildContext context) {
-    final AuthService _authService =
+    final AuthService authService =
         Provider.of<AuthService>(context, listen: false);
+
     return StreamBuilder<User>(
-      stream: _authService.signedInUser,
-      builder: (context, snapshot) {
+      stream: authService.signedInUser,
+      builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
         if (snapshot.hasData) {
-          final User _user = snapshot.data;
+          final User user = snapshot.data;
 
           return MultiProvider(
             providers: [
               Provider<WorkoutService>(
-                create: (context) => WorkoutService(_user.uid),
+                create: (context) => WorkoutService(user.uid),
               ),
               Provider<ExerciseService>(
-                create: (context) => ExerciseService(_user.uid),
+                create: (context) => ExerciseService(user.uid),
               ),
               Provider<ProfileService>(
-                create: (context) => ProfileService(_user.uid),
+                create: (context) => ProfileService(user.uid),
               ),
             ],
             child: builder(context, snapshot),
