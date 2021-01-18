@@ -27,9 +27,9 @@ class AppTheme {
           color: Constants.highEmphasis,
         ),
         cursorColor: Constants.highEmphasis,
-        disabledColor: Constants.secondElevation,
+        disabledColor: Constants.firstElevation.withOpacity(0.5),
         errorColor: Constants.dangerColor,
-        shadowColor: Constants.firstElevation,
+        shadowColor: Constants.backgroundColor,
         dividerTheme: DividerThemeData(
           color: Constants.thirdElevation,
           thickness: 1.5,

@@ -7,16 +7,14 @@ class RoundedButton extends StatelessWidget {
   final double height;
   final double fontSize;
   final Color color;
-  final Color borderColor;
   final bool disabled;
 
   RoundedButton({
     @required this.buttonText,
-    @required this.onPressed,
+    this.onPressed,
     this.height = 45.0,
     this.fontSize = 14.0,
     this.color = Constants.firstElevation,
-    this.borderColor = Constants.firstElevation,
     this.disabled = false,
   });
 
@@ -24,19 +22,32 @@ class RoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ButtonTheme(
       height: height,
-      child: RaisedButton(
-        elevation: 0.0,
-        child: Text(
-          buttonText,
-          style: TextStyle(
-            color: Constants.highEmphasis,
-            fontSize: fontSize,
+      child: ElevatedButton(
+        child: Text(buttonText),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed)) {
+                return color.withOpacity(0.5);
+              } else if (states.contains(MaterialState.disabled)) {
+                return color.withOpacity(0.5);
+              }
+
+              return color;
+            },
           ),
-        ),
-        color: color,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-          side: BorderSide(color: borderColor),
+          foregroundColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.disabled)) {
+                return Constants.lowEmphasis;
+              }
+
+              return Constants.highEmphasis;
+            },
+          ),
+          overlayColor: MaterialStateProperty.all(color),
+          shadowColor: MaterialStateProperty.all(Constants.backgroundColor),
+          textStyle: MaterialStateProperty.all(TextStyle(fontSize: fontSize)),
         ),
         onPressed: !disabled ? onPressed : null,
       ),

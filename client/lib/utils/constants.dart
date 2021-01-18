@@ -12,7 +12,7 @@ class Constants {
   static const Color medEmphasis = Color(0x99FFFFFF);
   static const Color lowEmphasis = Color(0x61FFFFFF);
 
-  static const Color primaryColor = Color(0xFF6FF9FF);
+  static const Color primaryColor = Color(0xFF1BD1DF);
   static const Color dangerColor = Colors.red;
 
   static const String lifting = 'Weightlifting';

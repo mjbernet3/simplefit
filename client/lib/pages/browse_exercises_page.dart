@@ -44,7 +44,6 @@ class BrowseExercisesPage extends StatelessWidget {
                           buttonText: 'Add Exercise',
                           height: 30.0,
                           color: Constants.secondElevation,
-                          borderColor: Constants.secondElevation,
                           onPressed: () => Navigator.pushNamed(
                             context,
                             AppRouter.manageExercise,
@@ -79,7 +78,6 @@ class BrowseExercisesPage extends StatelessWidget {
                     buttonText: 'Add ${_chosenExercises.length} Exercises',
                     height: 30.0,
                     color: Constants.secondElevation,
-                    borderColor: Constants.secondElevation,
                     onPressed: () => Navigator.pop(context, _chosenExercises),
                   ),
                 ],

@@ -41,7 +41,6 @@ class StartWorkoutPage extends StatelessWidget {
           ),
           Center(
             child: RoundedButton(
-              borderColor: Constants.primaryColor,
               buttonText: 'Start Workout',
               onPressed: () => Navigator.pushReplacementNamed(
                 context,
