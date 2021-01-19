@@ -1,3 +1,5 @@
+import 'package:client/models/exercise/exercise.dart';
+import 'package:client/models/workout/workout.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/utils/structures/auth_info.dart';
 
@@ -16,8 +18,14 @@ class Validator {
       'Passwords must be at least ${Constants.minPasswordLength} characters';
   static const String PASSWORD_LONG =
       'Passwords must be less than ${Constants.maxPasswordLength} characters';
+  static const String EXERCISE_LONG =
+      'Exercise names must be less than ${Constants.maxExerciseNameLength} characters';
   static const String NO_EXERCISE_TYPE = 'Please select an exercise type';
   static const String NO_BODY_PART = 'Please select a body part';
+  static const String WORKOUT_LONG =
+      'Workout names must be less than ${Constants.maxWorkoutNameLength} characters';
+  static const String NO_WORKOUT_EXERCISES =
+      'Workouts must have at least 1 exercise';
 
   static void validateAuthInfo(AuthInfo authInfo) {
     validateEmail(authInfo.email);
@@ -53,19 +61,32 @@ class Validator {
     }
   }
 
-  static String validateExerciseType(String exerciseType) {
-    if (exerciseType == null) {
-      return NO_EXERCISE_TYPE;
+  static void validateExercise(Exercise exercise) {
+    if (exercise.name.length > Constants.maxExerciseNameLength) {
+      throw FormatException(EXERCISE_LONG);
     }
 
-    return null;
+    validateExerciseType(exercise.type);
+    validateBodyPart(exercise.type, exercise.bodyPart);
   }
 
-  static String validateBodyPart(String bodyPart, String exerciseType) {
-    if (exerciseType == Constants.lifting && bodyPart == null) {
-      return NO_BODY_PART;
+  static void validateExerciseType(String exerciseType) {
+    if (exerciseType == null) {
+      throw FormatException(NO_EXERCISE_TYPE);
     }
+  }
 
-    return null;
+  static void validateBodyPart(String bodyPart, String exerciseType) {
+    if (exerciseType == Constants.lifting && bodyPart == null) {
+      throw FormatException(NO_BODY_PART);
+    }
+  }
+
+  static void validateWorkout(Workout workout) {
+    if (workout.name.length > Constants.maxWorkoutNameLength) {
+      throw FormatException(WORKOUT_LONG);
+    } else if (workout.exercises.length <= 0) {
+      throw FormatException(NO_WORKOUT_EXERCISES);
+    }
   }
 }

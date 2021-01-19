@@ -1,6 +1,7 @@
 import 'package:client/models/user/user_data.dart';
 import 'package:client/models/workout/workout.dart';
 import 'package:client/models/workout/workout_preview.dart';
+import 'package:client/utils/validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WorkoutService {
@@ -13,6 +14,8 @@ class WorkoutService {
         _userRef = Firestore.instance.collection('users').document(_userId);
 
   Future<void> createWorkout(Workout workout) async {
+    Validator.validateWorkout(workout);
+
     final DocumentReference workoutRef = _workoutCollection.document();
 
     WriteBatch batch = Firestore.instance.batch();
@@ -39,6 +42,8 @@ class WorkoutService {
   }
 
   Future<void> updateWorkout(String workoutId, Workout workout) async {
+    Validator.validateWorkout(workout);
+
     final DocumentReference workoutRef = _workoutCollection.document(workoutId);
     final DocumentSnapshot userSnap = await _userRef.get();
     final UserData userData = UserData.fromJson(userSnap.data);

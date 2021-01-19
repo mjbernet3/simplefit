@@ -4,6 +4,7 @@ import 'package:client/components/shared/input_field.dart';
 import 'package:client/components/shared/app_bar_loading_indicator.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/components/shared/page_builder.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/view_models/manage_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,7 @@ class ManageWorkoutPage extends StatelessWidget {
           children: <Widget>[
             InputField(
               controller: _model.nameController,
+              maxLength: Constants.maxWorkoutNameLength,
               textInputAction: TextInputAction.next,
               labelText: 'Workout Name',
             ),

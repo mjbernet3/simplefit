@@ -1,3 +1,4 @@
+import 'package:client/utils/validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:client/models/exercise/exercise.dart';
 
@@ -16,10 +17,12 @@ class ExerciseService {
   }
 
   Future<void> createExercise(Exercise exercise) async {
+    Validator.validateExercise(exercise);
     await _exerciseCollection.add(exercise.toJson());
   }
 
   Future<void> updateExercise(String exerciseId, Exercise exercise) async {
+    Validator.validateExercise(exercise);
     await _exerciseCollection
         .document(exerciseId)
         .updateData(exercise.toJson());

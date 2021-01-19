@@ -49,6 +49,7 @@ class ManageExercisePage extends StatelessWidget {
                               InputField(
                                 labelText: 'Exercise Name',
                                 controller: _model.nameController,
+                                maxLength: Constants.maxExerciseNameLength,
                                 color: Constants.secondElevation,
                                 enabled: !_isLoading,
                                 onSubmitted: (_) =>
@@ -63,8 +64,7 @@ class ManageExercisePage extends StatelessWidget {
                                     _model.isEditMode ? _exercise.type : null,
                                 onChanged: (String value) =>
                                     _model.setExerciseType(value),
-                                validator: (String value) =>
-                                    Validator.validateExerciseType(value),
+                                validator: _checkExerciseType,
                               ),
                               SizedBox(height: 20.0),
                               _exercise.type == Constants.lifting
@@ -78,8 +78,7 @@ class ManageExercisePage extends StatelessWidget {
                                       onChanged: (String value) =>
                                           _exercise.bodyPart = value,
                                       validator: (String value) =>
-                                          Validator.validateBodyPart(
-                                              value, _exercise.type),
+                                          _checkBodyPart(value, _exercise.type),
                                     )
                                   : SizedBox.shrink(),
                             ],
@@ -105,6 +104,26 @@ class ManageExercisePage extends StatelessWidget {
         );
       },
     );
+  }
+
+  String _checkExerciseType(String exerciseType) {
+    try {
+      Validator.validateExerciseType(exerciseType);
+    } catch (e) {
+      return e.message;
+    }
+
+    return null;
+  }
+
+  String _checkBodyPart(String exerciseType, String bodyPart) {
+    try {
+      Validator.validateBodyPart(exerciseType, bodyPart);
+    } catch (e) {
+      return e.message;
+    }
+
+    return null;
   }
 
   void _saveExercise(BuildContext context) async {

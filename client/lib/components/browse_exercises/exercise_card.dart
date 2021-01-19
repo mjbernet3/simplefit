@@ -43,29 +43,32 @@ class _ExerciseCardState extends State<ExerciseCard> {
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
         child: Row(
           children: <Widget>[
-            Container(
-              child: Icon(
-                _buildExerciseIcon(),
-                color: Constants.lowEmphasis,
-              ),
+            Icon(
+              _buildExerciseIcon(),
+              color: Constants.lowEmphasis,
             ),
             const SizedBox(width: 15.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  widget.exercise.name,
-                  style: const TextStyle(fontSize: 16.0),
-                ),
-                const SizedBox(height: 5.0),
-                Text(
-                  widget.exercise.bodyPart ?? widget.exercise.type,
-                  style: const TextStyle(
-                    color: Constants.medEmphasis,
-                    fontSize: 12.0,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    widget.exercise.name,
+                    style: const TextStyle(fontSize: 16.0),
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.fade,
                   ),
-                ),
-              ],
+                  const SizedBox(height: 5.0),
+                  Text(
+                    widget.exercise.bodyPart ?? widget.exercise.type,
+                    style: const TextStyle(
+                      color: Constants.medEmphasis,
+                      fontSize: 12.0,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

@@ -31,6 +31,9 @@ class ChosenExerciseCard extends StatelessWidget {
             Text(
               exerciseData.exercise.name,
               style: const TextStyle(fontSize: 16.0),
+              maxLines: 1,
+              softWrap: false,
+              overflow: TextOverflow.fade,
             ),
             const SizedBox(height: 5.0),
             Text(
