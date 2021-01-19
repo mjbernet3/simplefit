@@ -1,33 +1,36 @@
+import 'package:client/components/shared/dropdown_popup.dart';
+import 'package:client/components/shared/input_field.dart';
 import 'package:client/utils/constants.dart';
-import 'package:client/utils/app_router.dart';
-import 'package:client/utils/structures/notes_messenger.dart';
-import 'package:client/utils/structures/route_arguments.dart';
 import 'package:flutter/material.dart';
 
 class NotesDropdown extends StatefulWidget {
   final String notes;
   final Function onComplete;
 
-  NotesDropdown({this.notes, this.onComplete});
+  NotesDropdown({
+    @required this.notes,
+    this.onComplete,
+  });
 
   @override
   _NotesDropdownState createState() => _NotesDropdownState();
 }
 
 class _NotesDropdownState extends State<NotesDropdown> {
-  String _currentNotes;
+  TextEditingController _notesController;
   bool _hidden = true;
 
   @override
   void initState() {
-    _currentNotes = widget.notes;
+    _notesController = TextEditingController();
+    _notesController.text = widget.notes;
     super.initState();
   }
 
   @override
   void didUpdateWidget(NotesDropdown oldWidget) {
     if (widget.notes != oldWidget.notes) {
-      setState(() => _currentNotes = widget.notes);
+      setState(() => _notesController.text = widget.notes);
     }
 
     super.didUpdateWidget(oldWidget);
@@ -70,26 +73,23 @@ class _NotesDropdownState extends State<NotesDropdown> {
     setState(() => _hidden = false);
 
     RenderBox renderBox = context.findRenderObject();
-    NotesMessenger messenger = NotesMessenger(notes: _currentNotes);
 
-    await Navigator.pushNamed(
+    await Navigator.push(
       context,
-      AppRouter.notes,
-      arguments: RouteArguments(
-        arguments: {
-          "renderBox": renderBox,
-          "messenger": messenger,
-        },
+      DropdownPopup(
+        renderBox: renderBox,
+        builder: (context) => InputField(
+          controller: _notesController,
+          focusBorderColor: Constants.firstElevation,
+          keyboardType: TextInputType.multiline,
+          textInputAction: TextInputAction.newline,
+          numLines: 5,
+        ),
       ),
     );
 
-    setState(
-      () => {
-        _currentNotes = messenger.notes,
-        _hidden = true,
-      },
-    );
+    setState(() => _hidden = true);
 
-    widget.onComplete(_currentNotes);
+    widget.onComplete(_notesController.text);
   }
 }

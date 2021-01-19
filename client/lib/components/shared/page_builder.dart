@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class PageWrapper extends StatelessWidget {
-  final Widget body;
+class PageBuilder extends StatelessWidget {
+  final Widget Function(BuildContext context) body;
   final AppBar appBar;
 
-  PageWrapper({
+  PageBuilder({
     @required this.body,
     this.appBar,
   });
@@ -19,7 +19,11 @@ class PageWrapper extends StatelessWidget {
             height: _getContentHeight(context),
             width: _getContentWidth(context),
             padding: const EdgeInsets.all(15.0),
-            child: body,
+            child: Builder(
+              builder: (BuildContext context) {
+                return body(context);
+              },
+            ),
           ),
         ),
       ),

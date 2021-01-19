@@ -38,5 +38,11 @@ class AppTheme {
           backgroundColor: Constants.secondElevation,
           contentTextStyle: TextStyle(color: Constants.highEmphasis),
         ),
+        dialogTheme: DialogTheme(
+          backgroundColor: Constants.firstElevation,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+          ),
+        ),
       );
 }

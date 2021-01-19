@@ -32,7 +32,7 @@ class AuthService {
         email: authInfo.email, password: authInfo.password);
 
     if (result.user == null) {
-      throw Exception("User is null after successful registration");
+      throw Exception("User is null after successful registration.");
     }
 
     UserData userData = UserData.initial(authInfo.username);
@@ -55,8 +55,12 @@ class AuthService {
         email: authInfo.email, password: authInfo.password);
 
     if (result.user == null) {
-      throw Exception("User is null after successful sign in");
+      throw Exception("User is null after successful sign in.");
     }
+  }
+
+  Future<void> resetPassword(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
   }
 
   Future<void> signOut() async {

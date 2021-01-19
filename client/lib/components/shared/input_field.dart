@@ -9,20 +9,22 @@ class InputField extends StatelessWidget {
   final TextInputType keyboardType;
   final Function onSubmitted;
   final Function validator;
-  final Color fillColor;
+  final Color color;
+  final Color focusBorderColor;
   final int maxLength;
   final int numLines;
   final bool autofocus;
   final bool enabled;
 
-  const InputField({
+  InputField({
     this.labelText,
     this.hintText,
     this.controller,
     this.onSubmitted,
     this.validator,
     this.maxLength,
-    this.fillColor = Constants.firstElevation,
+    this.color = Constants.firstElevation,
+    this.focusBorderColor = Constants.thirdElevation,
     this.numLines = 1,
     this.textInputAction = TextInputAction.done,
     this.keyboardType = TextInputType.text,
@@ -53,16 +55,16 @@ class InputField extends StatelessWidget {
           enabled: enabled,
           style: TextStyle(fontSize: 14.0),
           decoration: InputDecoration(
-            fillColor: fillColor,
+            fillColor: color,
             filled: true,
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Constants.firstElevation),
+              borderSide: BorderSide(color: color),
               borderRadius: BorderRadius.all(
                 Radius.circular(5.0),
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Constants.thirdElevation),
+              borderSide: BorderSide(color: focusBorderColor),
             ),
             contentPadding: EdgeInsets.symmetric(
               vertical: 8.0,

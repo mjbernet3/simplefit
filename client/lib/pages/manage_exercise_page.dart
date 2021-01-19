@@ -49,7 +49,7 @@ class ManageExercisePage extends StatelessWidget {
                               InputField(
                                 labelText: 'Exercise Name',
                                 controller: _model.nameController,
-                                fillColor: Constants.secondElevation,
+                                color: Constants.secondElevation,
                                 enabled: !_isLoading,
                                 onSubmitted: (_) =>
                                     FocusScope.of(context).unfocus(),

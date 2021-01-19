@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class AuthInputField extends StatelessWidget {
   final String labelText;
+  final int maxLength;
   final TextEditingController controller;
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
@@ -14,6 +15,7 @@ class AuthInputField extends StatelessWidget {
 
   AuthInputField({
     @required this.labelText,
+    @required this.maxLength,
     this.controller,
     this.validator,
     this.onSubmitted,
@@ -40,7 +42,7 @@ class AuthInputField extends StatelessWidget {
           autocorrect: false,
           enabled: enabled,
           obscureText: hidden,
-          maxLength: 30,
+          maxLength: maxLength,
           cursorColor: Constants.highEmphasis,
           style: TextStyle(fontSize: 14.0),
           decoration: InputDecoration(

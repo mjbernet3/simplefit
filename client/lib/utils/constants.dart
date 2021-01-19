@@ -33,4 +33,9 @@ class Constants {
     'Legs',
     'Full Body'
   ];
+
+  static const int maxEmailLength = 30;
+  static const int maxUsernameLength = 20;
+  static const int maxPasswordLength = 30;
+  static const int minPasswordLength = 6;
 }
