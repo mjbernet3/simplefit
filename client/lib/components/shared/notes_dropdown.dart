@@ -92,4 +92,10 @@ class _NotesDropdownState extends State<NotesDropdown> {
 
     widget.onComplete(_notesController.text);
   }
+
+  @override
+  void dispose() {
+    _notesController.dispose();
+    super.dispose();
+  }
 }
