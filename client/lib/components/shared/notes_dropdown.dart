@@ -38,33 +38,33 @@ class _NotesDropdownState extends State<NotesDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 5.0),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Constants.thirdElevation,
+    return GestureDetector(
+      onTap: () => _toggleNotes(context),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 5.0),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Constants.thirdElevation,
+            ),
           ),
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Notes',
-            style: TextStyle(
-              fontSize: 16.0,
-              color: Constants.medEmphasis,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Notes',
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Constants.medEmphasis,
+              ),
             ),
-          ),
-          GestureDetector(
-            onTap: () => _toggleNotes(context),
-            child: Icon(
+            Icon(
               _hidden ? Icons.expand_more : Icons.expand_less,
               color: Constants.medEmphasis,
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -17,10 +17,6 @@ class ManageWorkoutPage extends StatelessWidget {
 
     return PageBuilder(
       appBar: AppBar(
-        title: Text(
-          _model.isEditMode ? 'Edit Workout' : 'Create Workout',
-          style: TextStyle(fontSize: 18.0),
-        ),
         bottom: AppBarLoadingIndicator(isLoading: _model.isLoading),
       ),
       body: (BuildContext context) {
@@ -46,6 +42,8 @@ class ManageWorkoutPage extends StatelessWidget {
               child: ChosenExercisesBuilder(),
             ),
             ActionButtons(
+              confirmText:
+                  _model.isEditMode ? 'Update Workout' : 'Create Workout',
               onConfirmed: () => _saveWorkout(context),
             ),
           ],

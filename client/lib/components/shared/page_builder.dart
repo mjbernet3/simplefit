@@ -18,7 +18,8 @@ class PageBuilder extends StatelessWidget {
           child: Container(
             height: _getContentHeight(context),
             width: _getContentWidth(context),
-            padding: const EdgeInsets.all(15.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
             child: Builder(
               builder: (BuildContext context) {
                 return body(context);

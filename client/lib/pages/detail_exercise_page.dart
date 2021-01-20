@@ -21,6 +21,7 @@ class DetailExercisePage extends StatelessWidget {
     ExerciseData _exerciseData = _model.exerciseData;
 
     return PageBuilder(
+      appBar: AppBar(),
       body: (BuildContext context) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,7 +34,7 @@ class DetailExercisePage extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       _exerciseData.exercise.name,
-                      style: TextStyle(fontSize: 24.0),
+                      style: TextStyle(fontSize: 26.0),
                     ),
                   ),
                   SizedBox(height: 14.0),

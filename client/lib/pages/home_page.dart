@@ -27,6 +27,8 @@ class HomePage extends StatelessWidget {
 
         return PageBuilder(
           appBar: AppBar(
+            backgroundColor: Constants.firstElevation,
+            elevation: 4.0,
             centerTitle: false,
             title: Text(
               'My Workouts',

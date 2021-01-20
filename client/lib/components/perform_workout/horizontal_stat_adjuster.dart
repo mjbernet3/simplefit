@@ -86,7 +86,7 @@ class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
                   padding: EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
                     color: Constants.secondElevation,
-                    borderRadius: BorderRadius.circular(5.0),
+                    borderRadius: BorderRadius.circular(4.0),
                   ),
                   child: Icon(Icons.add),
                 ),

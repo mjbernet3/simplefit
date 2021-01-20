@@ -1,3 +1,4 @@
+import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/models/workout/workout.dart';
 import 'package:client/utils/app_router.dart';
 import 'package:client/components/shared/notes_dropdown.dart';
@@ -21,7 +22,7 @@ class StartWorkoutPage extends StatelessWidget {
           children: [
             Text(
               workout.name,
-              style: TextStyle(fontSize: 24.0),
+              style: TextStyle(fontSize: 26.0),
             ),
             SizedBox(height: 10.0),
             NotesDropdown(
@@ -39,14 +40,12 @@ class StartWorkoutPage extends StatelessWidget {
                 },
               ),
             ),
-            Center(
-              child: RoundedButton(
-                buttonText: 'Start Workout',
-                onPressed: () => Navigator.pushReplacementNamed(
-                  context,
-                  AppRouter.performWorkout,
-                  arguments: workout,
-                ),
+            ActionButtons(
+              confirmText: 'Start Workout',
+              onConfirmed: () => Navigator.pushReplacementNamed(
+                context,
+                AppRouter.performWorkout,
+                arguments: workout,
               ),
             ),
           ],

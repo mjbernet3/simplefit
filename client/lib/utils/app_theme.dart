@@ -10,13 +10,14 @@ class AppTheme {
         scaffoldBackgroundColor: Constants.backgroundColor,
         cardColor: Constants.firstElevation,
         appBarTheme: AppBarTheme(
-          color: Constants.firstElevation,
+          color: Constants.backgroundColor,
+          elevation: 0.0,
           textTheme: Theme.of(context).primaryTextTheme.apply(
                 bodyColor: Constants.highEmphasis,
                 displayColor: Constants.highEmphasis,
               ),
           iconTheme: IconThemeData(
-            color: Constants.highEmphasis,
+            color: Constants.primaryColor,
           ),
         ),
         textTheme: Theme.of(context).textTheme.apply(
@@ -24,7 +25,7 @@ class AppTheme {
               displayColor: Constants.highEmphasis,
             ),
         iconTheme: IconThemeData(
-          color: Constants.highEmphasis,
+          color: Constants.primaryColor,
         ),
         cursorColor: Constants.highEmphasis,
         disabledColor: Constants.firstElevation.withOpacity(0.5),

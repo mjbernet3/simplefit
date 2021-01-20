@@ -8,7 +8,7 @@ class AppBarLoadingIndicator extends StatelessWidget
 
   AppBarLoadingIndicator({
     @required this.isLoading,
-    this.backgroundColor = Constants.firstElevation,
+    this.backgroundColor = Constants.backgroundColor,
   });
 
   Size get preferredSize => Size.fromHeight(1.5);

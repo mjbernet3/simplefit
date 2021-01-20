@@ -94,8 +94,10 @@ class ExercisesEditor extends StatelessWidget {
                           )
                         }
                     },
-                    onRemovePressed: () =>
-                        _removeExercise(context, _currentExercise.id),
+                    onRemovePressed: () => {
+                      _model.removeExercise(_currentExercise),
+                      _removeExercise(context, _currentExercise.id),
+                    },
                     isEditing: _isEditing,
                   );
                 },

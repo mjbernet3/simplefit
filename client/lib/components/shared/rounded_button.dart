@@ -5,16 +5,18 @@ class RoundedButton extends StatelessWidget {
   final String buttonText;
   final Function onPressed;
   final double height;
-  final double fontSize;
   final Color color;
+  final Color textColor;
+  final double fontSize;
   final bool disabled;
 
   RoundedButton({
     @required this.buttonText,
     this.onPressed,
     this.height = 45.0,
-    this.fontSize = 14.0,
     this.color = Constants.firstElevation,
+    this.textColor = Constants.primaryColor,
+    this.fontSize = 14.0,
     this.disabled = false,
   });
 
@@ -42,7 +44,7 @@ class RoundedButton extends StatelessWidget {
                 return Constants.lowEmphasis;
               }
 
-              return Constants.highEmphasis;
+              return textColor;
             },
           ),
           overlayColor: MaterialStateProperty.all(color),

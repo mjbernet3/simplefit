@@ -13,8 +13,6 @@ class RegisterPage extends StatelessWidget {
 
     return PageBuilder(
       appBar: AppBar(
-        backgroundColor: Constants.backgroundColor,
-        elevation: 0.0,
         bottom: AppBarLoadingIndicator(
           isLoading: _model.isLoading,
           backgroundColor: Constants.backgroundColor,

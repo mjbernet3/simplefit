@@ -1,5 +1,6 @@
 import 'package:client/components/perform_workout/horizontal_stat_adjuster.dart';
 import 'package:client/components/perform_workout/previous_card.dart';
+import 'package:client/components/perform_workout/vertical_stat_adjuster.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/lift_set.dart';
 import 'package:client/models/exercise/weight_lift.dart';
@@ -52,10 +53,10 @@ class PerformLift extends StatelessWidget {
               ),
               SizedBox(height: 10.0),
               Expanded(
-                child: Column(
+                child: Row(
                   children: [
                     Expanded(
-                      child: HorizontalStatAdjuster(
+                      child: VerticalStatAdjuster(
                         stat: _currentSet.weight.toDouble(),
                         unit: "Lbs",
                         adjustAmount: 1,
@@ -64,9 +65,9 @@ class PerformLift extends StatelessWidget {
                         displayPrecise: false,
                       ),
                     ),
-                    SizedBox(height: 10.0),
+                    SizedBox(width: 10.0),
                     Expanded(
-                      child: HorizontalStatAdjuster(
+                      child: VerticalStatAdjuster(
                         stat: _currentSet.reps.toDouble(),
                         unit: "Reps",
                         adjustAmount: 1,

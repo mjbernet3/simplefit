@@ -58,37 +58,35 @@ class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 15.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                RawMaterialButton(
-                  constraints: BoxConstraints(
-                    minWidth: 0.0,
-                  ),
-                  padding: EdgeInsets.all(8.0),
-                  fillColor: Constants.secondElevation,
-                  shape: CircleBorder(),
-                  child: Icon(Icons.remove),
-                  onPressed: () => setState(
-                    () => {
-                      _currentStat -= widget.adjustAmount,
-                      widget.onChanged(_currentStat),
-                    },
+                GestureDetector(
+                  onTap: () => {
+                    setState(() => _currentStat -= widget.adjustAmount),
+                    widget.onChanged(_currentStat),
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                      color: Constants.secondElevation,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child: Icon(Icons.remove),
                   ),
                 ),
-                RawMaterialButton(
-                  constraints: BoxConstraints(
-                    minWidth: 0.0,
-                  ),
-                  padding: EdgeInsets.all(8.0),
-                  fillColor: Constants.secondElevation,
-                  shape: CircleBorder(),
-                  child: Icon(Icons.add),
-                  onPressed: () => setState(
-                    () => {
-                      _currentStat += widget.adjustAmount,
-                      widget.onChanged(_currentStat),
-                    },
+                SizedBox(width: 15.0),
+                GestureDetector(
+                  onTap: () => {
+                    setState(() => _currentStat += widget.adjustAmount),
+                    widget.onChanged(_currentStat),
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                      color: Constants.secondElevation,
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    child: Icon(Icons.add),
                   ),
                 ),
               ],

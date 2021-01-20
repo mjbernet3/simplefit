@@ -30,9 +30,14 @@ class ExerciseBulletCard extends StatelessWidget {
           ],
         ),
         SizedBox(width: 20.0),
-        Text(
-          exerciseName,
-          style: TextStyle(fontSize: 18.0),
+        Expanded(
+          child: Text(
+            exerciseName,
+            style: TextStyle(fontSize: 18.0),
+            maxLines: 1,
+            softWrap: false,
+            overflow: TextOverflow.fade,
+          ),
         ),
       ],
     );

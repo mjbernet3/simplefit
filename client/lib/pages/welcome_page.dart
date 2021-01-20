@@ -26,7 +26,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                     SizedBox(height: 8.0),
                     Text(
-                      'Make this page less boring later.',
+                      'No Premium. No Ads. No Intrusions.',
                       style: TextStyle(
                         color: Constants.medEmphasis,
                         fontSize: 14.0,
@@ -59,7 +59,10 @@ class WelcomePage extends StatelessWidget {
                       GestureDetector(
                         onTap: () =>
                             Navigator.pushNamed(context, AppRouter.login),
-                        child: Text('Sign In'),
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(color: Constants.primaryColor),
+                        ),
                       ),
                     ],
                   ),

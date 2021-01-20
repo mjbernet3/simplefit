@@ -16,8 +16,6 @@ class LoginPage extends StatelessWidget {
 
     return PageBuilder(
       appBar: AppBar(
-        backgroundColor: Constants.backgroundColor,
-        elevation: 0.0,
         bottom: AppBarLoadingIndicator(
           isLoading: model.isLoading,
           backgroundColor: Constants.backgroundColor,
