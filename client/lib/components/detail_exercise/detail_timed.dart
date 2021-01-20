@@ -1,4 +1,4 @@
-import 'package:client/components/detail_exercise/detail_card.dart';
+import 'package:client/components/detail_exercise/stat_card.dart';
 import 'package:client/models/exercise/timed_cardio.dart';
 import 'package:flutter/material.dart';
 
@@ -11,20 +11,21 @@ class DetailTimed extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        DetailCard(
+        StatCard(
           title: 'Cardio Time:',
           inputUnit: 'seconds',
           initialValue: timedData.time.toString(),
           onChanged: (String value) => timedData.time = int.parse(value),
         ),
-        DetailCard(
+        StatCard(
           title: 'Cardio Speed:',
           inputUnit: 'mph',
           initialValue: timedData.speed.toString(),
           onChanged: (String value) => timedData.speed = double.parse(value),
+          isPrecise: true,
         ),
-        DetailCard(
-          title: 'Post-Cardio Rest: ',
+        StatCard(
+          title: 'Post-Cardio Rest:',
           inputUnit: 'seconds',
           initialValue: timedData.rest.toString(),
           onChanged: (String value) => timedData.rest = int.parse(value),

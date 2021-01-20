@@ -5,6 +5,7 @@ import 'package:client/utils/constants.dart';
 import 'package:client/utils/formatter.dart';
 import 'package:flutter/material.dart';
 
+// TODO: Add max and min so stat does not adjust incorrectly
 class CountdownTimer extends StatefulWidget {
   final int totalSeconds;
   final Function onChanged;

@@ -1,5 +1,5 @@
 import 'package:client/utils/constants.dart';
-import 'package:client/components/shared/small_input_field.dart';
+import 'package:client/components/shared/number_input_field.dart';
 import 'package:client/models/exercise/lift_set.dart';
 import 'package:flutter/material.dart';
 
@@ -54,7 +54,7 @@ class LiftSetRow extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     _buildHint('Reps'),
-                    SmallInputField(
+                    NumberInputField(
                       initialValue: set.targetReps.toString(),
                       onChanged: (String value) =>
                           set.targetReps = int.parse(value),
@@ -64,7 +64,7 @@ class LiftSetRow extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     _buildHint('Weight'),
-                    SmallInputField(
+                    NumberInputField(
                       initialValue: set.weight.toString(),
                       onChanged: (String value) =>
                           set.weight = int.parse(value),
@@ -74,7 +74,7 @@ class LiftSetRow extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     _buildHint('Rest'),
-                    SmallInputField(
+                    NumberInputField(
                       initialValue: set.rest.toString(),
                       onChanged: (String value) => set.rest = int.parse(value),
                     ),

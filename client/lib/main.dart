@@ -21,11 +21,14 @@ class SimpleFit extends StatelessWidget {
       create: (context) => AuthService(),
       child: AuthBuilder(
         builder: (BuildContext context, AsyncSnapshot<User> userSnapshot) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: _buildHome(context, userSnapshot),
-            theme: AppTheme(context).darkTheme,
-            onGenerateRoute: AppRouter.generateRoute,
+          return GestureDetector(
+            onTap: () => _closeKeyboard(context),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: _buildHome(context, userSnapshot),
+              theme: AppTheme(context).darkTheme,
+              onGenerateRoute: AppRouter.generateRoute,
+            ),
           );
         },
       ),
@@ -48,6 +51,14 @@ class SimpleFit extends StatelessWidget {
           : WelcomePage();
     } else {
       return Container();
+    }
+  }
+
+  void _closeKeyboard(BuildContext context) {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+      FocusManager.instance.primaryFocus.unfocus();
     }
   }
 }

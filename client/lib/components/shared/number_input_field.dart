@@ -1,15 +1,17 @@
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class SmallInputField extends StatelessWidget {
+class NumberInputField extends StatelessWidget {
   final String initialValue;
   final Function onChanged;
   final Color fillColor;
+  final bool isPrecise;
 
-  const SmallInputField({
+  NumberInputField({
     this.initialValue,
     this.onChanged,
     this.fillColor = Constants.firstElevation,
+    this.isPrecise = false,
   });
 
   @override
@@ -20,7 +22,9 @@ class SmallInputField extends StatelessWidget {
       child: TextFormField(
         initialValue: initialValue,
         maxLength: 4,
-        keyboardType: TextInputType.number,
+        keyboardType: isPrecise
+            ? TextInputType.numberWithOptions(decimal: true)
+            : TextInputType.number,
         textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,
         style: TextStyle(fontSize: 14.0),

@@ -2,6 +2,7 @@ import 'package:client/components/shared/app_icon_button.dart';
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
+// TODO: Add max and min so stat does not adjust incorrectly
 class VerticalStatAdjuster extends StatefulWidget {
   final double stat;
   final String unit;

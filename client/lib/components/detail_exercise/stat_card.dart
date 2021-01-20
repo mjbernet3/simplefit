@@ -1,18 +1,20 @@
-import 'package:client/components/shared/small_input_field.dart';
+import 'package:client/components/shared/number_input_field.dart';
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class DetailCard extends StatelessWidget {
+class StatCard extends StatelessWidget {
   final String title;
   final String inputUnit;
   final String initialValue;
   final Function onChanged;
+  final bool isPrecise;
 
-  DetailCard({
+  StatCard({
     @required this.title,
     @required this.inputUnit,
     this.initialValue,
     this.onChanged,
+    this.isPrecise = false,
   });
 
   @override
@@ -29,10 +31,11 @@ class DetailCard extends StatelessWidget {
             ),
             Column(
               children: [
-                SmallInputField(
+                NumberInputField(
                   initialValue: initialValue,
                   fillColor: Constants.secondElevation,
                   onChanged: onChanged,
+                  isPrecise: isPrecise,
                 ),
                 SizedBox(height: 4.0),
                 Text(
