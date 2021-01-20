@@ -5,8 +5,10 @@ import 'package:client/components/shared/app_checkbox.dart';
 import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/models/exercise/exercise_data.dart';
+import 'package:client/utils/app_error.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/components/shared/page_builder.dart';
+import 'package:client/utils/validator.dart';
 import 'package:client/view_models/detail_exercise_model.dart';
 import 'package:client/view_models/detail_lift_model.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +17,10 @@ import 'package:provider/provider.dart';
 class DetailExercisePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    DetailExerciseModel _model =
+    DetailExerciseModel model =
         Provider.of<DetailExerciseModel>(context, listen: false);
 
-    ExerciseData _exerciseData = _model.exerciseData;
+    ExerciseData exerciseData = model.exerciseData;
 
     return PageBuilder(
       appBar: AppBar(),
@@ -33,7 +35,7 @@ class DetailExercisePage extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      _exerciseData.exercise.name,
+                      exerciseData.exercise.name,
                       style: TextStyle(fontSize: 26.0),
                       maxLines: 1,
                       softWrap: false,
@@ -42,7 +44,7 @@ class DetailExercisePage extends StatelessWidget {
                   ),
                   SizedBox(height: 14.0),
                   InputField(
-                    controller: _model.notesController,
+                    controller: model.notesController,
                     hintText: 'Notes...',
                     keyboardType: TextInputType.multiline,
                     textInputAction: TextInputAction.newline,
@@ -63,9 +65,9 @@ class DetailExercisePage extends StatelessWidget {
                         height: 15.0,
                         width: 15.0,
                         child: AppCheckbox(
-                          initialValue: _exerciseData.isWarmUp,
+                          initialValue: exerciseData.isWarmUp,
                           onChanged: (bool value) =>
-                              _exerciseData.isWarmUp = value,
+                              exerciseData.isWarmUp = value,
                         ),
                       ),
                     ],
@@ -79,15 +81,12 @@ class DetailExercisePage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: _buildExerciseForm(_exerciseData),
+                  child: _buildExerciseForm(exerciseData),
                 ),
               ),
             ),
             ActionButtons(
-              onConfirmed: () => {
-                _exerciseData.notes = _model.notesController.text,
-                Navigator.pop(context, _exerciseData),
-              },
+              onConfirmed: () => _saveExerciseData(context, exerciseData),
             ),
           ],
         );
@@ -111,6 +110,20 @@ class DetailExercisePage extends StatelessWidget {
         return DetailDistance(exerciseData);
       default:
         return Container();
+    }
+  }
+
+  void _saveExerciseData(BuildContext context, ExerciseData exerciseData) {
+    DetailExerciseModel model =
+        Provider.of<DetailExerciseModel>(context, listen: false);
+
+    exerciseData.notes = model.notesController.text;
+
+    try {
+      Validator.validateExerciseData(exerciseData);
+      Navigator.pop(context, exerciseData);
+    } catch (e) {
+      AppError.show(context, e.message);
     }
   }
 }

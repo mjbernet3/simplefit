@@ -41,4 +41,11 @@ class Constants {
   static const int maxWorkoutNameLength = 30;
   static const int maxExerciseNameLength = 30;
   static const int maxWorkoutExercises = 20;
+  static const double maxExerciseDistance = 30.0;
+  static const double maxExerciseSpeed = 30.0;
+  static const int maxExerciseTime = 3600;
+  static const int maxExerciseRest = 3600;
+  static const int maxExerciseSets = 20;
+  static const int maxExerciseWeight = 3000;
+  static const int maxExerciseReps = 3000;
 }

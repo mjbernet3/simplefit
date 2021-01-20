@@ -1,4 +1,9 @@
+import 'package:client/models/exercise/distance_cardio.dart';
 import 'package:client/models/exercise/exercise.dart';
+import 'package:client/models/exercise/exercise_data.dart';
+import 'package:client/models/exercise/lift_set.dart';
+import 'package:client/models/exercise/timed_cardio.dart';
+import 'package:client/models/exercise/weight_lift.dart';
 import 'package:client/models/workout/workout.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/utils/structures/auth_info.dart';
@@ -6,28 +11,50 @@ import 'package:client/utils/structures/auth_info.dart';
 class Validator {
   Validator._();
 
-  static const String EMAIL_EMPTY = 'Please enter an email address';
-  static const String EMAIL_INVALID = 'Please enter a valid email address';
+  static const String EMAIL_EMPTY = 'Please enter an email address.';
+  static const String EMAIL_INVALID = 'Please enter a valid email address.';
   static const String EMAIL_LONG =
-      'Emails must be less than ${Constants.maxEmailLength} characters';
-  static const String USERNAME_EMPTY = 'Please enter a username';
+      'Emails cannot be more than ${Constants.maxEmailLength} characters.';
+  static const String USERNAME_EMPTY = 'Please enter a username.';
   static const String USERNAME_LONG =
-      'Usernames must be less than ${Constants.maxUsernameLength} characters';
-  static const String PASSWORD_EMPTY = 'Please enter a password';
+      'Usernames cannot be more than ${Constants.maxUsernameLength} characters.';
+  static const String PASSWORD_EMPTY = 'Please enter a password.';
   static const String PASSWORD_SHORT =
-      'Passwords must be at least ${Constants.minPasswordLength} characters';
+      'Passwords must be at least ${Constants.minPasswordLength} characters.';
   static const String PASSWORD_LONG =
-      'Passwords must be less than ${Constants.maxPasswordLength} characters';
+      'Passwords cannot be more than ${Constants.maxPasswordLength} characters.';
   static const String EXERCISE_LONG =
-      'Exercise names must be less than ${Constants.maxExerciseNameLength} characters';
-  static const String NO_EXERCISE_TYPE = 'Please select an exercise type';
-  static const String NO_BODY_PART = 'Please select a body part';
+      'Exercise names cannot be more than ${Constants.maxExerciseNameLength} characters.';
+  static const String NO_EXERCISE_TYPE = 'Please select an exercise type.';
+  static const String NO_BODY_PART = 'Please select a body part.';
   static const String WORKOUT_LONG =
-      'Workout names must be less than ${Constants.maxWorkoutNameLength} characters';
+      'Workout names cannot be more than ${Constants.maxWorkoutNameLength} characters.';
   static const String NO_WORKOUT_EXERCISES =
-      'Workouts must have at least 1 exercise';
+      'Workouts must have at least 1 exercise.';
   static const String TOO_MANY_EXERCISES =
-      'Workouts must have less than ${Constants.maxWorkoutExercises} exercises';
+      'Workouts cannot have more than ${Constants.maxWorkoutExercises} exercises.';
+  static const String INVALID_EXERCISE =
+      'Exercise does not match any existing exercise type.';
+  static const String NO_EXERCISE_SETS =
+      'Weight lift exercises must have at least 1 set.';
+  static const String TOO_MANY_SETS =
+      'Weight lift exercises cannot have more than ${Constants.maxExerciseSets} sets.';
+  static const String TOO_MANY_REPS =
+      'Weight lift set cannot have more than ${Constants.maxExerciseReps} reps.';
+  static const String TARGET_REPS_EXCEEDED =
+      'Weight lift set reps cannot be more than target reps.';
+  static const String TOO_MUCH_WEIGHT =
+      'Weight lift set weight cannot be more than ${Constants.maxExerciseWeight} pounds.';
+  static const String TOO_MUCH_DISTANCE =
+      'Cardio distance cannot be more than ${Constants.maxExerciseDistance} miles.';
+  static const String TOO_MUCH_TIME =
+      'Cardio time cannot be more than ${Constants.maxExerciseTime} seconds.';
+  static const String TOO_MUCH_SPEED =
+      'Cardio speed cannot be more than ${Constants.maxExerciseSpeed} mph.';
+  static const String TOO_MUCH_REST =
+      'Exercise and set rest cannot be more than ${Constants.maxExerciseRest} seconds.';
+  static const String NEGATIVE_EXERCISE_STAT =
+      'Exercise and set statistics cannot be less than 0.';
 
   static void validateAuthInfo(AuthInfo authInfo) {
     validateEmail(authInfo.email);
@@ -63,6 +90,16 @@ class Validator {
     }
   }
 
+  static void validateWorkout(Workout workout) {
+    if (workout.name.length > Constants.maxWorkoutNameLength) {
+      throw FormatException(WORKOUT_LONG);
+    } else if (workout.exercises.length <= 0) {
+      throw FormatException(NO_WORKOUT_EXERCISES);
+    } else if (workout.exercises.length > Constants.maxWorkoutExercises) {
+      throw FormatException(TOO_MANY_EXERCISES);
+    }
+  }
+
   static void validateExercise(Exercise exercise) {
     if (exercise.name.length > Constants.maxExerciseNameLength) {
       throw FormatException(EXERCISE_LONG);
@@ -84,13 +121,69 @@ class Validator {
     }
   }
 
-  static void validateWorkout(Workout workout) {
-    if (workout.name.length > Constants.maxWorkoutNameLength) {
-      throw FormatException(WORKOUT_LONG);
-    } else if (workout.exercises.length <= 0) {
-      throw FormatException(NO_WORKOUT_EXERCISES);
-    } else if (workout.exercises.length > Constants.maxWorkoutExercises) {
-      throw FormatException(TOO_MANY_EXERCISES);
+  static void validateExerciseData(ExerciseData exerciseData) {
+    if (exerciseData.rest < 0) {
+      throw FormatException(NEGATIVE_EXERCISE_STAT);
+    } else if (exerciseData.rest > Constants.maxExerciseRest) {
+      throw FormatException(TOO_MUCH_REST);
+    }
+
+    if (exerciseData is WeightLift) {
+      validateWeightLift(exerciseData);
+    } else if (exerciseData is DistanceCardio) {
+      validateDistanceCardio(exerciseData);
+    } else if (exerciseData is TimedCardio) {
+      validateTimedCardio(exerciseData);
+    } else {
+      throw FormatException(INVALID_EXERCISE);
+    }
+  }
+
+  static void validateWeightLift(WeightLift liftData) {
+    List<LiftSet> sets = liftData.sets;
+
+    if (sets.length <= 0) {
+      throw FormatException(NO_EXERCISE_SETS);
+    } else if (sets.length > Constants.maxExerciseSets) {
+      throw FormatException(TOO_MANY_SETS);
+    }
+
+    for (LiftSet liftSet in sets) {
+      validateLiftSet(liftSet);
+    }
+  }
+
+  static void validateLiftSet(LiftSet liftSet) {
+    if (liftSet.targetReps < 0 || liftSet.weight < 0 || liftSet.rest < 0) {
+      throw FormatException(NEGATIVE_EXERCISE_STAT);
+    } else if (liftSet.targetReps > Constants.maxExerciseReps) {
+      throw FormatException(TOO_MANY_REPS);
+    } else if (liftSet.weight > Constants.maxExerciseWeight) {
+      throw FormatException(TOO_MUCH_WEIGHT);
+    } else if (liftSet.rest > Constants.maxExerciseRest) {
+      throw FormatException(TOO_MUCH_REST);
+    } else if (liftSet.reps > liftSet.targetReps) {
+      throw FormatException(TARGET_REPS_EXCEEDED);
+    }
+  }
+
+  static void validateDistanceCardio(DistanceCardio distanceData) {
+    if (distanceData.distance < 0 || distanceData.speed < 0) {
+      throw FormatException(NEGATIVE_EXERCISE_STAT);
+    } else if (distanceData.distance > Constants.maxExerciseDistance) {
+      throw FormatException(TOO_MUCH_DISTANCE);
+    } else if (distanceData.speed > Constants.maxExerciseSpeed) {
+      throw FormatException(TOO_MUCH_SPEED);
+    }
+  }
+
+  static void validateTimedCardio(TimedCardio timedData) {
+    if (timedData.time < 0 || timedData.speed < 0) {
+      throw FormatException(NEGATIVE_EXERCISE_STAT);
+    } else if (timedData.time > Constants.maxExerciseTime) {
+      throw FormatException(TOO_MUCH_TIME);
+    } else if (timedData.speed > Constants.maxExerciseSpeed) {
+      throw FormatException(TOO_MUCH_SPEED);
     }
   }
 }
