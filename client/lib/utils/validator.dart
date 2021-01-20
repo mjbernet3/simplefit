@@ -26,6 +26,8 @@ class Validator {
       'Workout names must be less than ${Constants.maxWorkoutNameLength} characters';
   static const String NO_WORKOUT_EXERCISES =
       'Workouts must have at least 1 exercise';
+  static const String TOO_MANY_EXERCISES =
+      'Workouts must have less than ${Constants.maxWorkoutExercises} exercises';
 
   static void validateAuthInfo(AuthInfo authInfo) {
     validateEmail(authInfo.email);
@@ -87,6 +89,8 @@ class Validator {
       throw FormatException(WORKOUT_LONG);
     } else if (workout.exercises.length <= 0) {
       throw FormatException(NO_WORKOUT_EXERCISES);
+    } else if (workout.exercises.length > Constants.maxWorkoutExercises) {
+      throw FormatException(TOO_MANY_EXERCISES);
     }
   }
 }

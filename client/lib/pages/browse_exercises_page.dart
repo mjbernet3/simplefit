@@ -29,28 +29,44 @@ class BrowseExercisesPage extends StatelessWidget {
 
               if (_exercises.isEmpty) {
                 return Expanded(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'You have no exercises.',
-                          style: TextStyle(
-                            color: Constants.medEmphasis,
+                  child: Stack(
+                    children: [
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              'Choose Exercises',
+                              style: TextStyle(fontSize: 18.0),
+                            ),
                           ),
+                          Divider(),
+                        ],
+                      ),
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'You have no exercises.',
+                              style: TextStyle(
+                                color: Constants.medEmphasis,
+                              ),
+                            ),
+                            SizedBox(height: 10.0),
+                            RoundedButton(
+                              buttonText: 'Add Exercise',
+                              height: 30.0,
+                              color: Constants.secondElevation,
+                              onPressed: () => Navigator.pushNamed(
+                                context,
+                                AppRouter.manageExercise,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 5.0),
-                        RoundedButton(
-                          buttonText: 'Add Exercise',
-                          height: 30.0,
-                          color: Constants.secondElevation,
-                          onPressed: () => Navigator.pushNamed(
-                            context,
-                            AppRouter.manageExercise,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
               }

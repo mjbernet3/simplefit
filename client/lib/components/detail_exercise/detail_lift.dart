@@ -8,45 +8,41 @@ import 'package:provider/provider.dart';
 class DetailLift extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    DetailLiftModel _model =
+    DetailLiftModel model =
         Provider.of<DetailLiftModel>(context, listen: false);
 
     return StreamBuilder<List<LiftSet>>(
-      stream: _model.setsStream,
+      stream: model.setsStream,
       builder: (BuildContext context, AsyncSnapshot<List<LiftSet>> snapshot) {
         if (snapshot.hasData) {
           List<LiftSet> sets = snapshot.data;
 
-          return ListView(
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: sets.length,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        SizedBox(height: 4.0),
-                    itemBuilder: (BuildContext context, int index) {
-                      LiftSet _currentSet = sets[index];
+              ListView.separated(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: sets.length,
+                separatorBuilder: (BuildContext context, int index) =>
+                    SizedBox(height: 4.0),
+                itemBuilder: (BuildContext context, int index) {
+                  LiftSet currentSet = sets[index];
 
-                      return LiftSetRow(
-                        key: ObjectKey(_currentSet),
-                        set: _currentSet,
-                        setNumber: (index + 1).toString(),
-                        onRemovePressed: () => _model.removeSetAt(index),
-                        hintsOn: index == 0 ? true : false,
-                      );
-                    },
-                  ),
-                  SizedBox(height: 14.0),
-                  RoundedButton(
-                    buttonText: 'Add Set',
-                    height: 30.0,
-                    onPressed: () => _model.addSet(),
-                  ),
-                ],
+                  return LiftSetRow(
+                    key: ObjectKey(currentSet),
+                    set: currentSet,
+                    setNumber: (index + 1).toString(),
+                    onRemovePressed: () => model.removeSetAt(index),
+                    hintsOn: index == 0 ? true : false,
+                  );
+                },
+              ),
+              SizedBox(height: 14.0),
+              RoundedButton(
+                buttonText: 'Add Set',
+                height: 30.0,
+                onPressed: () => model.addSet(),
               ),
             ],
           );

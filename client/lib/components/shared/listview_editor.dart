@@ -24,7 +24,7 @@ class ListViewEditor extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+          padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -37,13 +37,13 @@ class ListViewEditor extends StatelessWidget {
                   AppIconButton(
                     icon: Icon(
                       isEditing ? Icons.check : Icons.edit,
-                      size: 22.0,
+                      size: 20.0,
                     ),
                     color: elevationColor,
                     elevation: 0.0,
                     onPressed: onEdit,
                   ),
-                  SizedBox(width: 8.0),
+                  SizedBox(height: 24.0, width: 8.0),
                   !isEditing
                       ? AppIconButton(
                           icon: Icon(Icons.add),

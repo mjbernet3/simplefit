@@ -3,12 +3,14 @@ import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class DetailCard extends StatelessWidget {
-  final String text;
+  final String title;
+  final String inputUnit;
   final String initialValue;
   final Function onChanged;
 
-  const DetailCard({
-    @required this.text,
+  DetailCard({
+    @required this.title,
+    @required this.inputUnit,
     this.initialValue,
     this.onChanged,
   });
@@ -17,18 +19,27 @@ class DetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              text,
+              title,
               style: TextStyle(fontSize: 16.0),
             ),
-            SmallInputField(
-              initialValue: initialValue,
-              fillColor: Constants.secondElevation,
-              onChanged: onChanged,
+            Column(
+              children: [
+                SmallInputField(
+                  initialValue: initialValue,
+                  fillColor: Constants.secondElevation,
+                  onChanged: onChanged,
+                ),
+                SizedBox(height: 4.0),
+                Text(
+                  inputUnit,
+                  style: TextStyle(color: Constants.medEmphasis),
+                ),
+              ],
             ),
           ],
         ),

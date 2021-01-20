@@ -25,12 +25,14 @@ class ActionButtons extends StatelessWidget {
           children: <Widget>[
             RoundedButton(
               buttonText: 'Cancel',
+              height: 35.0,
               color: color,
               disabled: disabled,
               onPressed: () => Navigator.pop(context),
             ),
             RoundedButton(
               buttonText: confirmText,
+              height: 35.0,
               color: color,
               disabled: disabled,
               onPressed: onConfirmed,

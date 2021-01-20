@@ -22,7 +22,7 @@ class RoundedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ButtonTheme(
+    return SizedBox(
       height: height,
       child: ElevatedButton(
         child: Text(buttonText),

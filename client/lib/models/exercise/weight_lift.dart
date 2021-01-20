@@ -21,7 +21,7 @@ class WeightLift extends ExerciseData {
       rest: 0,
       isWarmUp: false,
       shouldAdvance: false,
-      sets: [],
+      sets: [LiftSet.initial()],
     );
   }
 

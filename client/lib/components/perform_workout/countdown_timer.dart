@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:client/components/shared/app_icon_button.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/utils/formatter.dart';
@@ -56,8 +57,11 @@ class _CountdownTimerState extends State<CountdownTimer> {
               !_isStarted
                   ? Column(
                       children: [
-                        GestureDetector(
-                          onTap: () => {
+                        AppIconButton(
+                          icon: Icon(Icons.add),
+                          color: Constants.secondElevation,
+                          padding: EdgeInsets.all(4.0),
+                          onPressed: () => {
                             setState(
                               () => {
                                 _startingTime += 1,
@@ -66,18 +70,13 @@ class _CountdownTimerState extends State<CountdownTimer> {
                             ),
                             widget.onChanged(_startingTime),
                           },
-                          child: Container(
-                            padding: EdgeInsets.all(4.0),
-                            decoration: BoxDecoration(
-                              color: Constants.secondElevation,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            child: Icon(Icons.add),
-                          ),
                         ),
                         SizedBox(height: 10.0),
-                        GestureDetector(
-                          onTap: () => {
+                        AppIconButton(
+                          icon: Icon(Icons.remove),
+                          color: Constants.secondElevation,
+                          padding: EdgeInsets.all(4.0),
+                          onPressed: () => {
                             setState(
                               () => {
                                 _startingTime -= 1,
@@ -86,20 +85,13 @@ class _CountdownTimerState extends State<CountdownTimer> {
                             ),
                             widget.onChanged(_startingTime),
                           },
-                          child: Container(
-                            padding: EdgeInsets.all(4.0),
-                            decoration: BoxDecoration(
-                              color: Constants.secondElevation,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            child: Icon(Icons.remove),
-                          ),
                         ),
                       ],
                     )
                   : SizedBox.shrink(),
             ],
           ),
+          SizedBox(height: 15.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

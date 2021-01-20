@@ -46,12 +46,19 @@ class DropdownPopup<T> extends ModalRoute<T> {
             type: MaterialType.transparency,
             elevation: 4.0,
             child: Container(
-              padding: EdgeInsets.all(15.0),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.all(15.0),
+              decoration: const BoxDecoration(
                 color: Constants.firstElevation,
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(10.0),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Constants.backgroundColor,
+                    blurRadius: 10.0,
+                    offset: Offset(0.0, 5.0),
+                  ),
+                ],
               ),
               width: size.width,
               child: builder(context),

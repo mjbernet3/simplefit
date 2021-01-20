@@ -40,4 +40,5 @@ class Constants {
   static const int minPasswordLength = 6;
   static const int maxWorkoutNameLength = 30;
   static const int maxExerciseNameLength = 30;
+  static const int maxWorkoutExercises = 20;
 }

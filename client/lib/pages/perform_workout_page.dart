@@ -45,19 +45,29 @@ class PerformWorkoutPage extends StatelessWidget {
                             return Column(
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.all(15.0),
+                                  padding: EdgeInsets.fromLTRB(
+                                    30.0,
+                                    30.0,
+                                    30.0,
+                                    10.0,
+                                  ),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: Constants.firstElevation,
                                       borderRadius: BorderRadius.circular(5.0),
                                     ),
                                     padding: EdgeInsets.symmetric(
-                                        vertical: 15.0, horizontal: 30.0),
+                                      vertical: 15.0,
+                                      horizontal: 30.0,
+                                    ),
                                     child: Text(
                                       !_isResting
                                           ? _currentExercise.exercise.name
                                           : "Next: " + _model.peekNext(),
                                       style: TextStyle(fontSize: 20.0),
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.fade,
                                     ),
                                   ),
                                 ),

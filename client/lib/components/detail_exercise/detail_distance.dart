@@ -13,18 +13,21 @@ class DetailDistance extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         DetailCard(
-          text: 'Cardio Distance:',
+          title: 'Cardio Distance:',
+          inputUnit: 'miles',
           initialValue: distanceData.distance.toString(),
           onChanged: (String value) =>
               distanceData.distance = double.parse(value),
         ),
         DetailCard(
-          text: 'Cardio Speed:',
+          title: 'Cardio Speed:',
+          inputUnit: 'mph',
           initialValue: distanceData.speed.toString(),
           onChanged: (String value) => distanceData.speed = double.parse(value),
         ),
         DetailCard(
-          text: 'Post-Cardio Rest: ',
+          title: 'Post-Cardio Rest: ',
+          inputUnit: 'seconds',
           initialValue: distanceData.rest.toString(),
           onChanged: (String value) => distanceData.rest = int.parse(value),
         ),

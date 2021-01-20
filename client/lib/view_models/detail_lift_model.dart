@@ -8,11 +8,6 @@ class DetailLiftModel extends ViewModel {
 
   DetailLiftModel(WeightLift liftData) {
     _sets = liftData.sets;
-
-    if (_sets.isEmpty) {
-      _sets.add(LiftSet.initial());
-    }
-
     _setsController.sink.add(_sets);
   }
 

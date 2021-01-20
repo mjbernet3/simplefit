@@ -35,6 +35,9 @@ class DetailExercisePage extends StatelessWidget {
                     child: Text(
                       _exerciseData.exercise.name,
                       style: TextStyle(fontSize: 26.0),
+                      maxLines: 1,
+                      softWrap: false,
+                      overflow: TextOverflow.fade,
                     ),
                   ),
                   SizedBox(height: 14.0),
@@ -73,9 +76,11 @@ class DetailExercisePage extends StatelessWidget {
             SizedBox(height: 14.0),
             Divider(),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: _buildExerciseForm(_exerciseData),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: _buildExerciseForm(_exerciseData),
+                ),
               ),
             ),
             ActionButtons(
