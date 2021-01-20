@@ -1,3 +1,4 @@
+import 'package:client/components/shared/app_icon_button.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -27,14 +28,11 @@ class PreviousCard extends StatelessWidget {
             ),
           ),
           SizedBox(width: 10.0),
-          GestureDetector(
-            onTap: () =>
+          AppIconButton(
+            icon: Icon(Icons.history_rounded),
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
+            onPressed: () =>
                 AppError.show(context, "Exercise history is in development"),
-            child: Container(
-              color: Constants.firstElevation,
-              padding: EdgeInsets.symmetric(horizontal: 15.0),
-              child: Icon(Icons.history_rounded),
-            ),
           ),
         ],
       ),

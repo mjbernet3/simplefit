@@ -1,3 +1,4 @@
+import 'package:client/components/shared/app_icon_button.dart';
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -62,34 +63,24 @@ class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
           ),
           Row(
             children: [
-              GestureDetector(
-                onTap: () => {
+              AppIconButton(
+                icon: Icon(Icons.remove),
+                padding: EdgeInsets.all(4.0),
+                color: Constants.secondElevation,
+                onPressed: () => {
                   setState(() => _currentStat -= widget.adjustAmount),
                   widget.onChanged(_currentStat),
                 },
-                child: Container(
-                  padding: EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                    color: Constants.secondElevation,
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Icon(Icons.remove),
-                ),
               ),
               SizedBox(width: 10.0),
-              GestureDetector(
-                onTap: () => {
+              AppIconButton(
+                icon: Icon(Icons.add),
+                padding: EdgeInsets.all(4.0),
+                color: Constants.secondElevation,
+                onPressed: () => {
                   setState(() => _currentStat += widget.adjustAmount),
                   widget.onChanged(_currentStat),
                 },
-                child: Container(
-                  padding: EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                    color: Constants.secondElevation,
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  child: Icon(Icons.add),
-                ),
               ),
             ],
           )

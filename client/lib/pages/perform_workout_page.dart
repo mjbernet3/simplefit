@@ -2,6 +2,7 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:client/components/perform_workout/perform_distance.dart';
 import 'package:client/components/perform_workout/perform_lift.dart';
 import 'package:client/components/perform_workout/perform_timed.dart';
+import 'package:client/components/shared/app_icon_button.dart';
 import 'package:client/components/shared/notes_dropdown.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/utils/app_error.dart';
@@ -27,115 +28,124 @@ class PerformWorkoutPage extends StatelessWidget {
             if (snapshot.hasData) {
               ExerciseData _currentExercise = snapshot.data;
 
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              return Stack(
                 children: [
-                  Expanded(
-                    child: StreamBuilder<bool>(
-                      initialData: false,
-                      stream: _model.isResting,
-                      builder:
-                          (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                        bool _isResting = snapshot.data;
-
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(15.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Constants.firstElevation,
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 15.0, horizontal: 30.0),
-                                child: Text(
-                                  !_isResting
-                                      ? _currentExercise.exercise.name
-                                      : "Next: " + _model.peekNext(),
-                                  style: TextStyle(fontSize: 20.0),
-                                ),
-                              ),
-                            ),
-                            !_isResting
-                                ? NotesDropdown(
-                                    notes: _currentExercise.notes,
-                                    onComplete: (String newNotes) =>
-                                        _currentExercise.notes = newNotes,
-                                  )
-                                : SizedBox.shrink(),
-                            Expanded(
-                              child: !_isResting
-                                  ? Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 20.0),
-                                      child: _buildExercise(
-                                          context, _currentExercise),
-                                    )
-                                  : CircularCountDownTimer(
-                                      isReverse: true,
-                                      isReverseAnimation: true,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.75,
-                                      height:
-                                          MediaQuery.of(context).size.height,
-                                      duration: _currentExercise.rest,
-                                      fillColor: Constants.primaryColor,
-                                      color: Constants.firstElevation,
-                                      strokeWidth: 15.0,
-                                      textStyle: TextStyle(fontSize: 40.0),
-                                      onComplete: () => _next(context),
-                                    ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                  Divider(),
-                  Row(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Visibility(
-                        visible: _model.hasPrevious(),
-                        maintainSize: true,
-                        maintainState: true,
-                        maintainAnimation: true,
-                        child: RawMaterialButton(
-                          padding: EdgeInsets.all(15.0),
-                          fillColor: Constants.firstElevation,
-                          shape: CircleBorder(),
-                          child: Icon(
-                            Icons.arrow_back_rounded,
-                            size: 25.0,
-                          ),
-                          onPressed: () => _previous(context),
+                      Expanded(
+                        child: StreamBuilder<bool>(
+                          initialData: false,
+                          stream: _model.isResting,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<bool> snapshot) {
+                            bool _isResting = snapshot.data;
+
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(15.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Constants.firstElevation,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 15.0, horizontal: 30.0),
+                                    child: Text(
+                                      !_isResting
+                                          ? _currentExercise.exercise.name
+                                          : "Next: " + _model.peekNext(),
+                                      style: TextStyle(fontSize: 20.0),
+                                    ),
+                                  ),
+                                ),
+                                !_isResting
+                                    ? NotesDropdown(
+                                        notes: _currentExercise.notes,
+                                        onComplete: (String newNotes) =>
+                                            _currentExercise.notes = newNotes,
+                                      )
+                                    : SizedBox.shrink(),
+                                Expanded(
+                                  child: !_isResting
+                                      ? Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 20.0),
+                                          child: _buildExercise(
+                                              context, _currentExercise),
+                                        )
+                                      : CircularCountDownTimer(
+                                          isReverse: true,
+                                          isReverseAnimation: true,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.75,
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height,
+                                          duration: _currentExercise.rest,
+                                          fillColor: Constants.primaryColor,
+                                          color: Constants.firstElevation,
+                                          strokeWidth: 15.0,
+                                          textStyle: TextStyle(fontSize: 40.0),
+                                          onComplete: () => _next(context),
+                                        ),
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ),
-                      _model.hasNext()
-                          ? RawMaterialButton(
-                              padding: EdgeInsets.all(15.0),
-                              fillColor: Constants.firstElevation,
-                              shape: CircleBorder(),
-                              child: Icon(
-                                Icons.arrow_forward_rounded,
-                                size: 25.0,
-                              ),
-                              onPressed: () => _next(context),
-                            )
-                          : RawMaterialButton(
-                              padding: EdgeInsets.all(15.0),
-                              fillColor: Constants.primaryColor,
-                              shape: CircleBorder(),
-                              child: Icon(
-                                Icons.flag_rounded,
-                                size: 25.0,
-                                color: Constants.backgroundColor,
-                              ),
-                              onPressed: () => _next(context),
+                      Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Visibility(
+                            visible: _model.hasPrevious(),
+                            maintainSize: true,
+                            maintainState: true,
+                            maintainAnimation: true,
+                            child: AppIconButton(
+                              icon: const Icon(Icons.arrow_back_rounded),
+                              padding: const EdgeInsets.all(15.0),
+                              color: Constants.firstElevation,
+                              shape: const CircleBorder(),
+                              onPressed: () => _previous(context),
                             ),
+                          ),
+                          AppIconButton(
+                            icon: _model.hasNext()
+                                ? const Icon(Icons.arrow_forward_rounded)
+                                : const Icon(
+                                    Icons.flag_rounded,
+                                    color: Constants.backgroundColor,
+                                  ),
+                            color: _model.hasNext()
+                                ? Constants.firstElevation
+                                : Constants.primaryColor,
+                            padding: const EdgeInsets.all(15.0),
+                            shape: const CircleBorder(),
+                            onPressed: () => _next(context),
+                          ),
+                        ],
+                      ),
                     ],
+                  ),
+                  Positioned(
+                    top: 0.0,
+                    left: 0.0,
+                    child: AppIconButton(
+                      padding: const EdgeInsets.all(2.0),
+                      shape: const CircleBorder(),
+                      icon: const Icon(
+                        Icons.close,
+                        size: 22.0,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
                   ),
                 ],
               );
