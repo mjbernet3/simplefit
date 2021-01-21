@@ -5,14 +5,15 @@ import 'package:client/utils/constants.dart';
 import 'package:client/utils/formatter.dart';
 import 'package:flutter/material.dart';
 
-// TODO: Add max and min so stat does not adjust incorrectly
 class CountdownTimer extends StatefulWidget {
   final int totalSeconds;
+  final int maxSeconds;
   final Function onChanged;
   final Function onComplete;
 
   CountdownTimer({
     @required this.totalSeconds,
+    @required this.maxSeconds,
     @required this.onChanged,
     @required this.onComplete,
   });
@@ -39,85 +40,94 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Constants.firstElevation,
-      padding: EdgeInsets.all(10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: !_isStarted
-                ? MainAxisAlignment.spaceBetween
-                : MainAxisAlignment.center,
-            children: [
-              Text(
-                Formatter.secondsToTime(_currentTime),
-                style: TextStyle(fontSize: 56.0),
-              ),
-              SizedBox(width: 5.0),
-              !_isStarted
-                  ? Column(
-                      children: [
-                        AppIconButton(
-                          icon: Icon(Icons.add),
-                          color: Constants.secondElevation,
-                          padding: EdgeInsets.all(4.0),
-                          onPressed: () => {
-                            setState(
-                              () => {
-                                _startingTime += 1,
-                                _currentTime = _startingTime,
-                              },
-                            ),
-                            widget.onChanged(_startingTime),
-                          },
-                        ),
-                        SizedBox(height: 10.0),
-                        AppIconButton(
-                          icon: Icon(Icons.remove),
-                          color: Constants.secondElevation,
-                          padding: EdgeInsets.all(4.0),
-                          onPressed: () => {
-                            setState(
-                              () => {
-                                _startingTime -= 1,
-                                _currentTime = _startingTime,
-                              },
-                            ),
-                            widget.onChanged(_startingTime),
-                          },
-                        ),
-                      ],
-                    )
-                  : SizedBox.shrink(),
-            ],
-          ),
-          SizedBox(height: 15.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(
-                child: RoundedButton(
-                  height: 30.0,
-                  buttonText: 'Reset',
-                  color: Constants.secondElevation,
-                  onPressed: _resetTimer,
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: !_isStarted
+                  ? MainAxisAlignment.spaceBetween
+                  : MainAxisAlignment.center,
+              children: [
+                Text(
+                  Formatter.secondsToTime(_currentTime),
+                  style: TextStyle(fontSize: 56.0),
                 ),
-              ),
-              SizedBox(width: 10.0),
-              Expanded(
-                child: RoundedButton(
-                  height: 30.0,
-                  buttonText: !_stopwatch.isRunning ? 'Start' : 'Stop',
-                  color: Constants.secondElevation,
-                  onPressed: _toggleTimer,
+                SizedBox(width: 5.0),
+                !_isStarted
+                    ? Column(
+                        children: [
+                          AppIconButton(
+                            icon: Icon(Icons.add),
+                            color: Constants.secondElevation,
+                            padding: EdgeInsets.all(4.0),
+                            onPressed: _increment,
+                          ),
+                          SizedBox(height: 10.0),
+                          AppIconButton(
+                            icon: Icon(Icons.remove),
+                            color: Constants.secondElevation,
+                            padding: EdgeInsets.all(4.0),
+                            onPressed: _decrement,
+                          ),
+                        ],
+                      )
+                    : SizedBox.shrink(),
+              ],
+            ),
+            SizedBox(height: 15.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: RoundedButton(
+                    height: 30.0,
+                    buttonText: 'Reset',
+                    color: Constants.secondElevation,
+                    onPressed: _resetTimer,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+                SizedBox(width: 10.0),
+                Expanded(
+                  child: RoundedButton(
+                    height: 30.0,
+                    buttonText: !_stopwatch.isRunning ? 'Start' : 'Stop',
+                    color: Constants.secondElevation,
+                    onPressed: _toggleTimer,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  void _increment() {
+    if (_startingTime + 1 <= widget.maxSeconds) {
+      setState(
+        () => {
+          _startingTime += 1,
+          _currentTime = _startingTime,
+        },
+      );
+      widget.onChanged(_startingTime);
+    }
+  }
+
+  void _decrement() {
+    if (_startingTime - 1 >= 0) {
+      setState(
+        () => {
+          _startingTime -= 1,
+          _currentTime = _startingTime,
+        },
+      );
+      widget.onChanged(_startingTime);
+    }
   }
 
   void _toggleTimer() {

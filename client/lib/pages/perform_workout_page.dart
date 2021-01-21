@@ -20,6 +20,14 @@ class PerformWorkoutPage extends StatelessWidget {
         Provider.of<PerformWorkoutModel>(context, listen: false);
 
     return PageBuilder(
+      appBar: AppBar(
+        leading: AppIconButton(
+          icon: Icon(Icons.close),
+          color: Constants.backgroundColor,
+          elevation: 0.0,
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: (BuildContext context) {
         return StreamBuilder<ExerciseData>(
           stream: _model.exerciseStream,
@@ -28,134 +36,120 @@ class PerformWorkoutPage extends StatelessWidget {
             if (snapshot.hasData) {
               ExerciseData _currentExercise = snapshot.data;
 
-              return Stack(
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: StreamBuilder<bool>(
-                          initialData: false,
-                          stream: _model.isResting,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<bool> snapshot) {
-                            bool _isResting = snapshot.data;
+                  Expanded(
+                    child: StreamBuilder<bool>(
+                      initialData: false,
+                      stream: _model.isResting,
+                      builder:
+                          (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                        bool _isResting = snapshot.data;
 
-                            return Column(
+                        return Column(
+                          children: [
+                            Row(
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(
-                                    30.0,
-                                    30.0,
-                                    30.0,
-                                    10.0,
-                                  ),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Constants.firstElevation,
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 15.0,
-                                      horizontal: 30.0,
-                                    ),
-                                    child: Text(
-                                      !_isResting
-                                          ? _currentExercise.exercise.name
-                                          : "Next: " + _model.peekNext(),
-                                      style: TextStyle(fontSize: 20.0),
-                                      textAlign: TextAlign.center,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.fade,
-                                    ),
+                                Expanded(
+                                  child: Text(
+                                    !_isResting
+                                        ? _currentExercise.exercise.name
+                                        : "Next: " + _model.peekNext(),
+                                    style: TextStyle(fontSize: 24.0),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.fade,
                                   ),
                                 ),
-                                !_isResting
-                                    ? NotesDropdown(
-                                        notes: _currentExercise.notes,
-                                        onComplete: (String newNotes) =>
-                                            _currentExercise.notes = newNotes,
+                                SizedBox(width: 5.0),
+                                !_isResting && _currentExercise.isWarmUp
+                                    ? Card(
+                                        color: Constants.primaryColor,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 2.0,
+                                            horizontal: 4.0,
+                                          ),
+                                          child: Text(
+                                            'Warm-Up',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Constants.backgroundColor,
+                                            ),
+                                          ),
+                                        ),
                                       )
                                     : SizedBox.shrink(),
-                                Expanded(
-                                  child: !_isResting
-                                      ? Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 20.0),
-                                          child: _buildExercise(
-                                              context, _currentExercise),
-                                        )
-                                      : CircularCountDownTimer(
-                                          isReverse: true,
-                                          isReverseAnimation: true,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.75,
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height,
-                                          duration: _currentExercise.rest,
-                                          fillColor: Constants.primaryColor,
-                                          color: Constants.firstElevation,
-                                          strokeWidth: 15.0,
-                                          textStyle: TextStyle(fontSize: 40.0),
-                                          onComplete: () => _next(context),
-                                        ),
-                                ),
                               ],
-                            );
-                          },
+                            ),
+                            !_isResting
+                                ? NotesDropdown(
+                                    notes: _currentExercise.notes,
+                                    onComplete: (String newNotes) =>
+                                        _currentExercise.notes = newNotes,
+                                  )
+                                : SizedBox.shrink(),
+                            Expanded(
+                              child: !_isResting
+                                  ? Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 20.0),
+                                      child: _buildExercise(
+                                          context, _currentExercise),
+                                    )
+                                  : CircularCountDownTimer(
+                                      isReverse: true,
+                                      isReverseAnimation: true,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.75,
+                                      height:
+                                          MediaQuery.of(context).size.height,
+                                      duration: _currentExercise.rest,
+                                      fillColor: Constants.primaryColor,
+                                      color: Constants.firstElevation,
+                                      strokeWidth: 15.0,
+                                      textStyle: TextStyle(fontSize: 40.0),
+                                      onComplete: () => _next(context),
+                                    ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Visibility(
+                        visible: _model.hasPrevious(),
+                        maintainSize: true,
+                        maintainState: true,
+                        maintainAnimation: true,
+                        child: AppIconButton(
+                          icon: const Icon(Icons.arrow_back_rounded),
+                          padding: const EdgeInsets.all(15.0),
+                          color: Constants.firstElevation,
+                          shape: const CircleBorder(),
+                          onPressed: () => _previous(context),
                         ),
                       ),
-                      Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Visibility(
-                            visible: _model.hasPrevious(),
-                            maintainSize: true,
-                            maintainState: true,
-                            maintainAnimation: true,
-                            child: AppIconButton(
-                              icon: const Icon(Icons.arrow_back_rounded),
-                              padding: const EdgeInsets.all(15.0),
-                              color: Constants.firstElevation,
-                              shape: const CircleBorder(),
-                              onPressed: () => _previous(context),
-                            ),
-                          ),
-                          AppIconButton(
-                            icon: _model.hasNext()
-                                ? const Icon(Icons.arrow_forward_rounded)
-                                : const Icon(
-                                    Icons.flag_rounded,
-                                    color: Constants.backgroundColor,
-                                  ),
-                            color: _model.hasNext()
-                                ? Constants.firstElevation
-                                : Constants.primaryColor,
-                            padding: const EdgeInsets.all(15.0),
-                            shape: const CircleBorder(),
-                            onPressed: () => _next(context),
-                          ),
-                        ],
+                      AppIconButton(
+                        icon: _model.hasNext()
+                            ? const Icon(Icons.arrow_forward_rounded)
+                            : const Icon(
+                                Icons.flag_rounded,
+                                color: Constants.backgroundColor,
+                              ),
+                        color: _model.hasNext()
+                            ? Constants.firstElevation
+                            : Constants.primaryColor,
+                        padding: const EdgeInsets.all(15.0),
+                        shape: const CircleBorder(),
+                        onPressed: () => _next(context),
                       ),
                     ],
-                  ),
-                  Positioned(
-                    top: 0.0,
-                    left: 0.0,
-                    child: AppIconButton(
-                      padding: const EdgeInsets.all(2.0),
-                      shape: const CircleBorder(),
-                      icon: const Icon(
-                        Icons.close,
-                        size: 22.0,
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                    ),
                   ),
                 ],
               );

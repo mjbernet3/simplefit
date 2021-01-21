@@ -20,6 +20,7 @@ class StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.all(4.0),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
         child: Row(

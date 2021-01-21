@@ -2,18 +2,19 @@ import 'package:client/components/shared/app_icon_button.dart';
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-// TODO: Add max and min so stat does not adjust incorrectly
 class VerticalStatAdjuster extends StatefulWidget {
   final double stat;
+  final double maxStat;
   final String unit;
   final double adjustAmount;
   final Function onChanged;
   final bool displayPrecise;
 
   VerticalStatAdjuster({
-    this.stat,
-    this.unit,
-    this.adjustAmount,
+    @required this.stat,
+    @required this.maxStat,
+    @required this.unit,
+    @required this.adjustAmount,
     this.onChanged,
     this.displayPrecise = true,
   });
@@ -27,14 +28,22 @@ class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
 
   @override
   void initState() {
-    super.initState();
     _currentStat = widget.stat;
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(VerticalStatAdjuster oldWidget) {
+    if (_currentStat != widget.stat) {
+      setState(() => _currentStat = widget.stat);
+    }
+
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Constants.firstElevation,
+    return Card(
       child: Column(
         children: [
           Expanded(
@@ -66,20 +75,14 @@ class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
                   icon: Icon(Icons.remove),
                   padding: EdgeInsets.all(4.0),
                   color: Constants.secondElevation,
-                  onPressed: () => {
-                    setState(() => _currentStat -= widget.adjustAmount),
-                    widget.onChanged(_currentStat),
-                  },
+                  onPressed: _decrement,
                 ),
                 SizedBox(width: 10.0),
                 AppIconButton(
                   icon: Icon(Icons.add),
                   padding: EdgeInsets.all(4.0),
                   color: Constants.secondElevation,
-                  onPressed: () => {
-                    setState(() => _currentStat += widget.adjustAmount),
-                    widget.onChanged(_currentStat),
-                  },
+                  onPressed: _increment,
                 ),
               ],
             ),
@@ -87,5 +90,19 @@ class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
         ],
       ),
     );
+  }
+
+  void _increment() {
+    if (_currentStat + widget.adjustAmount <= widget.maxStat) {
+      setState(() => _currentStat += widget.adjustAmount);
+      widget.onChanged(_currentStat);
+    }
+  }
+
+  void _decrement() {
+    if (_currentStat - widget.adjustAmount >= 0) {
+      setState(() => _currentStat -= widget.adjustAmount);
+      widget.onChanged(_currentStat);
+    }
   }
 }

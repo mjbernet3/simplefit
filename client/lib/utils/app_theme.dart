@@ -8,7 +8,6 @@ class AppTheme {
 
   ThemeData get darkTheme => ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Constants.backgroundColor,
-        cardColor: Constants.firstElevation,
         appBarTheme: AppBarTheme(
           color: Constants.backgroundColor,
           elevation: 0.0,
@@ -19,6 +18,10 @@ class AppTheme {
           iconTheme: IconThemeData(
             color: Constants.primaryColor,
           ),
+        ),
+        cardTheme: CardTheme(
+          color: Constants.firstElevation,
+          margin: EdgeInsets.zero,
         ),
         textTheme: Theme.of(context).textTheme.apply(
               bodyColor: Constants.highEmphasis,

@@ -40,6 +40,7 @@ class RemovableCard extends StatelessWidget {
           child: GestureDetector(
             onTap: onPressed,
             child: Card(
+              margin: const EdgeInsets.all(4.0),
               color: color,
               shape: RoundedRectangleBorder(
                 side: BorderSide(color: borderColor),

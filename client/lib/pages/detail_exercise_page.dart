@@ -3,6 +3,7 @@ import 'package:client/components/detail_exercise/detail_lift.dart';
 import 'package:client/components/detail_exercise/detail_timed.dart';
 import 'package:client/components/shared/app_checkbox.dart';
 import 'package:client/components/shared/action_buttons.dart';
+import 'package:client/components/shared/app_icon_button.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/utils/app_error.dart';
@@ -23,7 +24,14 @@ class DetailExercisePage extends StatelessWidget {
     ExerciseData exerciseData = model.exerciseData;
 
     return PageBuilder(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: AppIconButton(
+          icon: Icon(Icons.close),
+          color: Constants.backgroundColor,
+          elevation: 0.0,
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: (BuildContext context) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

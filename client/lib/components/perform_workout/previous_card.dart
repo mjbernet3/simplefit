@@ -6,21 +6,20 @@ import 'package:flutter/material.dart';
 class PreviousCard extends StatelessWidget {
   final Map<String, Text> stats;
 
-  const PreviousCard({
+  PreviousCard({
     @required this.stats,
   }) : assert(stats.length <= 3);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 70.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: Container(
-              color: Constants.firstElevation,
+            child: Card(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: _buildStats(),
