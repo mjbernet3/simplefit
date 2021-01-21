@@ -20,12 +20,12 @@ class SimpleFit extends StatelessWidget {
     return Provider<AuthService>(
       create: (context) => AuthService(),
       child: AuthBuilder(
-        builder: (BuildContext context, AsyncSnapshot<User> userSnapshot) {
+        builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
           return GestureDetector(
             onTap: () => _closeKeyboard(context),
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              home: _buildHome(context, userSnapshot),
+              home: _buildHome(context, snapshot),
               theme: AppTheme(context).darkTheme,
               onGenerateRoute: AppRouter.generateRoute,
             ),
@@ -35,9 +35,11 @@ class SimpleFit extends StatelessWidget {
     );
   }
 
-  Widget _buildHome(BuildContext context, AsyncSnapshot<User> userSnapshot) {
-    if (userSnapshot.connectionState == ConnectionState.active) {
-      return userSnapshot.hasData
+  Widget _buildHome(BuildContext context, AsyncSnapshot<User> snapshot) {
+    if (snapshot.connectionState == ConnectionState.active) {
+      bool isUser = snapshot.hasData;
+
+      return isUser
           ? Provider<HomeModel>(
               create: (context) => HomeModel(
                 workoutService: Provider.of<WorkoutService>(

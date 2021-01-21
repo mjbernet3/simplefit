@@ -13,7 +13,6 @@ import 'package:client/pages/manage_workout_page.dart';
 import 'package:client/pages/home_page.dart';
 import 'package:client/pages/login_page.dart';
 import 'package:client/pages/register_page.dart';
-import 'package:client/pages/settings_page.dart';
 import 'package:client/pages/start_workout_page.dart';
 import 'package:client/pages/unknown_page.dart';
 import 'package:client/pages/welcome_page.dart';
@@ -41,7 +40,6 @@ class AppRouter {
   static const String manageExercise = '/exercises/manage';
   static const String detailExercise = '/exercises/detail';
   static const String browseExercises = '/exercises/browse';
-  static const String settings = '/settings';
 
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
@@ -102,8 +100,9 @@ class AppRouter {
         );
       case startWorkout:
         return MaterialPageRoute(
-          builder: (context) =>
-              StartWorkoutPage(workout: routeSettings.arguments),
+          builder: (context) => StartWorkoutPage(
+            workout: routeSettings.arguments,
+          ),
         );
       case detailExercise:
         return MaterialPageRoute<ExerciseData>(
@@ -119,18 +118,16 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => Provider<PerformWorkoutModel>(
             create: (context) => PerformWorkoutModel(
+              workout: routeSettings.arguments,
               workoutService: Provider.of<WorkoutService>(
                 context,
                 listen: false,
               ),
-              workout: routeSettings.arguments,
             ),
             dispose: (context, model) => model.dispose(),
             child: PerformWorkoutPage(),
           ),
         );
-      case settings:
-        return MaterialPageRoute(builder: (context) => SettingsPage());
       case browseExercises:
         return PopupPage<List<Exercise>>(
           backgroundColor: Constants.backgroundColor.withOpacity(0.5),
