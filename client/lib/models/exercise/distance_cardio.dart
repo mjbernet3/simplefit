@@ -27,17 +27,17 @@ class DistanceCardio extends ExerciseData {
     );
   }
 
-  factory DistanceCardio.fromJson(Map<String, dynamic> exerciseData) {
-    Exercise exercise = Exercise.fromJson(exerciseData['exercise']);
+  factory DistanceCardio.fromJson(Map<String, dynamic> json) {
+    Exercise exercise = Exercise.fromJson(json['exercise']);
 
     return DistanceCardio(
       exercise: exercise,
-      notes: exerciseData['notes'],
-      rest: exerciseData['rest'],
-      isWarmUp: exerciseData['isWarmUp'],
-      shouldAdvance: exerciseData['shouldAdvance'],
-      distance: exerciseData['distance'],
-      speed: exerciseData['speed'],
+      notes: json['notes'],
+      rest: json['rest'],
+      isWarmUp: json['isWarmUp'],
+      shouldAdvance: json['shouldAdvance'],
+      distance: json['distance'],
+      speed: json['speed'],
     );
   }
 
@@ -63,15 +63,5 @@ class DistanceCardio extends ExerciseData {
       distance: distance,
       speed: speed,
     );
-  }
-
-  void printExercise() {
-    print(exercise.name);
-    print(notes);
-    print(rest);
-    print(isWarmUp);
-    print(shouldAdvance);
-    print(distance);
-    print(speed);
   }
 }

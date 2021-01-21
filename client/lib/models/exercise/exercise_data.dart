@@ -34,16 +34,16 @@ abstract class ExerciseData {
     }
   }
 
-  factory ExerciseData.fromJson(Map<String, dynamic> exerciseData) {
-    String exerciseType = exerciseData['exercise']['type'];
+  factory ExerciseData.fromJson(Map<String, dynamic> json) {
+    String exerciseType = json['exercise']['type'];
 
     switch (exerciseType) {
       case Constants.lifting:
-        return WeightLift.fromJson(exerciseData);
+        return WeightLift.fromJson(json);
       case Constants.timed:
-        return TimedCardio.fromJson(exerciseData);
+        return TimedCardio.fromJson(json);
       case Constants.distance:
-        return DistanceCardio.fromJson(exerciseData);
+        return DistanceCardio.fromJson(json);
       default:
         return null;
     }
@@ -52,7 +52,4 @@ abstract class ExerciseData {
   Map<String, dynamic> toJson();
 
   ExerciseData clone();
-
-  // TODO: For debugging, remove implementations later
-  void printExercise();
 }

@@ -8,7 +8,7 @@ class WeightLift extends ExerciseData {
   WeightLift({
     Exercise exercise,
     String notes,
-    int rest,
+    int rest, // Rest is always 0 since sets have rest
     bool isWarmUp,
     bool shouldAdvance,
     this.sets,
@@ -18,25 +18,23 @@ class WeightLift extends ExerciseData {
     return WeightLift(
       exercise: exercise,
       notes: '',
-      rest: 0,
       isWarmUp: false,
       shouldAdvance: false,
       sets: [LiftSet.initial()],
     );
   }
 
-  factory WeightLift.fromJson(Map<String, dynamic> exerciseData) {
-    Exercise exercise = Exercise.fromJson(exerciseData['exercise']);
+  factory WeightLift.fromJson(Map<String, dynamic> json) {
+    Exercise exercise = Exercise.fromJson(json['exercise']);
 
-    List<dynamic> setList = exerciseData['sets'] as List;
+    List<dynamic> setList = json['sets'] as List;
     List<LiftSet> sets = setList.map((set) => LiftSet.fromJson(set)).toList();
 
     return WeightLift(
       exercise: exercise,
-      notes: exerciseData['notes'],
-      rest: 0,
-      isWarmUp: exerciseData['isWarmUp'],
-      shouldAdvance: exerciseData['shouldAdvance'],
+      notes: json['notes'],
+      isWarmUp: json['isWarmUp'],
+      shouldAdvance: json['shouldAdvance'],
       sets: sets,
     );
   }
@@ -54,30 +52,14 @@ class WeightLift extends ExerciseData {
   }
 
   WeightLift clone() {
-    List<LiftSet> copiedSets = sets.map((LiftSet set) => set.copy()).toList();
+    List<LiftSet> clonedSets = sets.map((set) => set.clone()).toList();
 
     return WeightLift(
       exercise: exercise,
       notes: notes,
-      rest: 0,
       isWarmUp: isWarmUp,
       shouldAdvance: shouldAdvance,
-      sets: copiedSets,
+      sets: clonedSets,
     );
-  }
-
-  void printExercise() {
-    print(exercise.name);
-    print(notes);
-    print(rest);
-    print(isWarmUp);
-    print(shouldAdvance);
-    sets.forEach((set) => {
-          print(set.rest),
-          print(set.isWarmUp),
-          print(set.weight),
-          print(set.reps),
-          print(set.targetReps),
-        });
   }
 }

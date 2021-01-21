@@ -7,10 +7,10 @@ class WorkoutPreview {
     this.name,
   });
 
-  factory WorkoutPreview.fromJson(Map<String, dynamic> workoutData) {
+  factory WorkoutPreview.fromJson(Map<String, dynamic> json) {
     return WorkoutPreview(
-      id: workoutData['id'],
-      name: workoutData['name'],
+      id: json['id'],
+      name: json['name'],
     );
   }
 

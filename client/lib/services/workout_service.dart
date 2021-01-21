@@ -27,7 +27,7 @@ class WorkoutService {
     );
 
     batch.updateData(_userRef, {
-      'workouts': FieldValue.arrayUnion([preview.toJson()])
+      'previews': FieldValue.arrayUnion([preview.toJson()])
     });
 
     await batch.commit();
@@ -47,7 +47,7 @@ class WorkoutService {
     final DocumentReference workoutRef = _workoutCollection.document(workoutId);
     final DocumentSnapshot userSnap = await _userRef.get();
     final UserData userData = UserData.fromJson(userSnap.data);
-    List<WorkoutPreview> previews = userData.workouts;
+    List<WorkoutPreview> previews = userData.previews;
 
     WriteBatch batch = Firestore.instance.batch();
     batch.updateData(workoutRef, workout.toJson());
@@ -62,7 +62,7 @@ class WorkoutService {
       List<dynamic> workoutList =
           previews.map((prev) => prev.toJson()).toList();
       batch.updateData(_userRef, {
-        'workouts': workoutList,
+        'previews': workoutList,
       });
     }
 
@@ -77,7 +77,7 @@ class WorkoutService {
     batch.delete(workoutRef);
 
     batch.updateData(_userRef, {
-      'workouts': FieldValue.arrayRemove([preview.toJson()])
+      'previews': FieldValue.arrayRemove([preview.toJson()])
     });
 
     await batch.commit();

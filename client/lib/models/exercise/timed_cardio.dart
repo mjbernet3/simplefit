@@ -27,17 +27,17 @@ class TimedCardio extends ExerciseData {
     );
   }
 
-  factory TimedCardio.fromJson(Map<String, dynamic> exerciseData) {
-    Exercise exercise = Exercise.fromJson(exerciseData['exercise']);
+  factory TimedCardio.fromJson(Map<String, dynamic> json) {
+    Exercise exercise = Exercise.fromJson(json['exercise']);
 
     return TimedCardio(
       exercise: exercise,
-      notes: exerciseData['notes'],
-      rest: exerciseData['rest'],
-      isWarmUp: exerciseData['isWarmUp'],
-      shouldAdvance: exerciseData['shouldAdvance'],
-      time: exerciseData['time'],
-      speed: exerciseData['speed'],
+      notes: json['notes'],
+      rest: json['rest'],
+      isWarmUp: json['isWarmUp'],
+      shouldAdvance: json['shouldAdvance'],
+      time: json['time'],
+      speed: json['speed'],
     );
   }
 
@@ -63,15 +63,5 @@ class TimedCardio extends ExerciseData {
       time: time,
       speed: speed,
     );
-  }
-
-  void printExercise() {
-    print(exercise.name);
-    print(notes);
-    print(rest);
-    print(isWarmUp);
-    print(shouldAdvance);
-    print(time);
-    print(speed);
   }
 }

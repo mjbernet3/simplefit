@@ -23,13 +23,13 @@ class LiftSet {
     );
   }
 
-  factory LiftSet.fromJson(Map<String, dynamic> setData) {
+  factory LiftSet.fromJson(Map<String, dynamic> json) {
     return LiftSet(
-      reps: setData['reps'],
-      targetReps: setData['targetReps'],
-      weight: setData['weight'],
-      rest: setData['rest'],
-      isWarmUp: setData['isWarmUp'],
+      reps: json['reps'],
+      targetReps: json['targetReps'],
+      weight: json['weight'],
+      rest: json['rest'],
+      isWarmUp: json['isWarmUp'],
     );
   }
 
@@ -43,7 +43,7 @@ class LiftSet {
     };
   }
 
-  LiftSet copy() {
+  LiftSet clone() {
     return LiftSet(
       reps: reps,
       targetReps: targetReps,

@@ -25,7 +25,7 @@ class PreviewListing extends StatelessWidget {
       stream: profileService.userData,
       builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
         if (snapshot.hasData) {
-          List<WorkoutPreview> previews = snapshot.data.workouts;
+          List<WorkoutPreview> previews = snapshot.data.previews;
 
           if (previews.isEmpty) {
             return Center(
