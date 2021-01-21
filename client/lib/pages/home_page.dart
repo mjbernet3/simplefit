@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 enum PopupChoice {
   ADD,
   EDIT,
-  SETTINGS,
+  SIGNOUT,
 }
 
 class HomePage extends StatelessWidget {
@@ -52,8 +52,8 @@ class HomePage extends StatelessWidget {
                           child: Text('Edit Workout'),
                         ),
                         PopupMenuItem<PopupChoice>(
-                          value: PopupChoice.SETTINGS,
-                          child: Text('Settings'),
+                          value: PopupChoice.SIGNOUT,
+                          child: Text('Sign Out'),
                         ),
                       ],
                     )
@@ -92,11 +92,10 @@ class HomePage extends StatelessWidget {
         HomeModel _model = Provider.of<HomeModel>(context, listen: false);
         _model.setEditing(true);
         break;
-      case PopupChoice.SETTINGS:
+      case PopupChoice.SIGNOUT:
         AuthService authService =
             Provider.of<AuthService>(context, listen: false);
         authService.signOut();
-        // Navigator.pushNamed(context, AppRouter.settings);
         break;
     }
   }
