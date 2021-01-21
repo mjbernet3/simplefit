@@ -76,7 +76,7 @@ class ManageExerciseModel extends ViewModel {
           await _exerciseService.createExercise(_exercise);
         } else {
           if (!_exercise.equals(_prevExercise)) {
-            await _exerciseService.updateExercise(_exercise.id, _exercise);
+            await _exerciseService.updateExercise(_exercise);
           }
         }
       } catch (e) {

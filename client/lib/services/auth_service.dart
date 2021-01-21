@@ -10,18 +10,17 @@ class AuthService {
   final CollectionReference _userCollection =
       Firestore.instance.collection('users');
 
-  Stream<User> get signedInUser {
-    return _auth.onAuthStateChanged.map((FirebaseUser firebaseUser) {
-      if (firebaseUser == null) {
-        return null;
-      }
+  Stream<User> get signedInUser =>
+      _auth.onAuthStateChanged.map((FirebaseUser firebaseUser) {
+        if (firebaseUser == null) {
+          return null;
+        }
 
-      return User(
-        uid: firebaseUser.uid,
-        email: firebaseUser.email,
-      );
-    });
-  }
+        return User(
+          uid: firebaseUser.uid,
+          email: firebaseUser.email,
+        );
+      });
 
   Future<void> register(AuthInfo authInfo) async {
     Validator.validateAuthInfo(authInfo);
@@ -29,7 +28,9 @@ class AuthService {
     await _checkForUsername(authInfo.username);
 
     AuthResult result = await _auth.createUserWithEmailAndPassword(
-        email: authInfo.email, password: authInfo.password);
+      email: authInfo.email,
+      password: authInfo.password,
+    );
 
     if (result.user == null) {
       throw Exception("User is null after successful registration.");
@@ -52,7 +53,9 @@ class AuthService {
 
   Future<void> signIn(AuthInfo authInfo) async {
     AuthResult result = await _auth.signInWithEmailAndPassword(
-        email: authInfo.email, password: authInfo.password);
+      email: authInfo.email,
+      password: authInfo.password,
+    );
 
     if (result.user == null) {
       throw Exception("User is null after successful sign in.");

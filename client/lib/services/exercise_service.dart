@@ -9,22 +9,22 @@ class ExerciseService {
       : _exerciseCollection =
             Firestore.instance.collection('users/$_userId/exercises');
 
-  Stream<List<Exercise>> get exercises {
-    return _exerciseCollection.snapshots().map((QuerySnapshot query) => query
-        .documents
-        .map((DocumentSnapshot snapshot) => Exercise.fromSnapshot(snapshot))
-        .toList());
-  }
+  Stream<List<Exercise>> get exercises => _exerciseCollection.snapshots().map(
+      (QuerySnapshot query) => query.documents
+          .map((DocumentSnapshot snapshot) => Exercise.fromSnapshot(snapshot))
+          .toList());
 
   Future<void> createExercise(Exercise exercise) async {
     Validator.validateExercise(exercise);
+
     await _exerciseCollection.add(exercise.toJson());
   }
 
-  Future<void> updateExercise(String exerciseId, Exercise exercise) async {
+  Future<void> updateExercise(Exercise exercise) async {
     Validator.validateExercise(exercise);
+
     await _exerciseCollection
-        .document(exerciseId)
+        .document(exercise.id)
         .updateData(exercise.toJson());
   }
 

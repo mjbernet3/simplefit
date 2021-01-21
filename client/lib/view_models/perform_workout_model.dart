@@ -73,7 +73,7 @@ class PerformWorkoutModel extends ViewModel {
     _loadingController.sink.add(true);
 
     try {
-      await _workoutService.updateWorkout(_workout.id, _workout);
+      await _workoutService.updateWorkout(_workout);
     } catch (e) {
       _loadingController.sink.add(false);
       rethrow;

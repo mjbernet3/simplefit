@@ -96,7 +96,7 @@ class ManageWorkoutModel extends ViewModel {
         await _workoutService.createWorkout(_workout);
       } else {
         // Checking if update is needed beforehand is too expensive to be worth it in this case
-        await _workoutService.updateWorkout(_workout.id, _workout);
+        await _workoutService.updateWorkout(_workout);
       }
     } catch (e) {
       _loadingController.sink.add(false);
