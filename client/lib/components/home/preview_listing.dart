@@ -6,6 +6,7 @@ import 'package:client/services/profile_service.dart';
 import 'package:client/services/workout_service.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/utils/app_router.dart';
+import 'package:client/utils/constants.dart';
 import 'package:client/view_models/home_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,19 +18,44 @@ class PreviewListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProfileService _profileService =
+    ProfileService profileService =
         Provider.of<ProfileService>(context, listen: false);
 
     return StreamBuilder<UserData>(
-      stream: _profileService.userData,
+      stream: profileService.userData,
       builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
         if (snapshot.hasData) {
-          List<WorkoutPreview> _previews = snapshot.data.workouts;
+          List<WorkoutPreview> previews = snapshot.data.workouts;
+
+          if (previews.isEmpty) {
+            return Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Tap the ',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Constants.medEmphasis,
+                    ),
+                  ),
+                  Icon(Icons.more_vert),
+                  Text(
+                    ' icon to get started',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Constants.medEmphasis,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
 
           return ListView.builder(
-            itemCount: _previews.length,
+            itemCount: previews.length,
             itemBuilder: (BuildContext context, int index) {
-              WorkoutPreview _currentPreview = _previews[index];
+              WorkoutPreview _currentPreview = previews[index];
 
               return PreviewCard(
                 key: ObjectKey(_currentPreview),
