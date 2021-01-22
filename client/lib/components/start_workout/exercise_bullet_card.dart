@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ExerciseBulletCard extends StatelessWidget {
   final String exerciseName;
 
-  const ExerciseBulletCard({@required this.exerciseName});
+  ExerciseBulletCard({this.exerciseName});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +29,11 @@ class ExerciseBulletCard extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(width: 20.0),
+        const SizedBox(width: 20.0),
         Expanded(
           child: Text(
             exerciseName,
-            style: TextStyle(fontSize: 18.0),
+            style: const TextStyle(fontSize: 18.0),
             maxLines: 1,
             softWrap: false,
             overflow: TextOverflow.fade,

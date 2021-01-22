@@ -1,5 +1,5 @@
-import 'package:client/components/perform_workout/countdown_timer.dart';
-import 'package:client/components/perform_workout/horizontal_stat_adjuster.dart';
+import 'package:client/components/shared/countdown_timer.dart';
+import 'package:client/components/shared/horizontal_stat_adjuster.dart';
 import 'package:client/components/perform_workout/previous_card.dart';
 import 'package:client/models/exercise/timed_cardio.dart';
 import 'package:client/utils/constants.dart';
@@ -26,7 +26,7 @@ class PerformTimed extends StatelessWidget {
             'Advance': Text(exercise.shouldAdvance ? 'Yes' : 'No'),
           },
         ),
-        SizedBox(height: 20.0),
+        const SizedBox(height: 20.0),
         Expanded(
           child: CountdownTimer(
             totalSeconds: exercise.time,
@@ -35,7 +35,7 @@ class PerformTimed extends StatelessWidget {
             onComplete: onTimeExpired,
           ),
         ),
-        SizedBox(height: 20.0),
+        const SizedBox(height: 20.0),
         HorizontalStatAdjuster(
           stat: exercise.speed,
           maxStat: Constants.maxExerciseSpeed,

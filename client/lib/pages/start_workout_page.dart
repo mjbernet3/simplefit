@@ -1,4 +1,5 @@
 import 'package:client/components/shared/action_buttons.dart';
+import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/models/workout/workout.dart';
 import 'package:client/utils/app_router.dart';
 import 'package:client/components/shared/notes_dropdown.dart';
@@ -36,8 +37,10 @@ class StartWorkoutPage extends StatelessWidget {
               child: ListView.builder(
                 itemCount: workout.exercises.length,
                 itemBuilder: (BuildContext context, int index) {
+                  ExerciseData currentExercise = workout.exercises[index];
+
                   return ExerciseBulletCard(
-                    exerciseName: workout.exercises[index].exercise.name,
+                    exerciseName: currentExercise.exercise.name,
                   );
                 },
               ),

@@ -2,7 +2,7 @@ import 'package:client/components/shared/app_icon_button.dart';
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class VerticalStatAdjuster extends StatefulWidget {
+class HorizontalStatAdjuster extends StatefulWidget {
   final double stat;
   final double maxStat;
   final String unit;
@@ -10,7 +10,7 @@ class VerticalStatAdjuster extends StatefulWidget {
   final Function onChanged;
   final bool displayPrecise;
 
-  VerticalStatAdjuster({
+  HorizontalStatAdjuster({
     @required this.stat,
     @required this.maxStat,
     @required this.unit,
@@ -20,10 +20,10 @@ class VerticalStatAdjuster extends StatefulWidget {
   });
 
   @override
-  _VerticalStatAdjusterState createState() => _VerticalStatAdjusterState();
+  _HorizontalStatAdjusterState createState() => _HorizontalStatAdjusterState();
 }
 
-class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
+class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
   double _currentStat;
 
   @override
@@ -33,7 +33,7 @@ class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
   }
 
   @override
-  void didUpdateWidget(VerticalStatAdjuster oldWidget) {
+  void didUpdateWidget(HorizontalStatAdjuster oldWidget) {
     if (_currentStat != widget.stat) {
       setState(() => _currentStat = widget.stat);
     }
@@ -44,50 +44,44 @@ class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 30.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    _currentStat.toStringAsFixed(widget.displayPrecise ? 1 : 0),
-                    style: TextStyle(fontSize: 36.0),
-                  ),
-                  SizedBox(height: 5.0),
-                  Text(
-                    widget.unit,
-                    style: TextStyle(color: Constants.medEmphasis),
-                  ),
-                ],
-              ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              children: [
+                Text(
+                  _currentStat.toStringAsFixed(widget.displayPrecise ? 1 : 0),
+                  style: const TextStyle(fontSize: 36.0),
+                ),
+                const SizedBox(width: 5.0),
+                Text(
+                  widget.unit,
+                  style: const TextStyle(color: Constants.medEmphasis),
+                ),
+              ],
             ),
-          ),
-          Divider(),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Row(
               children: [
                 AppIconButton(
-                  icon: Icon(Icons.remove),
-                  padding: EdgeInsets.all(4.0),
+                  icon: const Icon(Icons.remove),
+                  padding: const EdgeInsets.all(4.0),
                   color: Constants.secondElevation,
                   onPressed: _decrement,
                 ),
-                SizedBox(width: 10.0),
+                const SizedBox(width: 10.0),
                 AppIconButton(
-                  icon: Icon(Icons.add),
-                  padding: EdgeInsets.all(4.0),
+                  icon: const Icon(Icons.add),
+                  padding: const EdgeInsets.all(4.0),
                   color: Constants.secondElevation,
                   onPressed: _increment,
                 ),
               ],
-            ),
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

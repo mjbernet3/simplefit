@@ -2,7 +2,7 @@ import 'package:client/components/shared/app_icon_button.dart';
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class HorizontalStatAdjuster extends StatefulWidget {
+class VerticalStatAdjuster extends StatefulWidget {
   final double stat;
   final double maxStat;
   final String unit;
@@ -10,7 +10,7 @@ class HorizontalStatAdjuster extends StatefulWidget {
   final Function onChanged;
   final bool displayPrecise;
 
-  HorizontalStatAdjuster({
+  VerticalStatAdjuster({
     @required this.stat,
     @required this.maxStat,
     @required this.unit,
@@ -20,10 +20,10 @@ class HorizontalStatAdjuster extends StatefulWidget {
   });
 
   @override
-  _HorizontalStatAdjusterState createState() => _HorizontalStatAdjusterState();
+  _VerticalStatAdjusterState createState() => _VerticalStatAdjusterState();
 }
 
-class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
+class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
   double _currentStat;
 
   @override
@@ -33,7 +33,7 @@ class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
   }
 
   @override
-  void didUpdateWidget(HorizontalStatAdjuster oldWidget) {
+  void didUpdateWidget(VerticalStatAdjuster oldWidget) {
     if (_currentStat != widget.stat) {
       setState(() => _currentStat = widget.stat);
     }
@@ -44,44 +44,50 @@ class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              children: [
-                Text(
-                  _currentStat.toStringAsFixed(widget.displayPrecise ? 1 : 0),
-                  style: TextStyle(fontSize: 36.0),
-                ),
-                SizedBox(width: 5.0),
-                Text(
-                  widget.unit,
-                  style: TextStyle(color: Constants.medEmphasis),
-                ),
-              ],
+      child: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    _currentStat.toStringAsFixed(widget.displayPrecise ? 1 : 0),
+                    style: const TextStyle(fontSize: 36.0),
+                  ),
+                  const SizedBox(height: 5.0),
+                  Text(
+                    widget.unit,
+                    style: const TextStyle(color: Constants.medEmphasis),
+                  ),
+                ],
+              ),
             ),
-            Row(
+          ),
+          const Divider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AppIconButton(
-                  icon: Icon(Icons.remove),
-                  padding: EdgeInsets.all(4.0),
+                  icon: const Icon(Icons.remove),
+                  padding: const EdgeInsets.all(4.0),
                   color: Constants.secondElevation,
                   onPressed: _decrement,
                 ),
-                SizedBox(width: 10.0),
+                const SizedBox(width: 10.0),
                 AppIconButton(
-                  icon: Icon(Icons.add),
-                  padding: EdgeInsets.all(4.0),
+                  icon: const Icon(Icons.add),
+                  padding: const EdgeInsets.all(4.0),
                   color: Constants.secondElevation,
                   onPressed: _increment,
                 ),
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }

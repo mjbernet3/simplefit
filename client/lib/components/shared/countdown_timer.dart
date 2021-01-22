@@ -14,8 +14,8 @@ class CountdownTimer extends StatefulWidget {
   CountdownTimer({
     @required this.totalSeconds,
     @required this.maxSeconds,
-    @required this.onChanged,
-    @required this.onComplete,
+    this.onChanged,
+    this.onComplete,
   });
 
   @override
@@ -32,10 +32,10 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   @override
   void initState() {
-    super.initState();
     _startingTime = widget.totalSeconds;
     _currentTime = _startingTime;
     _stopwatch = Stopwatch();
+    super.initState();
   }
 
   @override
@@ -53,31 +53,31 @@ class _CountdownTimerState extends State<CountdownTimer> {
               children: [
                 Text(
                   Formatter.secondsToTime(_currentTime),
-                  style: TextStyle(fontSize: 56.0),
+                  style: const TextStyle(fontSize: 56.0),
                 ),
-                SizedBox(width: 5.0),
+                const SizedBox(width: 5.0),
                 !_isStarted
                     ? Column(
                         children: [
                           AppIconButton(
-                            icon: Icon(Icons.add),
+                            icon: const Icon(Icons.add),
                             color: Constants.secondElevation,
-                            padding: EdgeInsets.all(4.0),
+                            padding: const EdgeInsets.all(4.0),
                             onPressed: _increment,
                           ),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           AppIconButton(
-                            icon: Icon(Icons.remove),
+                            icon: const Icon(Icons.remove),
                             color: Constants.secondElevation,
-                            padding: EdgeInsets.all(4.0),
+                            padding: const EdgeInsets.all(4.0),
                             onPressed: _decrement,
                           ),
                         ],
                       )
-                    : SizedBox.shrink(),
+                    : const SizedBox.shrink(),
               ],
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -89,7 +89,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
                     onPressed: _resetTimer,
                   ),
                 ),
-                SizedBox(width: 10.0),
+                const SizedBox(width: 10.0),
                 Expanded(
                   child: RoundedButton(
                     height: 30.0,

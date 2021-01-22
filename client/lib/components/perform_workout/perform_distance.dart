@@ -1,5 +1,5 @@
 import 'package:client/components/perform_workout/previous_card.dart';
-import 'package:client/components/perform_workout/vertical_stat_adjuster.dart';
+import 'package:client/components/shared/vertical_stat_adjuster.dart';
 import 'package:client/models/exercise/distance_cardio.dart';
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class PerformDistance extends StatelessWidget {
             'Advance': Text(exercise.shouldAdvance ? 'Yes' : 'No'),
           },
         ),
-        SizedBox(height: 20.0),
+        const SizedBox(height: 20.0),
         Expanded(
           child: Row(
             children: [
@@ -33,7 +33,7 @@ class PerformDistance extends StatelessWidget {
                   onChanged: (double value) => exercise.distance = value,
                 ),
               ),
-              SizedBox(width: 20.0),
+              const SizedBox(width: 20.0),
               Expanded(
                 child: VerticalStatAdjuster(
                   stat: exercise.speed,

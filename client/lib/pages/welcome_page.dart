@@ -29,7 +29,6 @@ class WelcomePage extends StatelessWidget {
                       'No Premium. No Ads. No Intrusions.',
                       style: TextStyle(
                         color: Constants.medEmphasis,
-                        fontSize: 14.0,
                       ),
                     ),
                   ],
@@ -61,7 +60,9 @@ class WelcomePage extends StatelessWidget {
                             Navigator.pushNamed(context, AppRouter.login),
                         child: Text(
                           'Sign In',
-                          style: TextStyle(color: Constants.primaryColor),
+                          style: TextStyle(
+                            color: Constants.primaryColor,
+                          ),
                         ),
                       ),
                     ],

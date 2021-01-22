@@ -9,12 +9,12 @@ import 'package:provider/provider.dart';
 class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    RegisterModel _model = Provider.of<RegisterModel>(context, listen: false);
+    RegisterModel model = Provider.of<RegisterModel>(context, listen: false);
 
     return PageBuilder(
       appBar: AppBar(
         bottom: AppBarLoadingIndicator(
-          isLoading: _model.isLoading,
+          isLoading: model.isLoading,
           backgroundColor: Constants.backgroundColor,
         ),
       ),

@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 class PreviousCard extends StatelessWidget {
   final Map<String, Text> stats;
 
-  PreviousCard({
-    @required this.stats,
-  }) : assert(stats.length <= 3);
+  PreviousCard({this.stats}) : assert(stats.length <= 3);
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +24,10 @@ class PreviousCard extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 10.0),
+          const SizedBox(width: 10.0),
           AppIconButton(
-            icon: Icon(Icons.history_rounded),
-            padding: EdgeInsets.symmetric(horizontal: 15.0),
+            icon: const Icon(Icons.history_rounded),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
             onPressed: () =>
                 AppError.show(context, "Exercise history is in development"),
           ),
@@ -42,17 +40,17 @@ class PreviousCard extends StatelessWidget {
     List<Widget> children = stats.entries
         .map(
           (entry) => Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   entry.key,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Constants.medEmphasis,
                   ),
                 ),
-                SizedBox(height: 10.0),
+                const SizedBox(height: 10.0),
                 entry.value,
               ],
             ),

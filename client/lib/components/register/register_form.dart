@@ -42,7 +42,7 @@ class RegisterForm extends StatelessWidget {
                     enabled: !isLoading,
                     validator: _checkEmail,
                   ),
-                  SizedBox(height: 32.0),
+                  const SizedBox(height: 32.0),
                   AuthInputField(
                     labelText: 'Username',
                     maxLength: Constants.maxUsernameLength,
@@ -51,7 +51,7 @@ class RegisterForm extends StatelessWidget {
                     enabled: !isLoading,
                     validator: _checkUsername,
                   ),
-                  SizedBox(height: 32.0),
+                  const SizedBox(height: 32.0),
                   AuthInputField(
                     labelText: 'Password',
                     maxLength: Constants.maxPasswordLength,
@@ -61,7 +61,7 @@ class RegisterForm extends StatelessWidget {
                     validator: _checkPassword,
                     onSubmitted: (_) => _register(context),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   RoundedButton(
                     buttonText: 'Create Account',
                     fontSize: 16.0,
