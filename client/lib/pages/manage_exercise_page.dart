@@ -1,7 +1,7 @@
 import 'package:client/utils/app_error.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/components/shared/action_buttons.dart';
-import 'package:client/components/manage_exercise/exercise_dropdown.dart';
+import 'package:client/components/shared/app_dropdown_button.dart';
 import 'package:client/components/shared/input_field.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:client/utils/validator.dart';
@@ -12,89 +12,89 @@ import 'package:provider/provider.dart';
 class ManageExercisePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ManageExerciseModel _model =
+    ManageExerciseModel model =
         Provider.of<ManageExerciseModel>(context, listen: false);
 
     return StreamBuilder<bool>(
       initialData: false,
-      stream: _model.autovalidate,
+      stream: model.autovalidate,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        bool _autovalidate = snapshot.data;
+        bool autovalidate = snapshot.data;
 
         return Form(
-          key: _model.formKey,
-          autovalidateMode: _autovalidate
+          key: model.formKey,
+          autovalidateMode: autovalidate
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
           child: StreamBuilder<bool>(
             initialData: false,
-            stream: _model.isLoading,
+            stream: model.isLoading,
             builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-              bool _isLoading = snapshot.data;
+              bool isLoading = snapshot.data;
 
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Expanded(
                     child: StreamBuilder<Exercise>(
-                      stream: _model.exercise,
+                      stream: model.exercise,
                       builder: (BuildContext context,
                           AsyncSnapshot<Exercise> snapshot) {
                         if (snapshot.hasData) {
-                          Exercise _exercise = snapshot.data;
+                          Exercise exercise = snapshot.data;
 
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               InputField(
                                 labelText: 'Exercise Name',
-                                controller: _model.nameController,
+                                controller: model.nameController,
                                 maxLength: Constants.maxExerciseNameLength,
                                 color: Constants.secondElevation,
-                                enabled: !_isLoading,
+                                enabled: !isLoading,
                                 onSubmitted: (_) =>
                                     FocusScope.of(context).unfocus(),
                               ),
-                              SizedBox(height: 20.0),
-                              ExerciseDropdown(
+                              const SizedBox(height: 20.0),
+                              AppDropdownButton(
                                 hintText: 'Select Exercise Type',
                                 items: Constants.exerciseTypes,
-                                enabled: !_isLoading,
+                                enabled: !isLoading,
                                 initialValue:
-                                    _model.isEditMode ? _exercise.type : null,
+                                    model.isEditMode ? exercise.type : null,
                                 onChanged: (String value) =>
-                                    _model.setExerciseType(value),
+                                    model.setExerciseType(value),
                                 validator: _checkExerciseType,
                               ),
-                              SizedBox(height: 20.0),
-                              _exercise.type == Constants.lifting
-                                  ? ExerciseDropdown(
+                              const SizedBox(height: 20.0),
+                              exercise.type == Constants.lifting
+                                  ? AppDropdownButton(
                                       hintText: 'Select Body Part',
                                       items: Constants.bodyParts,
-                                      enabled: !_isLoading,
-                                      initialValue: _model.isEditMode
-                                          ? _exercise.bodyPart
+                                      enabled: !isLoading,
+                                      initialValue: model.isEditMode
+                                          ? exercise.bodyPart
                                           : null,
                                       onChanged: (String value) =>
-                                          _exercise.bodyPart = value,
+                                          exercise.bodyPart = value,
                                       validator: (String value) =>
-                                          _checkBodyPart(value, _exercise.type),
+                                          _checkBodyPart(value, exercise.type),
                                     )
-                                  : SizedBox.shrink(),
+                                  : const SizedBox.shrink(),
                             ],
                           );
                         }
 
-                        return Container();
+                        return const SizedBox.shrink();
                       },
                     ),
                   ),
                   ActionButtons(
-                    confirmText: _model.isEditMode
+                    confirmText: model.isEditMode
                         ? 'Update Exercise'
                         : 'Create Exercise',
                     color: Constants.secondElevation,
-                    disabled: _isLoading,
+                    disabled: isLoading,
                     onConfirmed: () => _saveExercise(context),
                   ),
                 ],
@@ -127,11 +127,11 @@ class ManageExercisePage extends StatelessWidget {
   }
 
   void _saveExercise(BuildContext context) async {
-    ManageExerciseModel _model =
+    ManageExerciseModel model =
         Provider.of<ManageExerciseModel>(context, listen: false);
 
     try {
-      bool success = await _model.saveExercise();
+      bool success = await model.saveExercise();
 
       if (success) {
         Navigator.pop(context);

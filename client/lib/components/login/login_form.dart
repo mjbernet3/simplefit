@@ -15,7 +15,7 @@ class LoginForm extends StatelessWidget {
       initialData: false,
       stream: model.isLoading,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        bool _isLoading = snapshot.data;
+        bool isLoading = snapshot.data;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -27,22 +27,22 @@ class LoginForm extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               autofocus: true,
-              enabled: !_isLoading,
+              enabled: !isLoading,
             ),
-            SizedBox(height: 32.0),
+            const SizedBox(height: 32.0),
             AuthInputField(
               labelText: 'Password',
               maxLength: Constants.maxPasswordLength,
               controller: model.passwordController,
               hidden: true,
-              enabled: !_isLoading,
+              enabled: !isLoading,
               onSubmitted: (_) => _signIn(context),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             RoundedButton(
               buttonText: 'Sign In',
               fontSize: 16.0,
-              disabled: _isLoading,
+              disabled: isLoading,
               onPressed: () => _signIn(context),
             ),
           ],

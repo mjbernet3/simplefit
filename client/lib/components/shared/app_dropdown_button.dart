@@ -1,7 +1,7 @@
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class ExerciseDropdown extends StatefulWidget {
+class AppDropdownButton extends StatefulWidget {
   final String hintText;
   final String initialValue;
   final List<String> items;
@@ -9,7 +9,7 @@ class ExerciseDropdown extends StatefulWidget {
   final Function validator;
   final bool enabled;
 
-  const ExerciseDropdown({
+  const AppDropdownButton({
     this.hintText,
     this.initialValue,
     this.items,
@@ -19,16 +19,16 @@ class ExerciseDropdown extends StatefulWidget {
   });
 
   @override
-  _ExerciseDropdownState createState() => _ExerciseDropdownState();
+  _AppDropdownButtonState createState() => _AppDropdownButtonState();
 }
 
-class _ExerciseDropdownState extends State<ExerciseDropdown> {
-  String selectedValue;
+class _AppDropdownButtonState extends State<AppDropdownButton> {
+  String _selectedValue;
 
   @override
   void initState() {
+    _selectedValue = widget.initialValue;
     super.initState();
-    selectedValue = widget.initialValue;
   }
 
   @override
@@ -36,9 +36,9 @@ class _ExerciseDropdownState extends State<ExerciseDropdown> {
     return DropdownButtonFormField<String>(
       dropdownColor: Constants.thirdElevation,
       hint: Text(widget.hintText),
-      value: selectedValue,
+      value: _selectedValue,
       isExpanded: true,
-      style: TextStyle(),
+      style: const TextStyle(fontSize: 14.0),
       items: widget.items
           .map(
             (String item) => DropdownMenuItem<String>(
@@ -48,14 +48,12 @@ class _ExerciseDropdownState extends State<ExerciseDropdown> {
           )
           .toList(),
       validator: widget.validator,
-      onChanged: widget.enabled
-          ? (String value) {
-              widget.onChanged(value);
-              setState(() {
-                selectedValue = value;
-              });
-            }
-          : null,
+      onChanged: widget.enabled ? _selectItem : null,
     );
+  }
+
+  void _selectItem(String value) {
+    setState(() => _selectedValue = value);
+    widget.onChanged(_selectedValue);
   }
 }

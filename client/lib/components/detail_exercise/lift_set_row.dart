@@ -18,7 +18,7 @@ class LiftSetRow extends StatelessWidget {
     @required Key key,
     @required this.set,
     @required this.setNumber,
-    @required this.onRemovePressed,
+    this.onRemovePressed,
     this.hintsOn = false,
   }) : super(key: key);
 
@@ -32,22 +32,19 @@ class LiftSetRow extends StatelessWidget {
             Container(
               height: 30.0,
               width: 30.0,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Constants.firstElevation,
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: Text(
-                  setNumber,
-                  style: TextStyle(),
-                ),
+                child: Text(setNumber),
               ),
             ),
           ],
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.only(left: 20.0),
+            padding: const EdgeInsets.only(left: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -88,7 +85,7 @@ class LiftSetRow extends StatelessWidget {
           children: <Widget>[
             _buildHint(''),
             PopupMenuButton<PopupChoice>(
-              icon: Icon(Icons.more_vert),
+              icon: const Icon(Icons.more_vert),
               color: Constants.secondElevation,
               onSelected: (PopupChoice choice) =>
                   _handleChoice(context, choice),
@@ -98,27 +95,21 @@ class LiftSetRow extends StatelessWidget {
                   value: PopupChoice.WARM_UP,
                   child: Row(
                     children: <Widget>[
-                      Text(
-                        'Warm up set',
-                        style: TextStyle(),
-                      ),
+                      const Text('Warm up set'),
                       set.isWarmUp
                           ? Row(
                               children: <Widget>[
-                                SizedBox(width: 5.0),
-                                Icon(Icons.check),
+                                const SizedBox(width: 5.0),
+                                const Icon(Icons.check),
                               ],
                             )
-                          : SizedBox.shrink(),
+                          : const SizedBox.shrink(),
                     ],
                   ),
                 ),
-                PopupMenuItem<PopupChoice>(
+                const PopupMenuItem<PopupChoice>(
                   value: PopupChoice.REMOVE,
-                  child: Text(
-                    'Remove this set',
-                    style: TextStyle(),
-                  ),
+                  child: Text('Remove this set'),
                 ),
               ],
             ),
@@ -133,10 +124,10 @@ class LiftSetRow extends StatelessWidget {
         ? Column(
             children: <Widget>[
               Text(hintText),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
             ],
           )
-        : SizedBox.shrink();
+        : const SizedBox.shrink();
   }
 
   void _handleChoice(BuildContext context, PopupChoice choice) {

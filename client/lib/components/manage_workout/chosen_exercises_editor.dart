@@ -35,7 +35,7 @@ class ChosenExercisesEditor extends StatelessWidget {
 
               return ChosenExerciseCard(
                 key: ObjectKey(currentExercise),
-                exerciseData: currentExercise,
+                exercise: currentExercise,
                 onPressed: () => _detailExercise(
                   context,
                   index,
@@ -52,7 +52,7 @@ class ChosenExercisesEditor extends StatelessWidget {
   }
 
   void _browseExercises(BuildContext context) async {
-    ManageWorkoutModel _model =
+    ManageWorkoutModel model =
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
     List<Exercise> chosenExercises = await Navigator.pushNamed(
@@ -61,23 +61,23 @@ class ChosenExercisesEditor extends StatelessWidget {
     );
 
     if (chosenExercises != null) {
-      _model.initExercises(chosenExercises);
+      model.initExercises(chosenExercises);
     }
   }
 
   void _detailExercise(
-      BuildContext context, int index, ExerciseData exerciseData) async {
-    ManageWorkoutModel _model =
+      BuildContext context, int index, ExerciseData exercise) async {
+    ManageWorkoutModel model =
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
-    ExerciseData newExerciseData = await Navigator.pushNamed(
+    ExerciseData updatedExercise = await Navigator.pushNamed(
       context,
       AppRouter.detailExercise,
-      arguments: exerciseData,
+      arguments: exercise,
     );
 
-    if (newExerciseData != null) {
-      _model.updateExerciseAt(index, newExerciseData);
+    if (updatedExercise != null) {
+      model.updateExerciseAt(index, updatedExercise);
     }
   }
 }

@@ -10,11 +10,11 @@ import 'package:provider/provider.dart';
 class ChosenExercisesBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ManageWorkoutModel _model =
+    ManageWorkoutModel model =
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
     return StreamBuilder<List<ExerciseData>>(
-      stream: _model.exercises,
+      stream: model.exercises,
       builder:
           (BuildContext context, AsyncSnapshot<List<ExerciseData>> snapshot) {
         if (snapshot.hasData) {
@@ -26,12 +26,12 @@ class ChosenExercisesBuilder extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     'Exercises',
                     style: TextStyle(fontSize: 18.0),
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 RoundedButton(
                   buttonText: 'Add Exercise',
                   height: 30.0,
@@ -44,13 +44,13 @@ class ChosenExercisesBuilder extends StatelessWidget {
           return ChosenExercisesEditor(exercises: exercises);
         }
 
-        return Container();
+        return const SizedBox.shrink();
       },
     );
   }
 
   void _browseExercises(BuildContext context) async {
-    ManageWorkoutModel _model =
+    ManageWorkoutModel model =
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
     List<Exercise> chosenExercises = await Navigator.pushNamed(
@@ -59,7 +59,7 @@ class ChosenExercisesBuilder extends StatelessWidget {
     );
 
     if (chosenExercises != null) {
-      _model.initExercises(chosenExercises);
+      model.initExercises(chosenExercises);
     }
   }
 }

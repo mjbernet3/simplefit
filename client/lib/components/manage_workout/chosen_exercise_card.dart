@@ -4,14 +4,14 @@ import 'package:client/models/exercise/exercise_data.dart';
 import 'package:flutter/material.dart';
 
 class ChosenExerciseCard extends StatelessWidget {
-  final ExerciseData exerciseData;
+  final ExerciseData exercise;
   final Function onPressed;
   final Function onRemovePressed;
   final bool isEditing;
 
   ChosenExerciseCard({
     @required Key key,
-    @required this.exerciseData,
+    @required this.exercise,
     this.onPressed,
     this.onRemovePressed,
     this.isEditing = false,
@@ -29,7 +29,7 @@ class ChosenExerciseCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              exerciseData.exercise.name,
+              exercise.exercise.name,
               style: const TextStyle(fontSize: 16.0),
               maxLines: 1,
               softWrap: false,
@@ -37,7 +37,7 @@ class ChosenExerciseCard extends StatelessWidget {
             ),
             const SizedBox(height: 5.0),
             Text(
-              exerciseData.exercise.bodyPart ?? exerciseData.exercise.type,
+              exercise.exercise.bodyPart ?? exercise.exercise.type,
               style: const TextStyle(
                 color: Constants.medEmphasis,
                 fontSize: 12.0,

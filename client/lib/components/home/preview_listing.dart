@@ -32,15 +32,15 @@ class PreviewListing extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Tap the ',
                     style: TextStyle(
                       fontSize: 16.0,
                       color: Constants.medEmphasis,
                     ),
                   ),
-                  Icon(Icons.more_vert),
-                  Text(
+                  const Icon(Icons.more_vert),
+                  const Text(
                     ' icon to get started',
                     style: TextStyle(
                       fontSize: 16.0,
@@ -55,43 +55,43 @@ class PreviewListing extends StatelessWidget {
           return ListView.builder(
             itemCount: previews.length,
             itemBuilder: (BuildContext context, int index) {
-              WorkoutPreview _currentPreview = previews[index];
+              WorkoutPreview currentPreview = previews[index];
 
               return PreviewCard(
-                key: ObjectKey(_currentPreview),
+                key: ObjectKey(currentPreview),
                 isEditing: isEditing,
                 onPressed: () => {
                   if (!isEditing)
                     {
-                      _startWorkout(context, _currentPreview),
+                      _startWorkout(context, currentPreview),
                     }
                   else
                     {
-                      _editWorkout(context, _currentPreview),
+                      _editWorkout(context, currentPreview),
                     }
                 },
-                onRemovePressed: () => _removeWorkout(context, _currentPreview),
-                workoutPreview: _currentPreview,
+                onRemovePressed: () => _removeWorkout(context, currentPreview),
+                workoutPreview: currentPreview,
               );
             },
           );
         }
 
-        return Container();
+        return const SizedBox.shrink();
       },
     );
   }
 
   void _startWorkout(BuildContext context, WorkoutPreview preview) async {
-    HomeModel _model = Provider.of<HomeModel>(context, listen: false);
+    HomeModel model = Provider.of<HomeModel>(context, listen: false);
 
     try {
-      Workout _workout = await _model.getWorkout(preview.id);
+      Workout workout = await model.getWorkout(preview.id);
 
       Navigator.pushNamed(
         context,
         AppRouter.startWorkout,
-        arguments: _workout,
+        arguments: workout,
       );
     } catch (e) {
       AppError.show(context, e.message);
@@ -99,15 +99,15 @@ class PreviewListing extends StatelessWidget {
   }
 
   void _editWorkout(BuildContext context, WorkoutPreview preview) async {
-    HomeModel _model = Provider.of<HomeModel>(context, listen: false);
+    HomeModel model = Provider.of<HomeModel>(context, listen: false);
 
     try {
-      Workout _workout = await _model.getWorkout(preview.id);
+      Workout workout = await model.getWorkout(preview.id);
 
       Navigator.pushNamed(
         context,
         AppRouter.manageWorkout,
-        arguments: _workout,
+        arguments: workout,
       );
     } catch (e) {
       AppError.show(context, e.message);
@@ -115,11 +115,11 @@ class PreviewListing extends StatelessWidget {
   }
 
   void _removeWorkout(BuildContext context, WorkoutPreview preview) async {
-    WorkoutService _workoutService =
+    WorkoutService workoutService =
         Provider.of<WorkoutService>(context, listen: false);
 
     try {
-      await _workoutService.removeWorkout(preview);
+      await workoutService.removeWorkout(preview);
     } catch (e) {
       AppError.show(context, e.message);
     }

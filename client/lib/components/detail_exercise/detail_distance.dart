@@ -3,9 +3,9 @@ import 'package:client/models/exercise/distance_cardio.dart';
 import 'package:flutter/material.dart';
 
 class DetailDistance extends StatelessWidget {
-  final DistanceCardio distanceData;
+  final DistanceCardio exercise;
 
-  DetailDistance(this.distanceData);
+  DetailDistance({this.exercise});
 
   @override
   Widget build(BuildContext context) {
@@ -15,23 +15,22 @@ class DetailDistance extends StatelessWidget {
         StatCard(
           title: 'Cardio Distance:',
           inputUnit: 'miles',
-          initialValue: distanceData.distance.toString(),
-          onChanged: (String value) =>
-              distanceData.distance = double.parse(value),
+          initialValue: exercise.distance.toString(),
+          onChanged: (String value) => exercise.distance = double.parse(value),
           isPrecise: true,
         ),
         StatCard(
           title: 'Cardio Speed:',
           inputUnit: 'mph',
-          initialValue: distanceData.speed.toString(),
-          onChanged: (String value) => distanceData.speed = double.parse(value),
+          initialValue: exercise.speed.toString(),
+          onChanged: (String value) => exercise.speed = double.parse(value),
           isPrecise: true,
         ),
         StatCard(
           title: 'Post-Cardio Rest:',
           inputUnit: 'seconds',
-          initialValue: distanceData.rest.toString(),
-          onChanged: (String value) => distanceData.rest = int.parse(value),
+          initialValue: exercise.rest.toString(),
+          onChanged: (String value) => exercise.rest = int.parse(value),
         ),
       ],
     );

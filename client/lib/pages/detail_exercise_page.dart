@@ -21,7 +21,7 @@ class DetailExercisePage extends StatelessWidget {
     DetailExerciseModel model =
         Provider.of<DetailExerciseModel>(context, listen: false);
 
-    ExerciseData exerciseData = model.exercise;
+    ExerciseData exercise = model.exercise;
 
     return PageBuilder(
       appBar: AppBar(
@@ -43,7 +43,7 @@ class DetailExercisePage extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      exerciseData.exercise.name,
+                      exercise.exercise.name,
                       style: TextStyle(fontSize: 26.0),
                       maxLines: 1,
                       softWrap: false,
@@ -73,9 +73,8 @@ class DetailExercisePage extends StatelessWidget {
                         height: 15.0,
                         width: 15.0,
                         child: AppCheckbox(
-                          initialValue: exerciseData.isWarmUp,
-                          onChanged: (bool value) =>
-                              exerciseData.isWarmUp = value,
+                          initialValue: exercise.isWarmUp,
+                          onChanged: (bool value) => exercise.isWarmUp = value,
                         ),
                       ),
                     ],
@@ -89,12 +88,12 @@ class DetailExercisePage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: _buildExerciseForm(exerciseData),
+                  child: _buildExerciseForm(exercise),
                 ),
               ),
             ),
             ActionButtons(
-              onConfirmed: () => _saveExerciseData(context, exerciseData),
+              onConfirmed: () => _saveExercise(context, exercise),
             ),
           ],
         );
@@ -102,34 +101,34 @@ class DetailExercisePage extends StatelessWidget {
     );
   }
 
-  Widget _buildExerciseForm(ExerciseData exerciseData) {
-    String exerciseType = exerciseData.exercise.type;
+  Widget _buildExerciseForm(ExerciseData exercise) {
+    String exerciseType = exercise.exercise.type;
 
     switch (exerciseType) {
       case Constants.lifting:
         return Provider<DetailLiftModel>(
-          create: (context) => DetailLiftModel(weightLift: exerciseData),
+          create: (context) => DetailLiftModel(weightLift: exercise),
           dispose: (context, model) => model.dispose(),
           child: DetailLift(),
         );
       case Constants.timed:
-        return DetailTimed(exerciseData);
+        return DetailTimed(exercise: exercise);
       case Constants.distance:
-        return DetailDistance(exerciseData);
+        return DetailDistance(exercise: exercise);
       default:
-        return Container();
+        return const SizedBox.shrink();
     }
   }
 
-  void _saveExerciseData(BuildContext context, ExerciseData exerciseData) {
+  void _saveExercise(BuildContext context, ExerciseData exercise) {
     DetailExerciseModel model =
         Provider.of<DetailExerciseModel>(context, listen: false);
 
-    exerciseData.notes = model.notesController.text;
+    exercise.notes = model.notesController.text;
 
     try {
-      Validator.validateExerciseData(exerciseData);
-      Navigator.pop(context, exerciseData);
+      Validator.validateExerciseData(exercise);
+      Navigator.pop(context, exercise);
     } catch (e) {
       AppError.show(context, e.message);
     }

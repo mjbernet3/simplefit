@@ -35,7 +35,7 @@ class ExercisesEditor extends StatelessWidget {
           ),
           onEdit: () => model.setEditing(!isEditing),
           listView: ListView.builder(
-            padding: EdgeInsets.all(0.0),
+            padding: const EdgeInsets.all(0.0),
             itemCount: exercises.length,
             itemBuilder: (BuildContext context, int index) {
               Exercise currentExercise = exercises[index];
@@ -77,11 +77,11 @@ class ExercisesEditor extends StatelessWidget {
   }
 
   void _removeExercise(BuildContext context, String exerciseId) async {
-    ExerciseService _exerciseService =
+    ExerciseService exerciseService =
         Provider.of<ExerciseService>(context, listen: false);
 
     try {
-      await _exerciseService.removeExercise(exerciseId);
+      await exerciseService.removeExercise(exerciseId);
     } catch (e) {
       AppError.show(context, e.message);
     }

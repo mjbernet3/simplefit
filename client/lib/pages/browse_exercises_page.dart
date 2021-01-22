@@ -11,9 +11,9 @@ import 'package:provider/provider.dart';
 class BrowseExercisesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ExerciseService _exerciseService =
+    ExerciseService exerciseService =
         Provider.of<ExerciseService>(context, listen: false);
-    BrowseExercisesModel _model =
+    BrowseExercisesModel model =
         Provider.of<BrowseExercisesModel>(context, listen: false);
 
     return Column(
@@ -21,13 +21,13 @@ class BrowseExercisesPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         StreamBuilder<List<Exercise>>(
-          stream: _exerciseService.exercises,
+          stream: exerciseService.exercises,
           builder:
               (BuildContext context, AsyncSnapshot<List<Exercise>> snapshot) {
             if (snapshot.hasData) {
-              List<Exercise> _exercises = snapshot.data;
+              List<Exercise> exercises = snapshot.data;
 
-              if (_exercises.isEmpty) {
+              if (exercises.isEmpty) {
                 return Expanded(
                   child: Stack(
                     children: [
@@ -35,25 +35,25 @@ class BrowseExercisesPage extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
-                            child: Text(
+                            child: const Text(
                               'Choose Exercises',
                               style: TextStyle(fontSize: 18.0),
                             ),
                           ),
-                          Divider(),
+                          const Divider(),
                         ],
                       ),
                       Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               'You have no exercises.',
                               style: TextStyle(
                                 color: Constants.medEmphasis,
                               ),
                             ),
-                            SizedBox(height: 10.0),
+                            const SizedBox(height: 10.0),
                             RoundedButton(
                               buttonText: 'Add Exercise',
                               height: 30.0,
@@ -72,35 +72,35 @@ class BrowseExercisesPage extends StatelessWidget {
               }
 
               return Expanded(
-                child: ExercisesEditor(exercises: _exercises),
+                child: ExercisesEditor(exercises: exercises),
               );
             }
 
-            return Container();
+            return const SizedBox.shrink();
           },
         ),
         StreamBuilder<List<Exercise>>(
-          stream: _model.chosenExercises,
+          stream: model.chosenExercises,
           builder:
               (BuildContext context, AsyncSnapshot<List<Exercise>> snapshot) {
             if (snapshot.hasData && snapshot.data.isNotEmpty) {
-              List<Exercise> _chosenExercises = snapshot.data;
+              List<Exercise> chosenExercises = snapshot.data;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Divider(),
+                  const Divider(),
                   RoundedButton(
-                    buttonText: 'Add ${_chosenExercises.length} Exercises',
+                    buttonText: 'Add ${chosenExercises.length} Exercises',
                     height: 30.0,
                     color: Constants.secondElevation,
-                    onPressed: () => Navigator.pop(context, _chosenExercises),
+                    onPressed: () => Navigator.pop(context, chosenExercises),
                   ),
                 ],
               );
             }
 
-            return Container();
+            return const SizedBox.shrink();
           },
         ),
       ],

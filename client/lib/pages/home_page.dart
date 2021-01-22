@@ -1,5 +1,6 @@
 import 'package:client/components/home/preview_listing.dart';
 import 'package:client/components/shared/app_bar_loading_indicator.dart';
+import 'package:client/components/shared/app_icon_button.dart';
 import 'package:client/services/auth_service.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/utils/app_router.dart';
@@ -17,66 +18,60 @@ enum PopupChoice {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    HomeModel _model = Provider.of<HomeModel>(context, listen: false);
+    HomeModel model = Provider.of<HomeModel>(context, listen: false);
 
     return StreamBuilder<bool>(
       initialData: false,
-      stream: _model.isEditing,
+      stream: model.isEditing,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        bool _isEditing = snapshot.data;
+        bool isEditing = snapshot.data;
 
         return PageBuilder(
           appBar: AppBar(
             backgroundColor: Constants.firstElevation,
             elevation: 4.0,
             centerTitle: false,
-            title: Text(
+            title: const Text(
               'My Workouts',
               style: TextStyle(fontSize: 20.0),
             ),
             actions: [
-              !_isEditing
+              !isEditing
                   ? PopupMenuButton<PopupChoice>(
-                      icon: Icon(Icons.more_vert),
+                      icon: const Icon(Icons.more_vert),
                       color: Constants.secondElevation,
-                      onSelected: (PopupChoice value) =>
-                          _handleChoice(value, context),
+                      onSelected: (PopupChoice choice) =>
+                          _handleChoice(choice, context),
                       itemBuilder: (BuildContext context) =>
                           <PopupMenuEntry<PopupChoice>>[
-                        PopupMenuItem<PopupChoice>(
+                        const PopupMenuItem<PopupChoice>(
                           value: PopupChoice.ADD,
                           child: Text('Add Workout'),
                         ),
-                        PopupMenuItem<PopupChoice>(
+                        const PopupMenuItem<PopupChoice>(
                           value: PopupChoice.EDIT,
                           child: Text('Edit Workout'),
                         ),
-                        PopupMenuItem<PopupChoice>(
+                        const PopupMenuItem<PopupChoice>(
                           value: PopupChoice.SIGNOUT,
                           child: Text('Sign Out'),
                         ),
                       ],
                     )
-                  : Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
-                      child: GestureDetector(
-                        onTap: () => _model.setEditing(false),
-                        child: Container(
-                          height: 24.0,
-                          width: 24.0,
-                          child: Icon(
-                            Icons.check,
-                            size: 20.0,
-                          ),
-                        ),
+                  : AppIconButton(
+                      icon: const Icon(
+                        Icons.check,
+                        size: 22.0,
                       ),
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      elevation: 0.0,
+                      onPressed: () => model.setEditing(false),
                     ),
             ],
-            bottom: AppBarLoadingIndicator(isLoading: _model.isLoading),
+            bottom: AppBarLoadingIndicator(isLoading: model.isLoading),
           ),
           body: (BuildContext context) {
-            return PreviewListing(isEditing: _isEditing);
+            return PreviewListing(isEditing: isEditing);
           },
         );
       },
@@ -89,8 +84,8 @@ class HomePage extends StatelessWidget {
         Navigator.pushNamed(context, AppRouter.manageWorkout);
         break;
       case PopupChoice.EDIT:
-        HomeModel _model = Provider.of<HomeModel>(context, listen: false);
-        _model.setEditing(true);
+        HomeModel model = Provider.of<HomeModel>(context, listen: false);
+        model.setEditing(true);
         break;
       case PopupChoice.SIGNOUT:
         AuthService authService =

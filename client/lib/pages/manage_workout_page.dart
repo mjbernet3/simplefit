@@ -12,26 +12,26 @@ import 'package:provider/provider.dart';
 class ManageWorkoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ManageWorkoutModel _model =
+    ManageWorkoutModel model =
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
     return PageBuilder(
       appBar: AppBar(
-        bottom: AppBarLoadingIndicator(isLoading: _model.isLoading),
+        bottom: AppBarLoadingIndicator(isLoading: model.isLoading),
       ),
       body: (BuildContext context) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             InputField(
-              controller: _model.nameController,
+              controller: model.nameController,
               maxLength: Constants.maxWorkoutNameLength,
               textInputAction: TextInputAction.next,
               labelText: 'Workout Name',
             ),
             SizedBox(height: 12.0),
             InputField(
-              controller: _model.notesController,
+              controller: model.notesController,
               hintText: 'Notes...',
               keyboardType: TextInputType.multiline,
               textInputAction: TextInputAction.newline,
@@ -43,7 +43,7 @@ class ManageWorkoutPage extends StatelessWidget {
             ),
             ActionButtons(
               confirmText:
-                  _model.isEditMode ? 'Update Workout' : 'Create Workout',
+                  model.isEditMode ? 'Update Workout' : 'Create Workout',
               onConfirmed: () => _saveWorkout(context),
             ),
           ],
@@ -53,11 +53,11 @@ class ManageWorkoutPage extends StatelessWidget {
   }
 
   void _saveWorkout(BuildContext context) async {
-    ManageWorkoutModel _model =
+    ManageWorkoutModel model =
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
     try {
-      await _model.saveWorkout();
+      await model.saveWorkout();
       Navigator.pop(context);
     } catch (e) {
       AppError.show(context, e.message);

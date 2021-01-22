@@ -22,10 +22,10 @@ class DetailLift extends StatelessWidget {
             children: <Widget>[
               ListView.separated(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: sets.length,
                 separatorBuilder: (BuildContext context, int index) =>
-                    SizedBox(height: 4.0),
+                    const SizedBox(height: 4.0),
                 itemBuilder: (BuildContext context, int index) {
                   LiftSet currentSet = sets[index];
 
@@ -38,7 +38,7 @@ class DetailLift extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(height: 14.0),
+              const SizedBox(height: 14.0),
               RoundedButton(
                 buttonText: 'Add Set',
                 height: 30.0,
@@ -48,7 +48,7 @@ class DetailLift extends StatelessWidget {
           );
         }
 
-        return Container();
+        return const SizedBox.shrink();
       },
     );
   }
