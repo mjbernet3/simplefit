@@ -2,6 +2,7 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:client/components/perform_workout/perform_distance.dart';
 import 'package:client/components/perform_workout/perform_lift.dart';
 import 'package:client/components/perform_workout/perform_timed.dart';
+import 'package:client/components/shared/info_tag.dart';
 import 'package:client/components/shared/notes_dropdown.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/utils/app_error.dart';
@@ -66,22 +67,7 @@ class ExerciseStateBuilder extends StatelessWidget {
                 ),
                 const SizedBox(width: 5.0),
                 currentExercise.isWarmUp
-                    ? Card(
-                        color: Constants.primaryColor,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 2.0,
-                            horizontal: 4.0,
-                          ),
-                          child: const Text(
-                            'Warm-Up',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Constants.backgroundColor,
-                            ),
-                          ),
-                        ),
-                      )
+                    ? InfoTag(infoText: 'Warm Up')
                     : const SizedBox.shrink(),
               ],
             ),

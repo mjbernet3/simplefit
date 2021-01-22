@@ -1,5 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:client/components/perform_workout/previous_card.dart';
+import 'package:client/components/shared/info_tag.dart';
 import 'package:client/components/shared/vertical_stat_adjuster.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/lift_set.dart';
@@ -57,13 +58,22 @@ class PerformLift extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Text(
-                          "Set ${model.setNumber}",
-                          style: const TextStyle(fontSize: 20.0),
-                        ),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              "Set ${model.setNumber}",
+                              style: const TextStyle(fontSize: 20.0),
+                            ),
+                          ),
+                          const SizedBox(width: 15.0),
+                          currentSet.isWarmUp
+                              ? InfoTag(infoText: 'Warm Up')
+                              : const SizedBox.shrink(),
+                        ],
                       ),
                       Visibility(
                         visible: model.hasNext(),
