@@ -1,4 +1,4 @@
-import 'package:client/components/shared/page_builder.dart';
+import 'package:client/utils/page_builder.dart';
 import 'package:flutter/material.dart';
 
 class UnknownPage extends StatelessWidget {

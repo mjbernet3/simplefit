@@ -33,7 +33,7 @@ class AuthInputField extends StatelessWidget {
       children: <Widget>[
         Text(
           labelText,
-          style: TextStyle(color: Constants.medEmphasis),
+          style: const TextStyle(color: Constants.medEmphasis),
         ),
         TextFormField(
           controller: controller,
@@ -44,8 +44,8 @@ class AuthInputField extends StatelessWidget {
           obscureText: hidden,
           maxLength: maxLength,
           cursorColor: Constants.highEmphasis,
-          style: TextStyle(fontSize: 14.0),
-          decoration: InputDecoration(
+          style: const TextStyle(fontSize: 14.0),
+          decoration: const InputDecoration(
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Constants.highEmphasis),
             ),

@@ -1,7 +1,7 @@
 import 'package:client/utils/constants.dart';
 import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/utils/app_router.dart';
-import 'package:client/components/shared/page_builder.dart';
+import 'package:client/utils/page_builder.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {

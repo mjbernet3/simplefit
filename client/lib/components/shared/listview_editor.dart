@@ -24,13 +24,13 @@ class ListViewEditor extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 title,
-                style: TextStyle(fontSize: 18.0),
+                style: const TextStyle(fontSize: 18.0),
               ),
               Row(
                 children: <Widget>[
@@ -43,21 +43,21 @@ class ListViewEditor extends StatelessWidget {
                     elevation: 0.0,
                     onPressed: onEdit,
                   ),
-                  SizedBox(height: 24.0, width: 8.0),
+                  const SizedBox(height: 24.0, width: 8.0),
                   !isEditing
                       ? AppIconButton(
-                          icon: Icon(Icons.add),
+                          icon: const Icon(Icons.add),
                           color: elevationColor,
                           elevation: 0.0,
                           onPressed: onAdd,
                         )
-                      : SizedBox.shrink(),
+                      : const SizedBox.shrink(),
                 ],
               ),
             ],
           ),
         ),
-        Divider(),
+        const Divider(),
         Expanded(
           child: listView,
         ),

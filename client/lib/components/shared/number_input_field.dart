@@ -23,19 +23,19 @@ class NumberInputField extends StatelessWidget {
         initialValue: initialValue,
         maxLength: 4,
         keyboardType: isPrecise
-            ? TextInputType.numberWithOptions(decimal: true)
+            ? const TextInputType.numberWithOptions(decimal: true)
             : TextInputType.number,
         textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,
-        style: TextStyle(fontSize: 14.0),
+        style: const TextStyle(fontSize: 14.0),
         cursorColor: Constants.highEmphasis,
         decoration: InputDecoration(
           fillColor: fillColor,
           filled: true,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: fillColor),
-            borderRadius: BorderRadius.all(
-              Radius.circular(5.0),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(4.0),
             ),
           ),
           focusedBorder: OutlineInputBorder(
@@ -43,7 +43,7 @@ class NumberInputField extends StatelessWidget {
               color: Constants.thirdElevation,
             ),
           ),
-          contentPadding: EdgeInsets.symmetric(
+          contentPadding: const EdgeInsets.symmetric(
             vertical: 8.0,
             horizontal: 8.0,
           ),

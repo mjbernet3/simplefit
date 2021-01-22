@@ -41,8 +41,8 @@ class _NotesDropdownState extends State<NotesDropdown> {
     return GestureDetector(
       onTap: () => _toggleNotes(context),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 5.0),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 5.0),
+        decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(
               color: Constants.thirdElevation,
@@ -52,7 +52,7 @@ class _NotesDropdownState extends State<NotesDropdown> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Notes',
               style: TextStyle(
                 fontSize: 16.0,

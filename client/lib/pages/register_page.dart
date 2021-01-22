@@ -1,7 +1,7 @@
 import 'package:client/components/shared/app_bar_loading_indicator.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/components/register/register_form.dart';
-import 'package:client/components/shared/page_builder.dart';
+import 'package:client/utils/page_builder.dart';
 import 'package:client/view_models/register_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

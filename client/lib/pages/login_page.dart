@@ -4,7 +4,7 @@ import 'package:client/components/login/reset_password_body.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/components/login/login_form.dart';
-import 'package:client/components/shared/page_builder.dart';
+import 'package:client/utils/page_builder.dart';
 import 'package:client/view_models/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -41,8 +41,8 @@ class PopupPage<T> extends ModalRoute<T> {
       child: Material(
         type: MaterialType.transparency,
         child: Container(
-          padding: EdgeInsets.all(15.0),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.all(15.0),
+          decoration: const BoxDecoration(
             color: Constants.firstElevation,
             borderRadius: BorderRadius.all(
               Radius.circular(10.0),

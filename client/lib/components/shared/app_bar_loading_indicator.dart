@@ -11,7 +11,7 @@ class AppBarLoadingIndicator extends StatelessWidget
     this.backgroundColor = Constants.backgroundColor,
   });
 
-  Size get preferredSize => Size.fromHeight(1.5);
+  Size get preferredSize => const Size.fromHeight(1.5);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class AppBarLoadingIndicator extends StatelessWidget
           );
         }
 
-        return Container();
+        return const SizedBox.shrink();
       },
     );
   }

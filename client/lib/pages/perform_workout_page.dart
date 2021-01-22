@@ -7,7 +7,7 @@ import 'package:client/components/shared/notes_dropdown.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/utils/constants.dart';
-import 'package:client/components/shared/page_builder.dart';
+import 'package:client/utils/page_builder.dart';
 import 'package:client/view_models/perform_lift_model.dart';
 import 'package:client/view_models/perform_workout_model.dart';
 import 'package:flutter/material.dart';

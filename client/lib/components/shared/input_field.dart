@@ -40,33 +40,33 @@ class InputField extends StatelessWidget {
         labelText != null
             ? Text(
                 labelText,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14.0,
                   color: Constants.medEmphasis,
                 ),
               )
             : SizedBox.shrink(),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         TextFormField(
           controller: controller,
           textInputAction: textInputAction,
           autofocus: autofocus,
           autocorrect: false,
           enabled: enabled,
-          style: TextStyle(fontSize: 14.0),
+          style: const TextStyle(fontSize: 14.0),
           decoration: InputDecoration(
             fillColor: color,
             filled: true,
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: color),
-              borderRadius: BorderRadius.all(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(4.0),
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: focusBorderColor),
             ),
-            contentPadding: EdgeInsets.symmetric(
+            contentPadding: const EdgeInsets.symmetric(
               vertical: 8.0,
               horizontal: 8.0,
             ),

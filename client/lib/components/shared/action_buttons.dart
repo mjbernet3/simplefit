@@ -8,7 +8,7 @@ class ActionButtons extends StatelessWidget {
   final String confirmText;
   final bool disabled;
 
-  const ActionButtons({
+  ActionButtons({
     this.onConfirmed,
     this.color = Constants.firstElevation,
     this.confirmText = 'Save Changes',
@@ -19,7 +19,7 @@ class ActionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Divider(),
+        const Divider(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[

@@ -26,7 +26,7 @@ class DropdownPopup<T> extends ModalRoute<T> {
   bool get opaque => false;
 
   @override
-  Duration get transitionDuration => Duration(milliseconds: 0);
+  Duration get transitionDuration => const Duration(milliseconds: 0);
 
   @override
   Widget buildPage(

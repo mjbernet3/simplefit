@@ -22,7 +22,7 @@ class AppDialog<T> extends ModalRoute<T> {
   bool get opaque => false;
 
   @override
-  Duration get transitionDuration => Duration(milliseconds: 150);
+  Duration get transitionDuration => const Duration(milliseconds: 150);
 
   @override
   Widget buildPage(
@@ -32,7 +32,7 @@ class AppDialog<T> extends ModalRoute<T> {
   ) {
     return Dialog(
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
         child: builder(context),
       ),
     );

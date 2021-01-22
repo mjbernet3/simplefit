@@ -8,7 +8,7 @@ import 'package:client/components/shared/input_field.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/utils/constants.dart';
-import 'package:client/components/shared/page_builder.dart';
+import 'package:client/utils/page_builder.dart';
 import 'package:client/utils/validator.dart';
 import 'package:client/view_models/detail_exercise_model.dart';
 import 'package:client/view_models/detail_lift_model.dart';

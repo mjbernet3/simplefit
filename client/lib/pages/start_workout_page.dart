@@ -3,7 +3,7 @@ import 'package:client/models/workout/workout.dart';
 import 'package:client/utils/app_router.dart';
 import 'package:client/components/shared/notes_dropdown.dart';
 import 'package:client/components/start_workout/exercise_bullet_card.dart';
-import 'package:client/components/shared/page_builder.dart';
+import 'package:client/utils/page_builder.dart';
 import 'package:flutter/material.dart';
 
 class StartWorkoutPage extends StatelessWidget {

@@ -34,7 +34,7 @@ class RemovableCard extends StatelessWidget {
                   ),
                 ),
               )
-            : SizedBox.shrink(),
+            : const SizedBox.shrink(),
         Expanded(
           flex: 10,
           child: GestureDetector(
