@@ -14,7 +14,7 @@ class ChosenExercisesBuilder extends StatelessWidget {
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
     return StreamBuilder<List<ExerciseData>>(
-      stream: _model.exerciseStream,
+      stream: _model.exercises,
       builder:
           (BuildContext context, AsyncSnapshot<List<ExerciseData>> snapshot) {
         if (snapshot.hasData) {

@@ -30,7 +30,7 @@ class ManageExerciseModel extends ViewModel {
   final StreamController<bool> _autovalidateController =
       StreamController<bool>();
 
-  Stream<Exercise> get exerciseStream => _exerciseController.stream;
+  Stream<Exercise> get exercise => _exerciseController.stream;
 
   Stream<bool> get isLoading => _loadingController.stream;
 
@@ -51,6 +51,7 @@ class ManageExerciseModel extends ViewModel {
 
   void _initExercise() {
     if (_isEditMode) {
+      // Clone exercise so changes can be compared and reverted
       _exercise = _prevExercise.clone();
     } else {
       _exercise = Exercise.initial();

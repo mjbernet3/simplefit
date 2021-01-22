@@ -6,7 +6,9 @@ import 'package:client/view_models/view_model.dart';
 class HomeModel extends ViewModel {
   WorkoutService _workoutService;
 
-  HomeModel({WorkoutService workoutService}) : _workoutService = workoutService;
+  HomeModel({WorkoutService workoutService}) {
+    _workoutService = workoutService;
+  }
 
   final StreamController<bool> _loadingController = StreamController<bool>();
 

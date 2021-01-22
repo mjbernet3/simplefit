@@ -30,7 +30,7 @@ class ManageWorkoutModel extends ViewModel {
 
   bool get isEditMode => _isEditMode;
 
-  Stream<List<ExerciseData>> get exerciseStream => _exercisesController.stream;
+  Stream<List<ExerciseData>> get exercises => _exercisesController.stream;
 
   Stream<bool> get isLoading => _loadingController.stream;
 
@@ -46,6 +46,7 @@ class ManageWorkoutModel extends ViewModel {
 
   void _initWorkout(Workout workout) {
     if (_isEditMode) {
+      // No need to clone since full workout is fetched on each edit
       _workout = workout;
     } else {
       _workout = Workout.initial();
@@ -58,16 +59,16 @@ class ManageWorkoutModel extends ViewModel {
 
   void initExercises(List<Exercise> exercises) {
     for (Exercise exercise in exercises) {
-      ExerciseData newExerciseData = ExerciseData.initial(exercise);
+      ExerciseData newExercise = ExerciseData.initial(exercise);
 
-      _workout.exercises.add(newExerciseData);
+      _workout.exercises.add(newExercise);
     }
 
     _exercisesController.sink.add(_workout.exercises);
   }
 
-  void updateExerciseAt(int index, ExerciseData newExerciseData) {
-    _workout.exercises[index] = newExerciseData;
+  void updateExerciseAt(int index, ExerciseData newExercise) {
+    _workout.exercises[index] = newExercise;
 
     _exercisesController.sink.add(_workout.exercises);
   }
@@ -95,7 +96,7 @@ class ManageWorkoutModel extends ViewModel {
       if (!_isEditMode) {
         await _workoutService.createWorkout(_workout);
       } else {
-        // Checking if update is needed beforehand is too expensive to be worth it in this case
+        // Checking if update is needed beforehand is too tedious in this case
         await _workoutService.updateWorkout(_workout);
       }
     } catch (e) {

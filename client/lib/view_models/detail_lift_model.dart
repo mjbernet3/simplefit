@@ -6,15 +6,15 @@ import 'package:client/view_models/view_model.dart';
 class DetailLiftModel extends ViewModel {
   List<LiftSet> _sets;
 
-  DetailLiftModel(WeightLift liftData) {
-    _sets = liftData.sets;
+  DetailLiftModel({WeightLift weightLift}) {
+    _sets = weightLift.sets;
     _setsController.sink.add(_sets);
   }
 
   final StreamController<List<LiftSet>> _setsController =
       StreamController<List<LiftSet>>();
 
-  Stream<List<LiftSet>> get setsStream => _setsController.stream;
+  Stream<List<LiftSet>> get sets => _setsController.stream;
 
   void addSet() {
     _sets.add(LiftSet.initial());

@@ -15,7 +15,7 @@ class PerformLift extends StatelessWidget {
         Provider.of<PerformLiftModel>(context, listen: false);
 
     return StreamBuilder<LiftSet>(
-      stream: model.setStream,
+      stream: model.set,
       builder: (BuildContext context, AsyncSnapshot<LiftSet> snapshot) {
         if (snapshot.hasData) {
           LiftSet currentSet = snapshot.data;

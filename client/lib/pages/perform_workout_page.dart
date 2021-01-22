@@ -30,7 +30,7 @@ class PerformWorkoutPage extends StatelessWidget {
       ),
       body: (BuildContext context) {
         return StreamBuilder<ExerciseData>(
-          stream: _model.exerciseStream,
+          stream: _model.exercise,
           builder:
               (BuildContext context, AsyncSnapshot<ExerciseData> snapshot) {
             if (snapshot.hasData) {
@@ -56,7 +56,7 @@ class PerformWorkoutPage extends StatelessWidget {
                                   child: Text(
                                     !_isResting
                                         ? _currentExercise.exercise.name
-                                        : "Next: " + _model.peekNext(),
+                                        : "Next: " + _model.nextExerciseName,
                                     style: TextStyle(fontSize: 24.0),
                                     maxLines: 2,
                                     overflow: TextOverflow.fade,
@@ -168,7 +168,7 @@ class PerformWorkoutPage extends StatelessWidget {
     switch (type) {
       case Constants.lifting:
         return Provider<PerformLiftModel>(
-          create: (context) => PerformLiftModel(exercise),
+          create: (context) => PerformLiftModel(weightLift: exercise),
           dispose: (context, model) => model.dispose(),
           child: PerformLift(),
         );

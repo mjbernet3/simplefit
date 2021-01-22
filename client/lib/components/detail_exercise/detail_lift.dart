@@ -12,7 +12,7 @@ class DetailLift extends StatelessWidget {
         Provider.of<DetailLiftModel>(context, listen: false);
 
     return StreamBuilder<List<LiftSet>>(
-      stream: model.setsStream,
+      stream: model.sets,
       builder: (BuildContext context, AsyncSnapshot<List<LiftSet>> snapshot) {
         if (snapshot.hasData) {
           List<LiftSet> sets = snapshot.data;

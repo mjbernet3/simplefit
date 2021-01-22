@@ -108,7 +108,7 @@ class AppRouter {
         return MaterialPageRoute<ExerciseData>(
           builder: (context) => Provider<DetailExerciseModel>(
             create: (context) => DetailExerciseModel(
-              exerciseData: routeSettings.arguments,
+              exercise: routeSettings.arguments,
             ),
             dispose: (context, model) => model.dispose(),
             child: DetailExercisePage(),

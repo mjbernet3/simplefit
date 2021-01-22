@@ -26,11 +26,14 @@ class PerformWorkoutModel extends ViewModel {
 
   final StreamController<bool> _restingController = StreamController<bool>();
 
-  Stream<ExerciseData> get exerciseStream => _exerciseController.stream;
+  Stream<ExerciseData> get exercise => _exerciseController.stream;
 
   Stream<bool> get isLoading => _loadingController.stream;
 
   Stream<bool> get isResting => _restingController.stream;
+
+  String get nextExerciseName =>
+      _workout.exercises[_currentIndex + 1].exercise.name;
 
   bool hasPrevious() {
     return (_currentIndex - 1) >= 0;
@@ -44,10 +47,6 @@ class PerformWorkoutModel extends ViewModel {
       _currentIndex--;
       _exerciseController.sink.add(_workout.exercises[_currentIndex]);
     }
-  }
-
-  String peekNext() {
-    return _workout.exercises[_currentIndex + 1].exercise.name;
   }
 
   bool hasNext() {

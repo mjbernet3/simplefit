@@ -80,7 +80,7 @@ class BrowseExercisesPage extends StatelessWidget {
           },
         ),
         StreamBuilder<List<Exercise>>(
-          stream: _model.chosenExercisesStream,
+          stream: _model.chosenExercises,
           builder:
               (BuildContext context, AsyncSnapshot<List<Exercise>> snapshot) {
             if (snapshot.hasData && snapshot.data.isNotEmpty) {

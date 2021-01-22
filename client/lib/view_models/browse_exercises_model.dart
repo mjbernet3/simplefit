@@ -11,7 +11,7 @@ class BrowseExercisesModel extends ViewModel {
 
   final StreamController<bool> _editingController = BehaviorSubject<bool>();
 
-  Stream<List<Exercise>> get chosenExercisesStream =>
+  Stream<List<Exercise>> get chosenExercises =>
       _chosenExercisesController.stream;
 
   Stream<bool> get isEditing => _editingController.stream;

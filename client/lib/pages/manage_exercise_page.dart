@@ -37,7 +37,7 @@ class ManageExercisePage extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: StreamBuilder<Exercise>(
-                      stream: _model.exerciseStream,
+                      stream: _model.exercise,
                       builder: (BuildContext context,
                           AsyncSnapshot<Exercise> snapshot) {
                         if (snapshot.hasData) {

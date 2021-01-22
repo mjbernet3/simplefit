@@ -21,7 +21,7 @@ class DetailExercisePage extends StatelessWidget {
     DetailExerciseModel model =
         Provider.of<DetailExerciseModel>(context, listen: false);
 
-    ExerciseData exerciseData = model.exerciseData;
+    ExerciseData exerciseData = model.exercise;
 
     return PageBuilder(
       appBar: AppBar(
@@ -108,7 +108,7 @@ class DetailExercisePage extends StatelessWidget {
     switch (exerciseType) {
       case Constants.lifting:
         return Provider<DetailLiftModel>(
-          create: (context) => DetailLiftModel(exerciseData),
+          create: (context) => DetailLiftModel(weightLift: exerciseData),
           dispose: (context, model) => model.dispose(),
           child: DetailLift(),
         );

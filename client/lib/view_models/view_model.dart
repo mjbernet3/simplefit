@@ -1,4 +1,4 @@
 abstract class ViewModel {
-  // Method for disposing any open streams after object destruction
+  // Method for disposing objects or closing streams
   void dispose();
 }

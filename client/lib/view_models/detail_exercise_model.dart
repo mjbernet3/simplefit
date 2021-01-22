@@ -3,16 +3,18 @@ import 'package:client/view_models/view_model.dart';
 import 'package:flutter/material.dart';
 
 class DetailExerciseModel extends ViewModel {
+  ExerciseData _exercise;
   TextEditingController _notesController;
-  ExerciseData _exerciseData;
 
-  DetailExerciseModel({ExerciseData exerciseData}) {
+  DetailExerciseModel({ExerciseData exercise}) {
     _notesController = TextEditingController();
-    _exerciseData = exerciseData.clone();
-    _notesController.text = _exerciseData.notes;
+
+    // Clone exercise data so changes can be reverted
+    _exercise = exercise.clone();
+    _notesController.text = _exercise.notes;
   }
 
-  ExerciseData get exerciseData => _exerciseData;
+  ExerciseData get exercise => _exercise;
 
   TextEditingController get notesController => _notesController;
 
