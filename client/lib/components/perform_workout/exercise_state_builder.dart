@@ -31,23 +31,35 @@ class ExerciseStateBuilder extends StatelessWidget {
         if (isResting) {
           return Column(
             children: [
-              Text(
-                "Next: " + model.nextExerciseName,
-                style: const TextStyle(fontSize: 24.0),
-                maxLines: 2,
-                overflow: TextOverflow.fade,
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 15.0,
+                    horizontal: 30.0,
+                  ),
+                  child: Text(
+                    "Next: " + model.nextExerciseName,
+                    style: const TextStyle(fontSize: 20.0),
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.fade,
+                  ),
+                ),
               ),
-              CircularCountDownTimer(
-                isReverse: true,
-                isReverseAnimation: true,
-                width: MediaQuery.of(context).size.width * 0.75,
-                height: MediaQuery.of(context).size.height,
-                duration: currentExercise.rest,
-                fillColor: Constants.primaryColor,
-                color: Constants.firstElevation,
-                strokeWidth: 15.0,
-                textStyle: const TextStyle(fontSize: 40.0),
-                onComplete: () => _next(context),
+              Expanded(
+                child: CircularCountDownTimer(
+                  isReverse: true,
+                  isReverseAnimation: true,
+                  width: MediaQuery.of(context).size.width * 0.75,
+                  height: MediaQuery.of(context).size.height,
+                  duration: currentExercise.rest,
+                  fillColor: Constants.primaryColor,
+                  color: Constants.firstElevation,
+                  strokeWidth: 15.0,
+                  textStyle: const TextStyle(fontSize: 40.0),
+                  strokeCap: StrokeCap.round,
+                  onComplete: () => _next(context),
+                ),
               ),
             ],
           );
@@ -71,6 +83,7 @@ class ExerciseStateBuilder extends StatelessWidget {
                     : const SizedBox.shrink(),
               ],
             ),
+            const SizedBox(height: 5.0),
             NotesDropdown(
               notes: currentExercise.notes,
               onComplete: (String newNotes) => currentExercise.notes = newNotes,

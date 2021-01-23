@@ -41,6 +41,7 @@ class PerformLift extends StatelessWidget {
                         color: Constants.firstElevation,
                         strokeWidth: 15.0,
                         textStyle: const TextStyle(fontSize: 40.0),
+                        strokeCap: StrokeCap.round,
                         onComplete: () => model.next(),
                       ),
                     ),
