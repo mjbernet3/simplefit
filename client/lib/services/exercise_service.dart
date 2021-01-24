@@ -9,8 +9,10 @@ class ExerciseService {
       : _exerciseCollection =
             FirebaseFirestore.instance.collection('users/$_userId/exercises');
 
-  Stream<List<Exercise>> get exercises =>
-      _exerciseCollection.snapshots().map((QuerySnapshot query) => query.docs
+  Stream<List<Exercise>> get exercises => _exerciseCollection
+      .orderBy('name')
+      .snapshots()
+      .map((QuerySnapshot query) => query.docs
           .map((DocumentSnapshot snapshot) => Exercise.fromSnapshot(snapshot))
           .toList());
 

@@ -20,7 +20,7 @@ class PerformDistance extends StatelessWidget {
             'Advance': Text(exercise.shouldAdvance ? 'Yes' : 'No'),
           },
         ),
-        const SizedBox(height: 20.0),
+        const SizedBox(height: 10.0),
         Expanded(
           child: Row(
             children: [
@@ -33,7 +33,7 @@ class PerformDistance extends StatelessWidget {
                   onChanged: (double value) => exercise.distance = value,
                 ),
               ),
-              const SizedBox(width: 20.0),
+              const SizedBox(width: 10.0),
               Expanded(
                 child: VerticalStatAdjuster(
                   stat: exercise.speed,
