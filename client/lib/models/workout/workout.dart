@@ -23,15 +23,15 @@ class Workout {
   }
 
   factory Workout.fromSnapshot(DocumentSnapshot snapshot) {
-    Map<String, dynamic> json = snapshot.data;
+    Map<String, dynamic> json = snapshot.data();
 
-    List<dynamic> exerciseList = snapshot.data['exercises'] as List;
+    List<dynamic> exerciseList = snapshot.data()['exercises'] as List;
     List<ExerciseData> exercises = exerciseList
         .map((exercise) => ExerciseData.fromJson(exercise))
         .toList();
 
     return Workout(
-      id: snapshot.documentID,
+      id: snapshot.id,
       name: json['name'],
       notes: json['notes'],
       exercises: exercises,

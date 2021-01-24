@@ -1,4 +1,4 @@
-import 'package:client/models/user/user.dart';
+import 'package:client/models/user/app_user.dart';
 import 'package:client/services/auth_service.dart';
 import 'package:client/services/exercise_service.dart';
 import 'package:client/services/profile_service.dart';
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AuthBuilder extends StatelessWidget {
-  final Widget Function(BuildContext context, AsyncSnapshot<User> snapshot)
+  final Widget Function(BuildContext context, AsyncSnapshot<AppUser> snapshot)
       builder;
 
   AuthBuilder({this.builder});
@@ -16,11 +16,11 @@ class AuthBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthService authService = Provider.of<AuthService>(context, listen: false);
 
-    return StreamBuilder<User>(
+    return StreamBuilder<AppUser>(
       stream: authService.signedInUser,
-      builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<AppUser> snapshot) {
         if (snapshot.hasData) {
-          User user = snapshot.data;
+          AppUser user = snapshot.data;
 
           return MultiProvider(
             providers: [

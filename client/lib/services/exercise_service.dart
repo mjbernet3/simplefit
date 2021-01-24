@@ -7,10 +7,10 @@ class ExerciseService {
 
   ExerciseService(_userId)
       : _exerciseCollection =
-            Firestore.instance.collection('users/$_userId/exercises');
+            FirebaseFirestore.instance.collection('users/$_userId/exercises');
 
-  Stream<List<Exercise>> get exercises => _exerciseCollection.snapshots().map(
-      (QuerySnapshot query) => query.documents
+  Stream<List<Exercise>> get exercises =>
+      _exerciseCollection.snapshots().map((QuerySnapshot query) => query.docs
           .map((DocumentSnapshot snapshot) => Exercise.fromSnapshot(snapshot))
           .toList());
 
@@ -23,12 +23,10 @@ class ExerciseService {
   Future<void> updateExercise(Exercise exercise) async {
     Validator.validateExercise(exercise);
 
-    await _exerciseCollection
-        .document(exercise.id)
-        .updateData(exercise.toJson());
+    await _exerciseCollection.doc(exercise.id).update(exercise.toJson());
   }
 
   Future<void> removeExercise(String exerciseId) async {
-    await _exerciseCollection.document(exerciseId).delete();
+    await _exerciseCollection.doc(exerciseId).delete();
   }
 }

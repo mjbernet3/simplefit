@@ -8,7 +8,7 @@ class UnknownPage extends StatelessWidget {
       body: (BuildContext context) {
         return Center(
           child: Text(
-            'You shouldn\'t be here',
+            'You should not be here...',
             style: TextStyle(fontSize: 40.0),
           ),
         );

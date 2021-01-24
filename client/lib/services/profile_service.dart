@@ -6,9 +6,9 @@ class ProfileService {
 
   ProfileService(_userId)
       : _userReference =
-            Firestore.instance.collection('users').document(_userId);
+            FirebaseFirestore.instance.collection('users').doc(_userId);
 
   Stream<UserData> get userData => _userReference
       .snapshots()
-      .map((DocumentSnapshot snapshot) => UserData.fromJson(snapshot.data));
+      .map((DocumentSnapshot snapshot) => UserData.fromJson(snapshot.data()));
 }

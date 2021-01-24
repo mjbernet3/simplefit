@@ -5,30 +5,31 @@ import 'package:client/utils/validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WorkoutService {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final CollectionReference _workoutCollection;
   final DocumentReference _userReference;
 
   WorkoutService(_userId)
       : _workoutCollection =
-            Firestore.instance.collection('users/$_userId/workouts'),
+            FirebaseFirestore.instance.collection('users/$_userId/workouts'),
         _userReference =
-            Firestore.instance.collection('users').document(_userId);
+            FirebaseFirestore.instance.collection('users').doc(_userId);
 
   Future<void> createWorkout(Workout workout) async {
     Validator.validateWorkout(workout);
 
-    DocumentReference workoutReference = _workoutCollection.document();
+    DocumentReference workoutReference = _workoutCollection.doc();
 
-    WriteBatch batch = Firestore.instance.batch();
+    WriteBatch batch = _firestore.batch();
 
-    batch.setData(workoutReference, workout.toJson());
+    batch.set(workoutReference, workout.toJson());
 
     WorkoutPreview preview = WorkoutPreview(
-      id: workoutReference.documentID,
+      id: workoutReference.id,
       name: workout.name,
     );
 
-    batch.updateData(_userReference, {
+    batch.update(_userReference, {
       'previews': FieldValue.arrayUnion([preview.toJson()])
     });
 
@@ -37,7 +38,7 @@ class WorkoutService {
 
   Future<Workout> getWorkout(String workoutId) async {
     DocumentSnapshot workoutSnapshot =
-        await _workoutCollection.document(workoutId).get();
+        await _workoutCollection.doc(workoutId).get();
 
     Workout workout = Workout.fromSnapshot(workoutSnapshot);
     return workout;
@@ -46,16 +47,15 @@ class WorkoutService {
   Future<void> updateWorkout(Workout workout) async {
     Validator.validateWorkout(workout);
 
-    DocumentReference workoutReference =
-        _workoutCollection.document(workout.id);
+    DocumentReference workoutReference = _workoutCollection.doc(workout.id);
     DocumentSnapshot userSnapshot = await _userReference.get();
 
-    UserData userData = UserData.fromJson(userSnapshot.data);
+    UserData userData = UserData.fromJson(userSnapshot.data());
     List<WorkoutPreview> previews = userData.previews;
 
-    WriteBatch batch = Firestore.instance.batch();
+    WriteBatch batch = _firestore.batch();
 
-    batch.updateData(workoutReference, workout.toJson());
+    batch.update(workoutReference, workout.toJson());
 
     int index = previews.indexWhere((preview) => preview.id == workout.id);
     String oldName = previews[index].name;
@@ -67,7 +67,7 @@ class WorkoutService {
       List<dynamic> previewList =
           previews.map((preview) => preview.toJson()).toList();
 
-      batch.updateData(_userReference, {
+      batch.update(_userReference, {
         'previews': previewList,
       });
     }
@@ -76,14 +76,13 @@ class WorkoutService {
   }
 
   Future<void> removeWorkout(WorkoutPreview preview) async {
-    DocumentReference workoutReference =
-        _workoutCollection.document(preview.id);
+    DocumentReference workoutReference = _workoutCollection.doc(preview.id);
 
-    WriteBatch batch = Firestore.instance.batch();
+    WriteBatch batch = _firestore.batch();
 
     batch.delete(workoutReference);
 
-    batch.updateData(_userReference, {
+    batch.update(_userReference, {
       'previews': FieldValue.arrayRemove([preview.toJson()])
     });
 

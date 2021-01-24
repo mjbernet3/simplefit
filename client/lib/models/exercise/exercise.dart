@@ -22,10 +22,10 @@ class Exercise {
   }
 
   factory Exercise.fromSnapshot(DocumentSnapshot snapshot) {
-    Map<String, dynamic> json = snapshot.data;
+    Map<String, dynamic> json = snapshot.data();
 
     return Exercise(
-      id: snapshot.documentID,
+      id: snapshot.id,
       name: json['name'],
       type: json['type'],
       bodyPart: json['bodyPart'],

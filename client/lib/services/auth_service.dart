@@ -1,4 +1,4 @@
-import 'package:client/models/user/user.dart';
+import 'package:client/models/user/app_user.dart';
 import 'package:client/models/user/user_data.dart';
 import 'package:client/utils/structures/auth_info.dart';
 import 'package:client/utils/validator.dart';
@@ -6,19 +6,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final CollectionReference _userCollection =
-      Firestore.instance.collection('users');
+      FirebaseFirestore.instance.collection('users');
 
-  Stream<User> get signedInUser =>
-      _auth.onAuthStateChanged.map((FirebaseUser firebaseUser) {
+  Stream<AppUser> get signedInUser =>
+      _firebaseAuth.authStateChanges().map((User firebaseUser) {
         if (firebaseUser == null) {
           return null;
         }
 
-        return User(
+        return AppUser(
           uid: firebaseUser.uid,
           email: firebaseUser.email,
+          emailVerified: firebaseUser.emailVerified,
         );
       });
 
@@ -27,7 +28,7 @@ class AuthService {
 
     await _checkForUsername(authInfo.username);
 
-    AuthResult result = await _auth.createUserWithEmailAndPassword(
+    UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(
       email: authInfo.email,
       password: authInfo.password,
     );
@@ -38,21 +39,20 @@ class AuthService {
 
     UserData userData = UserData.initial(authInfo.username);
 
-    await _userCollection.document(result.user.uid).setData(userData.toJson());
+    await _userCollection.doc(result.user.uid).set(userData.toJson());
   }
 
   Future<void> _checkForUsername(String username) async {
-    QuerySnapshot userQuery = await _userCollection
-        .where('username', isEqualTo: username)
-        .getDocuments();
+    QuerySnapshot userQuery =
+        await _userCollection.where('username', isEqualTo: username).get();
 
-    if (userQuery.documents.isNotEmpty) {
+    if (userQuery.docs.isNotEmpty) {
       throw Exception('Username is taken. Please enter a different one.');
     }
   }
 
   Future<void> signIn(AuthInfo authInfo) async {
-    AuthResult result = await _auth.signInWithEmailAndPassword(
+    UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(
       email: authInfo.email,
       password: authInfo.password,
     );
@@ -63,10 +63,10 @@ class AuthService {
   }
 
   Future<void> resetPassword(String email) async {
-    await _auth.sendPasswordResetEmail(email: email);
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
   Future<void> signOut() async {
-    await _auth.signOut();
+    await _firebaseAuth.signOut();
   }
 }

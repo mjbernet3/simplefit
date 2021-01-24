@@ -1,5 +1,6 @@
 import 'package:client/models/workout/workout_preview.dart';
 
+// Extra user data that is not part of firebase user object
 class UserData {
   final String username;
   final List<WorkoutPreview> previews;
