@@ -52,6 +52,6 @@ Contains the code for the Flutter application. This organization refers to /lib,
 - **/view_models:** Manage the state and important information of pages
 
 ### Server Organization
-Contains the server-side code for Firebase Cloud Functions. This organization refers to /functions/src, since other files are for configuration.
+Contains the code for Firebase Cloud Functions. This organization refers to /functions/src, since other files are for configuration.
 - **index.ts:** Functions to deploy and run on server
   - Once enough functions are needed they will not all be in one file
