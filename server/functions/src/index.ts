@@ -23,3 +23,33 @@ export const deleteUserProfile = functions.auth.user().onDelete(
         return null;
     }
 );
+
+export const claimUsername = functions.firestore.document('users/{userId}').onCreate(
+    async (snapshot: any, context: any) => {
+        const newProfile = snapshot.data();
+        const username = newProfile.username;
+
+        try {
+            await db.collection('usernames').doc(username).set({});
+        } catch (error) {
+            console.log(error);
+        }
+
+        return null;
+    }
+);
+
+export const releaseUsername = functions.firestore.document('users/{userId}').onDelete(
+    async (snapshot: any, context: any) => {
+        const deletedProfile = snapshot.data();
+        const username = deletedProfile.username;
+
+        try {
+            await db.collection('usernames').doc(username).delete();
+        } catch (error) {
+            console.log(error);
+        }
+
+        return null;
+    }
+);

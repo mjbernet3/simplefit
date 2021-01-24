@@ -9,6 +9,8 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
+  final CollectionReference _usernameCollection =
+      FirebaseFirestore.instance.collection('usernames');
 
   Stream<AppUser> get signedInUser =>
       _firebaseAuth.authStateChanges().map((User firebaseUser) {
@@ -43,10 +45,10 @@ class AuthService {
   }
 
   Future<void> _checkForUsername(String username) async {
-    QuerySnapshot userQuery =
-        await _userCollection.where('username', isEqualTo: username).get();
+    DocumentSnapshot usernameSnapshot =
+        await _usernameCollection.doc(username).get();
 
-    if (userQuery.docs.isNotEmpty) {
+    if (usernameSnapshot.exists) {
       throw Exception('Username is taken. Please enter a different one.');
     }
   }
