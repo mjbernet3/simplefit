@@ -26,80 +26,67 @@ class ManageExercisePage extends StatelessWidget {
           autovalidateMode: autovalidate
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
-          child: StreamBuilder<bool>(
-            initialData: false,
-            stream: model.isLoading,
-            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-              bool isLoading = snapshot.data;
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Expanded(
+                child: StreamBuilder<Exercise>(
+                  stream: model.exercise,
+                  builder:
+                      (BuildContext context, AsyncSnapshot<Exercise> snapshot) {
+                    if (snapshot.hasData) {
+                      Exercise exercise = snapshot.data;
 
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Expanded(
-                    child: StreamBuilder<Exercise>(
-                      stream: model.exercise,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<Exercise> snapshot) {
-                        if (snapshot.hasData) {
-                          Exercise exercise = snapshot.data;
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          InputField(
+                            labelText: 'Exercise Name',
+                            controller: model.nameController,
+                            maxLength: Constants.maxExerciseNameLength,
+                            color: Constants.secondElevation,
+                            onSubmitted: (_) =>
+                                FocusScope.of(context).unfocus(),
+                          ),
+                          const SizedBox(height: 20.0),
+                          AppDropdownButton(
+                            hintText: 'Select Exercise Type',
+                            items: Constants.exerciseTypes,
+                            initialValue:
+                                model.isEditMode ? exercise.type : null,
+                            onChanged: (String value) =>
+                                model.setExerciseType(value),
+                            validator: _checkExerciseType,
+                          ),
+                          const SizedBox(height: 20.0),
+                          exercise.type == Constants.lifting
+                              ? AppDropdownButton(
+                                  hintText: 'Select Body Part',
+                                  items: Constants.bodyParts,
+                                  initialValue: model.isEditMode
+                                      ? exercise.bodyPart
+                                      : null,
+                                  onChanged: (String value) =>
+                                      exercise.bodyPart = value,
+                                  validator: (String value) =>
+                                      _checkBodyPart(value, exercise.type),
+                                )
+                              : const SizedBox.shrink(),
+                        ],
+                      );
+                    }
 
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              InputField(
-                                labelText: 'Exercise Name',
-                                controller: model.nameController,
-                                maxLength: Constants.maxExerciseNameLength,
-                                color: Constants.secondElevation,
-                                enabled: !isLoading,
-                                onSubmitted: (_) =>
-                                    FocusScope.of(context).unfocus(),
-                              ),
-                              const SizedBox(height: 20.0),
-                              AppDropdownButton(
-                                hintText: 'Select Exercise Type',
-                                items: Constants.exerciseTypes,
-                                enabled: !isLoading,
-                                initialValue:
-                                    model.isEditMode ? exercise.type : null,
-                                onChanged: (String value) =>
-                                    model.setExerciseType(value),
-                                validator: _checkExerciseType,
-                              ),
-                              const SizedBox(height: 20.0),
-                              exercise.type == Constants.lifting
-                                  ? AppDropdownButton(
-                                      hintText: 'Select Body Part',
-                                      items: Constants.bodyParts,
-                                      enabled: !isLoading,
-                                      initialValue: model.isEditMode
-                                          ? exercise.bodyPart
-                                          : null,
-                                      onChanged: (String value) =>
-                                          exercise.bodyPart = value,
-                                      validator: (String value) =>
-                                          _checkBodyPart(value, exercise.type),
-                                    )
-                                  : const SizedBox.shrink(),
-                            ],
-                          );
-                        }
-
-                        return const SizedBox.shrink();
-                      },
-                    ),
-                  ),
-                  ActionButtons(
-                    confirmText: model.isEditMode
-                        ? 'Update Exercise'
-                        : 'Create Exercise',
-                    color: Constants.secondElevation,
-                    disabled: isLoading,
-                    onConfirmed: () => _saveExercise(context),
-                  ),
-                ],
-              );
-            },
+                    return const SizedBox.shrink();
+                  },
+                ),
+              ),
+              ActionButtons(
+                confirmText:
+                    model.isEditMode ? 'Update Exercise' : 'Create Exercise',
+                color: Constants.secondElevation,
+                onConfirmed: () => _saveExercise(context),
+              ),
+            ],
           ),
         );
       },
@@ -131,7 +118,7 @@ class ManageExercisePage extends StatelessWidget {
         Provider.of<ManageExerciseModel>(context, listen: false);
 
     try {
-      bool success = await model.saveExercise();
+      bool success = model.saveExercise();
 
       if (success) {
         Navigator.pop(context);

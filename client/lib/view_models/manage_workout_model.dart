@@ -24,15 +24,11 @@ class ManageWorkoutModel extends ViewModel {
   final StreamController<List<ExerciseData>> _exercisesController =
       StreamController<List<ExerciseData>>();
 
-  final StreamController<bool> _loadingController = StreamController<bool>();
-
   final StreamController<bool> _editingController = StreamController<bool>();
 
   bool get isEditMode => _isEditMode;
 
   Stream<List<ExerciseData>> get exercises => _exercisesController.stream;
-
-  Stream<bool> get isLoading => _loadingController.stream;
 
   Stream<bool> get isEditing => _editingController.stream;
 
@@ -79,7 +75,7 @@ class ManageWorkoutModel extends ViewModel {
     _exercisesController.sink.add(_workout.exercises);
   }
 
-  Future<void> saveWorkout() async {
+  void saveWorkout() {
     String name = _nameController.text;
     String notes = _notesController.text;
 
@@ -90,21 +86,16 @@ class ManageWorkoutModel extends ViewModel {
     _workout.name = name;
     _workout.notes = notes;
 
-    _loadingController.sink.add(true);
-
     try {
       if (!_isEditMode) {
-        await _workoutService.createWorkout(_workout);
+        _workoutService.createWorkout(_workout);
       } else {
         // Checking if update is needed beforehand is too tedious in this case
-        await _workoutService.updateWorkout(_workout);
+        _workoutService.updateWorkout(_workout);
       }
     } catch (e) {
-      _loadingController.sink.add(false);
       rethrow;
     }
-
-    _loadingController.sink.add(false);
   }
 
   @override
@@ -112,7 +103,6 @@ class ManageWorkoutModel extends ViewModel {
     _nameController.dispose();
     _notesController.dispose();
     _exercisesController.close();
-    _loadingController.close();
     _editingController.close();
   }
 }

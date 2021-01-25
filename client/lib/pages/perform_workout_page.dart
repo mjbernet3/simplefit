@@ -98,7 +98,7 @@ class PerformWorkoutPage extends StatelessWidget {
     }
   }
 
-  void _next(BuildContext context) async {
+  void _next(BuildContext context) {
     PerformWorkoutModel model =
         Provider.of<PerformWorkoutModel>(context, listen: false);
 
@@ -106,7 +106,7 @@ class PerformWorkoutPage extends StatelessWidget {
       model.next();
     } else {
       try {
-        await model.finishWorkout();
+        model.finishWorkout();
         Navigator.pop(context);
       } catch (e) {
         AppError.show(context, e.message);

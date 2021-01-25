@@ -1,7 +1,6 @@
 import 'package:client/components/manage_workout/chosen_exercises_builder.dart';
 import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/input_field.dart';
-import 'package:client/components/shared/app_bar_loading_indicator.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/utils/page_builder.dart';
 import 'package:client/utils/constants.dart';
@@ -16,9 +15,7 @@ class ManageWorkoutPage extends StatelessWidget {
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
     return PageBuilder(
-      appBar: AppBar(
-        bottom: AppBarLoadingIndicator(isLoading: model.isLoading),
-      ),
+      appBar: AppBar(),
       body: (BuildContext context) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -52,12 +49,12 @@ class ManageWorkoutPage extends StatelessWidget {
     );
   }
 
-  void _saveWorkout(BuildContext context) async {
+  void _saveWorkout(BuildContext context) {
     ManageWorkoutModel model =
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
     try {
-      await model.saveWorkout();
+      model.saveWorkout();
       Navigator.pop(context);
     } catch (e) {
       AppError.show(context, e.message);

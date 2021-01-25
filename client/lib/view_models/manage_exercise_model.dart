@@ -25,14 +25,10 @@ class ManageExerciseModel extends ViewModel {
   final StreamController<Exercise> _exerciseController =
       BehaviorSubject<Exercise>();
 
-  final StreamController<bool> _loadingController = BehaviorSubject<bool>();
-
   final StreamController<bool> _autovalidateController =
       StreamController<bool>();
 
   Stream<Exercise> get exercise => _exerciseController.stream;
-
-  Stream<bool> get isLoading => _loadingController.stream;
 
   Stream<bool> get autovalidate => _autovalidateController.stream;
 
@@ -61,7 +57,7 @@ class ManageExerciseModel extends ViewModel {
     _exerciseController.sink.add(_exercise);
   }
 
-  Future<bool> saveExercise() async {
+  bool saveExercise() {
     if (_formKey.currentState.validate()) {
       String name = _nameController.text;
       if (name.isEmpty) {
@@ -70,22 +66,18 @@ class ManageExerciseModel extends ViewModel {
 
       _exercise.name = name;
 
-      _loadingController.sink.add(true);
-
       try {
         if (!_isEditMode) {
-          await _exerciseService.createExercise(_exercise);
+          _exerciseService.createExercise(_exercise);
         } else {
           if (!_exercise.equals(_prevExercise)) {
-            await _exerciseService.updateExercise(_exercise);
+            _exerciseService.updateExercise(_exercise);
           }
         }
       } catch (e) {
-        _loadingController.sink.add(false);
         rethrow;
       }
 
-      _loadingController.sink.add(false);
       return true;
     } else {
       _autovalidateController.sink.add(true);
@@ -97,7 +89,6 @@ class ManageExerciseModel extends ViewModel {
   void dispose() {
     _nameController.dispose();
     _exerciseController.close();
-    _loadingController.close();
     _autovalidateController.close();
   }
 }

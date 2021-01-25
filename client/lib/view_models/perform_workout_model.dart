@@ -22,13 +22,9 @@ class PerformWorkoutModel extends ViewModel {
   final StreamController<ExerciseData> _exerciseController =
       StreamController<ExerciseData>();
 
-  final StreamController<bool> _loadingController = StreamController<bool>();
-
   final StreamController<bool> _restingController = StreamController<bool>();
 
   Stream<ExerciseData> get exercise => _exerciseController.stream;
-
-  Stream<bool> get isLoading => _loadingController.stream;
 
   Stream<bool> get isResting => _restingController.stream;
 
@@ -68,23 +64,17 @@ class PerformWorkoutModel extends ViewModel {
     }
   }
 
-  Future<void> finishWorkout() async {
-    _loadingController.sink.add(true);
-
+  void finishWorkout() {
     try {
-      await _workoutService.updateWorkout(_workout);
+      _workoutService.updateWorkout(_workout);
     } catch (e) {
-      _loadingController.sink.add(false);
       rethrow;
     }
-
-    _loadingController.sink.add(false);
   }
 
   @override
   void dispose() {
     _exerciseController.close();
-    _loadingController.close();
     _restingController.close();
   }
 }

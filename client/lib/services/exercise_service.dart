@@ -16,19 +16,19 @@ class ExerciseService {
           .map((DocumentSnapshot snapshot) => Exercise.fromSnapshot(snapshot))
           .toList());
 
-  Future<void> createExercise(Exercise exercise) async {
+  void createExercise(Exercise exercise) {
     Validator.validateExercise(exercise);
 
-    await _exerciseCollection.add(exercise.toJson());
+    _exerciseCollection.add(exercise.toJson());
   }
 
-  Future<void> updateExercise(Exercise exercise) async {
+  void updateExercise(Exercise exercise) {
     Validator.validateExercise(exercise);
 
-    await _exerciseCollection.doc(exercise.id).update(exercise.toJson());
+    _exerciseCollection.doc(exercise.id).update(exercise.toJson());
   }
 
-  Future<void> removeExercise(String exerciseId) async {
-    await _exerciseCollection.doc(exerciseId).delete();
+  void removeExercise(String exerciseId) {
+    _exerciseCollection.doc(exerciseId).delete();
   }
 }

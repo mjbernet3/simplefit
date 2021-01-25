@@ -15,7 +15,7 @@ class WorkoutService {
         _userReference =
             FirebaseFirestore.instance.collection('users').doc(_userId);
 
-  Future<void> createWorkout(Workout workout) async {
+  void createWorkout(Workout workout) {
     Validator.validateWorkout(workout);
 
     DocumentReference workoutReference = _workoutCollection.doc();
@@ -33,7 +33,7 @@ class WorkoutService {
       'previews': FieldValue.arrayUnion([preview.toJson()])
     });
 
-    await batch.commit();
+    batch.commit();
   }
 
   Future<Workout> getWorkout(String workoutId) async {
@@ -44,7 +44,7 @@ class WorkoutService {
     return workout;
   }
 
-  Future<void> updateWorkout(Workout workout) async {
+  void updateWorkout(Workout workout) async {
     Validator.validateWorkout(workout);
 
     DocumentReference workoutReference = _workoutCollection.doc(workout.id);
@@ -72,10 +72,10 @@ class WorkoutService {
       });
     }
 
-    await batch.commit();
+    batch.commit();
   }
 
-  Future<void> removeWorkout(WorkoutPreview preview) async {
+  void removeWorkout(WorkoutPreview preview) {
     DocumentReference workoutReference = _workoutCollection.doc(preview.id);
 
     WriteBatch batch = _firestore.batch();
@@ -86,6 +86,6 @@ class WorkoutService {
       'previews': FieldValue.arrayRemove([preview.toJson()])
     });
 
-    await batch.commit();
+    batch.commit();
   }
 }
