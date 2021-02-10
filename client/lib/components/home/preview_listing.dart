@@ -52,29 +52,36 @@ class PreviewListing extends StatelessWidget {
             );
           }
 
-          return ListView.builder(
-            itemCount: previews.length,
-            itemBuilder: (BuildContext context, int index) {
-              WorkoutPreview currentPreview = previews[index];
+          return isEditing
+              ? ReorderableListView(
+                  children: previews
+                      .map(
+                        (preview) => PreviewCard(
+                          key: ObjectKey(preview),
+                          isEditing: isEditing,
+                          onPressed: () => _editWorkout(context, preview),
+                          onRemovePressed: () =>
+                              _removeWorkout(context, preview),
+                          workoutPreview: preview,
+                        ),
+                      )
+                      .toList(),
+                  onReorder: (int oldIndex, int newIndex) =>
+                      _reorderPreviews(context, previews, oldIndex, newIndex),
+                )
+              : ListView.builder(
+                  itemCount: previews.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    WorkoutPreview currentPreview = previews[index];
 
-              return PreviewCard(
-                key: ObjectKey(currentPreview),
-                isEditing: isEditing,
-                onPressed: () => {
-                  if (!isEditing)
-                    {
-                      _startWorkout(context, currentPreview),
-                    }
-                  else
-                    {
-                      _editWorkout(context, currentPreview),
-                    }
-                },
-                onRemovePressed: () => _removeWorkout(context, currentPreview),
-                workoutPreview: currentPreview,
-              );
-            },
-          );
+                    return PreviewCard(
+                      key: ObjectKey(currentPreview),
+                      isEditing: isEditing,
+                      onPressed: () => _startWorkout(context, currentPreview),
+                      workoutPreview: currentPreview,
+                    );
+                  },
+                );
         }
 
         return const SizedBox.shrink();
@@ -114,12 +121,31 @@ class PreviewListing extends StatelessWidget {
     }
   }
 
+  void _reorderPreviews(BuildContext context, List<WorkoutPreview> previews,
+      int oldIndex, int newIndex) {
+    ProfileService profileService =
+        Provider.of<ProfileService>(context, listen: false);
+
+    if (oldIndex < newIndex) {
+      newIndex--;
+    }
+
+    WorkoutPreview preview = previews.removeAt(oldIndex);
+    previews.insert(newIndex, preview);
+
+    try {
+      profileService.reorderPreviews(previews);
+    } catch (e) {
+      AppError.show(context, e.message);
+    }
+  }
+
   void _removeWorkout(BuildContext context, WorkoutPreview preview) async {
     WorkoutService workoutService =
         Provider.of<WorkoutService>(context, listen: false);
 
     try {
-      await workoutService.removeWorkout(preview);
+      workoutService.removeWorkout(preview);
     } catch (e) {
       AppError.show(context, e.message);
     }

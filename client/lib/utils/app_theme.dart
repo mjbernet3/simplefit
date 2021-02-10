@@ -8,6 +8,7 @@ class AppTheme {
 
   ThemeData get darkTheme => ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Constants.backgroundColor,
+        canvasColor: Constants.backgroundColor,
         appBarTheme: AppBarTheme(
           color: Constants.backgroundColor,
           elevation: 0.0,
