@@ -33,7 +33,7 @@ class WorkoutService {
       'previews': FieldValue.arrayUnion([preview.toJson()])
     });
 
-    batch.commit();
+    batch.commit().catchError((e) => {});
   }
 
   Future<Workout> getWorkout(String workoutId) async {
@@ -72,7 +72,7 @@ class WorkoutService {
       });
     }
 
-    batch.commit();
+    batch.commit().catchError((e) => {});
   }
 
   void removeWorkout(WorkoutPreview preview) {
@@ -86,6 +86,6 @@ class WorkoutService {
       'previews': FieldValue.arrayRemove([preview.toJson()])
     });
 
-    batch.commit();
+    batch.commit().catchError((e) => {});
   }
 }

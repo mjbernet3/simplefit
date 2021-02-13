@@ -19,6 +19,6 @@ class ProfileService {
 
     _userReference.update({
       'previews': previewList,
-    });
+    }).catchError((e) => {});
   }
 }

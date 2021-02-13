@@ -19,16 +19,19 @@ class ExerciseService {
   void createExercise(Exercise exercise) {
     Validator.validateExercise(exercise);
 
-    _exerciseCollection.add(exercise.toJson());
+    _exerciseCollection.add(exercise.toJson()).catchError((e) => {});
   }
 
   void updateExercise(Exercise exercise) {
     Validator.validateExercise(exercise);
 
-    _exerciseCollection.doc(exercise.id).update(exercise.toJson());
+    _exerciseCollection
+        .doc(exercise.id)
+        .update(exercise.toJson())
+        .catchError((e) => {});
   }
 
   void removeExercise(String exerciseId) {
-    _exerciseCollection.doc(exerciseId).delete();
+    _exerciseCollection.doc(exerciseId).delete().catchError((e) => {});
   }
 }

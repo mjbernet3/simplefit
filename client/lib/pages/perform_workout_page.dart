@@ -31,53 +31,56 @@ class PerformWorkoutPage extends StatelessWidget {
             if (snapshot.hasData) {
               ExerciseData currentExercise = snapshot.data;
 
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: ExerciseStateBuilder(
-                      currentExercise: currentExercise,
-                    ),
-                  ),
-                  const Divider(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Row(
+              return StreamBuilder<bool>(
+                  initialData: false,
+                  stream: model.isResting,
+                  builder:
+                      (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                    bool isResting = snapshot.data;
+
+                    return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Visibility(
-                          visible: model.hasPrevious(),
-                          maintainSize: true,
-                          maintainState: true,
-                          maintainAnimation: true,
-                          child: AppIconButton(
-                            icon: const Icon(Icons.arrow_back_rounded),
-                            padding: const EdgeInsets.all(15.0),
-                            color: Constants.firstElevation,
-                            shape: const CircleBorder(),
-                            onPressed: () => _previous(context),
+                        Expanded(
+                          child: ExerciseStateBuilder(
+                            exercise: currentExercise,
+                            isResting: isResting,
                           ),
                         ),
-                        AppIconButton(
-                          icon: model.hasNext()
-                              ? const Icon(Icons.arrow_forward_rounded)
-                              : const Icon(
-                                  Icons.flag_rounded,
-                                  color: Constants.backgroundColor,
-                                ),
-                          color: model.hasNext()
-                              ? Constants.firstElevation
-                              : Constants.primaryColor,
-                          padding: const EdgeInsets.all(15.0),
-                          shape: const CircleBorder(),
-                          onPressed: () => _next(context),
+                        const Divider(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppIconButton(
+                                icon: const Icon(Icons.arrow_back_rounded),
+                                padding: const EdgeInsets.all(15.0),
+                                color: Constants.firstElevation,
+                                shape: const CircleBorder(),
+                                onPressed: () => _previous(context),
+                              ),
+                              AppIconButton(
+                                icon: model.hasNext()
+                                    ? const Icon(Icons.arrow_forward_rounded)
+                                    : const Icon(
+                                        Icons.flag_rounded,
+                                        color: Constants.backgroundColor,
+                                      ),
+                                color: model.hasNext()
+                                    ? Constants.firstElevation
+                                    : Constants.primaryColor,
+                                padding: const EdgeInsets.all(15.0),
+                                shape: const CircleBorder(),
+                                onPressed: () => _next(context),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
-                    ),
-                  ),
-                ],
-              );
+                    );
+                  });
             }
 
             return const SizedBox.shrink();

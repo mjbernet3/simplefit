@@ -76,12 +76,12 @@ class ExercisesEditor extends StatelessWidget {
     );
   }
 
-  void _removeExercise(BuildContext context, String exerciseId) async {
+  void _removeExercise(BuildContext context, String exerciseId) {
     ExerciseService exerciseService =
         Provider.of<ExerciseService>(context, listen: false);
 
     try {
-      await exerciseService.removeExercise(exerciseId);
+      exerciseService.removeExercise(exerciseId);
     } catch (e) {
       AppError.show(context, e.message);
     }

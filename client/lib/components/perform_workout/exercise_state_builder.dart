@@ -7,96 +7,91 @@ import 'package:client/components/shared/notes_dropdown.dart';
 import 'package:client/models/exercise/exercise_data.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/utils/constants.dart';
-import 'package:client/view_models/perform_lift_model.dart';
 import 'package:client/view_models/perform_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ExerciseStateBuilder extends StatelessWidget {
-  final ExerciseData currentExercise;
+  final ExerciseData exercise;
+  final bool isResting;
 
-  ExerciseStateBuilder({this.currentExercise});
+  ExerciseStateBuilder({
+    this.exercise,
+    this.isResting,
+  });
 
   @override
   Widget build(BuildContext context) {
     PerformWorkoutModel model =
         Provider.of<PerformWorkoutModel>(context, listen: false);
 
-    return StreamBuilder<bool>(
-      initialData: false,
-      stream: model.isResting,
-      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        bool isResting = snapshot.data;
-
-        if (isResting) {
-          return Column(
-            children: [
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 30.0,
-                  ),
-                  child: Text(
-                    "Next: " + model.nextExerciseName,
-                    style: const TextStyle(fontSize: 20.0),
-                    maxLines: 1,
-                    softWrap: false,
-                    overflow: TextOverflow.fade,
-                  ),
-                ),
+    if (isResting) {
+      return Column(
+        children: [
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 15.0,
+                horizontal: 30.0,
               ),
-              Expanded(
-                child: CircularCountDownTimer(
-                  isReverse: true,
-                  isReverseAnimation: true,
-                  width: MediaQuery.of(context).size.width * 0.75,
-                  height: MediaQuery.of(context).size.height,
-                  duration: currentExercise.rest,
-                  fillColor: Constants.primaryColor,
-                  color: Constants.firstElevation,
-                  strokeWidth: 15.0,
-                  textStyle: const TextStyle(fontSize: 40.0),
-                  strokeCap: StrokeCap.round,
-                  onComplete: () => _next(context),
-                ),
+              child: Text(
+                model.getRestTitle(),
+                style: const TextStyle(fontSize: 20.0),
+                maxLines: 1,
+                softWrap: false,
+                overflow: TextOverflow.fade,
               ),
-            ],
-          );
-        }
+            ),
+          ),
+          Expanded(
+            child: CircularCountDownTimer(
+              isReverse: true,
+              isReverseAnimation: true,
+              width: MediaQuery.of(context).size.width * 0.75,
+              height: MediaQuery.of(context).size.height,
+              duration: model.getRest(),
+              fillColor: Constants.primaryColor,
+              color: Constants.firstElevation,
+              strokeWidth: 15.0,
+              textStyle: const TextStyle(fontSize: 40.0),
+              strokeCap: StrokeCap.round,
+              onComplete: () => _next(context),
+            ),
+          ),
+        ],
+      );
+    }
 
-        return Column(
+    return Column(
+      children: [
+        Row(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    currentExercise.exercise.name,
-                    style: const TextStyle(fontSize: 24.0),
-                    maxLines: 2,
-                    overflow: TextOverflow.fade,
-                  ),
-                ),
-                const SizedBox(width: 5.0),
-                currentExercise.isWarmUp
-                    ? InfoTag(infoText: 'Warm Up')
-                    : const SizedBox.shrink(),
-              ],
-            ),
-            const SizedBox(height: 5.0),
-            NotesDropdown(
-              notes: currentExercise.notes,
-              onComplete: (String newNotes) => currentExercise.notes = newNotes,
-            ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: _buildExercise(context, currentExercise),
+              child: Text(
+                exercise.exercise.name,
+                style: const TextStyle(fontSize: 24.0),
+                maxLines: 2,
+                overflow: TextOverflow.fade,
               ),
             ),
+            const SizedBox(width: 5.0),
+            exercise.isWarmUp
+                ? InfoTag(infoText: 'Warm Up')
+                : const SizedBox.shrink(),
           ],
-        );
-      },
+        ),
+        const SizedBox(height: 5.0),
+        NotesDropdown(
+          notes: exercise.notes,
+          onComplete: (String newNotes) => exercise.notes = newNotes,
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: _buildExercise(context, exercise),
+          ),
+        ),
+      ],
     );
   }
 
@@ -105,11 +100,7 @@ class ExerciseStateBuilder extends StatelessWidget {
 
     switch (exerciseType) {
       case Constants.lifting:
-        return Provider<PerformLiftModel>(
-          create: (context) => PerformLiftModel(weightLift: exercise),
-          dispose: (context, model) => model.dispose(),
-          child: PerformLift(),
-        );
+        return PerformLift(exercise: exercise);
       case Constants.distance:
         return PerformDistance(exercise: exercise);
       case Constants.timed:
@@ -122,7 +113,7 @@ class ExerciseStateBuilder extends StatelessWidget {
     }
   }
 
-  void _next(BuildContext context) async {
+  void _next(BuildContext context) {
     PerformWorkoutModel model =
         Provider.of<PerformWorkoutModel>(context, listen: false);
 
@@ -130,7 +121,7 @@ class ExerciseStateBuilder extends StatelessWidget {
       model.next();
     } else {
       try {
-        await model.finishWorkout();
+        model.finishWorkout();
         Navigator.pop(context);
       } catch (e) {
         AppError.show(context, e.message);

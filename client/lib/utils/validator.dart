@@ -121,26 +121,32 @@ class Validator {
     }
   }
 
-  static void validateExerciseData(ExerciseData exerciseData) {
-    if (exerciseData.rest < 0) {
+  static void validateExerciseData(ExerciseData exercise) {
+    if (exercise.rest < 0) {
       throw FormatException(NEGATIVE_EXERCISE_STAT);
-    } else if (exerciseData.rest > Constants.maxExerciseRest) {
+    } else if (exercise.rest > Constants.maxExerciseRest) {
       throw FormatException(TOO_MUCH_REST);
     }
 
-    if (exerciseData is WeightLift) {
-      validateWeightLift(exerciseData);
-    } else if (exerciseData is DistanceCardio) {
-      validateDistanceCardio(exerciseData);
-    } else if (exerciseData is TimedCardio) {
-      validateTimedCardio(exerciseData);
-    } else {
-      throw FormatException(INVALID_EXERCISE);
+    String exerciseType = exercise.exercise.type;
+
+    switch (exerciseType) {
+      case Constants.lifting:
+        validateWeightLift(exercise);
+        break;
+      case Constants.distance:
+        validateDistanceCardio(exercise);
+        break;
+      case Constants.timed:
+        validateTimedCardio(exercise);
+        break;
+      default:
+        throw FormatException(INVALID_EXERCISE);
     }
   }
 
-  static void validateWeightLift(WeightLift liftData) {
-    List<LiftSet> sets = liftData.sets;
+  static void validateWeightLift(WeightLift exercise) {
+    List<LiftSet> sets = exercise.sets;
 
     if (sets.length <= 0) {
       throw FormatException(NO_EXERCISE_SETS);
@@ -167,22 +173,22 @@ class Validator {
     }
   }
 
-  static void validateDistanceCardio(DistanceCardio distanceData) {
-    if (distanceData.distance < 0 || distanceData.speed < 0) {
+  static void validateDistanceCardio(DistanceCardio exercise) {
+    if (exercise.distance < 0 || exercise.speed < 0) {
       throw FormatException(NEGATIVE_EXERCISE_STAT);
-    } else if (distanceData.distance > Constants.maxExerciseDistance) {
+    } else if (exercise.distance > Constants.maxExerciseDistance) {
       throw FormatException(TOO_MUCH_DISTANCE);
-    } else if (distanceData.speed > Constants.maxExerciseSpeed) {
+    } else if (exercise.speed > Constants.maxExerciseSpeed) {
       throw FormatException(TOO_MUCH_SPEED);
     }
   }
 
-  static void validateTimedCardio(TimedCardio timedData) {
-    if (timedData.time < 0 || timedData.speed < 0) {
+  static void validateTimedCardio(TimedCardio exercise) {
+    if (exercise.time < 0 || exercise.speed < 0) {
       throw FormatException(NEGATIVE_EXERCISE_STAT);
-    } else if (timedData.time > Constants.maxExerciseTime) {
+    } else if (exercise.time > Constants.maxExerciseTime) {
       throw FormatException(TOO_MUCH_TIME);
-    } else if (timedData.speed > Constants.maxExerciseSpeed) {
+    } else if (exercise.speed > Constants.maxExerciseSpeed) {
       throw FormatException(TOO_MUCH_SPEED);
     }
   }
