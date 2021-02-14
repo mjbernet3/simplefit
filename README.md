@@ -30,6 +30,7 @@ SimpleFit is an iOS and Android mobile fitness application that allows users to 
 ### Physical Device
 1. Connect iOS or Android device to computer.
 2. Run `flutter run --release`.
+    - Note that this requires the connected device to be configured for development.
 
 ## Codebase Overview
 
