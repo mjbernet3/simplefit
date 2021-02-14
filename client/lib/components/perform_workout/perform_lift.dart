@@ -1,11 +1,10 @@
-import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:client/components/perform_workout/previous_card.dart';
 import 'package:client/components/shared/info_tag.dart';
 import 'package:client/components/shared/vertical_stat_adjuster.dart';
-import 'package:client/components/shared/rounded_button.dart';
 import 'package:client/models/exercise/lift_set.dart';
 import 'package:client/models/exercise/weight_lift.dart';
 import 'package:client/utils/constants.dart';
+import 'package:client/utils/formatter.dart';
 import 'package:client/view_models/perform_workout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +54,8 @@ class PerformLift extends StatelessWidget {
                         'Weight': Text(currentSet.weight.toString()),
                         'Reps': Text(
                             '${currentSet.reps} / ${currentSet.targetReps}'),
-                        'Advance': Text(exercise.shouldAdvance ? 'Yes' : 'No'),
+                        'Rest': Text(
+                            Formatter.secondsToMinuteString(currentSet.rest)),
                       },
                     ),
                     const SizedBox(height: 10.0),

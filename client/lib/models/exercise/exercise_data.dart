@@ -9,14 +9,12 @@ abstract class ExerciseData {
   String notes;
   int rest;
   bool isWarmUp;
-  bool shouldAdvance;
 
   ExerciseData(
     this.exercise,
     this.notes,
     this.rest,
     this.isWarmUp,
-    this.shouldAdvance,
   );
 
   factory ExerciseData.initial(Exercise exercise) {

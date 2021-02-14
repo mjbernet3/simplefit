@@ -52,7 +52,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
                   : MainAxisAlignment.center,
               children: [
                 Text(
-                  Formatter.secondsToTime(_currentTime),
+                  Formatter.secondsToHourString(_currentTime),
                   style: const TextStyle(fontSize: 56.0),
                 ),
                 const SizedBox(width: 5.0),

@@ -10,16 +10,14 @@ class WeightLift extends ExerciseData {
     String notes,
     int rest, // Rest is always 0 since sets have rest
     bool isWarmUp,
-    bool shouldAdvance,
     this.sets,
-  }) : super(exercise, notes, 0, isWarmUp, shouldAdvance);
+  }) : super(exercise, notes, 0, isWarmUp);
 
   factory WeightLift.initial(Exercise exercise) {
     return WeightLift(
       exercise: exercise,
       notes: '',
       isWarmUp: false,
-      shouldAdvance: false,
       sets: [LiftSet.initial()],
     );
   }
@@ -34,7 +32,6 @@ class WeightLift extends ExerciseData {
       exercise: exercise,
       notes: json['notes'],
       isWarmUp: json['isWarmUp'],
-      shouldAdvance: json['shouldAdvance'],
       sets: sets,
     );
   }
@@ -46,7 +43,6 @@ class WeightLift extends ExerciseData {
       'exercise': exercise.toJson(),
       'notes': notes,
       'isWarmUp': isWarmUp,
-      'shouldAdvance': shouldAdvance,
       'sets': setList,
     };
   }
@@ -58,7 +54,6 @@ class WeightLift extends ExerciseData {
       exercise: exercise,
       notes: notes,
       isWarmUp: isWarmUp,
-      shouldAdvance: shouldAdvance,
       sets: clonedSets,
     );
   }

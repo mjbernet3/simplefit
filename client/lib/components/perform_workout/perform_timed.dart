@@ -21,9 +21,9 @@ class PerformTimed extends StatelessWidget {
       children: [
         PreviousCard(
           stats: {
-            'Time': Text(Formatter.secondsToTime(exercise.time)),
+            'Time': Text(Formatter.secondsToHourString(exercise.time)),
             'Speed': Text(exercise.speed.toStringAsFixed(1)),
-            'Advance': Text(exercise.shouldAdvance ? 'Yes' : 'No'),
+            'Rest': Text(Formatter.secondsToMinuteString(exercise.rest)),
           },
         ),
         const SizedBox(height: 10.0),

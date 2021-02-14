@@ -10,10 +10,9 @@ class TimedCardio extends ExerciseData {
     String notes,
     int rest,
     bool isWarmUp,
-    bool shouldAdvance,
     this.time,
     this.speed,
-  }) : super(exercise, notes, rest, isWarmUp, shouldAdvance);
+  }) : super(exercise, notes, rest, isWarmUp);
 
   factory TimedCardio.initial(Exercise exercise) {
     return TimedCardio(
@@ -21,7 +20,6 @@ class TimedCardio extends ExerciseData {
       notes: '',
       rest: 0,
       isWarmUp: false,
-      shouldAdvance: false,
       time: 0,
       speed: 0.0,
     );
@@ -35,7 +33,6 @@ class TimedCardio extends ExerciseData {
       notes: json['notes'],
       rest: json['rest'],
       isWarmUp: json['isWarmUp'],
-      shouldAdvance: json['shouldAdvance'],
       time: json['time'],
       speed: json['speed'],
     );
@@ -47,7 +44,6 @@ class TimedCardio extends ExerciseData {
       'notes': notes,
       'rest': rest,
       'isWarmUp': isWarmUp,
-      'shouldAdvance': shouldAdvance,
       'time': time,
       'speed': double.parse(speed.toStringAsFixed(1)),
     };
@@ -59,7 +55,6 @@ class TimedCardio extends ExerciseData {
       notes: notes,
       rest: rest,
       isWarmUp: isWarmUp,
-      shouldAdvance: shouldAdvance,
       time: time,
       speed: speed,
     );
