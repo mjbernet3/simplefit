@@ -25,14 +25,17 @@ class _AppCheckboxState extends State<AppCheckbox> {
 
   @override
   Widget build(BuildContext context) {
-    return Checkbox(
-      activeColor: Constants.primaryColor,
-      checkColor: Constants.backgroundColor,
-      value: _currentValue,
-      onChanged: (bool value) => {
-        setState(() => _currentValue = value),
-        widget.onChanged(_currentValue),
-      },
+    return Transform.scale(
+      scale: 1.2,
+      child: Checkbox(
+        activeColor: Constants.primaryColor,
+        checkColor: Constants.backgroundColor,
+        value: _currentValue,
+        onChanged: (bool value) => {
+          setState(() => _currentValue = value),
+          widget.onChanged(_currentValue),
+        },
+      ),
     );
   }
 }

@@ -26,7 +26,7 @@ class DetailExercisePage extends StatelessWidget {
     return PageBuilder(
       appBar: AppBar(
         leading: AppIconButton(
-          icon: Icon(Icons.close),
+          icon: const Icon(Icons.close),
           color: Constants.backgroundColor,
           elevation: 0.0,
           onPressed: () => Navigator.pop(context),
@@ -37,20 +37,20 @@ class DetailExercisePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Column(
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       exercise.exercise.name,
-                      style: TextStyle(fontSize: 26.0),
+                      style: const TextStyle(fontSize: 26.0),
                       maxLines: 1,
                       softWrap: false,
                       overflow: TextOverflow.fade,
                     ),
                   ),
-                  SizedBox(height: 14.0),
+                  const SizedBox(height: 14.0),
                   InputField(
                     controller: model.notesController,
                     hintText: 'Notes...',
@@ -58,17 +58,17 @@ class DetailExercisePage extends StatelessWidget {
                     textInputAction: TextInputAction.newline,
                     numLines: 5,
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   Row(
                     children: <Widget>[
-                      Text(
+                      const Text(
                         'Warm-up Exercise',
                         style: TextStyle(
                           color: Constants.medEmphasis,
                           fontSize: 14.0,
                         ),
                       ),
-                      SizedBox(width: 10.0),
+                      const SizedBox(width: 15.0),
                       SizedBox(
                         height: 15.0,
                         width: 15.0,
@@ -82,8 +82,8 @@ class DetailExercisePage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 14.0),
-            Divider(),
+            const SizedBox(height: 14.0),
+            const Divider(),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
