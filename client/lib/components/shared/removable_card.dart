@@ -30,7 +30,6 @@ class RemovableCard extends StatelessWidget {
                   child: const Icon(
                     Icons.remove_circle,
                     color: Constants.dangerColor,
-                    size: 28.0,
                   ),
                 ),
               )
@@ -40,7 +39,7 @@ class RemovableCard extends StatelessWidget {
           child: GestureDetector(
             onTap: onPressed,
             child: Card(
-              margin: const EdgeInsets.all(4.0),
+              margin: const EdgeInsets.all(5.0),
               color: color,
               shape: RoundedRectangleBorder(
                 side: BorderSide(color: borderColor),

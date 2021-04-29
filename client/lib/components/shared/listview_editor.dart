@@ -35,10 +35,12 @@ class ListViewEditor extends StatelessWidget {
               Row(
                 children: <Widget>[
                   AppIconButton(
-                    icon: Icon(
-                      isEditing ? Icons.check : Icons.edit,
-                      size: 20.0,
-                    ),
+                    icon: !isEditing
+                        ? const Icon(
+                            Icons.edit,
+                            size: 24.0,
+                          )
+                        : const Icon(Icons.check),
                     color: elevationColor,
                     elevation: 0.0,
                     onPressed: onEdit,

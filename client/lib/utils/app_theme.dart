@@ -17,6 +17,7 @@ class AppTheme {
                 displayColor: Constants.highEmphasis,
               ),
           iconTheme: IconThemeData(
+            size: 28.0,
             color: Constants.primaryColor,
           ),
         ),
@@ -29,6 +30,7 @@ class AppTheme {
               displayColor: Constants.highEmphasis,
             ),
         iconTheme: IconThemeData(
+          size: 28.0,
           color: Constants.primaryColor,
         ),
         cursorColor: Constants.highEmphasis,

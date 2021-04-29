@@ -38,7 +38,10 @@ class HomePage extends StatelessWidget {
             actions: [
               !isEditing
                   ? PopupMenuButton<PopupChoice>(
-                      icon: const Icon(Icons.more_vert),
+                      icon: Icon(
+                        Icons.more_vert,
+                        size: Theme.of(context).iconTheme.size,
+                      ),
                       color: Constants.secondElevation,
                       onSelected: (PopupChoice choice) =>
                           _handleChoice(choice, context),
@@ -61,7 +64,6 @@ class HomePage extends StatelessWidget {
                   : AppIconButton(
                       icon: const Icon(
                         Icons.check,
-                        size: 22.0,
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       elevation: 0.0,
