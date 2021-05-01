@@ -16,94 +16,97 @@ class BrowseExercisesPage extends StatelessWidget {
     BrowseExercisesModel model =
         Provider.of<BrowseExercisesModel>(context, listen: false);
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        StreamBuilder<List<Exercise>>(
-          stream: exerciseService.exercises,
-          builder:
-              (BuildContext context, AsyncSnapshot<List<Exercise>> snapshot) {
-            if (snapshot.hasData) {
-              List<Exercise> exercises = snapshot.data;
+    return StreamBuilder(
+      initialData: <Exercise>[],
+      stream: model.chosenExercises,
+      builder: (BuildContext context, AsyncSnapshot<List<Exercise>> snapshot) {
+        List<Exercise> chosenExercises = snapshot.data;
 
-              if (exercises.isEmpty) {
-                return Expanded(
-                  child: Stack(
-                    children: [
-                      Column(
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            StreamBuilder<List<Exercise>>(
+              stream: exerciseService.exercises,
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<Exercise>> snapshot) {
+                if (snapshot.hasData) {
+                  List<Exercise> exercises = snapshot.data;
+
+                  if (exercises.isEmpty) {
+                    return Expanded(
+                      child: Stack(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0),
-                            child: const Text(
-                              'Choose Exercises',
-                              style: TextStyle(fontSize: 18.0),
+                          Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: const Text(
+                                  'Choose Exercises',
+                                  style: TextStyle(fontSize: 18.0),
+                                ),
+                              ),
+                              const Divider(),
+                            ],
+                          ),
+                          Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                const Text(
+                                  'You have no exercises.',
+                                  style: TextStyle(
+                                    color: Constants.medEmphasis,
+                                  ),
+                                ),
+                                const SizedBox(height: 10.0),
+                                RoundedButton(
+                                  buttonText: 'Add Exercise',
+                                  height: 30.0,
+                                  color: Constants.secondElevation,
+                                  onPressed: () => Navigator.pushNamed(
+                                    context,
+                                    AppRouter.manageExercise,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          const Divider(),
                         ],
                       ),
-                      Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Text(
-                              'You have no exercises.',
-                              style: TextStyle(
-                                color: Constants.medEmphasis,
-                              ),
-                            ),
-                            const SizedBox(height: 10.0),
-                            RoundedButton(
-                              buttonText: 'Add Exercise',
-                              height: 30.0,
-                              color: Constants.secondElevation,
-                              onPressed: () => Navigator.pushNamed(
-                                context,
-                                AppRouter.manageExercise,
-                              ),
-                            ),
-                          ],
-                        ),
+                    );
+                  }
+
+                  return Expanded(
+                    child: ExercisesEditor(
+                      exercises: exercises,
+                      chosenExercises: chosenExercises,
+                    ),
+                  );
+                }
+
+                return const SizedBox.shrink();
+              },
+            ),
+            chosenExercises.isNotEmpty
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      const Divider(),
+                      RoundedButton(
+                        buttonText: 'Add ${chosenExercises.length} Exercises',
+                        height: 30.0,
+                        color: Constants.secondElevation,
+                        onPressed: () =>
+                            Navigator.pop(context, chosenExercises),
                       ),
                     ],
-                  ),
-                );
-              }
-
-              return Expanded(
-                child: ExercisesEditor(exercises: exercises),
-              );
-            }
-
-            return const SizedBox.shrink();
-          },
-        ),
-        StreamBuilder<List<Exercise>>(
-          stream: model.chosenExercises,
-          builder:
-              (BuildContext context, AsyncSnapshot<List<Exercise>> snapshot) {
-            if (snapshot.hasData && snapshot.data.isNotEmpty) {
-              List<Exercise> chosenExercises = snapshot.data;
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  const Divider(),
-                  RoundedButton(
-                    buttonText: 'Add ${chosenExercises.length} Exercises',
-                    height: 30.0,
-                    color: Constants.secondElevation,
-                    onPressed: () => Navigator.pop(context, chosenExercises),
-                  ),
-                ],
-              );
-            }
-
-            return const SizedBox.shrink();
-          },
-        ),
-      ],
+                  )
+                : const SizedBox.shrink(),
+          ],
+        );
+      },
     );
   }
 }

@@ -27,7 +27,8 @@ class BrowseExercisesModel extends ViewModel {
   }
 
   void removeExercise(Exercise exercise) {
-    _chosenExercises.remove(exercise);
+    _chosenExercises
+        .removeWhere((chosenExercise) => exercise.equals(chosenExercise));
 
     _chosenExercisesController.sink.add(_chosenExercises);
   }

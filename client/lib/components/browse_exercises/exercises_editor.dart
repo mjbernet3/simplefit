@@ -11,8 +11,12 @@ import 'package:provider/provider.dart';
 
 class ExercisesEditor extends StatelessWidget {
   final List<Exercise> exercises;
+  final List<Exercise> chosenExercises;
 
-  ExercisesEditor({this.exercises});
+  ExercisesEditor({
+    this.exercises,
+    this.chosenExercises,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,7 @@ class ExercisesEditor extends StatelessWidget {
     return StreamBuilder<bool>(
       initialData: false,
       stream: model.isEditing,
-      builder: (context, snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         bool isEditing = snapshot.data;
 
         return ListViewEditor(
@@ -68,6 +72,10 @@ class ExercisesEditor extends StatelessWidget {
                   _removeExercise(context, currentExercise.id),
                 },
                 isEditing: isEditing,
+                isSelected: chosenExercises.firstWhere(
+                        (exercise) => currentExercise.equals(exercise),
+                        orElse: () => null) !=
+                    null,
               );
             },
           ),

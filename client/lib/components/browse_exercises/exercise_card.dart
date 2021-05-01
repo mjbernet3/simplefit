@@ -3,42 +3,31 @@ import 'package:client/utils/constants.dart';
 import 'package:client/models/exercise/exercise.dart';
 import 'package:flutter/material.dart';
 
-class ExerciseCard extends StatefulWidget {
+class ExerciseCard extends StatelessWidget {
   final Exercise exercise;
   final Function onPressed;
   final Function onRemovePressed;
   final bool isEditing;
+  final bool isSelected;
 
   ExerciseCard({
     @required this.exercise,
     this.onPressed,
     this.onRemovePressed,
     this.isEditing = false,
+    this.isSelected = false,
   });
-
-  @override
-  _ExerciseCardState createState() => _ExerciseCardState();
-}
-
-class _ExerciseCardState extends State<ExerciseCard> {
-  bool _selected = false;
 
   @override
   Widget build(BuildContext context) {
     return RemovableCard(
       color: Constants.secondElevation,
-      borderColor: _selected && !widget.isEditing
+      borderColor: isSelected && !isEditing
           ? Constants.highEmphasis
           : Constants.secondElevation,
-      onPressed: () => {
-        if (!widget.isEditing)
-          {
-            setState(() => _selected = !_selected),
-          },
-        widget.onPressed(_selected),
-      },
-      onRemovePressed: widget.onRemovePressed,
-      isRemovable: widget.isEditing,
+      onPressed: () => onPressed(!isSelected),
+      onRemovePressed: onRemovePressed,
+      isRemovable: isEditing,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
         child: Row(
@@ -53,7 +42,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    widget.exercise.name,
+                    exercise.name,
                     style: const TextStyle(fontSize: 16.0),
                     maxLines: 1,
                     softWrap: false,
@@ -61,7 +50,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                   ),
                   const SizedBox(height: 5.0),
                   Text(
-                    widget.exercise.bodyPart ?? widget.exercise.type,
+                    exercise.bodyPart ?? exercise.type,
                     style: const TextStyle(
                       color: Constants.medEmphasis,
                       fontSize: 12.0,
@@ -77,7 +66,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
   }
 
   IconData _buildExerciseIcon() {
-    switch (widget.exercise.type) {
+    switch (exercise.type) {
       case Constants.lifting:
         return Icons.fitness_center;
       case Constants.timed:
