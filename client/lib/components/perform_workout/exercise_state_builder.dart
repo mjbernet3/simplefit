@@ -51,7 +51,7 @@ class ExerciseStateBuilder extends StatelessWidget {
               height: MediaQuery.of(context).size.height,
               duration: model.getRest(),
               fillColor: Constants.primaryColor,
-              color: Constants.firstElevation,
+              ringColor: Constants.firstElevation,
               strokeWidth: 15.0,
               textStyle: const TextStyle(fontSize: 40.0),
               strokeCap: StrokeCap.round,

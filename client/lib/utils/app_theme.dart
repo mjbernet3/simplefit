@@ -12,10 +12,7 @@ class AppTheme {
         appBarTheme: AppBarTheme(
           color: Constants.backgroundColor,
           elevation: 0.0,
-          textTheme: Theme.of(context).primaryTextTheme.apply(
-                bodyColor: Constants.highEmphasis,
-                displayColor: Constants.highEmphasis,
-              ),
+          titleTextStyle: TextStyle(color: Constants.highEmphasis),
           iconTheme: IconThemeData(
             size: 28.0,
             color: Constants.primaryColor,
@@ -29,11 +26,14 @@ class AppTheme {
               bodyColor: Constants.highEmphasis,
               displayColor: Constants.highEmphasis,
             ),
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Constants.highEmphasis,
+          selectionColor: Constants.highEmphasis,
+        ),
         iconTheme: IconThemeData(
           size: 28.0,
           color: Constants.primaryColor,
         ),
-        cursorColor: Constants.highEmphasis,
         disabledColor: Constants.firstElevation.withOpacity(0.5),
         errorColor: Constants.dangerColor,
         shadowColor: Constants.backgroundColor,
