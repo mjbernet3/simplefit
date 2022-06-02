@@ -1,0 +1,15 @@
+/Users/bernet/Code/simplefit/client/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/BoringSSL-GRPC/openssl_grpc.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/FirebaseAuth/FirebaseAuth.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/FirebaseCore/FirebaseCore.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/FirebaseFirestore/FirebaseFirestore.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/GTMSessionFetcher/GTMSessionFetcher.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/GoogleDataTransport/GoogleDataTransport.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/GoogleUtilities/GoogleUtilities.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/PromisesObjC/FBLPromises.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/abseil/absl.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/gRPC-C++/grpcpp.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/gRPC-Core/grpc.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/leveldb-library/leveldb.framework
+/Users/bernet/Code/simplefit/client/ios/build/Debug-iphonesimulator/nanopb/nanopb.framework

@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.6 (swiftlang-5.6.0.323.62 clang-1316.0.20.8)"
+options: "47e0070de3cfa3df04f565dca9ba1560688942ff4f7742dae7a79646e51e5140"
+build_start_time: [1654142291, 614472866]
+build_end_time: [1654142299, 564471006]
+inputs:
+  "/Users/bernet/Code/simplefit/client/ios/Runner/AppDelegate.swift": [1611397930, 473636627]
