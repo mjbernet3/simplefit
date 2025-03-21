@@ -6,12 +6,12 @@ class WeightLift extends ExerciseData {
   List<LiftSet> sets;
 
   WeightLift({
-    Exercise exercise,
-    String notes,
-    int rest, // Rest is always 0 since sets have rest
-    bool isWarmUp,
-    this.sets,
-  }) : super(exercise, notes, 0, isWarmUp);
+    required Exercise exercise,
+    required String notes,
+    int rest = 0, // Rest is always 0 since sets have rest
+    required bool isWarmUp,
+    required this.sets,
+  }) : super(exercise, notes, rest, isWarmUp);
 
   factory WeightLift.initial(Exercise exercise) {
     return WeightLift(

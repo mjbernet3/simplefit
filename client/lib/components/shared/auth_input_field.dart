@@ -7,16 +7,16 @@ class AuthInputField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
-  final Function validator;
-  final Function onSubmitted;
+  final FormFieldValidator<String>? validator;
+  final ValueChanged<String>? onSubmitted;
   final bool hidden;
   final bool autofocus;
   final bool enabled;
 
   AuthInputField({
-    @required this.labelText,
-    @required this.maxLength,
-    this.controller,
+    required this.labelText,
+    required this.maxLength,
+    required this.controller,
     this.validator,
     this.onSubmitted,
     this.textInputAction = TextInputAction.done,

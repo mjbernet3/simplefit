@@ -6,12 +6,12 @@ class TimedCardio extends ExerciseData {
   double speed;
 
   TimedCardio({
-    Exercise exercise,
-    String notes,
-    int rest,
-    bool isWarmUp,
-    this.time,
-    this.speed,
+    required Exercise exercise,
+    required String notes,
+    required int rest,
+    required bool isWarmUp,
+    required this.time,
+    required this.speed,
   }) : super(exercise, notes, rest, isWarmUp);
 
   factory TimedCardio.initial(Exercise exercise) {

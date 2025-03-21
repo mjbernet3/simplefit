@@ -7,8 +7,8 @@ class PopupPage<T> extends ModalRoute<T> {
   final bool isAnimated;
 
   PopupPage({
-    @required this.builder,
-    this.backgroundColor,
+    required this.builder,
+    this.backgroundColor = Colors.transparent,
     this.isAnimated = true,
   });
 
@@ -19,7 +19,7 @@ class PopupPage<T> extends ModalRoute<T> {
   bool get barrierDismissible => true;
 
   @override
-  String get barrierLabel => null;
+  String get barrierLabel => "";
 
   @override
   bool get maintainState => false;

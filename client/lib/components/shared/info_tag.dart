@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class InfoTag extends StatelessWidget {
   final String infoText;
 
-  InfoTag({@required this.infoText});
+  InfoTag({required this.infoText});
 
   @override
   Widget build(BuildContext context) {

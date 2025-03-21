@@ -2,13 +2,13 @@ import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class InputField extends StatelessWidget {
-  final String labelText;
+  final String? labelText;
   final String hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
-  final Function onSubmitted;
-  final Function validator;
+  final ValueChanged<String>? onSubmitted;
+  final FormFieldValidator<String>? validator;
   final Color color;
   final Color focusBorderColor;
   final int maxLength;
@@ -18,11 +18,11 @@ class InputField extends StatelessWidget {
 
   InputField({
     this.labelText,
-    this.hintText,
+    this.hintText = "",
     this.controller,
     this.onSubmitted,
     this.validator,
-    this.maxLength,
+    this.maxLength = 100,
     this.color = Constants.firstElevation,
     this.focusBorderColor = Constants.thirdElevation,
     this.numLines = 1,
@@ -39,7 +39,7 @@ class InputField extends StatelessWidget {
       children: <Widget>[
         labelText != null
             ? Text(
-                labelText,
+                labelText!,
                 style: const TextStyle(
                   fontSize: 14.0,
                   color: Constants.medEmphasis,

@@ -6,12 +6,12 @@ class DistanceCardio extends ExerciseData {
   double speed;
 
   DistanceCardio({
-    Exercise exercise,
-    String notes,
-    int rest,
-    bool isWarmUp,
-    this.distance,
-    this.speed,
+    required Exercise exercise,
+    required String notes,
+    required int rest,
+    required bool isWarmUp,
+    required this.distance,
+    required this.speed,
   }) : super(exercise, notes, rest, isWarmUp);
 
   factory DistanceCardio.initial(Exercise exercise) {

@@ -7,13 +7,13 @@ import 'package:client/view_models/view_model.dart';
 import 'package:flutter/material.dart';
 
 class ManageWorkoutModel extends ViewModel {
-  Workout _workout;
-  WorkoutService _workoutService;
-  bool _isEditMode;
-  TextEditingController _nameController;
-  TextEditingController _notesController;
+  late Workout _workout;
+  late WorkoutService _workoutService;
+  late bool _isEditMode;
+  late TextEditingController _nameController;
+  late TextEditingController _notesController;
 
-  ManageWorkoutModel({Workout workout, WorkoutService workoutService}) {
+  ManageWorkoutModel({required WorkoutService workoutService, Workout? workout}) {
     _nameController = TextEditingController();
     _notesController = TextEditingController();
     _workoutService = workoutService;
@@ -40,10 +40,10 @@ class ManageWorkoutModel extends ViewModel {
     _editingController.sink.add(value);
   }
 
-  void _initWorkout(Workout workout) {
+  void _initWorkout(Workout? workout) {
     if (_isEditMode) {
       // No need to clone since full workout is fetched on each edit
-      _workout = workout;
+      _workout = workout!;
     } else {
       _workout = Workout.initial();
     }

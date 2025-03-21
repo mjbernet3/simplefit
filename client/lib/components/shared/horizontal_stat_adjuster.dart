@@ -11,11 +11,11 @@ class HorizontalStatAdjuster extends StatefulWidget {
   final bool displayPrecise;
 
   HorizontalStatAdjuster({
-    @required this.stat,
-    @required this.maxStat,
-    @required this.unit,
-    @required this.adjustAmount,
-    this.onChanged,
+    required this.stat,
+    required this.maxStat,
+    required this.unit,
+    required this.adjustAmount,
+    required this.onChanged,
     this.displayPrecise = true,
   });
 
@@ -24,7 +24,7 @@ class HorizontalStatAdjuster extends StatefulWidget {
 }
 
 class _HorizontalStatAdjusterState extends State<HorizontalStatAdjuster> {
-  double _currentStat;
+  late double _currentStat;
 
   @override
   void initState() {

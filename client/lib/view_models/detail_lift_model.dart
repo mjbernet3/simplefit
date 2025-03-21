@@ -4,9 +4,9 @@ import 'package:client/models/exercise/weight_lift.dart';
 import 'package:client/view_models/view_model.dart';
 
 class DetailLiftModel extends ViewModel {
-  List<LiftSet> _sets;
+  late List<LiftSet> _sets;
 
-  DetailLiftModel({WeightLift weightLift}) {
+  DetailLiftModel({required WeightLift weightLift}) {
     _sets = weightLift.sets;
     _setsController.sink.add(_sets);
   }

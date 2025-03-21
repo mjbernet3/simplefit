@@ -19,7 +19,7 @@ class ManageExercisePage extends StatelessWidget {
       initialData: false,
       stream: model.autovalidate,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        bool autovalidate = snapshot.data;
+        bool autovalidate = snapshot.data ?? false;
 
         return Form(
           key: model.formKey,
@@ -35,7 +35,7 @@ class ManageExercisePage extends StatelessWidget {
                   builder:
                       (BuildContext context, AsyncSnapshot<Exercise> snapshot) {
                     if (snapshot.hasData) {
-                      Exercise exercise = snapshot.data;
+                      Exercise exercise = snapshot.data!;
 
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +53,7 @@ class ManageExercisePage extends StatelessWidget {
                             hintText: 'Select Exercise Type',
                             items: Constants.exerciseTypes,
                             initialValue:
-                                model.isEditMode ? exercise.type : null,
+                                model.isEditMode ? exercise.type : "",
                             onChanged: (String value) =>
                                 model.setExerciseType(value),
                             validator: _checkExerciseType,
@@ -64,11 +64,10 @@ class ManageExercisePage extends StatelessWidget {
                                   hintText: 'Select Body Part',
                                   items: Constants.bodyParts,
                                   initialValue: model.isEditMode
-                                      ? exercise.bodyPart
-                                      : null,
+                                      ? exercise.bodyPart : null,
                                   onChanged: (String value) =>
                                       exercise.bodyPart = value,
-                                  validator: (String value) =>
+                                  validator: (String? value) =>
                                       _checkBodyPart(value, exercise.type),
                                 )
                               : const SizedBox.shrink(),
@@ -93,30 +92,35 @@ class ManageExercisePage extends StatelessWidget {
     );
   }
 
-  String _checkExerciseType(String exerciseType) {
+  String _checkExerciseType(String? exerciseType) {
+
+    // TODO: Improve error handling
     try {
       Validator.validateExerciseType(exerciseType);
     } catch (e) {
-      return e.message;
+      return e.toString();
     }
 
-    return null;
+    return "";
   }
 
-  String _checkBodyPart(String exerciseType, String bodyPart) {
+  String _checkBodyPart(String? bodyPart, String? exerciseType) {
+
+    // TODO: Improve error handling
     try {
-      Validator.validateBodyPart(exerciseType, bodyPart);
+      Validator.validateBodyPart(bodyPart, exerciseType);
     } catch (e) {
-      return e.message;
+      return e.toString();
     }
 
-    return null;
+    return "";
   }
 
   void _saveExercise(BuildContext context) async {
     ManageExerciseModel model =
         Provider.of<ManageExerciseModel>(context, listen: false);
 
+    // TODO: Improve error handling
     try {
       bool success = model.saveExercise();
 
@@ -124,7 +128,7 @@ class ManageExercisePage extends StatelessWidget {
         Navigator.pop(context);
       }
     } catch (e) {
-      AppError.show(context, e.message);
+      AppError.show(context, e.toString());
     }
   }
 }

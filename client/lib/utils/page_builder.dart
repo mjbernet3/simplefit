@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class PageBuilder extends StatelessWidget {
   final Widget Function(BuildContext context) body;
-  final AppBar appBar;
+  final AppBar? appBar;
 
   PageBuilder({
-    @required this.body,
+    required this.body,
     this.appBar,
   });
 
@@ -39,7 +39,7 @@ class PageBuilder extends StatelessWidget {
       return screenHeight - safePadding;
     }
 
-    return screenHeight - safePadding - appBar.preferredSize.height;
+    return screenHeight - safePadding - appBar!.preferredSize.height;
   }
 
   double _getContentWidth(BuildContext context) {

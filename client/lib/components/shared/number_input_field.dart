@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 class NumberInputField extends StatelessWidget {
   final String initialValue;
-  final Function onChanged;
+  final ValueChanged<String> onChanged;
   final Color fillColor;
   final bool isPrecise;
 
   NumberInputField({
-    this.initialValue,
-    this.onChanged,
+    required this.initialValue,
+    required this.onChanged,
     this.fillColor = Constants.firstElevation,
     this.isPrecise = false,
   });

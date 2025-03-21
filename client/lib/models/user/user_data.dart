@@ -1,4 +1,5 @@
 import 'package:client/models/workout/workout_preview.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Extra user data that is not part of firebase user object
 class UserData {
@@ -6,8 +7,8 @@ class UserData {
   final List<WorkoutPreview> previews;
 
   UserData({
-    this.username,
-    this.previews,
+    required this.username,
+    required this.previews,
   });
 
   factory UserData.initial(String username) {
@@ -17,7 +18,8 @@ class UserData {
     );
   }
 
-  factory UserData.fromJson(Map<String, dynamic> json) {
+  factory UserData.fromSnapshot(DocumentSnapshot snapshot) {
+    Map<String, dynamic> json = snapshot.data() as Map<String, dynamic>;
     List<dynamic> previewList = json['previews'] as List;
 
     List<WorkoutPreview> previews =

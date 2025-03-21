@@ -6,11 +6,11 @@ import 'package:rxdart/rxdart.dart';
 import 'package:flutter/material.dart';
 
 class LoginModel extends ViewModel {
-  AuthService _authService;
-  TextEditingController _emailController;
-  TextEditingController _passwordController;
+  late AuthService _authService;
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
 
-  LoginModel({AuthService authService}) {
+  LoginModel({required AuthService authService}) {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     _authService = authService;

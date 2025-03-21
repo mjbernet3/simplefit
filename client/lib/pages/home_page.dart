@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
       initialData: false,
       stream: model.isEditing,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        bool isEditing = snapshot.data;
+        bool isEditing = snapshot.data ?? false;
 
         return PageBuilder(
           appBar: AppBar(

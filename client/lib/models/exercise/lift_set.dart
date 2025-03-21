@@ -6,11 +6,11 @@ class LiftSet {
   bool isWarmUp;
 
   LiftSet({
-    this.reps,
-    this.targetReps,
-    this.weight,
-    this.rest,
-    this.isWarmUp,
+    required this.reps,
+    required this.targetReps,
+    required this.weight,
+    required this.rest,
+    required this.isWarmUp,
   });
 
   factory LiftSet.initial() {

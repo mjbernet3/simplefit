@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 class PreviewListing extends StatelessWidget {
   final bool isEditing;
 
-  PreviewListing({this.isEditing});
+  PreviewListing({required this.isEditing});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class PreviewListing extends StatelessWidget {
       stream: profileService.userData,
       builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
         if (snapshot.hasData) {
-          List<WorkoutPreview> previews = snapshot.data.previews;
+          List<WorkoutPreview> previews = snapshot.data!.previews;
 
           if (previews.isEmpty) {
             return Center(
@@ -78,6 +78,7 @@ class PreviewListing extends StatelessWidget {
                       key: ObjectKey(currentPreview),
                       isEditing: isEditing,
                       onPressed: () => _startWorkout(context, currentPreview),
+                      onRemovePressed: () => {},
                       workoutPreview: currentPreview,
                     );
                   },
@@ -92,6 +93,7 @@ class PreviewListing extends StatelessWidget {
   void _startWorkout(BuildContext context, WorkoutPreview preview) async {
     HomeModel model = Provider.of<HomeModel>(context, listen: false);
 
+    // TODO: Improve error handling
     try {
       Workout workout = await model.getWorkout(preview.id);
 
@@ -101,13 +103,14 @@ class PreviewListing extends StatelessWidget {
         arguments: workout,
       );
     } catch (e) {
-      AppError.show(context, e.message);
+      AppError.show(context, e.toString());
     }
   }
 
   void _editWorkout(BuildContext context, WorkoutPreview preview) async {
     HomeModel model = Provider.of<HomeModel>(context, listen: false);
 
+    // TODO: Improve error handling
     try {
       Workout workout = await model.getWorkout(preview.id);
 
@@ -117,7 +120,7 @@ class PreviewListing extends StatelessWidget {
         arguments: workout,
       );
     } catch (e) {
-      AppError.show(context, e.message);
+      AppError.show(context, e.toString());
     }
   }
 
@@ -133,10 +136,11 @@ class PreviewListing extends StatelessWidget {
     WorkoutPreview preview = previews.removeAt(oldIndex);
     previews.insert(newIndex, preview);
 
+    // TODO: Improve error handling
     try {
       profileService.reorderPreviews(previews);
     } catch (e) {
-      AppError.show(context, e.message);
+      AppError.show(context, e.toString());
     }
   }
 
@@ -144,10 +148,11 @@ class PreviewListing extends StatelessWidget {
     WorkoutService workoutService =
         Provider.of<WorkoutService>(context, listen: false);
 
+    // TODO: Improve error handling
     try {
       workoutService.removeWorkout(preview);
     } catch (e) {
-      AppError.show(context, e.message);
+      AppError.show(context, e.toString());
     }
   }
 }

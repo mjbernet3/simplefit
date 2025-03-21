@@ -4,7 +4,10 @@ import 'package:client/components/perform_workout/perform_lift.dart';
 import 'package:client/components/perform_workout/perform_timed.dart';
 import 'package:client/components/shared/info_tag.dart';
 import 'package:client/components/shared/notes_dropdown.dart';
+import 'package:client/models/exercise/distance_cardio.dart';
 import 'package:client/models/exercise/exercise_data.dart';
+import 'package:client/models/exercise/timed_cardio.dart';
+import 'package:client/models/exercise/weight_lift.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/view_models/perform_workout_model.dart';
@@ -16,8 +19,8 @@ class ExerciseStateBuilder extends StatelessWidget {
   final bool isResting;
 
   ExerciseStateBuilder({
-    this.exercise,
-    this.isResting,
+    required this.exercise,
+    required this.isResting,
   });
 
   @override
@@ -100,12 +103,12 @@ class ExerciseStateBuilder extends StatelessWidget {
 
     switch (exerciseType) {
       case Constants.lifting:
-        return PerformLift(exercise: exercise);
+        return PerformLift(exercise: exercise as WeightLift);
       case Constants.distance:
-        return PerformDistance(exercise: exercise);
+        return PerformDistance(exercise: exercise as DistanceCardio);
       case Constants.timed:
         return PerformTimed(
-          exercise: exercise,
+          exercise: exercise as TimedCardio,
           onTimeExpired: () => _next(context),
         );
       default:
@@ -117,6 +120,7 @@ class ExerciseStateBuilder extends StatelessWidget {
     PerformWorkoutModel model =
         Provider.of<PerformWorkoutModel>(context, listen: false);
 
+    // TODO: Improve error handling
     if (model.hasNext()) {
       model.next();
     } else {
@@ -124,7 +128,7 @@ class ExerciseStateBuilder extends StatelessWidget {
         model.finishWorkout();
         Navigator.pop(context);
       } catch (e) {
-        AppError.show(context, e.message);
+        AppError.show(context, e.toString());
       }
     }
   }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class RoundedButton extends StatelessWidget {
   final String buttonText;
-  final Function onPressed;
+  final VoidCallback onPressed;
   final double height;
   final Color color;
   final Color textColor;
@@ -11,8 +11,8 @@ class RoundedButton extends StatelessWidget {
   final bool disabled;
 
   RoundedButton({
-    @required this.buttonText,
-    this.onPressed,
+    required this.buttonText,
+    required this.onPressed,
     this.height = 45.0,
     this.color = Constants.firstElevation,
     this.textColor = Constants.primaryColor,
@@ -27,29 +27,27 @@ class RoundedButton extends StatelessWidget {
       child: ElevatedButton(
         child: Text(buttonText),
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.pressed)) {
-                return color.withOpacity(0.5);
-              } else if (states.contains(MaterialState.disabled)) {
-                return color.withOpacity(0.5);
+          backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                (Set<WidgetState> states) {
+              if (states.contains(WidgetState.pressed)) {
+                return color.withValues(alpha: 0.5);
+              } else if (states.contains(WidgetState.disabled)) {
+                return color.withValues(alpha: 0.5);
               }
-
               return color;
             },
           ),
-          foregroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.disabled)) {
+          foregroundColor: WidgetStateProperty.resolveWith<Color>(
+                (Set<WidgetState> states) {
+              if (states.contains(WidgetState.disabled)) {
                 return Constants.lowEmphasis;
               }
-
               return textColor;
             },
           ),
-          overlayColor: MaterialStateProperty.all(color),
-          shadowColor: MaterialStateProperty.all(Constants.backgroundColor),
-          textStyle: MaterialStateProperty.all(TextStyle(fontSize: fontSize)),
+          overlayColor: WidgetStateProperty.all(color),
+          shadowColor: WidgetStateProperty.all(Constants.backgroundColor),
+          textStyle: WidgetStateProperty.all(TextStyle(fontSize: fontSize)),
         ),
         onPressed: !disabled ? onPressed : null,
       ),

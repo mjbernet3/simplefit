@@ -6,14 +6,14 @@ class StatCard extends StatelessWidget {
   final String title;
   final String inputUnit;
   final String initialValue;
-  final Function onChanged;
+  final ValueChanged<String> onChanged;
   final bool isPrecise;
 
   StatCard({
-    @required this.title,
-    @required this.inputUnit,
-    this.initialValue,
-    this.onChanged,
+    required this.title,
+    required this.inputUnit,
+    required this.initialValue,
+    required this.onChanged,
     this.isPrecise = false,
   });
 

@@ -29,14 +29,14 @@ class PerformWorkoutPage extends StatelessWidget {
           builder:
               (BuildContext context, AsyncSnapshot<ExerciseData> snapshot) {
             if (snapshot.hasData) {
-              ExerciseData currentExercise = snapshot.data;
+              ExerciseData currentExercise = snapshot.data!;
 
               return StreamBuilder<bool>(
                   initialData: false,
                   stream: model.isResting,
                   builder:
                       (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                    bool isResting = snapshot.data;
+                    bool isResting = snapshot.data ?? false;
 
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -108,11 +108,13 @@ class PerformWorkoutPage extends StatelessWidget {
     if (model.hasNext()) {
       model.next();
     } else {
+
+      // TODO: Improve error handling
       try {
         model.finishWorkout();
         Navigator.pop(context);
       } catch (e) {
-        AppError.show(context, e.message);
+        AppError.show(context, e.toString());
       }
     }
   }

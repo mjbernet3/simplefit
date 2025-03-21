@@ -6,16 +6,16 @@ class ListViewEditor extends StatelessWidget {
   final String title;
   final ListView listView;
   final bool isEditing;
-  final Function onEdit;
-  final Function onAdd;
+  final VoidCallback onEdit;
+  final VoidCallback onAdd;
   final Color elevationColor;
 
   ListViewEditor({
-    @required this.title,
-    @required this.listView,
-    @required this.isEditing,
-    this.onEdit,
-    this.onAdd,
+    required this.title,
+    required this.listView,
+    required this.isEditing,
+    required this.onEdit,
+    required this.onAdd,
     this.elevationColor = Constants.backgroundColor,
   });
 

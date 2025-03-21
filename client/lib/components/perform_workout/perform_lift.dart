@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 class PerformLift extends StatelessWidget {
   final WeightLift exercise;
 
-  PerformLift({this.exercise});
+  PerformLift({required this.exercise});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class PerformLift extends StatelessWidget {
       stream: model.set,
       builder: (BuildContext context, AsyncSnapshot<LiftSet> snapshot) {
         if (snapshot.hasData) {
-          LiftSet currentSet = snapshot.data;
+          LiftSet currentSet = snapshot.data!;
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ManageExerciseModel extends ViewModel {
-  ExerciseService _exerciseService;
-  Exercise _prevExercise;
-  Exercise _exercise;
-  bool _isEditMode;
-  TextEditingController _nameController;
-  GlobalKey<FormState> _formKey;
+  late ExerciseService _exerciseService;
+  late Exercise? _prevExercise;
+  late Exercise _exercise;
+  late bool _isEditMode;
+  late TextEditingController _nameController;
+  late GlobalKey<FormState> _formKey;
 
-  ManageExerciseModel({ExerciseService exerciseService, Exercise exercise}) {
+  ManageExerciseModel({required ExerciseService exerciseService, Exercise? exercise}) {
     _nameController = TextEditingController();
     _formKey = GlobalKey<FormState>();
     _exerciseService = exerciseService;
@@ -40,7 +40,7 @@ class ManageExerciseModel extends ViewModel {
 
   void setExerciseType(String type) {
     _exercise.type = type;
-    _exercise.bodyPart = null;
+    _exercise.bodyPart = "";
 
     _exerciseController.sink.add(_exercise);
   }
@@ -48,7 +48,7 @@ class ManageExerciseModel extends ViewModel {
   void _initExercise() {
     if (_isEditMode) {
       // Clone exercise so changes can be compared and reverted
-      _exercise = _prevExercise.clone();
+      _exercise = _prevExercise!.clone();
     } else {
       _exercise = Exercise.initial();
     }
@@ -58,7 +58,7 @@ class ManageExerciseModel extends ViewModel {
   }
 
   bool saveExercise() {
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       String name = _nameController.text;
       if (name.isEmpty) {
         name = 'My Exercise';
@@ -70,7 +70,7 @@ class ManageExerciseModel extends ViewModel {
         if (!_isEditMode) {
           _exerciseService.createExercise(_exercise);
         } else {
-          if (!_exercise.equals(_prevExercise)) {
+          if (!_exercise.equals(_prevExercise!)) {
             _exerciseService.updateExercise(_exercise);
           }
         }

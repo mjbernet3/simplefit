@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 class RegisterModel extends ViewModel {
-  AuthService _authService;
-  TextEditingController _emailController;
-  TextEditingController _usernameController;
-  TextEditingController _passwordController;
-  GlobalKey<FormState> _formKey;
+  late AuthService _authService;
+  late TextEditingController _emailController;
+  late TextEditingController _usernameController;
+  late TextEditingController _passwordController;
+  late GlobalKey<FormState> _formKey;
 
-  RegisterModel({AuthService authService}) {
+  RegisterModel({required AuthService authService}) {
     _emailController = TextEditingController();
     _usernameController = TextEditingController();
     _passwordController = TextEditingController();
@@ -38,7 +38,7 @@ class RegisterModel extends ViewModel {
   GlobalKey<FormState> get formKey => _formKey;
 
   Future<void> register() async {
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       AuthInfo authInfo = AuthInfo(
         email: _emailController.text,
         username: _usernameController.text,

@@ -50,7 +50,7 @@ class WorkoutService {
     DocumentReference workoutReference = _workoutCollection.doc(workout.id);
     DocumentSnapshot userSnapshot = await _userReference.get();
 
-    UserData userData = UserData.fromJson(userSnapshot.data());
+    UserData userData = UserData.fromSnapshot(userSnapshot);
     List<WorkoutPreview> previews = userData.previews;
 
     WriteBatch batch = _firestore.batch();

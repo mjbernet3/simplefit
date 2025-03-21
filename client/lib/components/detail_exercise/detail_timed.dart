@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class DetailTimed extends StatelessWidget {
   final TimedCardio exercise;
 
-  DetailTimed({this.exercise});
+  DetailTimed({required this.exercise});
 
   @override
   Widget build(BuildContext context) {

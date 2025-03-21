@@ -7,7 +7,7 @@ class AppBarLoadingIndicator extends StatelessWidget
   final Color backgroundColor;
 
   AppBarLoadingIndicator({
-    @required this.isLoading,
+    required this.isLoading,
     this.backgroundColor = Constants.backgroundColor,
   });
 
@@ -19,7 +19,9 @@ class AppBarLoadingIndicator extends StatelessWidget
       initialData: false,
       stream: isLoading,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (snapshot.data) {
+        bool isLoading = snapshot.data ?? false;
+
+        if (isLoading) {
           return LinearProgressIndicator(
             minHeight: 1.5,
             backgroundColor: backgroundColor,

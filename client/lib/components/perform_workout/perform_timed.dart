@@ -11,8 +11,8 @@ class PerformTimed extends StatelessWidget {
   final Function onTimeExpired;
 
   PerformTimed({
-    this.exercise,
-    this.onTimeExpired,
+    required this.exercise,
+    required this.onTimeExpired,
   });
 
   @override

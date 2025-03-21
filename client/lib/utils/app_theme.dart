@@ -34,8 +34,7 @@ class AppTheme {
           size: 28.0,
           color: Constants.primaryColor,
         ),
-        disabledColor: Constants.firstElevation.withOpacity(0.5),
-        errorColor: Constants.dangerColor,
+        disabledColor: Constants.firstElevation.withValues(alpha: 0.5),
         shadowColor: Constants.backgroundColor,
         dividerTheme: DividerThemeData(
           color: Constants.thirdElevation,

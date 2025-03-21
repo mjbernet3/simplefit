@@ -1,4 +1,5 @@
 import 'package:client/components/shared/popup_page.dart';
+import 'package:client/models/workout/workout.dart';
 import 'package:client/pages/perform_workout_page.dart';
 import 'package:client/services/auth_service.dart';
 import 'package:client/services/exercise_service.dart';
@@ -88,7 +89,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => Provider<ManageWorkoutModel>(
             create: (context) => ManageWorkoutModel(
-              workout: routeSettings.arguments,
+              workout: routeSettings.arguments as Workout,
               workoutService: Provider.of<WorkoutService>(
                 context,
                 listen: false,
@@ -101,14 +102,14 @@ class AppRouter {
       case startWorkout:
         return MaterialPageRoute(
           builder: (context) => StartWorkoutPage(
-            workout: routeSettings.arguments,
+            workout: routeSettings.arguments as Workout,
           ),
         );
       case detailExercise:
         return MaterialPageRoute<ExerciseData>(
           builder: (context) => Provider<DetailExerciseModel>(
             create: (context) => DetailExerciseModel(
-              exercise: routeSettings.arguments,
+              exercise: routeSettings.arguments as ExerciseData,
             ),
             dispose: (context, model) => model.dispose(),
             child: DetailExercisePage(),
@@ -118,7 +119,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => Provider<PerformWorkoutModel>(
             create: (context) => PerformWorkoutModel(
-              workout: routeSettings.arguments,
+              workout: routeSettings.arguments as Workout,
               workoutService: Provider.of<WorkoutService>(
                 context,
                 listen: false,
@@ -130,7 +131,7 @@ class AppRouter {
         );
       case browseExercises:
         return PopupPage<List<Exercise>>(
-          backgroundColor: Constants.backgroundColor.withOpacity(0.5),
+          backgroundColor: Constants.backgroundColor.withValues(alpha: 0.5),
           builder: (context) => Provider<BrowseExercisesModel>(
             create: (context) => BrowseExercisesModel(),
             dispose: (context, model) => model.dispose(),
@@ -142,7 +143,7 @@ class AppRouter {
           isAnimated: false,
           builder: (context) => Provider<ManageExerciseModel>(
             create: (context) => ManageExerciseModel(
-              exercise: routeSettings.arguments,
+              exercise: routeSettings.arguments as Exercise,
               exerciseService: Provider.of<ExerciseService>(
                 context,
                 listen: false,

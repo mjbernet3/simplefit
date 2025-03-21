@@ -6,18 +6,18 @@ class DropdownPopup<T> extends ModalRoute<T> {
   final RenderBox renderBox;
 
   DropdownPopup({
-    @required this.builder,
-    @required this.renderBox,
+    required this.builder,
+    required this.renderBox,
   });
 
   @override
-  Color get barrierColor => null;
+  Color get barrierColor => Colors.transparent;
 
   @override
   bool get barrierDismissible => true;
 
   @override
-  String get barrierLabel => null;
+  String get barrierLabel => "";
 
   @override
   bool get maintainState => false;

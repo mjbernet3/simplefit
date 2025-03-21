@@ -59,8 +59,6 @@ class LoginPage extends StatelessWidget {
       ),
     );
 
-    if (errorMessage != null) {
-      AppError.show(context, errorMessage);
-    }
+    AppError.show(context, errorMessage);
   }
 }

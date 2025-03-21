@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Exercise {
-  final String id;
+  final String? id;
   String name;
   String type;
-  String bodyPart;
+  String? bodyPart;
 
   Exercise({
     this.id,
-    this.name,
-    this.type,
+    required this.name,
+    required this.type,
     this.bodyPart,
   });
 
@@ -22,7 +22,7 @@ class Exercise {
   }
 
   factory Exercise.fromSnapshot(DocumentSnapshot snapshot) {
-    Map<String, dynamic> json = snapshot.data();
+    Map<String, dynamic> json = snapshot.data() as Map<String, dynamic>;
 
     return Exercise(
       id: snapshot.id,

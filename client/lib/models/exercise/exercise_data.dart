@@ -21,14 +21,12 @@ abstract class ExerciseData {
     String exerciseType = exercise.type;
 
     switch (exerciseType) {
-      case Constants.lifting:
-        return WeightLift.initial(exercise);
       case Constants.timed:
         return TimedCardio.initial(exercise);
       case Constants.distance:
         return DistanceCardio.initial(exercise);
       default:
-        return null;
+        return WeightLift.initial(exercise);
     }
   }
 
@@ -36,14 +34,12 @@ abstract class ExerciseData {
     String exerciseType = json['exercise']['type'];
 
     switch (exerciseType) {
-      case Constants.lifting:
-        return WeightLift.fromJson(json);
       case Constants.timed:
         return TimedCardio.fromJson(json);
       case Constants.distance:
         return DistanceCardio.fromJson(json);
       default:
-        return null;
+        return WeightLift.fromJson(json);
     }
   }
 

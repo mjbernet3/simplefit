@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 
 class RemovableCard extends StatelessWidget {
   final Widget child;
-  final Function onPressed;
-  final Function onRemovePressed;
+  final GestureTapCallback onPressed;
+  final GestureTapCallback onRemovePressed;
   final Color color;
   final Color borderColor;
   final bool isRemovable;
 
   RemovableCard({
-    @required this.child,
-    this.onPressed,
-    this.onRemovePressed,
+    required this.child,
+    required this.onPressed,
+    required this.onRemovePressed,
     this.color = Constants.firstElevation,
     this.borderColor = Constants.firstElevation,
     this.isRemovable = false,

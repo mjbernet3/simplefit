@@ -7,20 +7,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AuthBuilder extends StatelessWidget {
-  final Widget Function(BuildContext context, AsyncSnapshot<AppUser> snapshot)
+  final Widget Function(BuildContext context, AsyncSnapshot<AppUser?> snapshot)
       builder;
 
-  AuthBuilder({this.builder});
+  AuthBuilder({required this.builder});
 
   @override
   Widget build(BuildContext context) {
     AuthService authService = Provider.of<AuthService>(context, listen: false);
 
-    return StreamBuilder<AppUser>(
+    return StreamBuilder<AppUser?>(
       stream: authService.signedInUser,
-      builder: (BuildContext context, AsyncSnapshot<AppUser> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<AppUser?> snapshot) {
         if (snapshot.hasData) {
-          AppUser user = snapshot.data;
+          AppUser user = snapshot.data!;
 
           return MultiProvider(
             providers: [

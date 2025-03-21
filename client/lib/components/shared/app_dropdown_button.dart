@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 
 class AppDropdownButton extends StatefulWidget {
   final String hintText;
-  final String initialValue;
+  final String? initialValue;
   final List<String> items;
   final Function onChanged;
-  final Function validator;
+  final FormFieldValidator<String> validator;
   final bool enabled;
 
   const AppDropdownButton({
-    this.hintText,
+    required this.hintText,
+    required this.items,
+    required this.onChanged,
+    required this.validator,
     this.initialValue,
-    this.items,
-    this.onChanged,
-    this.validator,
     this.enabled = true,
   });
 
@@ -23,7 +23,7 @@ class AppDropdownButton extends StatefulWidget {
 }
 
 class _AppDropdownButtonState extends State<AppDropdownButton> {
-  String _selectedValue;
+  late String? _selectedValue;
 
   @override
   void initState() {
@@ -52,8 +52,10 @@ class _AppDropdownButtonState extends State<AppDropdownButton> {
     );
   }
 
-  void _selectItem(String value) {
-    setState(() => _selectedValue = value);
-    widget.onChanged(_selectedValue);
+  void _selectItem(String? value) {
+    if (value != null) {
+      setState(() => _selectedValue = value);
+      widget.onChanged(_selectedValue);
+    }
   }
 }

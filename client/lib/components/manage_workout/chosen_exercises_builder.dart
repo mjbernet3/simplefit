@@ -18,7 +18,7 @@ class ChosenExercisesBuilder extends StatelessWidget {
       builder:
           (BuildContext context, AsyncSnapshot<List<ExerciseData>> snapshot) {
         if (snapshot.hasData) {
-          List<ExerciseData> exercises = snapshot.data;
+          List<ExerciseData> exercises = snapshot.data!;
 
           if (exercises.isEmpty) {
             return Column(
@@ -56,10 +56,8 @@ class ChosenExercisesBuilder extends StatelessWidget {
     List<Exercise> chosenExercises = await Navigator.pushNamed(
       context,
       AppRouter.browseExercises,
-    );
+    ) as List<Exercise>;
 
-    if (chosenExercises != null) {
-      model.initExercises(chosenExercises);
-    }
+    model.initExercises(chosenExercises);
   }
 }

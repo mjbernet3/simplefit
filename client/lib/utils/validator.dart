@@ -62,8 +62,8 @@ class Validator {
     validatePassword(authInfo.password);
   }
 
-  static void validateEmail(String email) {
-    if (email.isEmpty) {
+  static void validateEmail(String? email) {
+    if (email == null || email.isEmpty) {
       throw FormatException(EMAIL_EMPTY);
     } else if (!email.contains('@') || !email.contains('.')) {
       throw FormatException(EMAIL_INVALID);
@@ -72,16 +72,16 @@ class Validator {
     }
   }
 
-  static void validateUsername(String username) {
-    if (username.isEmpty) {
+  static void validateUsername(String? username) {
+    if (username == null || username.isEmpty) {
       throw FormatException(USERNAME_EMPTY);
     } else if (username.length > Constants.maxUsernameLength) {
       throw FormatException(USERNAME_LONG);
     }
   }
 
-  static void validatePassword(String password) {
-    if (password.isEmpty) {
+  static void validatePassword(String? password) {
+    if (password == null || password.isEmpty) {
       throw FormatException(PASSWORD_EMPTY);
     } else if (password.length < Constants.minPasswordLength) {
       throw FormatException(PASSWORD_SHORT);
@@ -109,13 +109,13 @@ class Validator {
     validateBodyPart(exercise.type, exercise.bodyPart);
   }
 
-  static void validateExerciseType(String exerciseType) {
+  static void validateExerciseType(String? exerciseType) {
     if (exerciseType == null) {
       throw FormatException(NO_EXERCISE_TYPE);
     }
   }
 
-  static void validateBodyPart(String bodyPart, String exerciseType) {
+  static void validateBodyPart(String? bodyPart, String? exerciseType) {
     if (exerciseType == Constants.lifting && bodyPart == null) {
       throw FormatException(NO_BODY_PART);
     }
@@ -132,13 +132,13 @@ class Validator {
 
     switch (exerciseType) {
       case Constants.lifting:
-        validateWeightLift(exercise);
+        validateWeightLift(exercise as WeightLift);
         break;
       case Constants.distance:
-        validateDistanceCardio(exercise);
+        validateDistanceCardio(exercise as DistanceCardio);
         break;
       case Constants.timed:
-        validateTimedCardio(exercise);
+        validateTimedCardio(exercise as TimedCardio);
         break;
       default:
         throw FormatException(INVALID_EXERCISE);

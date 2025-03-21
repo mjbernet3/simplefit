@@ -15,10 +15,10 @@ class LiftSetRow extends StatelessWidget {
   final bool hintsOn;
 
   LiftSetRow({
-    @required Key key,
-    @required this.set,
-    @required this.setNumber,
-    this.onRemovePressed,
+    required Key key,
+    required this.set,
+    required this.setNumber,
+    required this.onRemovePressed,
     this.hintsOn = false,
   }) : super(key: key);
 
@@ -138,8 +138,6 @@ class LiftSetRow extends StatelessWidget {
       case PopupChoice.REMOVE:
         onRemovePressed();
         break;
-      default:
-        break;
-    }
+      }
   }
 }

@@ -15,7 +15,7 @@ class DetailLift extends StatelessWidget {
       stream: model.sets,
       builder: (BuildContext context, AsyncSnapshot<List<LiftSet>> snapshot) {
         if (snapshot.hasData) {
-          List<LiftSet> sets = snapshot.data;
+          List<LiftSet> sets = snapshot.data!;
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

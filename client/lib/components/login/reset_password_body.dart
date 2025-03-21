@@ -35,11 +35,12 @@ class ResetPasswordBody extends StatelessWidget {
   void _resetPassword(BuildContext context, String email) async {
     AuthService authService = Provider.of<AuthService>(context, listen: false);
 
+    // TODO: Improve error handling
     try {
       await authService.resetPassword(email);
       Navigator.pop(context);
     } catch (e) {
-      Navigator.pop(context, e.message);
+      Navigator.pop(context, e.toString());
     }
   }
 }

@@ -16,7 +16,7 @@ class RegisterForm extends StatelessWidget {
       initialData: false,
       stream: model.autovalidate,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        bool autovalidate = snapshot.data;
+        bool autovalidate = snapshot.data ?? false;
 
         return Form(
           key: model.formKey,
@@ -27,7 +27,7 @@ class RegisterForm extends StatelessWidget {
             initialData: false,
             stream: model.isLoading,
             builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-              bool isLoading = snapshot.data;
+              bool isLoading = snapshot.data ?? false;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -77,34 +77,40 @@ class RegisterForm extends StatelessWidget {
     );
   }
 
-  String _checkEmail(String email) {
+  String _checkEmail(String? email) {
+
+    // TODO: Improve error handling
     try {
       Validator.validateEmail(email);
     } catch (e) {
-      return e.message;
+      return e.toString();
     }
 
-    return null;
+    return "";
   }
 
-  String _checkUsername(String username) {
+  String _checkUsername(String? username) {
+
+    // TODO: Improve error handling
     try {
       Validator.validateUsername(username);
     } catch (e) {
-      return e.message;
+      return e.toString();
     }
 
-    return null;
+    return "";
   }
 
-  String _checkPassword(String password) {
+  String _checkPassword(String? password) {
+
+    // TODO: Improve error handling
     try {
       Validator.validatePassword(password);
     } catch (e) {
-      return e.message;
+      return e.toString();
     }
 
-    return null;
+    return "";
   }
 
   void _register(BuildContext context) async {
@@ -112,10 +118,11 @@ class RegisterForm extends StatelessWidget {
 
     RegisterModel model = Provider.of<RegisterModel>(context, listen: false);
 
+    // TODO: Improve error handling
     try {
       await model.register();
     } catch (e) {
-      AppError.show(context, e.message);
+      AppError.show(context, e.toString());
     }
   }
 }

@@ -5,7 +5,10 @@ import 'package:client/components/shared/app_checkbox.dart';
 import 'package:client/components/shared/action_buttons.dart';
 import 'package:client/components/shared/app_icon_button.dart';
 import 'package:client/components/shared/input_field.dart';
+import 'package:client/models/exercise/distance_cardio.dart';
 import 'package:client/models/exercise/exercise_data.dart';
+import 'package:client/models/exercise/timed_cardio.dart';
+import 'package:client/models/exercise/weight_lift.dart';
 import 'package:client/utils/app_error.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/utils/page_builder.dart';
@@ -107,14 +110,14 @@ class DetailExercisePage extends StatelessWidget {
     switch (exerciseType) {
       case Constants.lifting:
         return Provider<DetailLiftModel>(
-          create: (context) => DetailLiftModel(weightLift: exercise),
+          create: (context) => DetailLiftModel(weightLift: exercise as WeightLift),
           dispose: (context, model) => model.dispose(),
           child: DetailLift(),
         );
       case Constants.timed:
-        return DetailTimed(exercise: exercise);
+        return DetailTimed(exercise: exercise as TimedCardio);
       case Constants.distance:
-        return DetailDistance(exercise: exercise);
+        return DetailDistance(exercise: exercise as DistanceCardio);
       default:
         return const SizedBox.shrink();
     }
@@ -126,11 +129,12 @@ class DetailExercisePage extends StatelessWidget {
 
     exercise.notes = model.notesController.text;
 
+    // TODO: Improve error handling
     try {
       Validator.validateExerciseData(exercise);
       Navigator.pop(context, exercise);
     } catch (e) {
-      AppError.show(context, e.message);
+      AppError.show(context, e.toString());
     }
   }
 }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class DetailDistance extends StatelessWidget {
   final DistanceCardio exercise;
 
-  DetailDistance({this.exercise});
+  DetailDistance({required this.exercise});
 
   @override
   Widget build(BuildContext context) {

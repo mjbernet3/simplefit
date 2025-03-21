@@ -14,8 +14,8 @@ class ExercisesEditor extends StatelessWidget {
   final List<Exercise> chosenExercises;
 
   ExercisesEditor({
-    this.exercises,
-    this.chosenExercises,
+    required this.exercises,
+    required this.chosenExercises,
   });
 
   @override
@@ -27,7 +27,7 @@ class ExercisesEditor extends StatelessWidget {
       initialData: false,
       stream: model.isEditing,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        bool isEditing = snapshot.data;
+        bool isEditing = snapshot.data!;
 
         return ListViewEditor(
           isEditing: isEditing,
@@ -69,13 +69,13 @@ class ExercisesEditor extends StatelessWidget {
                 },
                 onRemovePressed: () => {
                   model.removeExercise(currentExercise),
-                  _removeExercise(context, currentExercise.id),
+                  if (currentExercise.id != null) {
+                    _removeExercise(context, currentExercise.id!)
+                  }
                 },
                 isEditing: isEditing,
-                isSelected: chosenExercises.firstWhere(
-                        (exercise) => currentExercise.equals(exercise),
-                        orElse: () => null) !=
-                    null,
+                isSelected: chosenExercises.any(
+                        (exercise) => currentExercise.equals(exercise)),
               );
             },
           ),
@@ -88,10 +88,11 @@ class ExercisesEditor extends StatelessWidget {
     ExerciseService exerciseService =
         Provider.of<ExerciseService>(context, listen: false);
 
+    // TODO: Improve error handling
     try {
       exerciseService.removeExercise(exerciseId);
     } catch (e) {
-      AppError.show(context, e.message);
+      AppError.show(context, e.toString());
     }
   }
 }

@@ -8,8 +8,8 @@ class NotesDropdown extends StatefulWidget {
   final Function onComplete;
 
   NotesDropdown({
-    @required this.notes,
-    this.onComplete,
+    required this.notes,
+    required this.onComplete,
   });
 
   @override
@@ -17,7 +17,7 @@ class NotesDropdown extends StatefulWidget {
 }
 
 class _NotesDropdownState extends State<NotesDropdown> {
-  TextEditingController _notesController;
+  late TextEditingController _notesController;
   bool _hidden = true;
 
   @override
@@ -70,27 +70,28 @@ class _NotesDropdownState extends State<NotesDropdown> {
   }
 
   void _toggleNotes(BuildContext context) async {
-    setState(() => _hidden = false);
+    RenderObject? renderObject = context.findRenderObject();
 
-    RenderBox renderBox = context.findRenderObject();
+    if (renderObject is RenderBox) {
+      setState(() => _hidden = false);
 
-    await Navigator.push(
-      context,
-      DropdownPopup(
-        renderBox: renderBox,
-        builder: (context) => InputField(
-          controller: _notesController,
-          focusBorderColor: Constants.firstElevation,
-          keyboardType: TextInputType.multiline,
-          textInputAction: TextInputAction.newline,
-          numLines: 5,
+      await Navigator.push(
+        context,
+        DropdownPopup(
+          renderBox: renderObject,
+          builder: (context) => InputField(
+            controller: _notesController,
+            focusBorderColor: Constants.firstElevation,
+            keyboardType: TextInputType.multiline,
+            textInputAction: TextInputAction.newline,
+            numLines: 5,
+          ),
         ),
-      ),
-    );
+      );
 
-    setState(() => _hidden = true);
-
-    widget.onComplete(_notesController.text);
+      setState(() => _hidden = true);
+      widget.onComplete(_notesController.text);
+    }
   }
 
   @override

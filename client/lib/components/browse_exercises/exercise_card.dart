@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 class ExerciseCard extends StatelessWidget {
   final Exercise exercise;
   final Function onPressed;
-  final Function onRemovePressed;
+  final GestureTapCallback onRemovePressed;
   final bool isEditing;
   final bool isSelected;
 
   ExerciseCard({
-    @required this.exercise,
-    this.onPressed,
-    this.onRemovePressed,
+    required this.exercise,
+    required this.onPressed,
+    required this.onRemovePressed,
     this.isEditing = false,
     this.isSelected = false,
   });
@@ -74,7 +74,7 @@ class ExerciseCard extends StatelessWidget {
       case Constants.distance:
         return Icons.directions_run;
       default:
-        return null;
+        return Icons.help_outline;
     }
   }
 }

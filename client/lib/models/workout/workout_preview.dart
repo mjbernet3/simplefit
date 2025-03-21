@@ -3,8 +3,8 @@ class WorkoutPreview {
   String name;
 
   WorkoutPreview({
-    this.id,
-    this.name,
+    required this.id,
+    required this.name,
   });
 
   factory WorkoutPreview.fromJson(Map<String, dynamic> json) {

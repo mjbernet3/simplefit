@@ -11,11 +11,11 @@ class VerticalStatAdjuster extends StatefulWidget {
   final bool displayPrecise;
 
   VerticalStatAdjuster({
-    @required this.stat,
-    @required this.maxStat,
-    @required this.unit,
-    @required this.adjustAmount,
-    this.onChanged,
+    required this.stat,
+    required this.maxStat,
+    required this.unit,
+    required this.adjustAmount,
+    required this.onChanged,
     this.displayPrecise = true,
   });
 
@@ -24,7 +24,7 @@ class VerticalStatAdjuster extends StatefulWidget {
 }
 
 class _VerticalStatAdjusterState extends State<VerticalStatAdjuster> {
-  double _currentStat;
+  late double _currentStat;
 
   @override
   void initState() {

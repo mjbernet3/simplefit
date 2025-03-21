@@ -25,7 +25,7 @@ class SimpleFit extends StatelessWidget {
           return Provider<AuthService>(
             create: (context) => AuthService(),
             child: AuthBuilder(
-              builder: (BuildContext context, AsyncSnapshot<AppUser> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot<AppUser?> snapshot) {
                 return GestureDetector(
                   onTap: () => _closeKeyboard(context),
                   child: MaterialApp(
@@ -45,7 +45,7 @@ class SimpleFit extends StatelessWidget {
     );
   }
 
-  Widget _buildHome(BuildContext context, AsyncSnapshot<AppUser> snapshot) {
+  Widget _buildHome(BuildContext context, AsyncSnapshot<AppUser?> snapshot) {
     if (snapshot.connectionState == ConnectionState.active) {
       bool isUser = snapshot.hasData;
 
@@ -70,7 +70,7 @@ class SimpleFit extends StatelessWidget {
     FocusScopeNode currentFocus = FocusScope.of(context);
 
     if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-      FocusManager.instance.primaryFocus.unfocus();
+      FocusManager.instance.primaryFocus?.unfocus();
     }
   }
 }

@@ -6,8 +6,8 @@ class AppCheckbox extends StatefulWidget {
   final Function onChanged;
 
   AppCheckbox({
-    @required this.initialValue,
-    this.onChanged,
+    required this.initialValue,
+    required this.onChanged,
   });
 
   @override
@@ -15,7 +15,7 @@ class AppCheckbox extends StatefulWidget {
 }
 
 class _AppCheckboxState extends State<AppCheckbox> {
-  bool _currentValue;
+  late bool _currentValue;
 
   @override
   void initState() {
@@ -31,9 +31,13 @@ class _AppCheckboxState extends State<AppCheckbox> {
         activeColor: Constants.primaryColor,
         checkColor: Constants.backgroundColor,
         value: _currentValue,
-        onChanged: (bool value) => {
-          setState(() => _currentValue = value),
-          widget.onChanged(_currentValue),
+        onChanged: (bool? value) {
+          if (value != null) {
+            setState(() {
+              _currentValue = value;
+            });
+            widget.onChanged(_currentValue);
+          }
         },
       ),
     );

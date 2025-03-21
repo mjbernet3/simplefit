@@ -3,13 +3,13 @@ import 'package:client/components/shared/rounded_button.dart';
 import 'package:flutter/material.dart';
 
 class ActionButtons extends StatelessWidget {
-  final Function onConfirmed;
+  final VoidCallback onConfirmed;
   final Color color;
   final String confirmText;
   final bool disabled;
 
   ActionButtons({
-    this.onConfirmed,
+    required this.onConfirmed,
     this.color = Constants.firstElevation,
     this.confirmText = 'Save Changes',
     this.disabled = false,

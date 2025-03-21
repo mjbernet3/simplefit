@@ -4,9 +4,9 @@ import 'package:client/services/workout_service.dart';
 import 'package:client/view_models/view_model.dart';
 
 class HomeModel extends ViewModel {
-  WorkoutService _workoutService;
+  late WorkoutService _workoutService;
 
-  HomeModel({WorkoutService workoutService}) {
+  HomeModel({required WorkoutService workoutService}) {
     _workoutService = workoutService;
   }
 

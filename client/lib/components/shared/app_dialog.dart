@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 class AppDialog<T> extends ModalRoute<T> {
   final Widget Function(BuildContext context) builder;
 
-  AppDialog({@required this.builder});
+  AppDialog({required this.builder});
 
   @override
-  Color get barrierColor => Constants.backgroundColor.withOpacity(0.5);
+  Color get barrierColor => Constants.backgroundColor.withValues(alpha: 0.5);
 
   @override
   bool get barrierDismissible => true;
 
   @override
-  String get barrierLabel => null;
+  String get barrierLabel => "";
 
   @override
   bool get maintainState => false;

@@ -11,7 +11,7 @@ class ProfileService {
 
   Stream<UserData> get userData => _userReference
       .snapshots()
-      .map((DocumentSnapshot snapshot) => UserData.fromJson(snapshot.data()));
+      .map((DocumentSnapshot snapshot) => UserData.fromSnapshot(snapshot));
 
   void reorderPreviews(List<WorkoutPreview> previews) {
     List<dynamic> previewList =

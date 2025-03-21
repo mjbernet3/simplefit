@@ -53,11 +53,12 @@ class ManageWorkoutPage extends StatelessWidget {
     ManageWorkoutModel model =
         Provider.of<ManageWorkoutModel>(context, listen: false);
 
+    // TODO: Improve error handling
     try {
       model.saveWorkout();
       Navigator.pop(context);
     } catch (e) {
-      AppError.show(context, e.message);
+      AppError.show(context, e.toString());
     }
   }
 }

@@ -9,13 +9,13 @@ import 'package:rxdart/rxdart.dart';
 
 // Replace runtime exercise type checks if alternate method presents itself
 class PerformWorkoutModel extends ViewModel {
-  WorkoutService _workoutService;
-  Workout _workout;
-  int _currentIndex;
-  int _currentSetIndex;
-  bool _isResting;
+  late WorkoutService _workoutService;
+  late Workout _workout;
+  late int _currentIndex;
+  late int _currentSetIndex;
+  late bool _isResting;
 
-  PerformWorkoutModel({WorkoutService workoutService, Workout workout}) {
+  PerformWorkoutModel({required WorkoutService workoutService, required Workout workout}) {
     _workoutService = workoutService;
     _workout = workout;
     _currentIndex = 0;

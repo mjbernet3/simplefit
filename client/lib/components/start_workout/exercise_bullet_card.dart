@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ExerciseBulletCard extends StatelessWidget {
   final String exerciseName;
 
-  ExerciseBulletCard({@required this.exerciseName});
+  ExerciseBulletCard({required this.exerciseName});
 
   @override
   Widget build(BuildContext context) {

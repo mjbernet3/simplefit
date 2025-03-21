@@ -15,7 +15,7 @@ class LoginForm extends StatelessWidget {
       initialData: false,
       stream: model.isLoading,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        bool isLoading = snapshot.data;
+        bool isLoading = snapshot.data ?? false;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -56,10 +56,11 @@ class LoginForm extends StatelessWidget {
 
     LoginModel model = Provider.of<LoginModel>(context, listen: false);
 
+    // TODO: Improve error handling
     try {
       await model.signIn();
     } catch (e) {
-      AppError.show(context, e.message);
+      AppError.show(context, e.toString());
     }
   }
 }

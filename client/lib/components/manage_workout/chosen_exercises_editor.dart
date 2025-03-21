@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 class ChosenExercisesEditor extends StatelessWidget {
   final List<ExerciseData> exercises;
 
-  ChosenExercisesEditor({this.exercises});
+  ChosenExercisesEditor({required this.exercises});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class ChosenExercisesEditor extends StatelessWidget {
       initialData: false,
       stream: model.isEditing,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        bool isEditing = snapshot.data;
+        bool isEditing = snapshot.data ?? false;
 
         return ListViewEditor(
           isEditing: isEditing,
@@ -58,11 +58,9 @@ class ChosenExercisesEditor extends StatelessWidget {
     List<Exercise> chosenExercises = await Navigator.pushNamed(
       context,
       AppRouter.browseExercises,
-    );
+    ) as List<Exercise>;
 
-    if (chosenExercises != null) {
-      model.initExercises(chosenExercises);
-    }
+    model.initExercises(chosenExercises);
   }
 
   void _detailExercise(
@@ -74,10 +72,8 @@ class ChosenExercisesEditor extends StatelessWidget {
       context,
       AppRouter.detailExercise,
       arguments: exercise,
-    );
+    ) as ExerciseData;
 
-    if (updatedExercise != null) {
-      model.updateExerciseAt(index, updatedExercise);
-    }
+    model.updateExerciseAt(index, updatedExercise);
   }
 }

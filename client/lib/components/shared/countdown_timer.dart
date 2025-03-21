@@ -12,10 +12,10 @@ class CountdownTimer extends StatefulWidget {
   final Function onComplete;
 
   CountdownTimer({
-    @required this.totalSeconds,
-    @required this.maxSeconds,
-    this.onChanged,
-    this.onComplete,
+    required this.totalSeconds,
+    required this.maxSeconds,
+    required this.onChanged,
+    required this.onComplete,
   });
 
   @override
@@ -23,12 +23,12 @@ class CountdownTimer extends StatefulWidget {
 }
 
 class _CountdownTimerState extends State<CountdownTimer> {
-  int _startingTime;
-  int _currentTime;
-  int _delay = 1;
-  Stopwatch _stopwatch;
-  Timer _timer;
+  late int _startingTime;
+  late int _currentTime;
+  late Stopwatch _stopwatch;
+  late Timer _timer;
   bool _isStarted = false;
+  int _delay = 1;
 
   @override
   void initState() {
@@ -109,9 +109,9 @@ class _CountdownTimerState extends State<CountdownTimer> {
   void _increment() {
     if (_startingTime + 1 <= widget.maxSeconds) {
       setState(
-        () => {
-          _startingTime += 1,
-          _currentTime = _startingTime,
+        () {
+          _startingTime += 1;
+          _currentTime = _startingTime;
         },
       );
       widget.onChanged(_startingTime);
@@ -121,9 +121,9 @@ class _CountdownTimerState extends State<CountdownTimer> {
   void _decrement() {
     if (_startingTime - 1 >= 0) {
       setState(
-        () => {
-          _startingTime -= 1,
-          _currentTime = _startingTime,
+        () {
+          _startingTime -= 1;
+          _currentTime = _startingTime;
         },
       );
       widget.onChanged(_startingTime);
@@ -163,18 +163,16 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   void _stopTimer() {
     _stopwatch.stop();
-    if (_timer != null) {
-      _timer.cancel();
-    }
+    _timer.cancel();
   }
 
   void _resetTimer() {
     _stopTimer();
     _stopwatch.reset();
     setState(
-      () => {
-        _currentTime = _startingTime,
-        _isStarted = false,
+      () {
+        _currentTime = _startingTime;
+        _isStarted = false;
       },
     );
   }

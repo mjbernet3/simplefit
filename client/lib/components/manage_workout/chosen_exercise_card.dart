@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 
 class ChosenExerciseCard extends StatelessWidget {
   final ExerciseData exercise;
-  final Function onPressed;
-  final Function onRemovePressed;
+  final GestureTapCallback onPressed;
+  final GestureTapCallback onRemovePressed;
   final bool isEditing;
 
   ChosenExerciseCard({
-    @required Key key,
-    @required this.exercise,
-    this.onPressed,
-    this.onRemovePressed,
+    required Key key,
+    required this.exercise,
+    required this.onPressed,
+    required this.onRemovePressed,
     this.isEditing = false,
   }) : super(key: key);
 

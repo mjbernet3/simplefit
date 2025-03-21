@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class StartWorkoutPage extends StatelessWidget {
   final Workout workout;
 
-  StartWorkoutPage({this.workout});
+  StartWorkoutPage({required this.workout});
 
   @override
   Widget build(BuildContext context) {

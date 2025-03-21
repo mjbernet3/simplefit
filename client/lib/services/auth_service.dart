@@ -12,8 +12,8 @@ class AuthService {
   final CollectionReference _usernameCollection =
       FirebaseFirestore.instance.collection('usernames');
 
-  Stream<AppUser> get signedInUser =>
-      _firebaseAuth.authStateChanges().map((User firebaseUser) {
+  Stream<AppUser?> get signedInUser =>
+      _firebaseAuth.authStateChanges().map((User? firebaseUser) {
         if (firebaseUser == null) {
           return null;
         }
@@ -28,7 +28,7 @@ class AuthService {
   Future<void> register(AuthInfo authInfo) async {
     Validator.validateAuthInfo(authInfo);
 
-    await _checkForUsername(authInfo.username);
+    await _checkForUsername(authInfo.username!);
 
     UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(
       email: authInfo.email,
@@ -39,9 +39,9 @@ class AuthService {
       throw Exception("User is null after successful registration.");
     }
 
-    UserData userData = UserData.initial(authInfo.username);
+    UserData userData = UserData.initial(authInfo.username!);
 
-    await _userCollection.doc(result.user.uid).set(userData.toJson());
+    await _userCollection.doc(result.user!.uid).set(userData.toJson());
   }
 
   Future<void> _checkForUsername(String username) async {

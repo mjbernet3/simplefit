@@ -20,7 +20,7 @@ class BrowseExercisesPage extends StatelessWidget {
       initialData: <Exercise>[],
       stream: model.chosenExercises,
       builder: (BuildContext context, AsyncSnapshot<List<Exercise>> snapshot) {
-        List<Exercise> chosenExercises = snapshot.data;
+        List<Exercise> chosenExercises = snapshot.data ?? [];
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -31,7 +31,7 @@ class BrowseExercisesPage extends StatelessWidget {
               builder: (BuildContext context,
                   AsyncSnapshot<List<Exercise>> snapshot) {
                 if (snapshot.hasData) {
-                  List<Exercise> exercises = snapshot.data;
+                  List<Exercise> exercises = snapshot.data ?? [];
 
                   if (exercises.isEmpty) {
                     return Expanded(
